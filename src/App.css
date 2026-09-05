@@ -1,0 +1,366 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background: #f5f6f8;
+  color: #171717;
+}
+
+button,
+select,
+input {
+  font: inherit;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.header {
+  background: #111111;
+  color: white;
+  padding: 22px 20px;
+}
+
+.header-content {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.header-content > div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo {
+  font-size: 36px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.header p {
+  margin: 4px 0 0;
+  color: #b8b8b8;
+  font-size: 14px;
+}
+
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 35px 18px 60px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.hero h2 {
+  font-size: 34px;
+  margin: 0 0 10px;
+}
+
+.hero p {
+  color: #666;
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.controls {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns:
+    1fr
+    1.5fr
+    auto;
+  gap: 20px;
+  align-items: end;
+  box-shadow:
+    0 8px 30px rgba(
+      0,
+      0,
+      0,
+      0.06
+    );
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.control-group label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #777;
+}
+
+select {
+  height: 46px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0 12px;
+  background: white;
+  cursor: pointer;
+}
+
+.tempo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.tempo input {
+  width: 100%;
+}
+
+.tempo strong {
+  white-space: nowrap;
+  min-width: 70px;
+}
+
+.generate-button {
+  height: 46px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 10px;
+  background: #111;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.generate-button:hover {
+  opacity: 0.85;
+}
+
+.score-card {
+  margin-top: 22px;
+  background: white;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow:
+    0 8px 30px rgba(
+      0,
+      0,
+      0,
+      0.06
+    );
+}
+
+.score-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 4px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.score-top > div {
+  display: flex;
+  gap: 12px;
+}
+
+.score-top span {
+  color: #555;
+  font-size: 14px;
+}
+
+.score-top > div span:first-child {
+  color: #111;
+  font-weight: 700;
+}
+
+.score-number {
+  color: #999 !important;
+}
+
+.score-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 15px 0;
+}
+
+.score-container {
+  width: 100%;
+  min-width: 760px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 5px;
+}
+
+.buttons button {
+  height: 48px;
+  padding: 0 28px;
+  border: none;
+  border-radius: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.play-button {
+  background: #111;
+  color: white;
+}
+
+.play-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.next-button {
+  background: #e9eaec;
+  color: #222;
+}
+
+.practice-card {
+  margin-top: 22px;
+  background: white;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow:
+    0 8px 30px rgba(
+      0,
+      0,
+      0,
+      0.06
+    );
+}
+
+.practice-card h2 {
+  margin-top: 0;
+}
+
+.practice-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, 1fr);
+  gap: 15px;
+}
+
+.practice-grid > div {
+  display: flex;
+  gap: 14px;
+  background: #f7f7f7;
+  padding: 18px;
+  border-radius: 12px;
+}
+
+.practice-grid > div > span {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #111;
+  color: white;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.practice-grid strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.practice-grid p {
+  margin: 0;
+  color: #777;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #999;
+  font-size: 13px;
+}
+
+@media (max-width: 800px) {
+  .controls {
+    grid-template-columns: 1fr;
+  }
+
+  .generate-button {
+    width: 100%;
+  }
+
+  .practice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h2 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 500px) {
+  .main {
+    padding: 25px 10px 40px;
+  }
+
+  .header {
+    padding: 18px 15px;
+  }
+
+  .header h1 {
+    font-size: 19px;
+  }
+
+  .hero h2 {
+    font-size: 25px;
+  }
+
+  .score-card,
+  .controls,
+  .practice-card {
+    border-radius: 14px;
+  }
+
+  .score-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .buttons button {
+    width: 100%;
+  }
+}select {
+  color: #171717 !important;
+  background-color: #ffffff !important;
+}
+
+select option {
+  color: #171717 !important;
+  background-color: #ffffff !important;
+}
