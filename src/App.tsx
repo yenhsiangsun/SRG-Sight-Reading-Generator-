@@ -8,7 +8,6 @@ import {
   Beam,
   Dot,
   Fraction,
-  BarNote,
   BarlineType,
 } from "vexflow";
 import * as Tone from "tone";
@@ -16,6 +15,7 @@ import "./App.css";
 
 import {
   generateExercise,
+  INSTRUMENT_RANGES,
   type Difficulty as EngineDifficulty,
   type RhythmLevel as EngineRhythmLevel,
   type Instrument as EngineInstrument,
@@ -81,74 +81,92 @@ const INSTRUMENTS: Record<
     clef: "treble",
     engineInstrument: "Piano",
   },
+
   Violin: {
     clef: "treble",
     engineInstrument: "Violin",
   },
+
   Viola: {
     clef: "alto",
     engineInstrument: "Violin",
   },
+
   Cello: {
     clef: "bass",
     engineInstrument: "Cello",
   },
+
   "Double Bass": {
     clef: "bass",
     engineInstrument: "Cello",
   },
+
   Flute: {
     clef: "treble",
     engineInstrument: "Flute",
   },
+
   Clarinet: {
     clef: "treble",
     engineInstrument: "Clarinet",
   },
+
   Oboe: {
     clef: "treble",
     engineInstrument: "Flute",
   },
+
   Bassoon: {
     clef: "bass",
     engineInstrument: "Cello",
   },
+
   Trumpet: {
     clef: "treble",
     engineInstrument: "Trumpet",
   },
+
   "French Horn": {
     clef: "treble",
     engineInstrument: "Trumpet",
   },
+
   Trombone: {
     clef: "bass",
     engineInstrument: "Trombone",
   },
+
   Tuba: {
     clef: "bass",
     engineInstrument: "Trombone",
   },
+
   "Alto Saxophone": {
     clef: "treble",
     engineInstrument: "Clarinet",
   },
+
   "Tenor Saxophone": {
     clef: "treble",
     engineInstrument: "Clarinet",
   },
+
   Guitar: {
     clef: "treble",
     engineInstrument: "Piano",
   },
+
   "Bass Guitar": {
     clef: "bass",
     engineInstrument: "Cello",
   },
+
   Sheng: {
     clef: "treble",
     engineInstrument: "Sheng",
   },
+
   Voice: {
     clef: "treble",
     engineInstrument: "Sheng",
@@ -189,17 +207,67 @@ const TIME_SIGNATURES = [
 ] as const;
 
 /* =========================================================
- * Mapping UI → Music Engine
+ * Custom Range
+ *
+ * MIDI:
+ * C1 = 24
+ * C4 = 60
+ * C8 = 108
+ * ======================================================= */
+
+const RANGE_MIN_MIDI = 24;
+const RANGE_MAX_MIDI = 108;
+
+const RANGE_OPTIONS = Array.from(
+  {
+    length:
+      RANGE_MAX_MIDI -
+      RANGE_MIN_MIDI +
+      1,
+  },
+  (_, index) =>
+    RANGE_MIN_MIDI + index
+);
+
+const NOTE_NAMES = [
+  "C",
+  "C#",
+  "D",
+  "D#",
+  "E",
+  "F",
+  "F#",
+  "G",
+  "G#",
+  "A",
+  "A#",
+  "B",
+];
+
+function midiToNoteLabel(
+  midi: number
+): string {
+  const pitchClass =
+    ((midi % 12) + 12) % 12;
+
+  const octave =
+    Math.floor(midi / 12) - 1;
+
+  return `${NOTE_NAMES[pitchClass]}${octave}`;
+}
+
+/* =========================================================
+ * UI → Engine
  * ======================================================= */
 
 function mapDifficulty(
-  difficulty: Difficulty
+  value: Difficulty
 ): EngineDifficulty {
-  if (difficulty === "Beginner") {
+  if (value === "Beginner") {
     return "beginner";
   }
 
-  if (difficulty === "Intermediate") {
+  if (value === "Intermediate") {
     return "intermediate";
   }
 
@@ -207,13 +275,13 @@ function mapDifficulty(
 }
 
 function mapRhythmLevel(
-  rhythm: RhythmLevel
+  value: RhythmLevel
 ): EngineRhythmLevel {
-  if (rhythm === "Simple") {
+  if (value === "Simple") {
     return "simple";
   }
 
-  if (rhythm === "Moderate") {
+  if (value === "Moderate") {
     return "medium";
   }
 
@@ -221,45 +289,47 @@ function mapRhythmLevel(
 }
 
 function mapInstrument(
-  instrument: Instrument
+  value: Instrument
 ): EngineInstrument {
-  return INSTRUMENTS[instrument]
-    .engineInstrument;
+  return INSTRUMENTS[value].engineInstrument;
 }
 
 function mapClef(
-  clef: Clef
+  value: Clef
 ): EngineClef {
-  return clef;
+  return value;
 }
 
 function mapKeySignature(
-  key: string
+  value: string
 ): EngineKeySignature {
-  return key as EngineKeySignature;
+  return value as EngineKeySignature;
 }
 
 function mapTimeSignature(
-  time: string
+  value: string
 ): EngineTimeSignature {
-  return time as EngineTimeSignature;
+  return value as EngineTimeSignature;
 }
 
 /* =========================================================
- * Time Signature Helpers
+ * VexFlow Helpers
  * ======================================================= */
 
 function parseTimeSignature(
   timeSignature: string
-) {
-  const [top, bottom] =
+): {
+  numBeats: number;
+  beatValue: number;
+} {
+  const [numBeats, beatValue] =
     timeSignature
       .split("/")
       .map(Number);
 
   return {
-    numBeats: top,
-    beatValue: bottom,
+    numBeats,
+    beatValue,
   };
 }
 
@@ -270,6 +340,20 @@ function unitsToFraction(
     units,
     16
   );
+}
+
+function toVexDuration(
+  duration:
+    | "w"
+    | "h"
+    | "q"
+    | "8"
+    | "16",
+  rest: boolean
+): string {
+  return rest
+    ? `${duration}r`
+    : duration;
 }
 
 /* =========================================================
@@ -292,151 +376,56 @@ function ScoreDisplay({
       return;
     }
 
-    container.innerHTML = "";
+    const scoreContainer =
+      container;
 
-    const width = Math.max(
-      container.clientWidth,
-      760
-    );
+    function drawScore() {
+      scoreContainer.innerHTML =
+        "";
 
-    /*
-     * 一行兩小節。
-     */
-    const measuresPerRow = 2;
+      const measuresPerRow = 2;
 
-    const actualMeasures =
-      exercise.measures.length;
+      const rowHeight = 165;
 
-    const rows = Math.ceil(
-      actualMeasures /
-        measuresPerRow
-    );
+      const horizontalPadding = 10;
 
-    /*
-     * 增加行距，
-     * 讓音符與下一行之間更舒服。
-     */
-    const rowHeight = 165;
+      const measureCount =
+        exercise.measures.length;
 
-    const height =
-      rows * rowHeight + 50;
-
-    const renderer =
-      new Renderer(
-        container,
-        Renderer.Backends.SVG
+      const rows = Math.ceil(
+        measureCount /
+          measuresPerRow
       );
 
-    renderer.resize(
-      width,
-      height
-    );
+      const width = Math.max(
+        scoreContainer.clientWidth,
+        760
+      );
 
-    const context =
-      renderer.getContext();
+      const height =
+        rows * rowHeight + 40;
 
-    /*
-     * 每一行使用完整寬度。
-     */
-    const staveWidth =
-      width - 20;
-
-    /*
-     * =====================================================
-     * 排版微調
-     * =====================================================
-     *
-     * NOTE_START_OFFSET：
-     *
-     * 每一行前面都有 Clef / Key / Time，
-     * 音符不能緊貼這些符號。
-     *
-     * 把實際音符起點往右推一些，
-     * 讓第一拍看起來比較自然。
-     *
-     * NOTE_END_EXTRA：
-     *
-     * Formatter 預設會保留一些右側空間。
-     * 這裡略微增加有效排版寬度，
-     * 讓最後一個音符更靠近行尾。
-     */
-    const NOTE_START_OFFSET = 18;
-    const NOTE_END_EXTRA = 10;
-
-    for (
-      let row = 0;
-      row < rows;
-      row++
-    ) {
-      const startMeasureIndex =
-        row *
-        measuresPerRow;
-
-      const endMeasureIndex =
-        Math.min(
-          startMeasureIndex +
-            measuresPerRow,
-          actualMeasures
+      const renderer =
+        new Renderer(
+          scoreContainer,
+          Renderer.Backends.SVG
         );
 
-      const y =
-        row *
-          rowHeight +
-        20;
-
-      /*
-       * 建立整行 Stave。
-       */
-      const stave =
-        new Stave(
-          10,
-          y,
-          staveWidth
-        );
-
-      /*
-       * 每一行重新顯示：
-       * Clef / Key / Time
-       */
-      stave.addClef(
-        exercise.clef
+      renderer.resize(
+        width,
+        height
       );
 
-      stave.addKeySignature(
-        exercise.keySignature
-      );
+      const context =
+        renderer.getContext();
 
-      stave.addTimeSignature(
-        exercise.timeSignature
-      );
+      const systemWidth =
+        width -
+        horizontalPadding * 2;
 
-      stave.setContext(
-        context
-      );
+      const measureWidth =
+        systemWidth / 2;
 
-      stave.draw();
-
-      /*
-       * =====================================================
-       * 調整音符真正的開始位置
-       * =====================================================
-       *
-       * VexFlow 在處理 Clef / Key / Time 後，
-       * 會自動產生 noteStartX。
-       *
-       * 我們再額外往右留一點呼吸空間。
-       */
-      const originalNoteStartX =
-        stave.getNoteStartX();
-
-      stave.setNoteStartX(
-        originalNoteStartX +
-          NOTE_START_OFFSET
-      );
-
-      /*
-       * 取得拍號資訊。
-       */
       const {
         numBeats,
         beatValue,
@@ -445,222 +434,348 @@ function ScoreDisplay({
           exercise.timeSignature
         );
 
-      /*
-       * 一行最多兩小節。
-       *
-       * 兩個小節共用同一個 Voice，
-       * 讓 Formatter 可以把整行一起排版。
-       */
-      const measuresInThisRow =
-        endMeasureIndex -
-        startMeasureIndex;
-
-      const voice =
-        new Voice({
-          numBeats:
-            numBeats *
-            measuresInThisRow,
-          beatValue,
-        });
-
-      voice.setStrict(false);
-
-      /*
-       * 整行所有音符與小節線。
-       */
-      const rowTickables:
-        Array<StaveNote | BarNote> =
-        [];
-
-      /*
-       * Beam groups。
-       */
-      const beamGroups: Fraction[] =
-        [];
-
-      /*
-       * =====================================================
-       * 把這一行的小節加入 Voice
-       * =====================================================
-       */
       for (
-        let measureIndex =
-          startMeasureIndex;
-        measureIndex <
-          endMeasureIndex;
-        measureIndex++
+        let row = 0;
+        row < rows;
+        row++
       ) {
-        const measure =
-          exercise.measures[
-            measureIndex
-          ];
+        const rowStart =
+          row *
+          measuresPerRow;
 
-        /*
-         * 建立這個小節的音符。
-         */
-        const measureNotes =
-          measure.events.map(
-            (note) => {
-              const duration =
-                note.rest
-                  ? `${note.duration}r`
-                  : note.duration;
-
-              const staveNote =
-                new StaveNote({
-                  clef:
-                    exercise.clef,
-
-                  keys: note.rest
-                    ? ["b/4"]
-                    : [note.key],
-
-                  duration,
-                });
-
-              /*
-               * 附點。
-               */
-              if (
-                note.dots > 0
-              ) {
-                for (
-                  let i = 0;
-                  i < note.dots;
-                  i++
-                ) {
-                  Dot.buildAndAttach([
-                    staveNote,
-                  ]);
-                }
-              }
-
-              return staveNote;
-            }
+        const rowEnd =
+          Math.min(
+            rowStart +
+              measuresPerRow,
+            measureCount
           );
 
-        /*
-         * 加入整行。
-         */
-        rowTickables.push(
-          ...measureNotes
-        );
+        const rowMeasures =
+          exercise.measures.slice(
+            rowStart,
+            rowEnd
+          );
 
-        /*
-         * 保留每個小節自己的 Beam grouping。
-         */
-        measure.groups.forEach(
-          (units) => {
-            beamGroups.push(
-              unitsToFraction(
-                units
-              )
+        if (
+          rowMeasures.length === 0
+        ) {
+          continue;
+        }
+
+        const y =
+          row * rowHeight + 20;
+
+        rowMeasures.forEach(
+          (
+            measure,
+            localIndex
+          ) => {
+            const globalIndex =
+              rowStart +
+              localIndex;
+
+            const x =
+              horizontalPadding +
+              localIndex *
+                measureWidth;
+
+            const stave =
+              new Stave(
+                x,
+                y,
+                measureWidth
+              );
+
+            const isFirstOfRow =
+              localIndex === 0;
+
+            const isFirstMeasure =
+              globalIndex === 0;
+
+            const isLastMeasure =
+              globalIndex ===
+              measureCount - 1;
+
+            const isSecondOfRow =
+              localIndex === 1;
+
+            /*
+             * 每一行第一小節都有譜號。
+             */
+            if (
+              isFirstOfRow
+            ) {
+              stave.addClef(
+                exercise.clef
+              );
+            }
+
+            /*
+             * 每一行第一小節都有調號。
+             */
+            if (
+              isFirstOfRow
+            ) {
+              stave.addKeySignature(
+                exercise.keySignature
+              );
+            }
+
+            /*
+             * 只有第一行有拍號。
+             */
+            if (
+              isFirstMeasure
+            ) {
+              stave.addTimeSignature(
+                exercise.timeSignature
+              );
+            }
+
+            /*
+             * 第一小節不需要開始線。
+             */
+            if (
+              isFirstMeasure
+            ) {
+              stave.setBegBarType(
+                BarlineType.NONE
+              );
+            } else if (
+              isFirstOfRow
+            ) {
+              stave.setBegBarType(
+                BarlineType.SINGLE
+              );
+            } else {
+              stave.setBegBarType(
+                BarlineType.NONE
+              );
+            }
+
+            /*
+             * 第二小節不畫自己的左線。
+             *
+             * 前一小節右邊的線就是
+             * 兩個小節之間的 barline。
+             */
+            if (
+              isSecondOfRow
+            ) {
+              stave.setBegBarType(
+                BarlineType.NONE
+              );
+            }
+
+            /*
+             * 最後小節使用雙終止線。
+             */
+            if (
+              isLastMeasure
+            ) {
+              stave.setEndBarType(
+                BarlineType.DOUBLE
+              );
+            } else {
+              stave.setEndBarType(
+                BarlineType.SINGLE
+              );
+            }
+
+            stave.setContext(
+              context
+            );
+
+            stave.draw();
+
+            /*
+             * 第一顆音符與譜號、
+             * 調號、拍號之間保留空間。
+             */
+            const originalNoteStartX =
+              stave.getNoteStartX();
+
+            const originalNoteEndX =
+              stave.getNoteEndX();
+
+            const leftEngravingSpace =
+              isFirstOfRow
+                ? 18
+                : 10;
+
+            stave.setNoteStartX(
+              originalNoteStartX +
+                leftEngravingSpace
+            );
+
+            /*
+             * 建立音符。
+             */
+            const notes: StaveNote[] =
+              measure.events.map(
+                (note) => {
+                  const staveNote =
+                    new StaveNote({
+                      clef:
+                        exercise.clef,
+
+                      keys: note.rest
+                        ? ["b/4"]
+                        : [note.key],
+
+                      duration:
+                        toVexDuration(
+                          note.duration,
+                          note.rest
+                        ),
+                    });
+
+                  if (
+                    note.dots > 0
+                  ) {
+                    for (
+                      let i = 0;
+                      i < note.dots;
+                      i++
+                    ) {
+                      Dot.buildAndAttach(
+                        [staveNote]
+                      );
+                    }
+                  }
+
+                  return staveNote;
+                }
+              );
+
+            if (
+              notes.length === 0
+            ) {
+              return;
+            }
+
+            /*
+             * Voice。
+             */
+            const voice =
+              new Voice({
+                numBeats,
+                beatValue,
+              });
+
+            voice.setStrict(false);
+
+            voice.addTickables(
+              notes
+            );
+
+            /*
+             * Beam。
+             */
+            let beams: Beam[] = [];
+
+            try {
+              const groups =
+                measure.beamGroups.map(
+                  (units) =>
+                    unitsToFraction(
+                      units
+                    )
+                );
+
+              beams =
+                Beam.applyAndGetBeams(
+                  voice,
+                  undefined,
+                  groups
+                );
+            } catch {
+              beams = [];
+            }
+
+            /*
+             * Formatter。
+             */
+            const formatter =
+              new Formatter();
+
+            formatter.joinVoices([
+              voice,
+            ]);
+
+            const noteStartX =
+              stave.getNoteStartX();
+
+            const noteEndX =
+              originalNoteEndX;
+
+            const rightSafetySpace =
+              12;
+
+            const availableWidth =
+              noteEndX -
+              noteStartX -
+              rightSafetySpace;
+
+            const justifyWidth =
+              Math.max(
+                60,
+                availableWidth
+              );
+
+            formatter.format(
+              [voice],
+              justifyWidth
+            );
+
+            /*
+             * Draw notes。
+             */
+            voice.draw(
+              context,
+              stave
+            );
+
+            /*
+             * Draw beams。
+             */
+            beams.forEach(
+              (beam) => {
+                beam
+                  .setContext(context)
+                  .draw();
+              }
             );
           }
         );
-
-        /*
-         * 小節與小節之間加入小節線。
-         */
-        if (
-          measureIndex <
-          endMeasureIndex - 1
-        ) {
-          rowTickables.push(
-            new BarNote(
-              BarlineType.SINGLE
-            )
-          );
-        }
       }
+    }
 
-      /*
-       * 加入 Voice。
-       */
-      voice.addTickables(
-        rowTickables
-      );
+    drawScore();
 
-      /*
-       * =====================================================
-       * Beam
-       * =====================================================
-       */
-      let beams: Beam[] = [];
+    let resizeObserver:
+      ResizeObserver | null =
+      null;
 
-      try {
-        beams =
-          Beam.applyAndGetBeams(
-            voice,
-            undefined,
-            beamGroups
-          );
-      } catch {
-        beams = [];
-      }
+    if (
+      typeof ResizeObserver !==
+      "undefined"
+    ) {
+      resizeObserver =
+        new ResizeObserver(() => {
+          drawScore();
+        });
 
-      /*
-       * =====================================================
-       * Formatter
-       * =====================================================
-       *
-       * 這裡不直接使用 formatToStave()，
-       * 而是自己指定 justifyWidth。
-       *
-       * 原因：
-       *
-       * 1. 前面 noteStartX 已經往右調整。
-       * 2. 再額外增加 NOTE_END_EXTRA，
-       *    讓最後的音符更接近右側。
-       */
-      const formatter =
-        new Formatter();
-
-      formatter.joinVoices([
-        voice,
-      ]);
-
-      const noteStartX =
-        stave.getNoteStartX();
-
-      const noteEndX =
-        stave.getNoteEndX();
-
-      const justifyWidth =
-        noteEndX -
-        noteStartX +
-        NOTE_END_EXTRA;
-
-      formatter.format(
-        [voice],
-        justifyWidth,
-        {
-          context,
-          stave,
-        }
-      );
-
-      /*
-       * 畫整行音符。
-       */
-      voice.draw(
-        context,
-        stave
-      );
-
-      /*
-       * 最後畫 Beam。
-       */
-      beams.forEach(
-        (beam) => {
-          beam
-            .setContext(
-              context
-            )
-            .draw();
-        }
+      resizeObserver.observe(
+        scoreContainer
       );
     }
+
+    return () => {
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+    };
   }, [exercise]);
 
   return (
@@ -676,84 +791,203 @@ function ScoreDisplay({
  * ======================================================= */
 
 function App() {
-  const [instrument, setInstrument] =
-    useState<Instrument>("Sheng");
+  const [
+    instrument,
+    setInstrument,
+  ] =
+    useState<Instrument>(
+      "Sheng"
+    );
 
-  const [clef, setClef] =
+  const [
+    clef,
+    setClef,
+  ] =
     useState<Clef>("treble");
 
-  const [difficulty, setDifficulty] =
+  const [
+    difficulty,
+    setDifficulty,
+  ] =
     useState<Difficulty>(
       "Beginner"
     );
 
-  const [keySignature, setKeySignature] =
+  const [
+    keySignature,
+    setKeySignature,
+  ] =
     useState("C");
 
-  const [timeSignature, setTimeSignature] =
+  const [
+    timeSignature,
+    setTimeSignature,
+  ] =
     useState("4/4");
 
-  const [rhythmLevel, setRhythmLevel] =
-    useState<RhythmLevel>("Simple");
+  const [
+    rhythmLevel,
+    setRhythmLevel,
+  ] =
+    useState<RhythmLevel>(
+      "Simple"
+    );
 
-  const [measureCount, setMeasureCount] =
+  const [
+    measureCount,
+    setMeasureCount,
+  ] =
     useState(8);
 
-  const [bpm, setBpm] =
+  const [
+    bpm,
+    setBpm,
+  ] =
     useState(72);
 
-  const [exercise, setExercise] =
-    useState<ExerciseData>(() =>
-      generateExercise(
-        "Sheng",
-        "treble",
-        "beginner",
-        "C",
-        "4/4",
-        "simple",
-        8,
-        72
-      )
+  /* =========================================================
+   * ★ 自訂音域
+   *
+   * 預設仍然使用目前 Sheng 的範圍：
+   *
+   * C3 = MIDI 48
+   * C6 = MIDI 84
+   *
+   * 但之後完全由使用者控制。
+   * ======================================================= */
+
+  const [
+    rangeMinMidi,
+    setRangeMinMidi,
+  ] =
+    useState(
+      INSTRUMENT_RANGES.Sheng.min
     );
 
-  const [isPlaying, setIsPlaying] =
+  const [
+    rangeMaxMidi,
+    setRangeMaxMidi,
+  ] =
+    useState(
+      INSTRUMENT_RANGES.Sheng.max
+    );
+
+  /*
+   * music.ts 的正確參數順序：
+   *
+   * instrument
+   * clef
+   * difficulty
+   * keySignature
+   * timeSignature
+   * rhythmLevel
+   * measures
+   * tempo
+   */
+  const [
+    exercise,
+    setExercise,
+  ] =
+    useState<ExerciseData>(
+      () =>
+        generateExercise(
+          "Sheng",
+          "treble",
+          "beginner",
+          "C",
+          "4/4",
+          "simple",
+          8,
+          72
+        )
+    );
+
+  const [
+    isPlaying,
+    setIsPlaying,
+  ] =
     useState(false);
 
-  /* =======================================================
-   * Generate
-   * ===================================================== */
+  const [
+    isPaused,
+    setIsPaused,
+  ] =
+    useState(false);
 
-  function generateNewScore() {
-    const newExercise =
-      generateExercise(
-        mapInstrument(
-          instrument
-        ),
-        mapClef(clef),
-        mapDifficulty(
-          difficulty
-        ),
-        mapKeySignature(
-          keySignature
-        ),
-        mapTimeSignature(
-          timeSignature
-        ),
-        mapRhythmLevel(
-          rhythmLevel
-        ),
-        measureCount,
-        bpm
-      );
+  const synthRef =
+    useRef<
+      Tone.PolySynth<Tone.Synth> | null
+    >(null);
 
-    setExercise(
-      newExercise
-    );
+  const scheduledEventsRef =
+    useRef<number[]>([]);
+
+  const playbackTimerRef =
+    useRef<number | null>(null);
+
+  /* =========================================================
+   * Playback Cleanup
+   * ======================================================= */
+
+  function disposeSynth() {
+    if (
+      synthRef.current
+    ) {
+      synthRef.current.dispose();
+
+      synthRef.current =
+        null;
+    }
   }
 
-  /* =======================================================
+  function clearPlaybackEvents() {
+    scheduledEventsRef.current.forEach(
+      (id) => {
+        try {
+          Tone.Transport.clear(
+            id
+          );
+        } catch {
+          // ignore
+        }
+      }
+    );
+
+    scheduledEventsRef.current =
+      [];
+  }
+
+  function stopPlayback() {
+    try {
+      Tone.Transport.stop();
+      Tone.Transport.cancel();
+    } catch {
+      // ignore
+    }
+
+    clearPlaybackEvents();
+
+    if (
+      playbackTimerRef.current !==
+      null
+    ) {
+      window.clearTimeout(
+        playbackTimerRef.current
+      );
+
+      playbackTimerRef.current =
+        null;
+    }
+
+    disposeSynth();
+
+    setIsPlaying(false);
+    setIsPaused(false);
+  }
+
+  /* =========================================================
    * Instrument
-   * ===================================================== */
+   * ======================================================= */
 
   function changeInstrument(
     value: Instrument
@@ -763,39 +997,145 @@ function App() {
     setClef(
       INSTRUMENTS[value].clef
     );
+
+    /*
+     * 注意：
+     *
+     * 這裡故意不自動改變使用者音域。
+     *
+     * 音域是使用者自己的設定，
+     * 不再由樂器名稱決定。
+     */
   }
 
-  /* =======================================================
-   * Playback
-   * ===================================================== */
+  /* =========================================================
+   * Generate New Score
+   * ======================================================= */
+
+  function generateNewScore() {
+    stopPlayback();
+
+    /*
+     * 安全檢查：
+     * 最低音必須低於最高音。
+     */
+    if (
+      rangeMinMidi >=
+      rangeMaxMidi
+    ) {
+      return;
+    }
+
+    const engineInstrument =
+      mapInstrument(
+        instrument
+      );
+
+    /*
+     * ★ 核心：
+     *
+     * 在產生題目前，把使用者指定的
+     * 音域套進目前音樂引擎。
+     *
+     * 這樣 generateExercise()
+     * 產生出來的每個音符都會從
+     * 這個範圍裡挑選。
+     */
+    INSTRUMENT_RANGES[
+      engineInstrument
+    ] = {
+      min: rangeMinMidi,
+      max: rangeMaxMidi,
+    };
+
+    const newExercise =
+      generateExercise(
+        engineInstrument,
+
+        mapClef(
+          clef
+        ),
+
+        mapDifficulty(
+          difficulty
+        ),
+
+        mapKeySignature(
+          keySignature
+        ),
+
+        mapTimeSignature(
+          timeSignature
+        ),
+
+        mapRhythmLevel(
+          rhythmLevel
+        ),
+
+        measureCount,
+
+        bpm
+      );
+
+    setExercise(
+      newExercise
+    );
+
+    setIsPaused(false);
+  }
+
+  /* =========================================================
+   * Play / Resume
+   * ======================================================= */
 
   async function playScore() {
+    /*
+     * Pause → Resume
+     */
+    if (
+      isPaused &&
+      isPlaying
+    ) {
+      try {
+        Tone.Transport.start();
+      } catch {
+        // ignore
+      }
+
+      setIsPaused(false);
+
+      return;
+    }
+
     if (isPlaying) {
       return;
     }
 
-    setIsPlaying(true);
-
     await Tone.start();
+
+    stopPlayback();
 
     const synth =
       new Tone.PolySynth(
         Tone.Synth
       ).toDestination();
 
+    synth.volume.value =
+      -6;
+
+    synthRef.current =
+      synth;
+
     const beatDuration =
       60 / bpm;
 
     let time = 0;
 
-    const now =
-      Tone.now();
-
     exercise.measures.forEach(
       (measure) => {
         measure.events.forEach(
           (note) => {
-            const seconds =
+            const duration =
               (note.durationUnits /
                 4) *
               beatDuration;
@@ -804,79 +1144,149 @@ function App() {
               !note.rest &&
               note.key
             ) {
-              synth.triggerAttackRelease(
-                note.key.replace(
-                  "/",
-                  ""
-                ),
-                seconds,
-                now + time
+              const eventId =
+                Tone.Transport.schedule(
+                  (
+                    scheduledTime
+                  ) => {
+                    if (
+                      synthRef.current
+                    ) {
+                      synthRef.current.triggerAttackRelease(
+                        note.key.replace(
+                          "/",
+                          ""
+                        ),
+                        duration,
+                        scheduledTime
+                      );
+                    }
+                  },
+                  time
+                );
+
+              scheduledEventsRef.current.push(
+                eventId
               );
             }
 
-            time += seconds;
+            time += duration;
           }
         );
       }
     );
 
-    window.setTimeout(
-      () => {
-        synth.dispose();
+    Tone.Transport.bpm.value =
+      bpm;
 
-        setIsPlaying(false);
-      },
-      time * 1000 + 500
-    );
+    Tone.Transport.position =
+      0;
+
+    Tone.Transport.start();
+
+    setIsPlaying(true);
+    setIsPaused(false);
+
+    playbackTimerRef.current =
+      window.setTimeout(
+        () => {
+          stopPlayback();
+        },
+        time * 1000 + 300
+      );
   }
 
-  /* =======================================================
+  /* =========================================================
+   * Pause
+   * ======================================================= */
+
+  function pauseScore() {
+    if (!isPlaying) {
+      return;
+    }
+
+    try {
+      Tone.Transport.pause();
+    } catch {
+      // ignore
+    }
+
+    setIsPaused(true);
+  }
+
+  /* =========================================================
+   * Replay
+   * ======================================================= */
+
+  async function replayScore() {
+    stopPlayback();
+
+    window.setTimeout(() => {
+      void playScore();
+    }, 30);
+  }
+
+  /* =========================================================
+   * Cleanup
+   * ======================================================= */
+
+  useEffect(() => {
+    return () => {
+      try {
+        Tone.Transport.stop();
+        Tone.Transport.cancel();
+      } catch {
+        // ignore
+      }
+
+      disposeSynth();
+    };
+  }, []);
+
+  /* =========================================================
    * Render
-   * ===================================================== */
+   * ======================================================= */
 
   return (
     <div className="app">
-
       <header className="header">
         <div className="header-content">
-
           <div className="logo">
             🎼
           </div>
 
           <div>
             <h1>
-              Sight Reading Generator
+              Sight Reading
+              Generator
             </h1>
 
             <p>
-              Practice sight reading.
-              Anytime. Anywhere.
+              Practice sight
+              reading. Anytime.
+              Anywhere.
             </p>
           </div>
-
         </div>
       </header>
 
       <main className="main">
-
         <section className="hero">
-
           <h2>
-            Randomized Sight Reading
+            Randomized Sight
+            Reading
           </h2>
 
           <p>
-            Generate exercises with
-            customizable instrument,
-            clef, key, meter, rhythm,
+            Generate exercises
+            with customizable
+            instrument, clef,
+            key, meter, rhythm,
             range and tempo.
           </p>
-
         </section>
 
         <section className="controls">
-
           <div className="control-group">
             <label>
               Instrument
@@ -892,16 +1302,14 @@ function App() {
             >
               {Object.keys(
                 INSTRUMENTS
-              ).map(
-                (name) => (
-                  <option
-                    key={name}
-                    value={name}
-                  >
-                    {name}
-                  </option>
-                )
-              )}
+              ).map((name) => (
+                <option
+                  key={name}
+                  value={name}
+                >
+                  {name}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -1091,23 +1499,148 @@ function App() {
             </div>
           </div>
 
+          {/* =================================================
+           * Lowest Note
+           * ================================================= */}
+
+          <div className="control-group">
+            <label>
+              Lowest Note
+            </label>
+
+            <select
+              value={rangeMinMidi}
+              onChange={(e) => {
+                const value =
+                  Number(
+                    e.target.value
+                  );
+
+                if (
+                  value <
+                  rangeMaxMidi
+                ) {
+                  setRangeMinMidi(
+                    value
+                  );
+                }
+              }}
+            >
+              {RANGE_OPTIONS.filter(
+                (midi) =>
+                  midi <
+                  rangeMaxMidi
+              ).map((midi) => (
+                <option
+                  key={midi}
+                  value={midi}
+                >
+                  {midiToNoteLabel(
+                    midi
+                  )}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* =================================================
+           * Highest Note
+           * ================================================= */}
+
+          <div className="control-group">
+            <label>
+              Highest Note
+            </label>
+
+            <select
+              value={rangeMaxMidi}
+              onChange={(e) => {
+                const value =
+                  Number(
+                    e.target.value
+                  );
+
+                if (
+                  value >
+                  rangeMinMidi
+                ) {
+                  setRangeMaxMidi(
+                    value
+                  );
+                }
+              }}
+            >
+              {RANGE_OPTIONS.filter(
+                (midi) =>
+                  midi >
+                  rangeMinMidi
+              ).map((midi) => (
+                <option
+                  key={midi}
+                  value={midi}
+                >
+                  {midiToNoteLabel(
+                    midi
+                  )}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* =================================================
+           * Range Display
+           * ================================================= */}
+
+          <div className="control-group">
+            <label>
+              Practice Range
+            </label>
+
+            <div
+              style={{
+                minHeight: "44px",
+                display: "flex",
+                alignItems:
+                  "center",
+                padding:
+                  "0 14px",
+                borderRadius:
+                  "10px",
+                background:
+                  "#f3f3f3",
+                fontWeight: 700,
+                color: "#171717",
+                letterSpacing:
+                  "0.02em",
+              }}
+            >
+              {midiToNoteLabel(
+                rangeMinMidi
+              )}{" "}
+              —{" "}
+              {midiToNoteLabel(
+                rangeMaxMidi
+              )}
+            </div>
+          </div>
+
           <button
             className="generate-button"
             onClick={
               generateNewScore
             }
+            disabled={
+              rangeMinMidi >=
+              rangeMaxMidi
+            }
           >
             🎵 Generate Score
           </button>
-
         </section>
 
         <section className="score-card">
-
           <div className="score-top">
-
             <div>
-
               <strong>
                 {instrument}
               </strong>
@@ -1128,36 +1661,66 @@ function App() {
                 ♩ = {bpm}
               </span>
 
+              <span>
+                {midiToNoteLabel(
+                  rangeMinMidi
+                )}
+                –
+                {midiToNoteLabel(
+                  rangeMaxMidi
+                )}
+              </span>
             </div>
 
             <span>
-              {measureCount} Measures
+              {exercise.measures.length}{" "}
+              Measures
             </span>
-
           </div>
 
           <div className="score-scroll">
-
             <ScoreDisplay
-              exercise={exercise}
+              exercise={
+                exercise
+              }
             />
-
           </div>
 
           <div className="buttons">
+            <button
+              className="play-button"
+              onClick={
+                replayScore
+              }
+            >
+              ↶ Replay
+            </button>
 
             <button
               className="play-button"
               onClick={
                 playScore
               }
+            >
+              {isPlaying &&
+              !isPaused
+                ? "🔊 Playing..."
+                : isPaused
+                  ? "▶ Resume"
+                  : "▶ Play"}
+            </button>
+
+            <button
+              className="next-button"
+              onClick={
+                pauseScore
+              }
               disabled={
-                isPlaying
+                !isPlaying ||
+                isPaused
               }
             >
-              {isPlaying
-                ? "🔊 Playing..."
-                : "▶ Play"}
+              ■ Pause
             </button>
 
             <button
@@ -1168,92 +1731,71 @@ function App() {
             >
               ⏭ New Exercise
             </button>
-
           </div>
-
         </section>
 
         <section className="practice-card">
-
           <h2>
             How to Practice
           </h2>
 
           <div className="practice-grid">
-
             <div>
-
-              <span>
-                1
-              </span>
+              <span>1</span>
 
               <div>
-
                 <strong>
                   Look Ahead
                 </strong>
 
                 <p>
-                  Read the music before
-                  you begin playing.
+                  Read the music
+                  before you begin
+                  playing.
                 </p>
-
               </div>
-
             </div>
 
             <div>
-
-              <span>
-                2
-              </span>
+              <span>2</span>
 
               <div>
-
                 <strong>
                   Keep the Tempo
                 </strong>
 
                 <p>
-                  Try to keep moving
-                  without stopping.
+                  Try to keep
+                  moving without
+                  stopping.
                 </p>
-
               </div>
-
             </div>
 
             <div>
-
-              <span>
-                3
-              </span>
+              <span>3</span>
 
               <div>
-
                 <strong>
                   Practice Regularly
                 </strong>
 
                 <p>
-                  A few minutes every day
-                  can make a big difference.
+                  A few minutes
+                  every day can
+                  make a big
+                  difference.
                 </p>
-
               </div>
-
             </div>
-
           </div>
-
         </section>
-
       </main>
 
       <footer>
-        Sight Reading Generator
+        Sight Reading
+        Generator
       </footer>
-
     </div>
   );
 }
