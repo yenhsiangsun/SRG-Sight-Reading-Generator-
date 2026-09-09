@@ -1,0 +1,10 @@
+import {useId} from 'react';
+import {useI18n} from '../i18n/context';
+import {scaleLabel} from '../i18n/musicLabels';
+import {SCALES,TONICS,describeTonality,getScale,type Tonic} from '../music/scales';
+export default function ScaleSelector({tonic,scaleId,onTonic,onScale}:{tonic:Tonic;scaleId:string;onTonic:(v:Tonic)=>void;onScale:(v:string)=>void}){
+  const id=useId(),{locale,t}=useI18n();const scale=getScale(scaleId),tonality=describeTonality(tonic,scaleId);
+  const name=(s:typeof scale)=>scaleLabel(s.id,s.label,locale);
+  const family=(f:string)=>t(f.includes('五')?'pentatonic':f.includes('日本')?'japanese':f.includes('教會')?'modeFamily':f.includes('非調')?'atonalFamily':'otherScales');
+  return <section className="scale-selector" aria-label={t('scale')}><div className="two-fields"><div className="control-group"><label htmlFor={id+'-scale'}>{t('scale')} <span className="option-count">{SCALES.length}</span></label><select id={id+'-scale'} value={scaleId} onChange={e=>onScale(e.target.value)}>{[...new Set(SCALES.map(s=>s.family))].map(f=><optgroup key={f} label={family(f)}>{SCALES.filter(s=>s.family===f).map(s=><option key={s.id} value={s.id}>{name(s)}</option>)}</optgroup>)}</select></div><div className="control-group"><label htmlFor={id+'-tonic'}>{t('tonic')}</label><select id={id+'-tonic'} value={scaleId==='atonal'?'none':tonic} disabled={scaleId==='atonal'} onChange={e=>onTonic(e.target.value as Tonic)}>{scaleId==='atonal'?<option value="none">{t('noTonic')}</option>:TONICS.map(n=><option key={n}>{n}</option>)}</select></div></div><div className="scale-preview"><div className="scale-preview-heading"><strong>{scaleId==='atonal'?'':tonic+' '}{name(scale)}</strong><span>{tonality.signature?t('keySignature')+': '+tonality.signature:t('noSignature')}</span></div><div className="scale-notes">{tonality.notes.map((n,i)=><span key={i} className={i===0&&scaleId!=='atonal'?'tonic-note':''}>{n.replaceAll('#','♯').replaceAll('b','♭')}</span>)}</div><p>{locale==='zh-TW'?scale.description:t('intervals')+': '+scale.intervals.join(' · ')}</p></div></section>;
+}

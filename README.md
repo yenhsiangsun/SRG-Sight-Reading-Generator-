@@ -1,32 +1,119 @@
-# React + TypeScript + Vite
+# Sight Reading / Practice Studio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + Vite + TypeScript 視譜練習器，使用 VexFlow 5 記譜與 Tone.js 15 播放。
 
-Currently, two official plugins are available:
+## 開發
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+npm install
+npm run dev
+npm test
+npm run lint
+npm run build
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+依賴與鎖定版本保持原專案設定。本機預覽使用 Vite，沒有自動提交或推送。
+
+## 使用流程
+
+1. 選擇樂器。
+2. 設定音域、譜表、主音、音階／調式與練習長度。
+3. 選擇難度、節奏、臨時記號與混合拍號，進入獨立練習頁。
+
+練習頁可播放整份譜、暫停、停止、重播，以及開關節拍器。待機時開啟節拍器可單獨循環練習；播放樂譜時則與樂譜同步。切換設定或產生新題會停止舊音訊。
+
+## 模組
+
+- `src/App.tsx`：設定／練習頁切換與整體流程。
+- `src/components/SetupPage.tsx`：三步設定、樂器分類、音域、譜表與出題規則。
+- `src/hooks/useExercise.ts`：待套用設定、題目設定快照與出題錯誤。
+- `src/music.ts`：音樂資料與生成引擎，明確傳入自訂音域；舊 `generateExercise` API 保持相容，新功能由 `generatePracticeExercise(options)` 提供。
+- `src/exerciseConfig.ts`：UI 選項、樂器映射與音域標籤。
+- `src/music/scales.ts`：30 種音階／調式的音程、級數拼寫、主音、調號策略與 MIDI 候選音。
+- `src/components/ScaleSelector.tsx`：依分類選擇音階，展示組成音、調號與定義。
+- `src/notation/createMeasureNotation.ts`：時值驗證、嚴格 Voice、附點、臨時記號狀態與連桿分組。
+- `src/components/ScoreDisplay.tsx`：VexFlow 排版、拍號變更、小節線、音符密度與加線留白、尺寸監聽。
+- `src/audio/PlaybackController.ts`：樂譜與節拍器時間序列、排程、狀態與取消。
+- `src/hooks/usePlayback.ts`：Tone.js adapter、合成器與 React 生命週期。
+- `src/index.css`／`src/App.css`：全域樣式及設定／練習室視覺。
+
+## 音樂規則
+
+- 1 unit = 十六分音符；四分音符 = 4 units；BPM 依拍號分母計算：/4 為四分音符，/8 為八分音符；混合拍號切換時維持每下速度。
+- 未啟用新選項時，穩定版的隨機抽選順序、節奏權重、休止符機率、音階音與跳進規則維持一致。
+- 自訂記譜音域 A0–C8，包含上下限且最低音必須低於最高音；切換樂器會帶入已查證型制的参考範圍。
+- 切換樂器更新譜表及參考音域；仍可手動修改。移調樂器分別標示記譜與實音音域。
+- 臨時記號開啟時，音符有 18% 機率從音域內的調外音候選挑選；關閉時只生成調內音。
+- 臨時記號由 VexFlow 依實際音名與八度決定，同小節重複音不重複加記號；回到原音時標示還原或原有升降號；每小節重設。
+- 混合拍號至少選兩種，每兩小節由所選拍號中選取另一種；第一拍號優先使用指定拍號，未包含時使用清單第一種。
+- 各樂器使用對應合成音色；同一樂器的調性型制可共用音色。大譜表提供獨立左右手聲部；不是完整和聲／對位作曲器，尚未涵蓋連音與裝飾奏等進階記譜。
+
+## 記譜與排版
+
+- 每個音符的 `duration + dots` 必須等於 `durationUnits`，每小節總時值符合該小節拍號。
+- VexFlow `Voice` 啟用 strict；附點同時傳入建構資料與顯示 modifier。
+- 單拍子依四分拍分組連桿；6/8、9/8、12/8 按附點四分大拍，7/8 按 2+2+3 分組。
+- 每小節獨立 Stave／Voice；窄螢幕每行一小節，寬螢幕兩小節。大譜表左右手共用 Formatter 時間軸，帶大括號與貫穿小節線。
+- 密集小節根據 Formatter 最小需求增加寬度；窄螢幕水平捲動。極端音域依加線高度增加行距。
+- 行首重複譜號與調號，起始及拍號變更處顯示拍號；最後使用 END 終止線。
+- 不吞掉記譜錯誤；無法完成的譜面顯示錯誤提示。
+
+記譜參考：[VexFlow 5 官方範例](https://vexflow.github.io/vexflow-examples/guides/tutorial/)、[臨時記號規則](https://odp.library.tamu.edu/stepstomusictheory/chapter/more-basics/)、[節奏與連桿分組](https://musictheory.pugetsound.edu/mt21c/CommonRhythmicNotationErrors.html)。
+
+## 播放與節拍器
+
+- 音符與節拍器使用同一 Transport 時間軸，休止符保留時間。
+- 單拍子每四分拍 click，複合拍每大拍 click；每小節首拍重音。混合拍号按各小節計算。
+- 節拍器可在樂譜播放中切換，不重新啟動旋律；單獨節拍器按整份練習的拍號序列循環。
+- 播放完成使用 Transport 排程，不使用會在暫停期間繼續倒數的原生 timer。
+- 啟動中的舊請求與過期回呼不會重新啟動或停止新題目。
+- 暫停會釋放正在發聲的音，續播從保留的時間軸位置前進；重播從第一小節開始。
+- 停止後可改速度；已排程或暫停時鎖定速度，避免聲音與顯示不一致。
+
+## 驗證
+
+`tests/stable-baseline.json` 由穩定 commit `47cf8b6fa3af5f3305eb05513e500c356da4de7d` 建立，測試時不依賴 Git。
+
+- 864 組基本出題與 24 組自訂音域結果，比對穩定版固定亂數的輸出雜湊。
+- 所有拍號、調性與四種譜號，檢查實際 VexFlow 嚴格拍數及附點 tick。
+- 同小節／跨小節、不同八度、調號內的升降與還原記號。
+- 混合拍號選擇、變更邊界、音高拼寫及音域、連桿不跨主要拍點。
+- 播放、暫停、重播、快速連點、取消、卸載、音訊失敗、節拍器重拍與切換。
+
+音訊測試使用可控時間的 adapter；VexFlow 音樂規則測試使用簡化字型測量，不聲稱驗證實際像素。正式聆聽與不同裝置的視覺驗收仍由瀏覽器試用進行。
+
+## 音階與非調性
+
+提供 30 個選項：大小調與教會調式、五聲音階、日本音階、藍調、全音、兩種減音階及非調性。部分傳統名稱共用音集合，選項說明已註明採用的音程形式；不以音集合代替完整文化／演奏風格。
+
+主音與音階分離。七聲音階依級數逐字母拼寫，必要時保留重升／重降；B♯3 = C4、C♭4 = B3 的實際音高與記譜八度分別處理。一般調式使用對應的升降調號；日本、對稱與部分特殊音階使用開放調號並標示必要臨時記號，理論調號超過七個升降號時亦採開放調號。
+
+「額外加入音階外音」關閉時，和聲小調的升七級等音階固有音仍會出現；它只控制音階外的額外音，不會隱藏必要的記號。非調性使用全部十二個半音，不設定主音偏重或終止音，也不宣稱生成十二音列作品。
+
+新音階出題偏好級進及較小跳進，限制最大跳進；首音在音域包含主音時選主音，尾音在音域與跳進限制允許時收束到主音。旋律小音階採爵士固定形式，上下行都使用升六、升七級。
+
+音階參考：[Open Music Theory 的音集合與調式](https://openmusictheory.github.io/scales2.html)、[小音階形式](https://www.musictheory.net/lessons/22)、[Ian Ring 日本音階分類](https://ianring.com/musictheory/scales/traditions/japanese)。
+
+新增驗證：450 組音階×主音的音高、記譜八度、音域、跳進與 VexFlow strict voice；教科書音名例、主音起訖、非調性不受主音／额外調外音開關影響、空候選音域錯誤。
+
+
+## 2026-09-09 功能整合
+
+- 繁體中文、英文、日文切換，語言偏好儲存於本機；字串集中在 src/i18n。樂器型制採名稱與來源說明；非中文介面以羅馬字樂器名與通用型制提醒呈現。
+- src/music/instruments.ts：參考型制、記譜音域、實音移調與來源。不是所有地方樂器的窮盡表；人聲使用自訂音域。
+- src/music/grandStaff.ts、src/notation/drawGrandScore.ts：鋼琴、揚琴雙聲部；其他樂器使用單旋律上下譜表分配。
+- src/audio/timbres.ts、createInstrumentSynth.ts：合成音色與 Tone.js 工廠；九種西洋樂器使用附帶的真實錄音。來源與授權見 public/samples/CREDITS.txt；已移除音色試聽入口。
+- src/audio/tempo.ts：播放、節拍器、雙手與測驗共用分母拍時間軸。6/8 的八分音符在 BPM 60 時每音 1 秒，小節 6 秒。連桿仍按 3+3 分組，速度單位不改變記譜分組。
+- 手機新題最多 8 小節；平板／電腦最多 16 小節。密集小節保留最小音符間距，以水平捲動避免把整張譜縮小。
+
+## 麥克風測驗（實驗功能）
+
+在練習頁切換測驗模式，選 30／60 秒讀譜與 1／10 題，點啟用麥克風；四下預備拍後依譜演奏。預備拍使用當前 BPM，樂譜時長依每小節的分母拍計算。建議使用耳機。
+
+public/capture-worklet.js 只把音訊視窗交給本機分析；原始聲音不保存、不上傳。src/assessment/pitch.ts 使用 YIN 類型的單音差分偵測；scoring.ts 分開估計音高、起音節奏及有聲覆蓋。結果可逐音檢查並累計 10 題；收音不足不硬給分。
+
+目前限定單音、實音 MIDI 36–90（約 C2–F♯6）。不接受大譜表雙手／和弦的麥克風評分。連奏的同音反覆、泛音、噪音、短起音與裝置延遲仍可能影響結果；首次測驗先以 60 BPM 的四拍八分音符（八次短音）測量綜合時間補償並儲存於此瀏覽器，可重新測量。補償包含個人跟拍偏差，不是純硬體延遲；缺音或不穩定時拒絕更新。演算法通過合成波形及事件測試，尚未以真實樂器標註資料集、iOS／Android 多裝置完成準確率驗證。
+
+麥克風需要 HTTPS 或 localhost。關閉測驗、離開練習頁或切換背景會停止收音，未完成題目不計分。
+
+上架、商業模式、跨平台與後續驗收見 [PRODUCT_PLAN.md](./PRODUCT_PLAN.md)。目前提供本機 Web 預覽；沒有商店送審、付費牆、訂閱或收費交易。

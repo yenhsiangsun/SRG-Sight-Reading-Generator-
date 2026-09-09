@@ -1,0 +1,10 @@
+Recorded instrument samples: Piano, Violin, Flute, Bassoon, Double Bass, French Horn, Trombone, Trumpet, Tuba.
+Original recordings: VS Chamber Orchestra 2 Community Edition, Sam Gossner & Simon Dalzell; sample cutting by Elan Hickler / Soundemote.
+https://github.com/sgossner/VSCO-2-CE (CC0 1.0)
+MP3 distribution and instrument mapping: Nicholaus P. Brosowsky, tonejs-instruments.
+https://github.com/nbrosowsky/tonejs-instruments
+Distribution sample license: Creative Commons Attribution 3.0 Unported.
+https://creativecommons.org/licenses/by/3.0/
+Provenance: https://github.com/nbrosowsky/tonejs-instruments/blob/master/sample-source-info.txt
+Files selected from the distribution without audio modification; pitches between samples are repitched during playback. No endorsement implied.
+Other instruments use project-authored synthesized approximations, not recordings of those instruments.

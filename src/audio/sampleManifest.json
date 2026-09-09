@@ -1,0 +1,107 @@
+{
+  "Piano": {
+    "folder": "piano",
+    "urls": {
+      "C1": "C1.mp3",
+      "F#1": "Fs1.mp3",
+      "G1": "G1.mp3",
+      "C2": "C2.mp3",
+      "F#2": "Fs2.mp3",
+      "G2": "G2.mp3",
+      "C3": "C3.mp3",
+      "F#3": "Fs3.mp3",
+      "G3": "G3.mp3",
+      "C4": "C4.mp3",
+      "F#4": "Fs4.mp3",
+      "G4": "G4.mp3",
+      "C5": "C5.mp3",
+      "F#5": "Fs5.mp3",
+      "G5": "G5.mp3",
+      "C6": "C6.mp3",
+      "F#6": "Fs6.mp3",
+      "G6": "G6.mp3",
+      "C7": "C7.mp3",
+      "F#7": "Fs7.mp3",
+      "G7": "G7.mp3",
+      "B7": "B7.mp3"
+    }
+  },
+  "Violin": {
+    "folder": "violin",
+    "urls": {
+      "A3": "A3.mp3",
+      "C4": "C4.mp3",
+      "G4": "G4.mp3",
+      "C5": "C5.mp3",
+      "G5": "G5.mp3",
+      "C6": "C6.mp3",
+      "G6": "G6.mp3",
+      "C7": "C7.mp3"
+    }
+  },
+  "Flute": {
+    "folder": "flute",
+    "urls": {
+      "C4": "C4.mp3",
+      "C5": "C5.mp3",
+      "C6": "C6.mp3",
+      "C7": "C7.mp3"
+    }
+  },
+  "Bassoon": {
+    "folder": "bassoon",
+    "urls": {
+      "G2": "G2.mp3",
+      "C3": "C3.mp3",
+      "G3": "G3.mp3",
+      "C4": "C4.mp3",
+      "G4": "G4.mp3",
+      "C5": "C5.mp3"
+    }
+  },
+  "Double Bass": {
+    "folder": "contrabass",
+    "urls": {
+      "F#1": "Fs1.mp3",
+      "G1": "G1.mp3",
+      "C2": "C2.mp3",
+      "F#2": "Fs2.mp3",
+      "B3": "B3.mp3"
+    }
+  },
+  "French Horn": {
+    "folder": "french-horn",
+    "urls": {
+      "A1": "A1.mp3",
+      "C2": "C2.mp3",
+      "G2": "G2.mp3",
+      "C4": "C4.mp3",
+      "F5": "F5.mp3"
+    }
+  },
+  "Trombone": {
+    "folder": "trombone",
+    "urls": {
+      "A#1": "As1.mp3",
+      "C3": "C3.mp3",
+      "C4": "C4.mp3",
+      "F4": "F4.mp3"
+    }
+  },
+  "Trumpet": {
+    "folder": "trumpet",
+    "urls": {
+      "F3": "F3.mp3",
+      "C4": "C4.mp3",
+      "G4": "G4.mp3",
+      "C6": "C6.mp3"
+    }
+  },
+  "Tuba": {
+    "folder": "tuba",
+    "urls": {
+      "F1": "F1.mp3",
+      "D4": "D4.mp3"
+    }
+  }
+}
