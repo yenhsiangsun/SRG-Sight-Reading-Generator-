@@ -28,6 +28,8 @@ workflows:
         script: npm run build
       - name: Sync web assets with iOS
         script: npx cap sync ios
+      - name: Normalize App Store icon dimensions
+        script: sips --resampleHeightWidth 1024 1024 ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png
       - name: Set build number
         script: |
           cd ios/App
