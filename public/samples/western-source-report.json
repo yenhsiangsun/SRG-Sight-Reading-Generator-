@@ -1,0 +1,3262 @@
+[
+  {
+    "instrument": "Piano",
+    "midi": 33,
+    "file": "piano/A1.mp3",
+    "seconds": 15.961,
+    "peak": 0.7057,
+    "rms": 0.19842,
+    "cents": -1.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/A1.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 45,
+    "file": "piano/A2.mp3",
+    "seconds": 9.613,
+    "peak": 0.7061,
+    "rms": 0.16134,
+    "cents": 0.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/A2.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 57,
+    "file": "piano/A3.mp3",
+    "seconds": 8.359,
+    "peak": 0.7063,
+    "rms": 0.17954,
+    "cents": 1.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/A3.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 69,
+    "file": "piano/A4.mp3",
+    "seconds": 6.635,
+    "peak": 0.706,
+    "rms": 0.16144,
+    "cents": 3.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/A4.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 81,
+    "file": "piano/A5.mp3",
+    "seconds": 5.12,
+    "peak": 0.7075,
+    "rms": 0.13245,
+    "cents": 2.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/A5.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 93,
+    "file": "piano/A6.mp3",
+    "seconds": 2.926,
+    "peak": 0.7074,
+    "rms": 0.03575,
+    "cents": 3.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/A6.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 105,
+    "file": "piano/A7.mp3",
+    "seconds": 2.273,
+    "peak": 0.6957,
+    "rms": 0.05369,
+    "cents": 17.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/A7.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 34,
+    "file": "piano/As1.mp3",
+    "seconds": 13.192,
+    "peak": 0.7079,
+    "rms": 0.2089,
+    "cents": -4.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/As1.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 46,
+    "file": "piano/As2.mp3",
+    "seconds": 10.057,
+    "peak": 0.7052,
+    "rms": 0.1491,
+    "cents": 1.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/As2.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 58,
+    "file": "piano/As3.mp3",
+    "seconds": 6.818,
+    "peak": 0.7072,
+    "rms": 0.157,
+    "cents": -2.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/As3.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 70,
+    "file": "piano/As4.mp3",
+    "seconds": 5.329,
+    "peak": 0.7069,
+    "rms": 0.15714,
+    "cents": 2.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/As4.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 82,
+    "file": "piano/As5.mp3",
+    "seconds": 3.474,
+    "peak": 0.7082,
+    "rms": 0.12952,
+    "cents": 5.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/As5.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 94,
+    "file": "piano/As6.mp3",
+    "seconds": 2.978,
+    "peak": 0.7011,
+    "rms": 0.09221,
+    "cents": 0.7,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/As6.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 106,
+    "file": "piano/As7.mp3",
+    "seconds": 1.411,
+    "peak": 0.7023,
+    "rms": 0.04139,
+    "cents": -15.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/As7.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 35,
+    "file": "piano/B1.mp3",
+    "seconds": 11.677,
+    "peak": 0.7076,
+    "rms": 0.21857,
+    "cents": -2.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/B1.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 47,
+    "file": "piano/B2.mp3",
+    "seconds": 11.99,
+    "peak": 0.705,
+    "rms": 0.17421,
+    "cents": 3.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/B2.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 59,
+    "file": "piano/B3.mp3",
+    "seconds": 9.143,
+    "peak": 0.7087,
+    "rms": 0.12578,
+    "cents": 3.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/B3.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 71,
+    "file": "piano/B4.mp3",
+    "seconds": 7.837,
+    "peak": 0.7051,
+    "rms": 0.10849,
+    "cents": 5.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/B4.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 83,
+    "file": "piano/B5.mp3",
+    "seconds": 6.661,
+    "peak": 0.7044,
+    "rms": 0.07802,
+    "cents": 7.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/B5.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 95,
+    "file": "piano/B6.mp3",
+    "seconds": 4.833,
+    "peak": 0.7005,
+    "rms": 0.08355,
+    "cents": 12.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/B6.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 107,
+    "file": "piano/B7.mp3",
+    "seconds": 2.456,
+    "peak": 0.7006,
+    "rms": 0.03171,
+    "cents": -43.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/B7.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 24,
+    "file": "piano/C1.mp3",
+    "seconds": 11.651,
+    "peak": 0.7068,
+    "rms": 0.15149,
+    "cents": -9.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/C1.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 36,
+    "file": "piano/C2.mp3",
+    "seconds": 17.92,
+    "peak": 0.7045,
+    "rms": 0.15187,
+    "cents": 0.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/C2.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 48,
+    "file": "piano/C3.mp3",
+    "seconds": 10.945,
+    "peak": 0.7032,
+    "rms": 0.16983,
+    "cents": 2.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/C3.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 60,
+    "file": "piano/C4.mp3",
+    "seconds": 9.979,
+    "peak": 0.704,
+    "rms": 0.15738,
+    "cents": 2.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/C4.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 72,
+    "file": "piano/C5.mp3",
+    "seconds": 7.393,
+    "peak": 0.7078,
+    "rms": 0.13302,
+    "cents": 2.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/C5.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 84,
+    "file": "piano/C6.mp3",
+    "seconds": 4.18,
+    "peak": 0.7055,
+    "rms": 0.08148,
+    "cents": 8.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/C6.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 96,
+    "file": "piano/C7.mp3",
+    "seconds": 2.456,
+    "peak": 0.7082,
+    "rms": 0.08245,
+    "cents": 13.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/C7.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 108,
+    "file": "piano/C8.mp3",
+    "seconds": 1.776,
+    "peak": 0.7115,
+    "rms": 0.03684,
+    "cents": 19.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/C8.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 25,
+    "file": "piano/Cs1.mp3",
+    "seconds": 15.961,
+    "peak": 0.7035,
+    "rms": 0.15771,
+    "cents": 0.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Cs1.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 37,
+    "file": "piano/Cs2.mp3",
+    "seconds": 12.33,
+    "peak": 0.709,
+    "rms": 0.17013,
+    "cents": -2.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Cs2.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 49,
+    "file": "piano/Cs3.mp3",
+    "seconds": 11.154,
+    "peak": 0.7058,
+    "rms": 0.14494,
+    "cents": 1.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Cs3.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 61,
+    "file": "piano/Cs4.mp3",
+    "seconds": 8.307,
+    "peak": 0.706,
+    "rms": 0.15378,
+    "cents": 2.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Cs4.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 73,
+    "file": "piano/Cs5.mp3",
+    "seconds": 3.474,
+    "peak": 0.7066,
+    "rms": 0.14898,
+    "cents": 4.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Cs5.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 85,
+    "file": "piano/Cs6.mp3",
+    "seconds": 3.553,
+    "peak": 0.7021,
+    "rms": 0.06017,
+    "cents": 10.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Cs6.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 97,
+    "file": "piano/Cs7.mp3",
+    "seconds": 3.474,
+    "peak": 0.7052,
+    "rms": 0.06106,
+    "cents": 4.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Cs7.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 26,
+    "file": "piano/D1.mp3",
+    "seconds": 11.494,
+    "peak": 0.706,
+    "rms": 0.22087,
+    "cents": -2.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/D1.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 38,
+    "file": "piano/D2.mp3",
+    "seconds": 14.237,
+    "peak": 0.7061,
+    "rms": 0.21024,
+    "cents": -3.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/D2.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 50,
+    "file": "piano/D3.mp3",
+    "seconds": 9.117,
+    "peak": 0.7076,
+    "rms": 0.1735,
+    "cents": 0.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/D3.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 62,
+    "file": "piano/D4.mp3",
+    "seconds": 10.475,
+    "peak": 0.7061,
+    "rms": 0.17458,
+    "cents": 2.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/D4.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 74,
+    "file": "piano/D5.mp3",
+    "seconds": 6.4,
+    "peak": 0.7101,
+    "rms": 0.15038,
+    "cents": 4.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/D5.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 86,
+    "file": "piano/D6.mp3",
+    "seconds": 3.944,
+    "peak": 0.7088,
+    "rms": 0.11121,
+    "cents": 5.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/D6.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 98,
+    "file": "piano/D7.mp3",
+    "seconds": 2.456,
+    "peak": 0.7067,
+    "rms": 0.05819,
+    "cents": 16.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/D7.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 27,
+    "file": "piano/Ds1.mp3",
+    "seconds": 13.035,
+    "peak": 0.705,
+    "rms": 0.20624,
+    "cents": -2.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Ds1.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 39,
+    "file": "piano/Ds2.mp3",
+    "seconds": 15.621,
+    "peak": 0.7061,
+    "rms": 0.17612,
+    "cents": -3.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Ds2.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 51,
+    "file": "piano/Ds3.mp3",
+    "seconds": 7.784,
+    "peak": 0.7035,
+    "rms": 0.19717,
+    "cents": -0.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Ds3.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 63,
+    "file": "piano/Ds4.mp3",
+    "seconds": 8.751,
+    "peak": 0.7044,
+    "rms": 0.18565,
+    "cents": 1.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Ds4.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 75,
+    "file": "piano/Ds5.mp3",
+    "seconds": 5.669,
+    "peak": 0.7086,
+    "rms": 0.15621,
+    "cents": 3.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Ds5.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 87,
+    "file": "piano/Ds6.mp3",
+    "seconds": 4.493,
+    "peak": 0.7046,
+    "rms": 0.0955,
+    "cents": 8.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Ds6.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 99,
+    "file": "piano/Ds7.mp3",
+    "seconds": 2.926,
+    "peak": 0.7123,
+    "rms": 0.06763,
+    "cents": 19.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Ds7.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 28,
+    "file": "piano/E1.mp3",
+    "seconds": 16.509,
+    "peak": 0.7075,
+    "rms": 0.1915,
+    "cents": -3.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/E1.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 40,
+    "file": "piano/E2.mp3",
+    "seconds": 9.927,
+    "peak": 0.7085,
+    "rms": 0.18007,
+    "cents": -1.7,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/E2.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 52,
+    "file": "piano/E3.mp3",
+    "seconds": 7.732,
+    "peak": 0.7066,
+    "rms": 0.17749,
+    "cents": 0.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/E3.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 64,
+    "file": "piano/E4.mp3",
+    "seconds": 5.878,
+    "peak": 0.7058,
+    "rms": 0.17646,
+    "cents": 1.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/E4.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 76,
+    "file": "piano/E5.mp3",
+    "seconds": 5.381,
+    "peak": 0.7055,
+    "rms": 0.16098,
+    "cents": -1.7,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/E5.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 88,
+    "file": "piano/E6.mp3",
+    "seconds": 3.944,
+    "peak": 0.7076,
+    "rms": 0.09155,
+    "cents": 8.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/E6.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 100,
+    "file": "piano/E7.mp3",
+    "seconds": 2.664,
+    "peak": 0.7068,
+    "rms": 0.06197,
+    "cents": 5.7,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/E7.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 29,
+    "file": "piano/F1.mp3",
+    "seconds": 11.598,
+    "peak": 0.7033,
+    "rms": 0.15394,
+    "cents": -0.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/F1.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 41,
+    "file": "piano/F2.mp3",
+    "seconds": 12.042,
+    "peak": 0.7053,
+    "rms": 0.21653,
+    "cents": 1.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/F2.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 53,
+    "file": "piano/F3.mp3",
+    "seconds": 7.34,
+    "peak": 0.7021,
+    "rms": 0.12136,
+    "cents": 5.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/F3.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 65,
+    "file": "piano/F4.mp3",
+    "seconds": 8.072,
+    "peak": 0.7063,
+    "rms": 0.0969,
+    "cents": 2.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/F4.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 77,
+    "file": "piano/F5.mp3",
+    "seconds": 6.609,
+    "peak": 0.705,
+    "rms": 0.15632,
+    "cents": -2.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/F5.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 89,
+    "file": "piano/F6.mp3",
+    "seconds": 3.109,
+    "peak": 0.7057,
+    "rms": 0.09,
+    "cents": 1.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/F6.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 101,
+    "file": "piano/F7.mp3",
+    "seconds": 2.456,
+    "peak": 0.7067,
+    "rms": 0.06016,
+    "cents": 16.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/F7.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 30,
+    "file": "piano/Fs1.mp3",
+    "seconds": 16.248,
+    "peak": 0.7044,
+    "rms": 0.23604,
+    "cents": -1.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Fs1.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 42,
+    "file": "piano/Fs2.mp3",
+    "seconds": 12.931,
+    "peak": 0.7055,
+    "rms": 0.19883,
+    "cents": -3.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Fs2.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 54,
+    "file": "piano/Fs3.mp3",
+    "seconds": 9.744,
+    "peak": 0.7051,
+    "rms": 0.17173,
+    "cents": 0.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Fs3.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 66,
+    "file": "piano/Fs4.mp3",
+    "seconds": 6.74,
+    "peak": 0.7042,
+    "rms": 0.18911,
+    "cents": 0.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Fs4.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 78,
+    "file": "piano/Fs5.mp3",
+    "seconds": 7.053,
+    "peak": 0.7049,
+    "rms": 0.1251,
+    "cents": 6.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Fs5.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 90,
+    "file": "piano/Fs6.mp3",
+    "seconds": 2.508,
+    "peak": 0.7052,
+    "rms": 0.09378,
+    "cents": 8.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Fs6.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 102,
+    "file": "piano/Fs7.mp3",
+    "seconds": 2.273,
+    "peak": 0.7062,
+    "rms": 0.03643,
+    "cents": 16.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Fs7.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 31,
+    "file": "piano/G1.mp3",
+    "seconds": 14.655,
+    "peak": 0.7071,
+    "rms": 0.16933,
+    "cents": 1.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/G1.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 43,
+    "file": "piano/G2.mp3",
+    "seconds": 10.815,
+    "peak": 0.7066,
+    "rms": 0.19436,
+    "cents": 1.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/G2.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 55,
+    "file": "piano/G3.mp3",
+    "seconds": 8.438,
+    "peak": 0.7047,
+    "rms": 0.17638,
+    "cents": 0.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/G3.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 67,
+    "file": "piano/G4.mp3",
+    "seconds": 4.676,
+    "peak": 0.7075,
+    "rms": 0.10532,
+    "cents": 5.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/G4.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 79,
+    "file": "piano/G5.mp3",
+    "seconds": 4.859,
+    "peak": 0.7055,
+    "rms": 0.08247,
+    "cents": 8.7,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/G5.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 91,
+    "file": "piano/G6.mp3",
+    "seconds": 4.206,
+    "peak": 0.707,
+    "rms": 0.09835,
+    "cents": 9.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/G6.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 103,
+    "file": "piano/G7.mp3",
+    "seconds": 2.56,
+    "peak": 0.7075,
+    "rms": 0.05885,
+    "cents": 1.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/G7.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 32,
+    "file": "piano/Gs1.mp3",
+    "seconds": 14.655,
+    "peak": 0.7046,
+    "rms": 0.18618,
+    "cents": 0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Gs1.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 44,
+    "file": "piano/Gs2.mp3",
+    "seconds": 10.762,
+    "peak": 0.7045,
+    "rms": 0.13616,
+    "cents": 3.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Gs2.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 56,
+    "file": "piano/Gs3.mp3",
+    "seconds": 9.273,
+    "peak": 0.7044,
+    "rms": 0.20925,
+    "cents": 0.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Gs3.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 68,
+    "file": "piano/Gs4.mp3",
+    "seconds": 6.034,
+    "peak": 0.7067,
+    "rms": 0.08437,
+    "cents": 6.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Gs4.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 80,
+    "file": "piano/Gs5.mp3",
+    "seconds": 4.467,
+    "peak": 0.7058,
+    "rms": 0.08009,
+    "cents": 8.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Gs5.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 92,
+    "file": "piano/Gs6.mp3",
+    "seconds": 3.291,
+    "peak": 0.707,
+    "rms": 0.07289,
+    "cents": 9.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Gs6.mp3"
+  },
+  {
+    "instrument": "Piano",
+    "midi": 104,
+    "file": "piano/Gs7.mp3",
+    "seconds": 1.985,
+    "peak": 0.7038,
+    "rms": 0.05985,
+    "cents": 19.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/piano/Gs7.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 57,
+    "file": "violin/A3.mp3",
+    "seconds": 16.3,
+    "peak": 0.7071,
+    "rms": 0.14807,
+    "cents": 1.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/A3.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 69,
+    "file": "violin/A4.mp3",
+    "seconds": 14.184,
+    "peak": 0.7037,
+    "rms": 0.14865,
+    "cents": 14.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/A4.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 81,
+    "file": "violin/A5.mp3",
+    "seconds": 11.337,
+    "peak": 0.7079,
+    "rms": 0.21045,
+    "cents": 10.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/A5.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 93,
+    "file": "violin/A6.mp3",
+    "seconds": 11.703,
+    "peak": 0.7077,
+    "rms": 0.10567,
+    "cents": 9.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/A6.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 60,
+    "file": "violin/C4.mp3",
+    "seconds": 13.296,
+    "peak": 0.7092,
+    "rms": 0.19501,
+    "cents": -17.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/C4.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 72,
+    "file": "violin/C5.mp3",
+    "seconds": 14.237,
+    "peak": 0.7023,
+    "rms": 0.15921,
+    "cents": 1.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/C5.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 84,
+    "file": "violin/C6.mp3",
+    "seconds": 12.33,
+    "peak": 0.7049,
+    "rms": 0.17795,
+    "cents": -2.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/C6.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 96,
+    "file": "violin/C7.mp3",
+    "seconds": 12.408,
+    "peak": 0.7049,
+    "rms": 0.15585,
+    "cents": -14.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/C7.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 64,
+    "file": "violin/E4.mp3",
+    "seconds": 13.767,
+    "peak": 0.7054,
+    "rms": 0.14538,
+    "cents": 4.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/E4.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 76,
+    "file": "violin/E5.mp3",
+    "seconds": 13.479,
+    "peak": 0.7066,
+    "rms": 0.15894,
+    "cents": 14.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/E5.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 88,
+    "file": "violin/E6.mp3",
+    "seconds": 13.453,
+    "peak": 0.7048,
+    "rms": 0.10965,
+    "cents": 8.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/E6.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 55,
+    "file": "violin/G3.mp3",
+    "seconds": 16.718,
+    "peak": 0.7043,
+    "rms": 0.17326,
+    "cents": -2.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/G3.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 67,
+    "file": "violin/G4.mp3",
+    "seconds": 13.479,
+    "peak": 0.7057,
+    "rms": 0.1507,
+    "cents": -2.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/G4.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 79,
+    "file": "violin/G5.mp3",
+    "seconds": 12.669,
+    "peak": 0.7018,
+    "rms": 0.14457,
+    "cents": 5.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/G5.mp3"
+  },
+  {
+    "instrument": "Violin",
+    "midi": 91,
+    "file": "violin/G6.mp3",
+    "seconds": 12.33,
+    "peak": 0.705,
+    "rms": 0.12317,
+    "cents": -12.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/violin/G6.mp3"
+  },
+  {
+    "instrument": "Flute",
+    "midi": 69,
+    "file": "flute/A4.mp3",
+    "seconds": 8.072,
+    "peak": 0.7046,
+    "rms": 0.19964,
+    "cents": -0.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/flute/A4.mp3"
+  },
+  {
+    "instrument": "Flute",
+    "midi": 81,
+    "file": "flute/A5.mp3",
+    "seconds": 7.393,
+    "peak": 0.7057,
+    "rms": 0.29864,
+    "cents": -0.7,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/flute/A5.mp3"
+  },
+  {
+    "instrument": "Flute",
+    "midi": 93,
+    "file": "flute/A6.mp3",
+    "seconds": 5.564,
+    "peak": 0.7076,
+    "rms": 0.1997,
+    "cents": -2.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/flute/A6.mp3"
+  },
+  {
+    "instrument": "Flute",
+    "midi": 60,
+    "file": "flute/C4.mp3",
+    "seconds": 7.967,
+    "peak": 0.7068,
+    "rms": 0.17108,
+    "cents": -2.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/flute/C4.mp3"
+  },
+  {
+    "instrument": "Flute",
+    "midi": 72,
+    "file": "flute/C5.mp3",
+    "seconds": 7.654,
+    "peak": 0.7076,
+    "rms": 0.24006,
+    "cents": 1.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/flute/C5.mp3"
+  },
+  {
+    "instrument": "Flute",
+    "midi": 84,
+    "file": "flute/C6.mp3",
+    "seconds": 7.367,
+    "peak": 0.7068,
+    "rms": 0.28568,
+    "cents": -9.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/flute/C6.mp3"
+  },
+  {
+    "instrument": "Flute",
+    "midi": 96,
+    "file": "flute/C7.mp3",
+    "seconds": 4.833,
+    "peak": 0.7069,
+    "rms": 0.33059,
+    "cents": -2.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/flute/C7.mp3"
+  },
+  {
+    "instrument": "Flute",
+    "midi": 64,
+    "file": "flute/E4.mp3",
+    "seconds": 10.658,
+    "peak": 0.706,
+    "rms": 0.20523,
+    "cents": -3.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/flute/E4.mp3"
+  },
+  {
+    "instrument": "Flute",
+    "midi": 76,
+    "file": "flute/E5.mp3",
+    "seconds": 8.176,
+    "peak": 0.7042,
+    "rms": 0.28813,
+    "cents": 2.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/flute/E5.mp3"
+  },
+  {
+    "instrument": "Flute",
+    "midi": 88,
+    "file": "flute/E6.mp3",
+    "seconds": 6.06,
+    "peak": 0.7058,
+    "rms": 0.26699,
+    "cents": 0.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/flute/E6.mp3"
+  },
+  {
+    "instrument": "Bassoon",
+    "midi": 45,
+    "file": "bassoon/A2.mp3",
+    "seconds": 7.367,
+    "peak": 0.6411,
+    "rms": 0.22176,
+    "cents": 0.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bassoon/A2.mp3"
+  },
+  {
+    "instrument": "Bassoon",
+    "midi": 57,
+    "file": "bassoon/A3.mp3",
+    "seconds": 8.542,
+    "peak": 0.6719,
+    "rms": 0.32663,
+    "cents": 1.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bassoon/A3.mp3"
+  },
+  {
+    "instrument": "Bassoon",
+    "midi": 69,
+    "file": "bassoon/A4.mp3",
+    "seconds": 10.762,
+    "peak": 0.4852,
+    "rms": 0.15588,
+    "cents": 1.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bassoon/A4.mp3"
+  },
+  {
+    "instrument": "Bassoon",
+    "midi": 48,
+    "file": "bassoon/C3.mp3",
+    "seconds": 7.915,
+    "peak": 0.5754,
+    "rms": 0.19745,
+    "cents": 1.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bassoon/C3.mp3"
+  },
+  {
+    "instrument": "Bassoon",
+    "midi": 60,
+    "file": "bassoon/C4.mp3",
+    "seconds": 7.758,
+    "peak": 0.6115,
+    "rms": 0.12443,
+    "cents": -0.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bassoon/C4.mp3"
+  },
+  {
+    "instrument": "Bassoon",
+    "midi": 72,
+    "file": "bassoon/C5.mp3",
+    "seconds": 5.93,
+    "peak": 0.4483,
+    "rms": 0.1353,
+    "cents": 1.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bassoon/C5.mp3"
+  },
+  {
+    "instrument": "Bassoon",
+    "midi": 64,
+    "file": "bassoon/E4.mp3",
+    "seconds": 5.486,
+    "peak": 0.5724,
+    "rms": 0.21176,
+    "cents": -1.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bassoon/E4.mp3"
+  },
+  {
+    "instrument": "Bassoon",
+    "midi": 43,
+    "file": "bassoon/G2.mp3",
+    "seconds": 7.131,
+    "peak": 0.571,
+    "rms": 0.20937,
+    "cents": -0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bassoon/G2.mp3"
+  },
+  {
+    "instrument": "Bassoon",
+    "midi": 55,
+    "file": "bassoon/G3.mp3",
+    "seconds": 8.751,
+    "peak": 0.561,
+    "rms": 0.1978,
+    "cents": -1.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bassoon/G3.mp3"
+  },
+  {
+    "instrument": "Bassoon",
+    "midi": 67,
+    "file": "bassoon/G4.mp3",
+    "seconds": 8.725,
+    "peak": 0.5275,
+    "rms": 0.14427,
+    "cents": -0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bassoon/G4.mp3"
+  },
+  {
+    "instrument": "Double Bass",
+    "midi": 45,
+    "file": "contrabass/A2.mp3",
+    "seconds": 12.147,
+    "peak": 0.7045,
+    "rms": 0.23938,
+    "cents": 2.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/contrabass/A2.mp3"
+  },
+  {
+    "instrument": "Double Bass",
+    "midi": 34,
+    "file": "contrabass/As1.mp3",
+    "seconds": 7.654,
+    "peak": 0.7059,
+    "rms": 0.31348,
+    "cents": 1.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/contrabass/As1.mp3"
+  },
+  {
+    "instrument": "Double Bass",
+    "midi": 59,
+    "file": "contrabass/B3.mp3",
+    "seconds": 7.131,
+    "peak": 0.7056,
+    "rms": 0.23102,
+    "cents": 1.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/contrabass/B3.mp3"
+  },
+  {
+    "instrument": "Double Bass",
+    "midi": 36,
+    "file": "contrabass/C2.mp3",
+    "seconds": 10.475,
+    "peak": 0.7072,
+    "rms": 0.23909,
+    "cents": 1.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/contrabass/C2.mp3"
+  },
+  {
+    "instrument": "Double Bass",
+    "midi": 49,
+    "file": "contrabass/Cs3.mp3",
+    "seconds": 7.706,
+    "peak": 0.7084,
+    "rms": 0.21174,
+    "cents": 3.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/contrabass/Cs3.mp3"
+  },
+  {
+    "instrument": "Double Bass",
+    "midi": 38,
+    "file": "contrabass/D2.mp3",
+    "seconds": 17.398,
+    "peak": 0.7057,
+    "rms": 0.17206,
+    "cents": 1.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/contrabass/D2.mp3"
+  },
+  {
+    "instrument": "Double Bass",
+    "midi": 40,
+    "file": "contrabass/E2.mp3",
+    "seconds": 13.845,
+    "peak": 0.7043,
+    "rms": 0.19895,
+    "cents": -0.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/contrabass/E2.mp3"
+  },
+  {
+    "instrument": "Double Bass",
+    "midi": 52,
+    "file": "contrabass/E3.mp3",
+    "seconds": 8.751,
+    "peak": 0.7058,
+    "rms": 0.2752,
+    "cents": 0.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/contrabass/E3.mp3"
+  },
+  {
+    "instrument": "Double Bass",
+    "midi": 30,
+    "file": "contrabass/Fs1.mp3",
+    "seconds": 9.117,
+    "peak": 0.7085,
+    "rms": 0.21105,
+    "cents": -0.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/contrabass/Fs1.mp3"
+  },
+  {
+    "instrument": "Double Bass",
+    "midi": 42,
+    "file": "contrabass/Fs2.mp3",
+    "seconds": 6.609,
+    "peak": 0.7083,
+    "rms": 0.20594,
+    "cents": -1.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/contrabass/Fs2.mp3"
+  },
+  {
+    "instrument": "Double Bass",
+    "midi": 31,
+    "file": "contrabass/G1.mp3",
+    "seconds": 9.038,
+    "peak": 0.7038,
+    "rms": 0.18282,
+    "cents": -2.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/contrabass/G1.mp3"
+  },
+  {
+    "instrument": "Double Bass",
+    "midi": 44,
+    "file": "contrabass/Gs2.mp3",
+    "seconds": 7.184,
+    "peak": 0.7078,
+    "rms": 0.1719,
+    "cents": -0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/contrabass/Gs2.mp3"
+  },
+  {
+    "instrument": "Double Bass",
+    "midi": 56,
+    "file": "contrabass/Gs3.mp3",
+    "seconds": 7.732,
+    "peak": 0.7036,
+    "rms": 0.19318,
+    "cents": 3.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/contrabass/Gs3.mp3"
+  },
+  {
+    "instrument": "French Horn",
+    "midi": 33,
+    "file": "french-horn/A1.mp3",
+    "seconds": 5.433,
+    "peak": 0.7067,
+    "rms": 0.21219,
+    "cents": -0.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/french-horn/A1.mp3"
+  },
+  {
+    "instrument": "French Horn",
+    "midi": 57,
+    "file": "french-horn/A3.mp3",
+    "seconds": 15.203,
+    "peak": 0.7083,
+    "rms": 0.24082,
+    "cents": 0.7,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/french-horn/A3.mp3"
+  },
+  {
+    "instrument": "French Horn",
+    "midi": 36,
+    "file": "french-horn/C2.mp3",
+    "seconds": 6.243,
+    "peak": 0.7072,
+    "rms": 0.27143,
+    "cents": 0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/french-horn/C2.mp3"
+  },
+  {
+    "instrument": "French Horn",
+    "midi": 60,
+    "file": "french-horn/C4.mp3",
+    "seconds": 14.341,
+    "peak": 0.7078,
+    "rms": 0.25583,
+    "cents": 1.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/french-horn/C4.mp3"
+  },
+  {
+    "instrument": "French Horn",
+    "midi": 50,
+    "file": "french-horn/D3.mp3",
+    "seconds": 14.237,
+    "peak": 0.7046,
+    "rms": 0.24271,
+    "cents": 0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/french-horn/D3.mp3"
+  },
+  {
+    "instrument": "French Horn",
+    "midi": 74,
+    "file": "french-horn/D5.mp3",
+    "seconds": 8.255,
+    "peak": 0.7062,
+    "rms": 0.32192,
+    "cents": 0.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/french-horn/D5.mp3"
+  },
+  {
+    "instrument": "French Horn",
+    "midi": 39,
+    "file": "french-horn/Ds2.mp3",
+    "seconds": 8.15,
+    "peak": 0.7055,
+    "rms": 0.22936,
+    "cents": -0.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/french-horn/Ds2.mp3"
+  },
+  {
+    "instrument": "French Horn",
+    "midi": 53,
+    "file": "french-horn/F3.mp3",
+    "seconds": 12.33,
+    "peak": 0.7063,
+    "rms": 0.20755,
+    "cents": 0.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/french-horn/F3.mp3"
+  },
+  {
+    "instrument": "French Horn",
+    "midi": 77,
+    "file": "french-horn/F5.mp3",
+    "seconds": 8.438,
+    "peak": 0.7078,
+    "rms": 0.33491,
+    "cents": 0.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/french-horn/F5.mp3"
+  },
+  {
+    "instrument": "French Horn",
+    "midi": 43,
+    "file": "french-horn/G2.mp3",
+    "seconds": 11.624,
+    "peak": 0.7058,
+    "rms": 0.12762,
+    "cents": 0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/french-horn/G2.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 46,
+    "file": "trombone/As2.mp3",
+    "seconds": 17.946,
+    "peak": 0.7068,
+    "rms": 0.16058,
+    "cents": -0.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/As2.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 58,
+    "file": "trombone/As3.mp3",
+    "seconds": 5.904,
+    "peak": 0.7021,
+    "rms": 0.07077,
+    "cents": -7.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/As3.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 48,
+    "file": "trombone/C3.mp3",
+    "seconds": 5.303,
+    "peak": 0.7014,
+    "rms": 0.04933,
+    "cents": 1.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/C3.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 60,
+    "file": "trombone/C4.mp3",
+    "seconds": 22.282,
+    "peak": 0.7046,
+    "rms": 0.30269,
+    "cents": 2.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/C4.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 37,
+    "file": "trombone/Cs2.mp3",
+    "seconds": 7.497,
+    "peak": 0.7076,
+    "rms": 0.1467,
+    "cents": 0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/Cs2.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 61,
+    "file": "trombone/Cs4.mp3",
+    "seconds": 19.958,
+    "peak": 0.7088,
+    "rms": 0.22509,
+    "cents": 0.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/Cs4.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 50,
+    "file": "trombone/D3.mp3",
+    "seconds": 15.569,
+    "peak": 0.7066,
+    "rms": 0.17893,
+    "cents": 2.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/D3.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 62,
+    "file": "trombone/D4.mp3",
+    "seconds": 5.512,
+    "peak": 0.7061,
+    "rms": 0.13778,
+    "cents": -4.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/D4.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 39,
+    "file": "trombone/Ds2.mp3",
+    "seconds": 11.86,
+    "peak": 0.7066,
+    "rms": 0.09799,
+    "cents": 3.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/Ds2.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 51,
+    "file": "trombone/Ds3.mp3",
+    "seconds": 6.034,
+    "peak": 0.7073,
+    "rms": 0.07185,
+    "cents": 5.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/Ds3.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 63,
+    "file": "trombone/Ds4.mp3",
+    "seconds": 24.346,
+    "peak": 0.7065,
+    "rms": 0.22764,
+    "cents": 0.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/Ds4.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 41,
+    "file": "trombone/F2.mp3",
+    "seconds": 13.009,
+    "peak": 0.706,
+    "rms": 0.1097,
+    "cents": 0.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/F2.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 53,
+    "file": "trombone/F3.mp3",
+    "seconds": 20.558,
+    "peak": 0.7055,
+    "rms": 0.22541,
+    "cents": -0.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/F3.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 65,
+    "file": "trombone/F4.mp3",
+    "seconds": 25.887,
+    "peak": 0.7062,
+    "rms": 0.26284,
+    "cents": 1.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/F4.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 44,
+    "file": "trombone/Gs2.mp3",
+    "seconds": 5.355,
+    "peak": 0.7058,
+    "rms": 0.06257,
+    "cents": 5.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/Gs2.mp3"
+  },
+  {
+    "instrument": "Trombone",
+    "midi": 56,
+    "file": "trombone/Gs3.mp3",
+    "seconds": 6.191,
+    "peak": 0.7023,
+    "rms": 0.09523,
+    "cents": 0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trombone/Gs3.mp3"
+  },
+  {
+    "instrument": "Trumpet",
+    "midi": 57,
+    "file": "trumpet/A3.mp3",
+    "seconds": 4.754,
+    "peak": 0.7056,
+    "rms": 0.15316,
+    "cents": -0.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trumpet/A3.mp3"
+  },
+  {
+    "instrument": "Trumpet",
+    "midi": 81,
+    "file": "trumpet/A5.mp3",
+    "seconds": 7.158,
+    "peak": 0.7103,
+    "rms": 0.31134,
+    "cents": 0.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trumpet/A5.mp3"
+  },
+  {
+    "instrument": "Trumpet",
+    "midi": 70,
+    "file": "trumpet/As4.mp3",
+    "seconds": 6.426,
+    "peak": 0.7071,
+    "rms": 0.16844,
+    "cents": 0.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trumpet/As4.mp3"
+  },
+  {
+    "instrument": "Trumpet",
+    "midi": 60,
+    "file": "trumpet/C4.mp3",
+    "seconds": 4.676,
+    "peak": 0.7088,
+    "rms": 0.17109,
+    "cents": -0.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trumpet/C4.mp3"
+  },
+  {
+    "instrument": "Trumpet",
+    "midi": 84,
+    "file": "trumpet/C6.mp3",
+    "seconds": 6.269,
+    "peak": 0.7064,
+    "rms": 0.24001,
+    "cents": 1.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trumpet/C6.mp3"
+  },
+  {
+    "instrument": "Trumpet",
+    "midi": 74,
+    "file": "trumpet/D5.mp3",
+    "seconds": 5.695,
+    "peak": 0.7076,
+    "rms": 0.25461,
+    "cents": -1.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trumpet/D5.mp3"
+  },
+  {
+    "instrument": "Trumpet",
+    "midi": 63,
+    "file": "trumpet/Ds4.mp3",
+    "seconds": 6.922,
+    "peak": 0.7086,
+    "rms": 0.17512,
+    "cents": -1.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trumpet/Ds4.mp3"
+  },
+  {
+    "instrument": "Trumpet",
+    "midi": 53,
+    "file": "trumpet/F3.mp3",
+    "seconds": 4.362,
+    "peak": 0.7029,
+    "rms": 0.14085,
+    "cents": -13.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trumpet/F3.mp3"
+  },
+  {
+    "instrument": "Trumpet",
+    "midi": 65,
+    "file": "trumpet/F4.mp3",
+    "seconds": 5.616,
+    "peak": 0.7055,
+    "rms": 0.19469,
+    "cents": 4.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trumpet/F4.mp3"
+  },
+  {
+    "instrument": "Trumpet",
+    "midi": 77,
+    "file": "trumpet/F5.mp3",
+    "seconds": 5.773,
+    "peak": 0.7048,
+    "rms": 0.2865,
+    "cents": 3.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trumpet/F5.mp3"
+  },
+  {
+    "instrument": "Trumpet",
+    "midi": 67,
+    "file": "trumpet/G4.mp3",
+    "seconds": 7.262,
+    "peak": 0.7073,
+    "rms": 0.22612,
+    "cents": -2.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/trumpet/G4.mp3"
+  },
+  {
+    "instrument": "Tuba",
+    "midi": 34,
+    "file": "tuba/As1.mp3",
+    "seconds": 8.098,
+    "peak": 0.7065,
+    "rms": 0.17752,
+    "cents": -5.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/tuba/As1.mp3"
+  },
+  {
+    "instrument": "Tuba",
+    "midi": 46,
+    "file": "tuba/As2.mp3",
+    "seconds": 8.124,
+    "peak": 0.7074,
+    "rms": 0.2143,
+    "cents": 6.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/tuba/As2.mp3"
+  },
+  {
+    "instrument": "Tuba",
+    "midi": 58,
+    "file": "tuba/As3.mp3",
+    "seconds": 7.236,
+    "peak": 0.7073,
+    "rms": 0.25948,
+    "cents": -1.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/tuba/As3.mp3"
+  },
+  {
+    "instrument": "Tuba",
+    "midi": 50,
+    "file": "tuba/D3.mp3",
+    "seconds": 12.748,
+    "peak": 0.7058,
+    "rms": 0.26517,
+    "cents": -0.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/tuba/D3.mp3"
+  },
+  {
+    "instrument": "Tuba",
+    "midi": 62,
+    "file": "tuba/D4.mp3",
+    "seconds": 9.613,
+    "peak": 0.7001,
+    "rms": 0.19837,
+    "cents": -1.7,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/tuba/D4.mp3"
+  },
+  {
+    "instrument": "Tuba",
+    "midi": 39,
+    "file": "tuba/Ds2.mp3",
+    "seconds": 7.941,
+    "peak": 0.7052,
+    "rms": 0.21102,
+    "cents": 2.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/tuba/Ds2.mp3"
+  },
+  {
+    "instrument": "Tuba",
+    "midi": 29,
+    "file": "tuba/F1.mp3",
+    "seconds": 4.049,
+    "peak": 0.7065,
+    "rms": 0.14976,
+    "cents": -36.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/tuba/F1.mp3"
+  },
+  {
+    "instrument": "Tuba",
+    "midi": 41,
+    "file": "tuba/F2.mp3",
+    "seconds": 9.77,
+    "peak": 0.7076,
+    "rms": 0.21219,
+    "cents": -7.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/tuba/F2.mp3"
+  },
+  {
+    "instrument": "Tuba",
+    "midi": 53,
+    "file": "tuba/F3.mp3",
+    "seconds": 17.189,
+    "peak": 0.7062,
+    "rms": 0.37483,
+    "cents": 1.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/tuba/F3.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 45,
+    "file": "guitar-acoustic/A2.mp3",
+    "seconds": 11.546,
+    "peak": 0.7063,
+    "rms": 0.13206,
+    "cents": 1.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/A2.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 57,
+    "file": "guitar-acoustic/A3.mp3",
+    "seconds": 4.389,
+    "peak": 0.7066,
+    "rms": 0.1093,
+    "cents": -1.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/A3.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 69,
+    "file": "guitar-acoustic/A4.mp3",
+    "seconds": 4.075,
+    "peak": 0.7037,
+    "rms": 0.1019,
+    "cents": 2.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/A4.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 46,
+    "file": "guitar-acoustic/As2.mp3",
+    "seconds": 11.154,
+    "peak": 0.7066,
+    "rms": 0.17859,
+    "cents": -0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/As2.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 58,
+    "file": "guitar-acoustic/As3.mp3",
+    "seconds": 4.389,
+    "peak": 0.7046,
+    "rms": 0.12413,
+    "cents": 0.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/As3.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 70,
+    "file": "guitar-acoustic/As4.mp3",
+    "seconds": 4.075,
+    "peak": 0.7044,
+    "rms": 0.07974,
+    "cents": 4.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/As4.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 47,
+    "file": "guitar-acoustic/B2.mp3",
+    "seconds": 14.341,
+    "peak": 0.7037,
+    "rms": 0.18473,
+    "cents": -1.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/B2.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 59,
+    "file": "guitar-acoustic/B3.mp3",
+    "seconds": 5.042,
+    "peak": 0.7031,
+    "rms": 0.15137,
+    "cents": -1.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/B3.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 71,
+    "file": "guitar-acoustic/B4.mp3",
+    "seconds": 3.997,
+    "peak": 0.7025,
+    "rms": 0.07055,
+    "cents": 1.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/B4.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 48,
+    "file": "guitar-acoustic/C3.mp3",
+    "seconds": 13.845,
+    "peak": 0.7018,
+    "rms": 0.13185,
+    "cents": -0.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/C3.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 60,
+    "file": "guitar-acoustic/C4.mp3",
+    "seconds": 3.5,
+    "peak": 0.7044,
+    "rms": 0.08176,
+    "cents": -0.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/C4.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 72,
+    "file": "guitar-acoustic/C5.mp3",
+    "seconds": 3.448,
+    "peak": 0.7083,
+    "rms": 0.09416,
+    "cents": 0.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/C5.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 49,
+    "file": "guitar-acoustic/Cs3.mp3",
+    "seconds": 12.669,
+    "peak": 0.7036,
+    "rms": 0.14233,
+    "cents": -1.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/Cs3.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 61,
+    "file": "guitar-acoustic/Cs4.mp3",
+    "seconds": 4.31,
+    "peak": 0.7062,
+    "rms": 0.09335,
+    "cents": 0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/Cs4.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 73,
+    "file": "guitar-acoustic/Cs5.mp3",
+    "seconds": 3.605,
+    "peak": 0.7044,
+    "rms": 0.10517,
+    "cents": 0.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/Cs5.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 38,
+    "file": "guitar-acoustic/D2.mp3",
+    "seconds": 11.651,
+    "peak": 0.7123,
+    "rms": 0.24813,
+    "cents": -1.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/D2.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 50,
+    "file": "guitar-acoustic/D3.mp3",
+    "seconds": 12.852,
+    "peak": 0.7039,
+    "rms": 0.16701,
+    "cents": -0.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/D3.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 62,
+    "file": "guitar-acoustic/D4.mp3",
+    "seconds": 3.37,
+    "peak": 0.7068,
+    "rms": 0.098,
+    "cents": -1.7,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/D4.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 74,
+    "file": "guitar-acoustic/D5.mp3",
+    "seconds": 3.265,
+    "peak": 0.7043,
+    "rms": 0.12262,
+    "cents": 0.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/D5.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 39,
+    "file": "guitar-acoustic/Ds2.mp3",
+    "seconds": 11.076,
+    "peak": 0.7089,
+    "rms": 0.23166,
+    "cents": -1.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/Ds2.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 51,
+    "file": "guitar-acoustic/Ds3.mp3",
+    "seconds": 11.677,
+    "peak": 0.703,
+    "rms": 0.16669,
+    "cents": -1.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/Ds3.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 63,
+    "file": "guitar-acoustic/Ds4.mp3",
+    "seconds": 4.598,
+    "peak": 0.7073,
+    "rms": 0.07354,
+    "cents": 5.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/Ds4.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 40,
+    "file": "guitar-acoustic/E2.mp3",
+    "seconds": 10.867,
+    "peak": 0.7122,
+    "rms": 0.18117,
+    "cents": -1.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/E2.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 52,
+    "file": "guitar-acoustic/E3.mp3",
+    "seconds": 10.266,
+    "peak": 0.7047,
+    "rms": 0.21255,
+    "cents": -0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/E3.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 64,
+    "file": "guitar-acoustic/E4.mp3",
+    "seconds": 4.571,
+    "peak": 0.7073,
+    "rms": 0.09846,
+    "cents": 3.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/E4.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 41,
+    "file": "guitar-acoustic/F2.mp3",
+    "seconds": 15.517,
+    "peak": 0.7014,
+    "rms": 0.16061,
+    "cents": -1.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/F2.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 53,
+    "file": "guitar-acoustic/F3.mp3",
+    "seconds": 9.169,
+    "peak": 0.7043,
+    "rms": 0.16908,
+    "cents": -0.9,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/F3.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 65,
+    "file": "guitar-acoustic/F4.mp3",
+    "seconds": 4.754,
+    "peak": 0.7048,
+    "rms": 0.10732,
+    "cents": 4.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/F4.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 42,
+    "file": "guitar-acoustic/Fs2.mp3",
+    "seconds": 14.942,
+    "peak": 0.7075,
+    "rms": 0.17086,
+    "cents": -0.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/Fs2.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 54,
+    "file": "guitar-acoustic/Fs3.mp3",
+    "seconds": 9.796,
+    "peak": 0.7077,
+    "rms": 0.16198,
+    "cents": -0.7,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/Fs3.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 66,
+    "file": "guitar-acoustic/Fs4.mp3",
+    "seconds": 4.754,
+    "peak": 0.7029,
+    "rms": 0.10491,
+    "cents": 4.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/Fs4.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 43,
+    "file": "guitar-acoustic/G2.mp3",
+    "seconds": 13.871,
+    "peak": 0.7065,
+    "rms": 0.16185,
+    "cents": -3.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/G2.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 55,
+    "file": "guitar-acoustic/G3.mp3",
+    "seconds": 5.747,
+    "peak": 0.7044,
+    "rms": 0.15576,
+    "cents": -2.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/G3.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 67,
+    "file": "guitar-acoustic/G4.mp3",
+    "seconds": 4.284,
+    "peak": 0.7017,
+    "rms": 0.0798,
+    "cents": 1.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/G4.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 44,
+    "file": "guitar-acoustic/Gs2.mp3",
+    "seconds": 10.162,
+    "peak": 0.7059,
+    "rms": 0.16433,
+    "cents": -2.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/Gs2.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 56,
+    "file": "guitar-acoustic/Gs3.mp3",
+    "seconds": 5.042,
+    "peak": 0.705,
+    "rms": 0.1595,
+    "cents": 0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/Gs3.mp3"
+  },
+  {
+    "instrument": "Guitar",
+    "midi": 68,
+    "file": "guitar-acoustic/Gs4.mp3",
+    "seconds": 4.362,
+    "peak": 0.7081,
+    "rms": 0.13591,
+    "cents": 4.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/guitar-acoustic/Gs4.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 34,
+    "file": "bass-electric/As1.mp3",
+    "seconds": 16.927,
+    "peak": 0.7061,
+    "rms": 0.13588,
+    "cents": -0.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/As1.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 46,
+    "file": "bass-electric/As2.mp3",
+    "seconds": 13.192,
+    "peak": 0.7065,
+    "rms": 0.145,
+    "cents": -0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/As2.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 58,
+    "file": "bass-electric/As3.mp3",
+    "seconds": 10.371,
+    "peak": 0.7057,
+    "rms": 0.22497,
+    "cents": 0.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/As3.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 70,
+    "file": "bass-electric/As4.mp3",
+    "seconds": 7.576,
+    "peak": 0.7057,
+    "rms": 0.26256,
+    "cents": 4.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/As4.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 25,
+    "file": "bass-electric/Cs1.mp3",
+    "seconds": 18.808,
+    "peak": 0.7069,
+    "rms": 0.1413,
+    "cents": 12.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/Cs1.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 37,
+    "file": "bass-electric/Cs2.mp3",
+    "seconds": 15.073,
+    "peak": 0.7065,
+    "rms": 0.15572,
+    "cents": 0.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/Cs2.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 49,
+    "file": "bass-electric/Cs3.mp3",
+    "seconds": 13.192,
+    "peak": 0.7059,
+    "rms": 0.15462,
+    "cents": 0.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/Cs3.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 61,
+    "file": "bass-electric/Cs4.mp3",
+    "seconds": 10.371,
+    "peak": 0.7072,
+    "rms": 0.20417,
+    "cents": -1.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/Cs4.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 28,
+    "file": "bass-electric/E1.mp3",
+    "seconds": 18.808,
+    "peak": 0.7069,
+    "rms": 0.14229,
+    "cents": 6.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/E1.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 40,
+    "file": "bass-electric/E2.mp3",
+    "seconds": 13.192,
+    "peak": 0.705,
+    "rms": 0.16455,
+    "cents": -0.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/E2.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 52,
+    "file": "bass-electric/E3.mp3",
+    "seconds": 10.371,
+    "peak": 0.7052,
+    "rms": 0.16646,
+    "cents": -1.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/E3.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 64,
+    "file": "bass-electric/E4.mp3",
+    "seconds": 7.576,
+    "peak": 0.7061,
+    "rms": 0.21221,
+    "cents": -1.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/E4.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 31,
+    "file": "bass-electric/G1.mp3",
+    "seconds": 17.868,
+    "peak": 0.7066,
+    "rms": 0.14937,
+    "cents": -3.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/G1.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 43,
+    "file": "bass-electric/G2.mp3",
+    "seconds": 13.192,
+    "peak": 0.7072,
+    "rms": 0.17896,
+    "cents": -1.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/G2.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 55,
+    "file": "bass-electric/G3.mp3",
+    "seconds": 10.371,
+    "peak": 0.7067,
+    "rms": 0.18367,
+    "cents": 0.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/G3.mp3"
+  },
+  {
+    "instrument": "Bass Guitar",
+    "midi": 67,
+    "file": "bass-electric/G4.mp3",
+    "seconds": 7.576,
+    "peak": 0.7076,
+    "rms": 0.2768,
+    "cents": 1.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/bass-electric/G4.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 69,
+    "file": "saxophone/A4.mp3",
+    "seconds": 6.296,
+    "peak": 0.7072,
+    "rms": 0.31774,
+    "cents": 0.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/A4.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 81,
+    "file": "saxophone/A5.mp3",
+    "seconds": 6.113,
+    "peak": 0.7065,
+    "rms": 0.34204,
+    "cents": -2.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/A5.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 58,
+    "file": "saxophone/As3.mp3",
+    "seconds": 5.486,
+    "peak": 0.7004,
+    "rms": 0.24939,
+    "cents": 0.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/As3.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 70,
+    "file": "saxophone/As4.mp3",
+    "seconds": 5.381,
+    "peak": 0.7081,
+    "rms": 0.31553,
+    "cents": -0.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/As4.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 59,
+    "file": "saxophone/B3.mp3",
+    "seconds": 7.236,
+    "peak": 0.707,
+    "rms": 0.15776,
+    "cents": -0.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/B3.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 71,
+    "file": "saxophone/B4.mp3",
+    "seconds": 6.426,
+    "peak": 0.7077,
+    "rms": 0.23677,
+    "cents": -0.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/B4.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 60,
+    "file": "saxophone/C4.mp3",
+    "seconds": 6.269,
+    "peak": 0.7073,
+    "rms": 0.18108,
+    "cents": 0.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/C4.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 72,
+    "file": "saxophone/C5.mp3",
+    "seconds": 6.034,
+    "peak": 0.702,
+    "rms": 0.21815,
+    "cents": -0.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/C5.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 49,
+    "file": "saxophone/Cs3.mp3",
+    "seconds": 6.269,
+    "peak": 0.7055,
+    "rms": 0.22966,
+    "cents": 0.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/Cs3.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 61,
+    "file": "saxophone/Cs4.mp3",
+    "seconds": 6.74,
+    "peak": 0.7065,
+    "rms": 0.18788,
+    "cents": 0.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/Cs4.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 73,
+    "file": "saxophone/Cs5.mp3",
+    "seconds": 6.322,
+    "peak": 0.6995,
+    "rms": 0.26366,
+    "cents": 0.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/Cs5.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 50,
+    "file": "saxophone/D3.mp3",
+    "seconds": 5.042,
+    "peak": 0.6999,
+    "rms": 0.18976,
+    "cents": -0.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/D3.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 62,
+    "file": "saxophone/D4.mp3",
+    "seconds": 6.87,
+    "peak": 0.7053,
+    "rms": 0.22048,
+    "cents": -0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/D4.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 74,
+    "file": "saxophone/D5.mp3",
+    "seconds": 6.766,
+    "peak": 0.7023,
+    "rms": 0.25561,
+    "cents": 0.5,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/D5.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 51,
+    "file": "saxophone/Ds3.mp3",
+    "seconds": 5.851,
+    "peak": 0.7059,
+    "rms": 0.26431,
+    "cents": 0.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/Ds3.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 63,
+    "file": "saxophone/Ds4.mp3",
+    "seconds": 5.799,
+    "peak": 0.7045,
+    "rms": 0.2871,
+    "cents": -0.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/Ds4.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 75,
+    "file": "saxophone/Ds5.mp3",
+    "seconds": 5.381,
+    "peak": 0.7069,
+    "rms": 0.25181,
+    "cents": -0.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/Ds5.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 52,
+    "file": "saxophone/E3.mp3",
+    "seconds": 5.068,
+    "peak": 0.7102,
+    "rms": 0.21224,
+    "cents": -0.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/E3.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 64,
+    "file": "saxophone/E4.mp3",
+    "seconds": 6.922,
+    "peak": 0.7069,
+    "rms": 0.33185,
+    "cents": 0.7,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/E4.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 76,
+    "file": "saxophone/E5.mp3",
+    "seconds": 5.825,
+    "peak": 0.7117,
+    "rms": 0.35787,
+    "cents": 0.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/E5.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 53,
+    "file": "saxophone/F3.mp3",
+    "seconds": 5.146,
+    "peak": 0.7112,
+    "rms": 0.27608,
+    "cents": 0.4,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/F3.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 65,
+    "file": "saxophone/F4.mp3",
+    "seconds": 6.557,
+    "peak": 0.7059,
+    "rms": 0.28415,
+    "cents": 1.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/F4.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 77,
+    "file": "saxophone/F5.mp3",
+    "seconds": 6.034,
+    "peak": 0.7056,
+    "rms": 0.25181,
+    "cents": 1.0,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/F5.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 54,
+    "file": "saxophone/Fs3.mp3",
+    "seconds": 5.381,
+    "peak": 0.7052,
+    "rms": 0.25529,
+    "cents": 0.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/Fs3.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 66,
+    "file": "saxophone/Fs4.mp3",
+    "seconds": 6.06,
+    "peak": 0.7079,
+    "rms": 0.24327,
+    "cents": 0.3,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/Fs4.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 78,
+    "file": "saxophone/Fs5.mp3",
+    "seconds": 6.113,
+    "peak": 0.7081,
+    "rms": 0.32298,
+    "cents": -0.6,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/Fs5.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 55,
+    "file": "saxophone/G3.mp3",
+    "seconds": 4.545,
+    "peak": 0.7065,
+    "rms": 0.15293,
+    "cents": -0.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/G3.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 67,
+    "file": "saxophone/G4.mp3",
+    "seconds": 6.113,
+    "peak": 0.708,
+    "rms": 0.15985,
+    "cents": 0.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/G4.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 79,
+    "file": "saxophone/G5.mp3",
+    "seconds": 6.635,
+    "peak": 0.7047,
+    "rms": 0.38807,
+    "cents": -0.2,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/G5.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 56,
+    "file": "saxophone/Gs3.mp3",
+    "seconds": 6.74,
+    "peak": 0.7058,
+    "rms": 0.1747,
+    "cents": 0.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/Gs3.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 68,
+    "file": "saxophone/Gs4.mp3",
+    "seconds": 7.053,
+    "peak": 0.7082,
+    "rms": 0.23727,
+    "cents": -0.1,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/Gs4.mp3"
+  },
+  {
+    "instrument": "Alto Saxophone",
+    "midi": 80,
+    "file": "saxophone/Gs5.mp3",
+    "seconds": 5.878,
+    "peak": 0.709,
+    "rms": 0.29233,
+    "cents": 0.8,
+    "source": "https://github.com/nbrosowsky/tonejs-instruments/blob/622c2f1c32c8cfce4158ddc3eb26e518ddef37e5/samples/saxophone/Gs5.mp3"
+  },
+  {
+    "instrument": "Viola",
+    "midi": 69,
+    "file": "viola/A4.wav",
+    "seconds": 10.813,
+    "peak": 0.5206,
+    "rms": 0.15206,
+    "cents": -2.9,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Viola Section/susvib/ViolaEns_susvib_A3_v2_1.wav"
+  },
+  {
+    "instrument": "Viola",
+    "midi": 59,
+    "file": "viola/B3.wav",
+    "seconds": 12.352,
+    "peak": 0.3958,
+    "rms": 0.09998,
+    "cents": -0.5,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Viola Section/susvib/ViolaEns_susvib_B2_v2_1.wav"
+  },
+  {
+    "instrument": "Viola",
+    "midi": 83,
+    "file": "viola/B5.wav",
+    "seconds": 10.936,
+    "peak": 0.2415,
+    "rms": 0.06327,
+    "cents": 1.5,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Viola Section/susvib/ViolaEns_susvib_B4_v2_1.wav"
+  },
+  {
+    "instrument": "Viola",
+    "midi": 48,
+    "file": "viola/C3.wav",
+    "seconds": 12.54,
+    "peak": 0.3071,
+    "rms": 0.07585,
+    "cents": 0.3,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Viola Section/susvib/ViolaEns_susvib_C2_v2_1.wav"
+  },
+  {
+    "instrument": "Viola",
+    "midi": 72,
+    "file": "viola/C5.wav",
+    "seconds": 11.167,
+    "peak": 0.3679,
+    "rms": 0.08847,
+    "cents": 2.8,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Viola Section/susvib/ViolaEns_susvib_C4_v2_1.wav"
+  },
+  {
+    "instrument": "Viola",
+    "midi": 50,
+    "file": "viola/D3.wav",
+    "seconds": 11.526,
+    "peak": 0.3336,
+    "rms": 0.07817,
+    "cents": -0.3,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Viola Section/susvib/ViolaEns_susvib_D2_v2_1.wav"
+  },
+  {
+    "instrument": "Viola",
+    "midi": 62,
+    "file": "viola/D4.wav",
+    "seconds": 13.593,
+    "peak": 0.3112,
+    "rms": 0.08474,
+    "cents": -0.3,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Viola Section/susvib/ViolaEns_susvib_D3_v2_1.wav"
+  },
+  {
+    "instrument": "Viola",
+    "midi": 86,
+    "file": "viola/D6.wav",
+    "seconds": 9.971,
+    "peak": 0.2656,
+    "rms": 0.06425,
+    "cents": 0.7,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Viola Section/susvib/ViolaEns_susvib_D5_v2_1.wav"
+  },
+  {
+    "instrument": "Viola",
+    "midi": 52,
+    "file": "viola/E3.wav",
+    "seconds": 11.442,
+    "peak": 0.3603,
+    "rms": 0.07198,
+    "cents": -0.8,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Viola Section/susvib/ViolaEns_susvib_E2_v2_1.wav"
+  },
+  {
+    "instrument": "Viola",
+    "midi": 76,
+    "file": "viola/E5.wav",
+    "seconds": 9.671,
+    "peak": 0.3731,
+    "rms": 0.08102,
+    "cents": 1.7,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Viola Section/susvib/ViolaEns_susvib_E4_v2_1.wav"
+  },
+  {
+    "instrument": "Viola",
+    "midi": 65,
+    "file": "viola/F4.wav",
+    "seconds": 13.121,
+    "peak": 0.3567,
+    "rms": 0.08181,
+    "cents": 3.3,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Viola Section/susvib/ViolaEns_susvib_F3_v2_1.wav"
+  },
+  {
+    "instrument": "Viola",
+    "midi": 55,
+    "file": "viola/G3.wav",
+    "seconds": 13.746,
+    "peak": 0.4052,
+    "rms": 0.09304,
+    "cents": -2.7,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Viola Section/susvib/ViolaEns_susvib_G2_v2_1.wav"
+  },
+  {
+    "instrument": "Viola",
+    "midi": 79,
+    "file": "viola/G5.wav",
+    "seconds": 11.729,
+    "peak": 0.3494,
+    "rms": 0.09227,
+    "cents": 1.1,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Viola Section/susvib/ViolaEns_susvib_G4_v2_1.wav"
+  },
+  {
+    "instrument": "Cello",
+    "midi": 57,
+    "file": "cello/A3.wav",
+    "seconds": 11.65,
+    "peak": 0.5147,
+    "rms": 0.1073,
+    "cents": -1.4,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Cello Section/susvib/susvib_A2_v3_1.wav"
+  },
+  {
+    "instrument": "Cello",
+    "midi": 47,
+    "file": "cello/B2.wav",
+    "seconds": 12.747,
+    "peak": 0.5811,
+    "rms": 0.18075,
+    "cents": 1.2,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Cello Section/susvib/susvib_B1_v3_1.wav"
+  },
+  {
+    "instrument": "Cello",
+    "midi": 71,
+    "file": "cello/B4.wav",
+    "seconds": 10.828,
+    "peak": 0.4249,
+    "rms": 0.08197,
+    "cents": 3.8,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Cello Section/susvib/susvib_B3_v3_1.wav"
+  },
+  {
+    "instrument": "Cello",
+    "midi": 36,
+    "file": "cello/C2.wav",
+    "seconds": 12.607,
+    "peak": 0.6991,
+    "rms": 0.11734,
+    "cents": -1.1,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Cello Section/susvib/susvib_C1_v3_1.wav"
+  },
+  {
+    "instrument": "Cello",
+    "midi": 60,
+    "file": "cello/C4.wav",
+    "seconds": 11.411,
+    "peak": 0.5329,
+    "rms": 0.11982,
+    "cents": -1.6,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Cello Section/susvib/susvib_C3_v3_1.wav"
+  },
+  {
+    "instrument": "Cello",
+    "midi": 50,
+    "file": "cello/D3.wav",
+    "seconds": 12.439,
+    "peak": 0.6603,
+    "rms": 0.1738,
+    "cents": 1.6,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Cello Section/susvib/susvib_D2_v3_1.wav"
+  },
+  {
+    "instrument": "Cello",
+    "midi": 74,
+    "file": "cello/D5.wav",
+    "seconds": 10.586,
+    "peak": 0.3478,
+    "rms": 0.08935,
+    "cents": -2.2,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Cello Section/susvib/susvib_D4_v3_1.wav"
+  },
+  {
+    "instrument": "Cello",
+    "midi": 40,
+    "file": "cello/E2.wav",
+    "seconds": 11.642,
+    "peak": 0.5986,
+    "rms": 0.12904,
+    "cents": -3.0,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Cello Section/susvib/susvib_E1_v3_1.wav"
+  },
+  {
+    "instrument": "Cello",
+    "midi": 64,
+    "file": "cello/E4.wav",
+    "seconds": 12.389,
+    "peak": 0.7437,
+    "rms": 0.1458,
+    "cents": -2.2,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Cello Section/susvib/susvib_E3_v3_1.wav"
+  },
+  {
+    "instrument": "Cello",
+    "midi": 53,
+    "file": "cello/F3.wav",
+    "seconds": 11.575,
+    "peak": 0.5346,
+    "rms": 0.09325,
+    "cents": 5.3,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Cello Section/susvib/susvib_F2_v3_1.wav"
+  },
+  {
+    "instrument": "Cello",
+    "midi": 77,
+    "file": "cello/F5.wav",
+    "seconds": 10.303,
+    "peak": 0.3266,
+    "rms": 0.08087,
+    "cents": 1.0,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Cello Section/susvib/susvib_F4_v3_1.wav"
+  },
+  {
+    "instrument": "Cello",
+    "midi": 43,
+    "file": "cello/G2.wav",
+    "seconds": 12.738,
+    "peak": 0.6441,
+    "rms": 0.16291,
+    "cents": -1.3,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Cello Section/susvib/susvib_G1_v3_1.wav"
+  },
+  {
+    "instrument": "Cello",
+    "midi": 67,
+    "file": "cello/G4.wav",
+    "seconds": 12.607,
+    "peak": 0.5476,
+    "rms": 0.13282,
+    "cents": -0.1,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Strings/Cello Section/susvib/susvib_G3_v3_1.wav"
+  },
+  {
+    "instrument": "Clarinet",
+    "midi": 58,
+    "file": "clarinet/As3.wav",
+    "seconds": 10.824,
+    "peak": 0.0698,
+    "rms": 0.02674,
+    "cents": 0.4,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Clarinet/susLong/DCClar_susLong_A#2_v2_rr1_sum.wav"
+  },
+  {
+    "instrument": "Clarinet",
+    "midi": 70,
+    "file": "clarinet/As4.wav",
+    "seconds": 10.154,
+    "peak": 0.1583,
+    "rms": 0.07696,
+    "cents": 3.2,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Clarinet/susLong/DCClar_susLong_A#3_v2_rr1_sum.wav"
+  },
+  {
+    "instrument": "Clarinet",
+    "midi": 82,
+    "file": "clarinet/As5.wav",
+    "seconds": 10.335,
+    "peak": 0.1534,
+    "rms": 0.04646,
+    "cents": 4.3,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Clarinet/susLong/DCClar_susLong_A#4_v2_rr1_sum.wav"
+  },
+  {
+    "instrument": "Clarinet",
+    "midi": 50,
+    "file": "clarinet/D3.wav",
+    "seconds": 9.576,
+    "peak": 0.13,
+    "rms": 0.02391,
+    "cents": 4.3,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Clarinet/susLong/DCClar_susLong_D2_v2_rr1_sum.wav"
+  },
+  {
+    "instrument": "Clarinet",
+    "midi": 62,
+    "file": "clarinet/D4.wav",
+    "seconds": 10.636,
+    "peak": 0.1498,
+    "rms": 0.05209,
+    "cents": 3.5,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Clarinet/susLong/DCClar_susLong_D3_v2_rr1_sum.wav"
+  },
+  {
+    "instrument": "Clarinet",
+    "midi": 74,
+    "file": "clarinet/D5.wav",
+    "seconds": 11.579,
+    "peak": 0.1583,
+    "rms": 0.05982,
+    "cents": 3.9,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Clarinet/susLong/DCClar_susLong_D4_v2_rr1_sum.wav"
+  },
+  {
+    "instrument": "Clarinet",
+    "midi": 86,
+    "file": "clarinet/D6.wav",
+    "seconds": 10.046,
+    "peak": 0.3041,
+    "rms": 0.14221,
+    "cents": 6.6,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Clarinet/susLong/DCClar_susLong_D5_v2_rr1_sum.wav"
+  },
+  {
+    "instrument": "Clarinet",
+    "midi": 53,
+    "file": "clarinet/F3.wav",
+    "seconds": 10.403,
+    "peak": 0.1094,
+    "rms": 0.02981,
+    "cents": 1.7,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Clarinet/susLong/DCClar_susLong_F2_v2_rr1_sum.wav"
+  },
+  {
+    "instrument": "Clarinet",
+    "midi": 65,
+    "file": "clarinet/F4.wav",
+    "seconds": 11.732,
+    "peak": 0.1124,
+    "rms": 0.04959,
+    "cents": 6.7,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Clarinet/susLong/DCClar_susLong_F3_v2_rr1_sum.wav"
+  },
+  {
+    "instrument": "Clarinet",
+    "midi": 77,
+    "file": "clarinet/F5.wav",
+    "seconds": 12.147,
+    "peak": 0.1212,
+    "rms": 0.0304,
+    "cents": 6.2,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Clarinet/susLong/DCClar_susLong_F4_v2_rr1_sum.wav"
+  },
+  {
+    "instrument": "Oboe",
+    "midi": 58,
+    "file": "oboe/As3.wav",
+    "seconds": 13.475,
+    "peak": 0.1132,
+    "rms": 0.03238,
+    "cents": 2.7,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Oboe/Sus/Oboe_Sus_A#2_v3_Main.wav"
+  },
+  {
+    "instrument": "Oboe",
+    "midi": 70,
+    "file": "oboe/As4.wav",
+    "seconds": 10.167,
+    "peak": 0.1262,
+    "rms": 0.04828,
+    "cents": 1.7,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Oboe/Sus/Oboe_Sus_A#3_v3_Main.wav"
+  },
+  {
+    "instrument": "Oboe",
+    "midi": 82,
+    "file": "oboe/As5.wav",
+    "seconds": 8.767,
+    "peak": 0.0853,
+    "rms": 0.03369,
+    "cents": -0.5,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Oboe/Sus/Oboe_Sus_A#4_v3_Main.wav"
+  },
+  {
+    "instrument": "Oboe",
+    "midi": 62,
+    "file": "oboe/D4.wav",
+    "seconds": 12.584,
+    "peak": 0.0927,
+    "rms": 0.02781,
+    "cents": 3.1,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Oboe/Sus/Oboe_Sus_D3_v3_Main.wav"
+  },
+  {
+    "instrument": "Oboe",
+    "midi": 74,
+    "file": "oboe/D5.wav",
+    "seconds": 9.633,
+    "peak": 0.0711,
+    "rms": 0.02337,
+    "cents": 2.1,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Oboe/Sus/Oboe_Sus_D4_v3_Main.wav"
+  },
+  {
+    "instrument": "Oboe",
+    "midi": 86,
+    "file": "oboe/D6.wav",
+    "seconds": 9.359,
+    "peak": 0.1605,
+    "rms": 0.06188,
+    "cents": 1.0,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Oboe/Sus/Oboe_Sus_D5_v3_Main.wav"
+  },
+  {
+    "instrument": "Oboe",
+    "midi": 65,
+    "file": "oboe/F4.wav",
+    "seconds": 9.734,
+    "peak": 0.1139,
+    "rms": 0.03838,
+    "cents": 4.3,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Oboe/Sus/Oboe_Sus_F3_v3_Main.wav"
+  },
+  {
+    "instrument": "Oboe",
+    "midi": 77,
+    "file": "oboe/F5.wav",
+    "seconds": 8.233,
+    "peak": 0.1478,
+    "rms": 0.06681,
+    "cents": 3.2,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Oboe/Sus/Oboe_Sus_F4_v3_Main.wav"
+  },
+  {
+    "instrument": "Oboe",
+    "midi": 89,
+    "file": "oboe/F6.wav",
+    "seconds": 9.765,
+    "peak": 0.0773,
+    "rms": 0.03126,
+    "cents": -0.7,
+    "source": "https://github.com/sgossner/VSCO-2-CE/blob/440300901dfe9275fd84e0b7763af1f8443ae62e/Woodwinds/Oboe/Sus/Oboe_Sus_F5_v3_Main.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 46,
+    "file": "tenor-saxophone/As2.wav",
+    "seconds": 7.927,
+    "peak": 0.0902,
+    "rms": 0.03185,
+    "cents": -0.1,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_A#1_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 58,
+    "file": "tenor-saxophone/As3.wav",
+    "seconds": 7.576,
+    "peak": 0.052,
+    "rms": 0.01664,
+    "cents": 0.2,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_A#2_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 70,
+    "file": "tenor-saxophone/As4.wav",
+    "seconds": 9.664,
+    "peak": 0.0905,
+    "rms": 0.03129,
+    "cents": 0.1,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_A#3_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 48,
+    "file": "tenor-saxophone/C3.wav",
+    "seconds": 8.206,
+    "peak": 0.0834,
+    "rms": 0.02467,
+    "cents": 0.3,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_C2_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 60,
+    "file": "tenor-saxophone/C4.wav",
+    "seconds": 7.367,
+    "peak": 0.0393,
+    "rms": 0.01417,
+    "cents": 0.2,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_C3_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 72,
+    "file": "tenor-saxophone/C5.wav",
+    "seconds": 8.554,
+    "peak": 0.0626,
+    "rms": 0.02469,
+    "cents": 0.4,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_C4_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 50,
+    "file": "tenor-saxophone/D3.wav",
+    "seconds": 8.67,
+    "peak": 0.0849,
+    "rms": 0.02765,
+    "cents": 0.4,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_D2_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 62,
+    "file": "tenor-saxophone/D4.wav",
+    "seconds": 7.605,
+    "peak": 0.0595,
+    "rms": 0.0236,
+    "cents": 0.1,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_D3_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 74,
+    "file": "tenor-saxophone/D5.wav",
+    "seconds": 7.59,
+    "peak": 0.0645,
+    "rms": 0.01877,
+    "cents": -0.1,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_D4_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 52,
+    "file": "tenor-saxophone/E3.wav",
+    "seconds": 8.942,
+    "peak": 0.1012,
+    "rms": 0.03613,
+    "cents": 0.7,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_E2_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 64,
+    "file": "tenor-saxophone/E4.wav",
+    "seconds": 7.453,
+    "peak": 0.0744,
+    "rms": 0.03972,
+    "cents": 1.3,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_E3_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 76,
+    "file": "tenor-saxophone/E5.wav",
+    "seconds": 8.575,
+    "peak": 0.1261,
+    "rms": 0.04936,
+    "cents": 0.6,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_E4_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 54,
+    "file": "tenor-saxophone/Fs3.wav",
+    "seconds": 8.663,
+    "peak": 0.093,
+    "rms": 0.03192,
+    "cents": 0.0,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_F#2_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 66,
+    "file": "tenor-saxophone/Fs4.wav",
+    "seconds": 8.049,
+    "peak": 0.0739,
+    "rms": 0.03298,
+    "cents": -0.0,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_F#3_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 44,
+    "file": "tenor-saxophone/Gs2.wav",
+    "seconds": 7.808,
+    "peak": 0.1587,
+    "rms": 0.04948,
+    "cents": 0.6,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_G#1_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 56,
+    "file": "tenor-saxophone/Gs3.wav",
+    "seconds": 6.732,
+    "peak": 0.0758,
+    "rms": 0.02925,
+    "cents": 0.3,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_G#2_vl2_rr1.wav"
+  },
+  {
+    "instrument": "Tenor Saxophone",
+    "midi": 68,
+    "file": "tenor-saxophone/Gs4.wav",
+    "seconds": 7.048,
+    "peak": 0.1013,
+    "rms": 0.03481,
+    "cents": 0.8,
+    "source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_G#3_vl2_rr1.wav"
+  }
+]

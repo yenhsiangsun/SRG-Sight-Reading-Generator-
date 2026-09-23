@@ -9,7 +9,7 @@ export { INSTRUMENTS } from './music/instruments';
 export type { Instrument } from './music/instruments';
 export type Clef = import('./music/instruments').StaffChoice;
 export type RhythmLevel = 'Simple' | 'Moderate' | 'Complex';
-export const CLEFS: Clef[] = ['treble','alto','tenor','bass','grand'];
+export const CLEFS: Clef[] = ['treble','alto','tenor','bass','mixedStaff','grand'];
 
 export const KEY_SIGNATURES = [
   "C",
@@ -31,6 +31,7 @@ export const TIME_SIGNATURES = [
   "3/4",
   "4/4",
   "5/4",
+  "3/8",
   "6/8",
   "7/8",
   "9/8",

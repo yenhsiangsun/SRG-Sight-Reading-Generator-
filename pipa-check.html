@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>琵琶取樣試聽</title>
+<style>body{font-family:system-ui;background:#f6f5f0;color:#263f37;max-width:650px;margin:48px auto;padding:24px;line-height:1.8}button{background:#254e42;color:white;border:0;border-radius:10px;padding:14px 20px;font:inherit;cursor:pointer}a{color:#254e42}</style>
+<h1>琵琶錄音取樣試聽</h1><p>使用 App 同一套播放器，依序播放 A3、B3、C4、D4、E4。</p>
+<button id="play">播放琵琶</button> <button id="stop">停止</button><p id="status" role="status">準備就緒</p>
+<p id="source">正在確認音源…</p>
+<p><a href="/">回到 App 選擇琵琶</a> · <a href="/samples/CREDITS.txt">來源與授權</a></p>
+<script type="module">
+import * as Tone from 'tone';
+import {createPlaybackInstrument} from './src/audio/createPlaybackInstrument.ts';
+let voice=null,request=0,timer;
+const status=document.querySelector('#status');
+document.querySelector('#source').textContent=import.meta.env.VITE_LOCAL_PIPA ? '目前使用 Eamon 的 Pipa：九個音高的撥弦取樣，本機開發試聽用途。尚未取得 App 分發授權。' : '目前使用原先 Freesound 演奏會取樣。';
+function stop(){request++;clearTimeout(timer);voice?.dispose();voice=null;status.textContent='已停止';}
+document.querySelector('#stop').onclick=stop;
+document.querySelector('#play').onclick=async()=>{
+ stop();const ticket=request;status.textContent='載入琵琶錄音…';
+ try{await Tone.start();const loaded=await createPlaybackInstrument('Pipa');
+ if(ticket!==request){loaded.dispose();return;}voice=loaded;
+ ['A3','B3','C4','D4','E4'].forEach((note,i)=>voice.triggerAttackRelease(note,.4,Tone.now()+i*.75));
+ status.textContent=import.meta.env.VITE_LOCAL_PIPA ? '正在播放 Eamon 琵琶取樣' : '正在播放 Freesound 琵琶取樣';
+ timer=setTimeout(()=>{stop();status.textContent='播放完成';},4000);
+ }catch(error){status.textContent=error.message;}
+};
+window.addEventListener('pagehide',stop);
+</script></html>

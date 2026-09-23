@@ -16,6 +16,9 @@ test('textbook spellings, modal signatures and Japanese named forms are explicit
     ['A','melodic-minor',['A','B','C','D','E','F#','G#'],'C'],
     ['D','dorian',['D','E','F','G','A','B','C'],'C'],
     ['C','dorian',['C','D','Eb','F','G','A','Bb'],'Bb'],
+    ['C','egyptian-pentatonic',['C','D','F','G','Bb'],'Bb'],
+    ['D','egyptian-pentatonic',['D','E','G','A','C'],'C'],
+    ['F#','egyptian-pentatonic',['F#','G#','B','C#','E'],'E'],
     ['C#','major',['C#','D#','E#','F#','G#','A#','B#'],'C#'],
     ['Cb','major',['Cb','Db','Eb','Fb','Gb','Ab','Bb'],'Cb'],
     ['C','hirajoshi',['C','D','Eb','G','Ab'],null],
@@ -33,7 +36,24 @@ test('textbook spellings, modal signatures and Japanese named forms are explicit
   }
 });
 
-test('all 450 transpositions retain correct written octaves, pitch sets, range and leap limits',()=>{
+test('Southeast Asian practice approximations have explicit spellings and no Western key signature',()=>{
+  const expected=[
+    ['C','pelog-pentatonic',['C','Db','Eb','G','Ab']],
+    ['D','pelog-pentatonic',['D','Eb','F','A','Bb']],
+    ['F#','pelog-pentatonic',['F#','G','A','C#','D']],
+    ['C','slendro-pentatonic',['C','D','F','G','Bb']],
+    ['D','slendro-pentatonic',['D','E','G','A','C']],
+    ['F#','slendro-pentatonic',['F#','G#','B','C#','E']],
+  ];
+  for(const [tonic,id,notes] of expected) {
+    const actual=scales.describeTonality(tonic,id);
+    assert.deepEqual(Array.from(actual.notes),notes);
+    assert.equal(actual.signature,null);
+    assert.match(scales.getScale(id).description,/近似|取整/);
+  }
+});
+
+test('all scale transpositions retain correct written octaves, pitch sets, range and leap limits',()=>{
   const engine=loadModule('src/music.ts',2187);
   for(const scale of scales.SCALES) for(const tonic of scales.TONICS) {
     const exercise=engine.generatePracticeExercise({...base,scaleId:scale.id,tonic});

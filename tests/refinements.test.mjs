@@ -29,8 +29,9 @@ test('single melody grand staff preserves timing and never schedules simultaneou
     assert.equal(e.grandMode,'mono');
     for(let m=0;m<e.measures.length;m++){
       const top=e.measures[m],bottom=e.lowerMeasures[m];
-      assert.equal(top.events.reduce((n,e)=>n+e.durationUnits,0),top.totalUnits);
-      assert.equal(bottom.events.reduce((n,e)=>n+e.durationUnits,0),top.totalUnits);
+      // Thirds use integer rhythm ticks; raw floating-point sums are not exact.
+      assert.equal(top.events.reduce((n,e)=>n+Math.round(e.durationUnits*12),0),top.totalUnits*12);
+      assert.equal(bottom.events.reduce((n,e)=>n+Math.round(e.durationUnits*12),0),top.totalUnits*12);
       for(let n=0;n<top.events.length;n++)assert.ok(top.events[n].rest||bottom.events[n].rest);
     }
     const played=createPlaybackEvents(e,72).events;
@@ -46,9 +47,9 @@ test('instrument choices exclude duplicate tuning variants and preserve source n
 });
 test('every mapped recording is bundled and is not a missing-file response',()=>{
   const manifest=JSON.parse(fs.readFileSync('src/audio/sampleManifest.json','utf8'));
-  assert.equal(Object.keys(manifest).length,9);
+  assert.equal(Object.keys(manifest).length,20);
   for(const p of Object.values(manifest))for(const f of Object.values(p.urls)){
-    const data=fs.readFileSync('public/samples/'+p.folder+'/'+f);assert.ok(data.length>1000,f);assert.ok(data[0]===0xff||data.subarray(0,3).toString()==='ID3',f);
+    const data=fs.readFileSync('public/samples/'+p.folder+'/'+f);assert.ok(data.length>1000,f);assert.ok(data[0]===0xff||data.subarray(0,3).toString()==='ID3'||(data.subarray(0,4).toString()==='RIFF'&&data.subarray(8,12).toString()==='WAVE'),f);
   }
 });
 test('stopping during sample loading disposes late synth without starting playback',async()=>{

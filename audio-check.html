@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>二胡錄音對照</title>
+<style>body{font-family:system-ui,sans-serif;background:#f6f5f0;color:#263f37;max-width:650px;margin:48px auto;padding:24px;line-height:1.8}section{background:white;border:1px solid #ddd;border-radius:16px;padding:22px;margin:20px 0}button{background:#254e42;color:white;border:0;border-radius:10px;padding:14px 20px;font:inherit;cursor:pointer}audio{width:100%}small{color:#59655e}a{color:#254e42}</style>
+<h1>同一個音，直接比較</h1>
+<p>這是獨立測試頁，不是正式 App 功能。請分別播放，避免聲音重疊。</p>
+<section><h2>1．Berklee 原始錄音</h2><p>A4，未裁切、未調音、未延長。音量設為 App 同樣的 −10 dB。</p><audio id="original" controls src="/samples/erhu/A4-original.wav"></audio></section>
+<section><h2>2．目前 App 的二胡播放器</h2><p>同樣播放 A4，長度約三秒。使用正式播放器的錄音載入程式，沒有隨機移調。</p><button id="play">播放 App 版本</button> <button id="stop">停止</button><p id="status" role="status">準備就緒</p></section>
+<p>若這裡接近，但隨機樂譜不像，問題就集中在短音與跨音域移調。這兩個長音取樣不能完整表現二胡換弓與連奏。</p>
+<small>來源：BISA，Yu Chun Chan 演奏，Josefina Ugarte 錄音，Asher Deverna 編輯。<a href="/samples/CREDITS.txt">來源、授權與處理說明</a></small>
+<script type="module">
+import * as Tone from 'tone';
+import {createPlaybackInstrument} from './src/audio/createPlaybackInstrument.ts';
+const original=document.querySelector('#original'),status=document.querySelector('#status');
+original.volume=10**(-10/20);
+let voice=null,request=0;
+function stop(){request++;original.pause();voice?.dispose();voice=null;status.textContent='已停止';}
+document.querySelector('#stop').onclick=stop;
+original.onplay=()=>{request++;voice?.dispose();voice=null;status.textContent='播放原始錄音';};
+document.querySelector('#play').onclick=async()=>{
+  stop();const ticket=request;status.textContent='載入錄音…';
+  try{await Tone.start();const loaded=await createPlaybackInstrument('Erhu');
+    if(ticket!==request){loaded.dispose();return;}
+    voice=loaded;voice.triggerAttackRelease('A4',2.897,Tone.now());status.textContent='正在播放 App 的 A4 錄音取樣';
+  }catch(error){status.textContent=error.message;}
+};
+window.addEventListener('pagehide',stop);
+</script></html>

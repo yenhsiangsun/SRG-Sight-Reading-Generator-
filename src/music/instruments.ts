@@ -1,5 +1,5 @@
 import type { Instrument as EngineInstrument } from '../music';
-export type StaffChoice = 'treble' | 'bass' | 'alto' | 'tenor' | 'grand';
+export type StaffChoice = 'treble' | 'bass' | 'alto' | 'tenor' | 'mixedStaff' | 'grand';
 export interface InstrumentProfile {
   zh: string; family: string; clef: StaffChoice; engineInstrument: EngineInstrument;
   min: number; max: number; transpose: number; note: string; source: string;
@@ -31,6 +31,7 @@ export const INSTRUMENTS = {
   'Bass Guitar': p('電貝斯（四弦／24 格）','其他','bass',40,79,'https://usa.yamaha.com/products/musical_instruments/guitars_basses/el_basses/trbx/specs.html','標準 EADG 定弦；最高音依 24 格推算，實音 E1–G4。',-12),
   Voice: p('人聲（自訂音域）','其他','treble',60,72,'','C4–C5 僅為起始練習範圍；人聲沒有統一音域，請依自己的舒適音域設定。'),
   Sheng: cn('高音鍵笙','國樂・吹管','treble',55,90,'香港中樂團加鍵型，G3–F♯6；不適用傳統 17 簧笙。'),
+  'Alto Sheng': p('中音笙','國樂・吹管','mixedStaff',48,83,'','依指定練習音域 C3–B5；實音記譜，預設依音高切換高、低音譜號。',0,'Sheng'),
   'Tenor Sheng': cn('次中音笙','國樂・吹管','alto',43,78,'香港中樂團加鍵型，G2–F♯5。'),
   'Bass Sheng': cn('低音笙','國樂・吹管','bass',36,67,'香港中樂團加鍵型，C2–G4。'),
   'Bangdi G': cn('梆笛','國樂・吹管','treble',62,88,'參考 G 調型號音域；樂曲調性可另選，其他型號請自訂音域。採香港中樂團高八度實音慣例；含超吹，不含極限音。快速連續半音需特殊指法。',12),
@@ -61,7 +62,7 @@ export const INSTRUMENTS = {
   'Alto Guan': cn('中音加鍵管','國樂・吹管','treble',62,83,'實音 D3–B4；高八度記譜，未含極限音。',-12),
   'Bass Guan': cn('低音加鍵管','國樂・吹管','bass',45,64,'實音 A2–E4，未含極限音。'),
   Liuqin: cn('柳琴／小阮','國樂・彈撥','treble',55,93,'香港中樂團表列音域 G3–A6，未含極限延伸。'),
-  Pipa: cn('琵琶','國樂・彈撥','treble',45,88,'實音 A2–E6；可選大譜表。'),
+  Pipa: cn('琵琶','國樂・彈撥','mixedStaff',45,88,'實音 A2–E6；預設混合譜表，於單行內依音高切換高、低音譜號。'),
   Zhongruan: cn('中阮','國樂・彈撥','treble',55,83,'採香港中樂團高八度記譜；實音 G2–B4。',-12),
   Daruan: cn('大阮','國樂・彈撥','bass',38,67,'實音 D2–G4，未含極限延伸。'),
   Sanxian: cn('大三弦','國樂・彈撥','bass',43,74,'香港中樂團定弦 G2–D3–G3；音域至 D5。'),

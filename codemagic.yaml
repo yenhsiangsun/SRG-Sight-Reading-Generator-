@@ -1,0 +1,49 @@
+workflows:
+  ipad-testflight:
+    name: iPad TestFlight
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    integrations:
+      app_store_connect: sight-reading-generator
+    environment:
+      xcode: 26.4
+      node: 24
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.yenhsiang.sightreadinggenerator
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: codex/ipad-app-development
+          include: true
+          source: true
+      cancel_previous_builds: true
+    scripts:
+      - name: Install dependencies
+        script: npm ci
+      - name: Run regression tests
+        script: npm test
+      - name: Build web application
+        script: npm run build
+      - name: Sync web assets with iOS
+        script: npx cap sync ios
+      - name: Set build number
+        script: |
+          cd ios/App
+          agvtool new-version -all "$BUILD_NUMBER"
+      - name: Apply App Store signing profile
+        script: xcode-project use-profiles
+      - name: Build signed IPA
+        script: |
+          xcode-project build-ipa \
+            --project "ios/App/App.xcodeproj" \
+            --scheme "App"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true

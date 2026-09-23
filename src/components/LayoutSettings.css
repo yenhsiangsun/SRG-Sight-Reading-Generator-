@@ -1,0 +1,44 @@
+.layout-trigger{border:1px solid var(--theme-line);background:var(--theme-surface);color:var(--theme-text);border-radius:10px;padding:10px 12px;min-height:44px;white-space:nowrap;font-size:12px;cursor:pointer}
+.layout-description{font-size:14px;line-height:1.7;color:var(--theme-muted);margin:16px 0}
+.layout-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:24px 0}
+.layout-choice{display:grid;justify-items:center;gap:12px;padding:18px 10px;background:var(--theme-surface);color:var(--theme-text);border:1px solid var(--theme-line);border-radius:14px;cursor:pointer;min-width:0}
+.layout-choice strong{font-size:14px;overflow-wrap:anywhere}.layout-choice[aria-pressed=true]{border-color:var(--theme-primary-ink);box-shadow:inset 0 0 0 1px var(--theme-primary-ink);background:var(--theme-soft)}
+.layout-preview{display:grid;align-content:center;gap:5px;width:64px;height:66px;padding:8px;border:1px solid var(--theme-line);border-radius:7px}.layout-preview i{display:block;height:5px;border-radius:2px;background:var(--theme-primary-ink)}.layout-preview-standard{gap:8px}.layout-preview-standard i{height:8px}.layout-preview-comfortable{gap:9px}.layout-preview-comfortable i{height:10px}
+/* Adjust interface spacing and headings, not CSS zoom: score geometry, pointer
+   coordinates and the floating companion retain their original coordinate system. */
+.studio-app[data-layout=compact] .header{padding:12px 24px}
+.studio-app[data-layout=compact] .header-content{gap:14px}
+.studio-app[data-layout=compact] .header-tools{gap:10px;padding-left:14px}
+.studio-app[data-layout=compact] .brand{font-size:19px}
+.studio-app[data-layout=compact] .brand-mark{width:36px;height:40px;font-size:30px}
+.studio-app[data-layout=compact] .studio-home{padding-top:24px}
+.studio-app[data-layout=compact] .welcome-card{min-height:330px}
+.studio-app[data-layout=compact] .hero-content{padding:24px 28px 16px}
+.studio-app[data-layout=compact] .hero-content h2{font-size:clamp(25px,2.5vw,34px);line-height:1.45;margin-block:14px}
+.studio-app[data-layout=compact] .setup-layout{padding-top:24px;gap:20px}
+.studio-app[data-layout=compact] .setup-intro{padding:24px}
+.studio-app[data-layout=compact] .setup-intro h1{font-size:clamp(24px,2.6vw,34px);margin:16px 0}
+.studio-app[data-layout=compact] .steps{margin:20px 0}
+.studio-app[data-layout=compact] .panel-heading{padding:22px 24px 16px}
+.studio-app[data-layout=compact] .panel-heading h2{font-size:22px}
+.studio-app[data-layout=compact] .setup-content{padding:0 24px 20px}
+.studio-app[data-layout=compact] .practice-main{padding-top:24px}
+.studio-app[data-layout=compact] .practice-title{margin-block:16px}
+.studio-app[data-layout=compact] .practice-title h1{font-size:clamp(23px,2.4vw,30px)}
+.studio-app[data-layout=compact] .practice-toolbar{padding:12px 16px}
+.studio-app[data-layout=compact] .score-top{padding:22px 24px}
+.studio-app[data-layout=compact] .score-top h2{font-size:25px}
+.studio-app[data-layout=comfortable] .header{padding-block:26px}
+.studio-app[data-layout=comfortable] .studio-home,.studio-app[data-layout=comfortable] .setup-layout,.studio-app[data-layout=comfortable] .practice-main{padding-top:46px}
+.studio-app[data-layout=comfortable] .hero-content{padding:44px 42px 28px}
+.studio-app[data-layout=comfortable] .hero-content h2{font-size:clamp(34px,3.5vw,49px)}
+.studio-app[data-layout=comfortable] .setup-intro h1{font-size:clamp(36px,3.8vw,52px)}
+.studio-app[data-layout=comfortable] .panel-heading h2{font-size:30px}
+.studio-app[data-layout=comfortable] .practice-title h1{font-size:clamp(30px,3.4vw,42px)}
+.studio-app[data-layout=comfortable] .practice-toolbar{padding:24px}
+.studio-app[data-layout=comfortable] .score-top{padding:34px}
+.studio-app[data-layout=comfortable] .score-top h2{font-size:36px}
+.studio-app[data-layout=comfortable] :is(.primary-button,.secondary-button,.play-main,.control-group label){font-size:16px}
+.studio-app[data-layout=comfortable] :is(.primary-button,.secondary-button,.play-main){min-height:50px}
+@media(max-width:1000px){.studio-app .header-content{flex-wrap:wrap}.studio-app .header-tools{flex-wrap:wrap;justify-content:flex-end;gap:8px}.layout-trigger{padding-inline:9px}}
+@media(max-width:600px){.studio-app[data-layout] .header{padding:12px}.studio-app[data-layout] .header-content{gap:12px}.studio-app[data-layout] .header-tools{border:0;padding:0;gap:6px}.studio-app[data-layout] .setup-content{padding-inline:16px}.studio-app[data-layout] .hero-content{padding-inline:22px}.studio-app[data-layout] .score-top{padding-inline:16px}.layout-choices{gap:7px}.layout-choice{padding:12px 5px}.layout-preview{width:54px}}

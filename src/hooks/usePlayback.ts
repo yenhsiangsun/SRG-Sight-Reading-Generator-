@@ -1,5 +1,5 @@
 import { createPlaybackInstrument as createInstrumentSynth } from '../audio/createPlaybackInstrument';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import * as Tone from 'tone';
 import type { ExerciseData } from '../music';
 import { PlaybackController, type PlaybackStatus, type PlaybackMode } from '../audio/PlaybackController';
@@ -13,6 +13,7 @@ export function usePlayback() {
 
   useEffect(() => {
     const transport = Tone.getTransport();
+    let scheduledStartTime = 0;
     const controller = new PlaybackController({
       unlock: () => Tone.start(),
       createSynth: exercise => createInstrumentSynth(exercise.soundProfile ?? exercise.instrument),
@@ -28,9 +29,12 @@ export function usePlayback() {
         Tone.getDraw().schedule(callback, time);
       }, seconds),
       clear: (id) => transport.clear(id),
-      start: () => { transport.start(); },
-      pause: () => { transport.pause(); },
-      stop: () => { transport.stop(); transport.position = 0; },
+      start: () => { scheduledStartTime = Tone.now(); transport.start(scheduledStartTime); },
+      // Tone ignores a pause before its scheduled start. A quick pause must also
+      // cancel a start still inside the audio lookahead window.
+      pause: () => { transport.pause(Math.max(Tone.immediate(), scheduledStartTime)); },
+      stop: () => { scheduledStartTime = 0; transport.stop(Tone.immediate()); transport.position = 0; },
+      getSeconds: () => transport.getSecondsAtTime(Tone.immediate()),
       setTempo: (bpm) => { transport.bpm.value = bpm; },
       setLoop: (duration) => { transport.loop = duration !== null; if (duration !== null) { transport.loopStart = 0; transport.loopEnd = duration; } },
     }, (nextStatus, message = '', nextMode = 'score') => {
@@ -49,11 +53,27 @@ export function usePlayback() {
     if (enabled && status === 'idle') void controllerRef.current?.play(exercise, bpm, true);
   }
 
+  const getPosition = useCallback(() => controllerRef.current?.getPosition() ?? 0, []);
+
   return {
     status, mode, error, metronome, toggleMetronome,
+    playLoop: (exercise: ExerciseData, bpm: number, first: number, last: number) => controllerRef.current?.playLoop(exercise, bpm, first, last),
+    isLooping: () => controllerRef.current?.isLooping() ?? false,
     play: (exercise: ExerciseData, bpm: number) => controllerRef.current?.play(exercise, bpm),
     replay: (exercise: ExerciseData, bpm: number) => controllerRef.current?.replay(exercise, bpm),
     pause: () => controllerRef.current?.pause(),
     stop: () => controllerRef.current?.stop(),
+    getPosition,
+    seek: (exercise: ExerciseData, bpm: number, seconds: number) => controllerRef.current?.seek(exercise, bpm, seconds),
+    changeTempo: async (exercise: ExerciseData, previousBpm: number, bpm: number) => {
+      const controller = controllerRef.current;
+      if (!controller) return;
+      if (mode === 'metronome' && status === 'playing') {
+        controller.stop();
+        await controller.play(exercise, bpm, true);
+      } else {
+        await controller.seek(exercise, bpm, controller.getPosition() * previousBpm / bpm);
+      }
+    },
   };
 }

@@ -1,0 +1,22 @@
+{
+  "source": "https://freesound.org/people/xserra/sounds/162086/",
+  "author": "xserra",
+  "license": "CC BY 4.0",
+  "sha256": "e9472cfb42694a53df48bc35f44b080cf3c9fa281951cce04bb615f9beeae311",
+  "samples": [
+    {
+      "note": "A3",
+      "startSeconds": 25.8,
+      "endSeconds": 26.44,
+      "measuredHz": 219.97056754811717,
+      "targetHz": 220
+    },
+    {
+      "note": "B3",
+      "startSeconds": 21.2,
+      "endSeconds": 22.16,
+      "measuredHz": 248.2346205645115,
+      "targetHz": 246.9416506
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "title": "vocal C sharp long.wav",
+  "author": "owstu",
+  "license": "CC0 1.0",
+  "source": "https://freesound.org/people/owstu/sounds/555984/",
+  "download": "https://cdn.freesound.org/previews/555/555984_1690102-lq.mp3",
+  "sourceFormat": "public lossy MP3 preview, not original WAV",
+  "sourceSha256": "5ef95bc402e344caad6612aa1218b857de9dbbc39f9705955c7b5df938813f2b",
+  "startSeconds": 0.65,
+  "endSeconds": 8.65,
+  "measuredHz": 552.1395263671875,
+  "targetHz": 554.3652619537442,
+  "recordedRoot": "C#5",
+  "changes": "crop, pitch-centre correction, gain and edge fades; other notes repitched by playback"
+}

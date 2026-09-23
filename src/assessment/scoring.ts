@@ -1,5 +1,6 @@
 import type { ExerciseData } from '../music';
 import { createPlaybackEvents } from '../audio/PlaybackController';
+import {hasPolyphony} from '../music/notePitches';
 export interface Observation {time:number;midi:number;confidence:number;rms:number}
 export interface NoteResult {index:number;expected:string;pitch:boolean;rhythm:boolean;heard:boolean;cents:number|null;offsetMs:number|null}
 export interface AssessmentResult {pitch:number;rhythm:number;completion:number;confidence:number;notes:NoteResult[];reliable:boolean}
@@ -10,7 +11,7 @@ export function midiForNote(note:string) {
 }
 const median=(values:number[])=>{const sorted=[...values].sort((a,b)=>a-b);return sorted[Math.floor(sorted.length/2)]??0;};
 export function assess(exercise:ExerciseData,bpm:number,observations:Observation[],latencyMs=0):AssessmentResult {
-  if(exercise.lowerMeasures && exercise.grandMode!=='mono')throw new Error('Polyphonic microphone grading is not supported.');
+  if(hasPolyphony(exercise))throw new Error('Polyphonic microphone grading is not supported.');
   const expected=createPlaybackEvents(exercise,bpm).events;
   const frames=observations.filter(o=>o.confidence>=.85).map(o=>({...o,time:o.time-latencyMs/1000})).sort((a,b)=>a.time-b.time);
   const onsets:number[]=[];

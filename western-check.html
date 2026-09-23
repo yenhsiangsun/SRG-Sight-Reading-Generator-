@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>西洋樂器音色檢查</title>
+<style>body{font:16px/1.8 system-ui;background:#f6f5f0;color:#243c34;max-width:760px;margin:40px auto;padding:24px}button,select{font:inherit;padding:10px 16px;border-radius:10px;margin:5px;border:1px solid #b8c8c1}button{background:#254e42;color:white;cursor:pointer}li{padding:3px}a{color:#254e42}</style>
+<h1>西洋樂器音色</h1><p>使用 App 的正式播放器。請選樂器試聽，或檢查全部音源能否載入。</p>
+<select id="instrument" aria-label="樂器"></select><button id="play">試聽</button><button id="stop">停止</button><button id="verify">檢查全部音源</button>
+<p id="status" role="status">準備就緒</p><ul id="results"></ul>
+<p>中提琴及大提琴採合奏錄音；其他取樣的演奏方式與錄音空間也各有差異。這是基本音色播放，尚未模擬所有連奏與特殊技法。</p>
+<a href="/">回 App</a> · <a href="/samples/CREDITS.txt">來源與授權</a>
+<script type="module">
+import * as Tone from 'tone';
+import {createPlaybackInstrument} from './src/audio/createPlaybackInstrument.ts';
+import {INSTRUMENTS} from './src/music/instruments.ts';
+const instruments=Object.entries(INSTRUMENTS).filter(([,p])=>!p.family.startsWith('國樂'));
+const select=document.querySelector('#instrument'),status=document.querySelector('#status'),results=document.querySelector('#results');
+for(const [name,p] of instruments){const option=document.createElement('option');option.value=name;option.textContent=p.zh;select.append(option);}
+let voice=null,request=0,timer;
+function stop(){request++;clearTimeout(timer);voice?.dispose();voice=null;}
+document.querySelector('#stop').onclick=()=>{stop();status.textContent='已停止';};
+select.onchange=()=>{stop();status.textContent='準備就緒';};
+document.querySelector('#play').onclick=async()=>{
+ stop();const ticket=request;status.textContent='載入錄音…';
+ try{await Tone.start();const name=select.value,loaded=await createPlaybackInstrument(name);
+ if(ticket!==request){loaded.dispose();return;}voice=loaded;
+ const p=INSTRUMENTS[name],root=Math.round((p.min+p.max)/2)+p.transpose;
+ [0,2,4,2,0].forEach((interval,i)=>voice.triggerAttackRelease(Tone.Frequency(root+interval,'midi').toNote(),i===4?2:.45,Tone.now()+i*.65));
+ status.textContent=`正在播放 ${p.zh}`;
+ timer=setTimeout(()=>{stop();status.textContent='播放完成';},5100);
+ }catch(e){status.textContent=e.message;}
+};
+document.querySelector('#verify').onclick=async()=>{
+ stop();const ticket=request;results.replaceChildren();let successes=0;
+ await Tone.start();
+ for(const [name,p] of instruments){
+  if(ticket!==request)return;
+  status.textContent=`檢查 ${p.zh}…`;
+  const li=document.createElement('li');
+  try{const loaded=await createPlaybackInstrument(name);loaded.dispose();if(ticket!==request)return;successes++;li.textContent=`✓ ${p.zh}`;}
+  catch(e){li.textContent=`✗ ${p.zh}：${e.message}`;}
+  results.append(li);
+ }
+ status.textContent=`檢查完成：${successes} / ${instruments.length} 成功載入`;
+};
+window.addEventListener('pagehide',stop);
+</script></html>

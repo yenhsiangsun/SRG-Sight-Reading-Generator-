@@ -29,7 +29,9 @@ export function loadModule(path, seed = 90210, source = fs.readFileSync(path, 'u
 export function baselineExercises(engine) {
   const results = [];
   for (const key of ['C', 'G', 'D', 'A', 'E', 'B', 'F#', 'F', 'Bb', 'Eb', 'Ab', 'Db']) {
-    for (const meter of Object.keys(engine.TIME_SIGNATURES)) {
+    // This fixture freezes the original eight meters, independently of additions
+    // to the current app catalog (new meters have their own regression coverage).
+    for (const meter of ['2/4','3/4','4/4','5/4','6/8','7/8','9/8','12/8']) {
       for (const difficulty of ['beginner', 'intermediate', 'advanced']) {
         for (const rhythm of ['simple', 'medium', 'complex']) {
           results.push(engine.generateExercise('Sheng', 'treble', difficulty, key, meter, rhythm, 4, 72));

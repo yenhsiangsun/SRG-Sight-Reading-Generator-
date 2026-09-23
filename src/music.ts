@@ -1,4 +1,9 @@
 import { buildPitchMaterial, describeTonality, type Tonic, type Tonality, type PitchMaterial, type ScalePitch } from './music/scales';
+import type { RhythmFocus } from './practice/focus';
+import type {PracticeRhythmNote} from './music/practiceRhythm';
+import {selectPhraseRhythmPlan, type RhythmBarPlan} from './music/phraseRhythm';
+import {PITCH_DIFFICULTY, pitchDistanceWeight} from './music/pitchDifficulty';
+import {addRhythmUnits} from './music/rhythmTiming';
 
 // src/music.ts
 // 真正的視譜練習音樂生成引擎
@@ -40,6 +45,7 @@ export type TimeSignature =
   | "3/4"
   | "4/4"
   | "5/4"
+  | "3/8"
   | "6/8"
   | "7/8"
   | "9/8"
@@ -58,13 +64,26 @@ export interface PitchRange {
 }
 
 export interface RhythmPattern {
+  tuplet?: 3;
   duration: VexDuration;
   units: number;
   dots: number;
   weight: number;
 }
 
+export interface NotePitch {
+  key: string;
+  octave: number;
+  midi: number;
+}
+
 export interface GeneratedNote {
+  /** Three written eighths occupy one quarter beat; actual units are 4/3 each. */
+  tuplet?: 3;
+  /** All simultaneous pitches, including the original melody/bass pitch. One rhythmic event. */
+  chord?: NotePitch[];
+  articulation?: 'staccato' | 'tenuto' | 'accent';
+  dynamic?: 'p' | 'mp' | 'mf' | 'f';
   measureRest?: boolean;
   key: string;
   octave: number;
@@ -105,6 +124,8 @@ export interface MeasureData {
 export type GeneratedMeasure = MeasureData;
 
 export interface ExerciseData {
+  /** A single staff with either a fixed clef or automatic treble/bass changes. */
+  staffMode?: 'fixed' | 'mixed';
   soundProfile?: string;
   lowerMeasures?: MeasureData[];
   grandMode?: 'mono' | 'two-hand';
@@ -184,6 +205,14 @@ export const TIME_SIGNATURES: Record<
     // 6/8 = 3+3
     groups: [6, 6],
     compound: true,
+  },
+
+  "3/8": {
+    numerator: 3,
+    denominator: 8,
+    units: 6,
+    groups: [6],
+    compound: false,
   },
 
   "7/8": {
@@ -649,7 +678,9 @@ export function generateMeasure(
   previousMidi?: number,
   pitchRange?: PitchRange,
   allowAccidentals = false,
-  pitchMaterial?: PitchMaterial
+  pitchMaterial?: PitchMaterial,
+  practiceRhythm?: readonly PracticeRhythmNote[],
+  spellingSignature: string | null = keySignature,
 ): {
   measure: MeasureData;
   lastMidi: number;
@@ -709,17 +740,15 @@ export function generateMeasure(
   for (
     const beatUnits of beatStructure
   ) {
-    const composition =
-      createBeatComposition(
+    const composition = practiceRhythm
+      ? practiceRhythm.filter(note => note.startUnits >= startUnits && note.startUnits < startUnits + beatUnits)
+      : createBeatComposition(
         beatUnits,
         patterns
       );
 
     for (const pattern of composition) {
-      const rest = shouldBeRest(
-        difficulty,
-        rhythmLevel
-      );
+      const rest = 'rest' in pattern ? pattern.rest : shouldBeRest(difficulty, rhythmLevel);
 
       if (rest) {
         events.push({
@@ -730,18 +759,22 @@ export function generateMeasure(
           rest: true,
           startUnits,
           durationUnits: pattern.units,
+          ...(pattern.tuplet ? {tuplet: pattern.tuplet} : {}),
         });
       } else {
         const opening = previousMidi === undefined && events.every(event => event.rest);
-        const useChromatic = allowAccidentals && !(pitchMaterial && opening) && chromaticCandidates.length > 0 && Math.random() < 0.18;
+        const chromaticChance = practiceRhythm ? PITCH_DIFFICULTY[difficulty].chromaticChance : .18;
+        const useChromatic = allowAccidentals && !(pitchMaterial && opening) && chromaticCandidates.length > 0 && Math.random() < chromaticChance;
         const pool = useChromatic ? chromaticCandidates : candidates;
-        const pitch = pitchMaterial
-          ? chooseScalePitch(pool, lastMidi, difficulty, useChromatic ? null : pitchMaterial.tonicPC, opening)
+        const pitch = pitchMaterial || practiceRhythm
+          ? chooseScalePitch(pool, lastMidi, difficulty, useChromatic ? null : pitchMaterial?.tonicPC ?? null, opening)
           : choosePitch(pool, lastMidi, difficulty);
         if (useChromatic) {
           const sharps = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
           const flats = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
-          pitch.key = (keySignature.includes('b') || keySignature === 'F' || pitch.midi < lastMidi ? flats : sharps)[pitch.midi % 12];
+          const preferFlats = spellingSignature === null || spellingSignature === 'C'
+            ? pitch.midi < lastMidi : spellingSignature === 'F' || spellingSignature.includes('b');
+          pitch.key = (preferFlats ? flats : sharps)[pitch.midi % 12];
         }
 
         lastMidi = pitch.midi;
@@ -754,11 +787,12 @@ export function generateMeasure(
           rest: false,
           startUnits,
           durationUnits: pattern.units,
+          ...(pattern.tuplet ? {tuplet: pattern.tuplet} : {}),
           midi: pitch.midi,
         });
       }
 
-      startUnits += pattern.units;
+      startUnits = addRhythmUnits(startUnits, pattern.units);
     }
   }
 
@@ -859,6 +893,7 @@ export function getKeyScale(
 }
 
 export interface PracticeOptions {
+  rhythmFocus?: RhythmFocus;
   tonic?: Tonic;
   scaleId?: string;
   instrument: Instrument;
@@ -876,25 +911,33 @@ export interface PracticeOptions {
 }
 
 /** Meter changes occur at complete two-bar phrase boundaries. */
-export function generatePracticeExercise(options: PracticeOptions): ExerciseData {
-  const { instrument, clef, difficulty, keySignature, timeSignature, rhythmLevel,
-    measures, tempo, range, allowAccidentals, mixedMeters } = options;
-  const tonality = options.scaleId ? describeTonality(options.tonic ?? keySignature, options.scaleId) : undefined;
-  const material = tonality ? buildPitchMaterial(tonality, range) : undefined;
+export function createPracticeRhythmPlan(options: PracticeOptions): RhythmBarPlan[] {
+  const {timeSignature, mixedMeters, measures} = options;
   const meters = [...new Set(options.meters)];
   if (mixedMeters && (meters.length < 2 || meters.some(meter => !TIME_SIGNATURES[meter]))) {
     throw new Error('混合拍號請至少選擇兩種拍號。');
   }
   if (!Number.isInteger(measures) || measures < 1 || measures > 32) throw new Error('請選擇有效的小節數。');
-  if (!allowAccidentals && !mixedMeters && !material) {
-    return generateExercise(instrument, clef, difficulty, keySignature, timeSignature, rhythmLevel, measures, tempo, range);
-  }
-  const generated: MeasureData[] = [];
-  let previousMidi: number | undefined;
   let meter = mixedMeters ? (meters.includes(timeSignature) ? timeSignature : meters[0]) : timeSignature;
-  for (let index = 0; index < measures; index++) {
+  const sequence = Array.from({length:measures},(_,index)=> {
     if (mixedMeters && index > 0 && index % 2 === 0) meter = randomItem(meters.filter(value => value !== meter));
-    const result = generateMeasure(difficulty, keySignature, meter, rhythmLevel, instrument, previousMidi, range, allowAccidentals && tonality?.scaleId !== 'atonal', material);
+    return meter;
+  });
+  return selectPhraseRhythmPlan(sequence,options.rhythmLevel,options.rhythmFocus);
+}
+
+/** The optional internal plan lets candidate pitches share exactly the same rhythm. */
+export function generatePracticeExercise(options: PracticeOptions, rhythmPlan = createPracticeRhythmPlan(options)): ExerciseData {
+  const { instrument, clef, difficulty, keySignature, rhythmLevel,
+    tempo, range, allowAccidentals } = options;
+  const tonality = options.scaleId ? describeTonality(options.tonic ?? keySignature, options.scaleId) : undefined;
+  const material = tonality ? buildPitchMaterial(tonality, range) : undefined;
+  const generated: MeasureData[] = [];
+  // Complete the rhythmic skeleton first: changing pitch difficulty or enabling
+  // chromatic notes must not alter the selected rhythm/meter distribution.
+  let previousMidi: number | undefined;
+  for (const {meter, notes} of rhythmPlan) {
+    const result = generateMeasure(difficulty, keySignature, meter, rhythmLevel, instrument, previousMidi, range, allowAccidentals && tonality?.scaleId !== 'atonal', material, notes, tonality ? tonality.signature : keySignature);
     result.measure.timeSignature = meter;
     generated.push(result.measure);
     previousMidi = material && result.measure.events.every(note => note.rest) ? previousMidi : result.lastMidi;
@@ -903,7 +946,7 @@ export function generatePracticeExercise(options: PracticeOptions): ExerciseData
     const sounding = generated.flatMap(measure => measure.events).filter(note => !note.rest);
     const last = sounding.at(-1);
     const previous = sounding.at(-2)?.midi;
-    const maxLeap = difficulty === 'beginner' ? 7 : difficulty === 'intermediate' ? 12 : 24;
+    const maxLeap = PITCH_DIFFICULTY[difficulty].maxLeap;
     const roots = material.pitches.filter(pitch => pitch.midi % 12 === material.tonicPC &&
       (previous === undefined || Math.abs(pitch.midi - previous) <= maxLeap));
     if (last && roots.length) {
@@ -915,7 +958,7 @@ export function generatePracticeExercise(options: PracticeOptions): ExerciseData
 }
 
 function chooseScalePitch(candidates: ScalePitch[], previous: number, difficulty: Difficulty, tonic: number | null, opening: boolean): ScalePitch {
-  const maxLeap=difficulty==='beginner'?7:difficulty==='intermediate'?12:24;
+  const maxLeap=PITCH_DIFFICULTY[difficulty].maxLeap;
   let pool=candidates.filter(pitch=>Math.abs(pitch.midi-previous)<=maxLeap);
   if(!pool.length) pool=candidates;
   if(opening && tonic!==null) {
@@ -924,7 +967,7 @@ function chooseScalePitch(candidates: ScalePitch[], previous: number, difficulty
   }
   const weights=pool.map(pitch=>{
     const distance=Math.abs(pitch.midi-previous);
-    return (distance===0?0.6:distance<=2?5:distance<=5?3:1)*(tonic!==null&&pitch.midi%12===tonic?1.3:1);
+    return pitchDistanceWeight(distance,difficulty)*(tonic!==null&&pitch.midi%12===tonic?1.3:1);
   });
   let draw=Math.random()*weights.reduce((sum,w)=>sum+w,0);
   for(let i=0;i<pool.length;i++) { draw-=weights[i]; if(draw<=0) return pool[i]; }

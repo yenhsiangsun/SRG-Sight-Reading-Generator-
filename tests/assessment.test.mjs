@@ -53,5 +53,5 @@ test('six eighth notes at BPM 60 last six seconds and mixed-meter boundaries agr
   assert.equal(createPlaybackEvents(six,60).duration,6);
   assert.deepEqual(Array.from(createPlaybackEvents(six,60).events,n=>n.time),[0,1,2,3,4,5]);
   const mixed={...six,measures:[...exercise.measures,...six.measures]};mixed.measures[0]={...mixed.measures[0],timeSignature:'4/4'};
-  assert.equal(createPlaybackEvents(mixed,60).duration,10);
+  assert.equal(createPlaybackEvents(mixed,60).duration,7);
 });

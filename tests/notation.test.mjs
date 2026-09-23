@@ -14,10 +14,130 @@ const engine=loadModule('src/music.ts',812);
 const {createMeasureNotation}=loadModule('src/notation/createMeasureNotation.ts',1,undefined,{'vexflow':VF});
 const options={instrument:'Sheng',clef:'treble',difficulty:'advanced',keySignature:'C',timeSignature:'4/4',rhythmLevel:'complex',measures:8,tempo:72,range:{min:48,max:84},allowAccidentals:true,mixedMeters:true,meters:['3/4','4/4','6/8','7/8']};
 
+test('chords are a single strict rhythmic event with every notehead and accidental present',()=>{
+  const {midiFromKey}=loadModule('src/music/notePitches.ts');
+  const chord=keys=>keys.map(key=>({key,octave:+key.split('/')[1],midi:midiFromKey(key)}));
+  const measure=bar(['c#/4','c/4','c/4','c/4']);
+  measure.events[0].chord=chord(['c#/4','e/4','g#/4']);
+  measure.events[1].chord=chord(['c/4','e/4','g/4']);
+  const notation=createMeasureNotation(measure,'treble','C','4/4');
+  assert.equal(notation.voice.getTickables().length,4);
+  assert.ok(notation.voice.isComplete());
+  assert.deepEqual(notation.notes[0].getKeys(),['c#/4','e/4','g#/4']);
+  assert.equal(notation.notes[0].getTicks().value(),VF.VexFlow.RESOLUTION/4);
+  assert.equal(JSON.stringify(accidentals(notation.notes)),JSON.stringify([['#','#'],['n','n'],[],[]]));
+});
+
+test('pipa clefs follow register, stay constant through beams, and add no rhythmic time',()=>{
+  const {planMixedStaff}=loadModule('src/notation/mixedStaff.ts');
+  const measure=bar(['a/2','d/3','a/2','e/3','g/4','c/5','g/4','c/5'],2);
+  measure.events.forEach(n=>{n.duration='8';});
+  measure.groups=measure.beamGroups=[4,4,4,4];measure.timeSignature='4/4';
+  const plan=planMixedStaff([measure],'treble').clefs;
+  assert.equal(plan[0][0],'bass');assert.equal(plan[0].at(-1),'treble');
+  const notation=createMeasureNotation(measure,plan[0][0],'G','4/4',[],plan[0]);
+  assert.ok(notation.voice.isComplete());assert.equal(notation.voice.getTickables().length,8);
+  assert.ok(notation.notes.some(n=>n.getModifiers().some(m=>m.getCategory()===VF.NoteSubGroup.CATEGORY)));
+  for(const beam of notation.beams){
+    const clefs=beam.getNotes().map(n=>plan[0][notation.notes.indexOf(n)]);
+    assert.equal(new Set(clefs).size,1);
+  }
+  assert.doesNotThrow(()=>new VF.Formatter().joinVoices([notation.voice]).preCalculateMinTotalWidth([notation.voice]));
+});
+
+test('all generated instrument chords engrave in strict voices, including dotted durations and octave lines',()=>{
+  const {addInstrumentHarmony}=loadModule('src/music/instrumentHarmony.ts');
+  const {planOctaveLines}=loadModule('src/notation/octaveLines.ts');
+  const {generateGrandExercise}=loadModule('src/music/grandStaff.ts');
+  for(const instrument of ['Piano','Sheng','Pipa'])for(const meter of Object.keys(engine.TIME_SIGNATURES)){
+    const range=instrument==='Piano'?{min:36,max:96}:instrument==='Pipa'?{min:45,max:88}:{min:55,max:90};
+    const opts={...options,range,mixedMeters:false,timeSignature:meter,tonic:'F#',scaleId:'harmonic-minor'};
+    const source=instrument==='Piano'?generateGrandExercise(opts):engine.generatePracticeExercise(opts);source.soundProfile=instrument;
+    const ex=addInstrumentHarmony(source,range);
+    for(const [clef,measures] of [['treble',ex.measures],['bass',ex.lowerMeasures??[]]]){
+      const shifts=planOctaveLines(measures,clef);
+      measures.forEach((measure,i)=>{
+        const notation=createMeasureNotation(measure,clef,ex.tonality.signature??'C',meter,shifts[i]);
+        assert.ok(notation.voice.isComplete());
+        measure.events.forEach((event,n)=>assert.equal(notation.notes[n].getKeys().length,event.chord?.length??1));
+      });
+    }
+  }
+});
+
 function bar(keys,units=4) {
   return {events:keys.map((key,i)=>({key,rest:false,duration:'q',dots:0,startUnits:i*units,durationUnits:units})),totalUnits:keys.length*units,groups:Array(keys.length).fill(units),beamGroups:Array(keys.length).fill(units)};
 }
+
+test('modal phrasing and instrument harmony retain strict notation through mixed meters and staff changes',()=>{
+  const {addModalPhrasing}=loadModule('src/music/modalPhrasing.ts');
+  const {addInstrumentHarmony}=loadModule('src/music/instrumentHarmony.ts');
+  const {generateGrandExercise}=loadModule('src/music/grandStaff.ts');
+  const {planOctaveLines}=loadModule('src/notation/octaveLines.ts');
+  const {planMixedStaff}=loadModule('src/notation/mixedStaff.ts');
+  for(const [instrument,mode,scaleId,range] of [
+    ['Piano','two-hand','harmonic-minor',{min:21,max:108}],
+    ['Yangqin','two-hand','pelog-pentatonic',{min:43,max:96}],
+    ['Sheng','mono','dorian',{min:55,max:90}],
+    ['Pipa','mixed','hirajoshi',{min:45,max:88}],
+    ['Flute','single','whole-tone',{min:60,max:96}],
+  ]){
+    const opts={...options,instrument,range,allowAccidentals:false,tonic:'F#',scaleId};
+    const source=['mono','two-hand'].includes(mode)?generateGrandExercise(opts,mode):engine.generatePracticeExercise(opts);
+    source.soundProfile=instrument;
+    const ex=addInstrumentHarmony(addModalPhrasing(source,range,false),range);
+    for(const [clef,measures] of [['treble',ex.measures],['bass',ex.lowerMeasures??[]]]){
+      const clefs=mode==='mixed'?planMixedStaff(measures,'treble').clefs:undefined;
+      const shifts=planOctaveLines(measures,clef);
+      measures.forEach((measure,b)=>{
+        const notation=createMeasureNotation(measure,clefs?.[b][0]??clef,ex.tonality.signature??'C',measure.timeSignature,clefs?[]:shifts[b],clefs?.[b]);
+        assert.ok(notation.voice.isComplete(),instrument);
+        measure.events.forEach((event,n)=>assert.equal(notation.notes[n].getTicks().value(),VF.VexFlow.RESOLUTION*event.durationUnits/16));
+        assert.doesNotThrow(()=>new VF.Formatter().joinVoices([notation.voice]).preCalculateMinTotalWidth([notation.voice]));
+      });
+    }
+  }
+});
 function accidentals(notes) {return notes.map(note=>note.getModifiers().filter(m=>m.getCategory()===VF.Accidental.CATEGORY).map(m=>m.type));}
+
+test('readable open-scale transpositions remove avoidable accidentals in actual VexFlow notation',()=>{
+  const {getTonalityChoices}=loadModule('src/music/randomTonality.ts');
+  const {addModalPhrasing}=loadModule('src/music/modalPhrasing.ts');
+  const {addInstrumentHarmony}=loadModule('src/music/instrumentHarmony.ts');
+  const choices=getTonalityChoices([options.range],{allowAccidentals:false,difficulty:'beginner'});
+  const count=(scaleId,tonic)=>{
+    const raw=engine.generatePracticeExercise({...options,scaleId,tonic,allowAccidentals:false});raw.soundProfile='Sheng';
+    const ex=addInstrumentHarmony(addModalPhrasing(raw,options.range,false),options.range);
+    return ex.measures.reduce((sum,measure)=>{
+      const notation=createMeasureNotation(measure,'treble',ex.tonality.signature??'C',measure.timeSignature);
+      assert.ok(notation.voice.isComplete());
+      return sum+accidentals(notation.notes).flat().length;
+    },0);
+  };
+  for(const scaleId of ['hirajoshi','pelog-pentatonic','insen']){
+    const before=count(scaleId,'Ab');
+    const after=count(scaleId,choices.find(s=>s.scaleId===scaleId).candidates[0].tonic);
+    assert.ok(before>10,`${scaleId}: ${before}`);
+    assert.equal(after,0,scaleId);
+  }
+});
+
+test('focused studies retain strict VexFlow durations and bounded beams in every meter',()=>{
+  for(const meter of Object.keys(engine.TIME_SIGNATURES))for(const focus of ['sixteenths','dotted']){
+    const exercise=engine.generatePracticeExercise({...options,mixedMeters:false,timeSignature:meter,rhythmFocus:focus});
+    for(const measure of exercise.measures){
+      const notation=createMeasureNotation(measure,'treble','C',meter);
+      assert.ok(notation.voice.isComplete());
+      for(let i=0;i<measure.events.length;i++)assert.equal(notation.notes[i].getTicks().value(),VF.VexFlow.RESOLUTION*measure.events[i].durationUnits/16);
+      for(const beam of notation.beams){
+        const indexes=beam.getNotes().map(note=>notation.notes.indexOf(note));
+        const first=measure.events[indexes[0]].startUnits,last=measure.events[indexes.at(-1)];
+        let boundary=0;
+        for(const group of measure.beamGroups??measure.groups){boundary+=group;assert.ok(!(first<boundary&&last.startUnits+last.durationUnits>boundary));}
+      }
+    }
+  }
+});
 
 test('accidentals persist by octave within a bar and reset at the barline',()=>{
   const first=createMeasureNotation(bar(['f#/4','f#/4','f/4','f#/5']),'treble','C','4/4');

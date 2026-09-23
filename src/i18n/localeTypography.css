@@ -1,0 +1,15 @@
+/* Scope typography to HTML UI text: VexFlow's SVG engraving stays untouched. */
+html:lang(th) .app,
+html:lang(th) .app :where(h1, h2, h3, p, span, small, strong, label, button, select, input, output, summary, li, a) {
+  font-family: 'Noto Sans Thai', 'Leelawadee UI', Tahoma, system-ui, sans-serif;
+  letter-spacing: normal;
+}
+
+html:lang(th) .app :where(h1, h2, h3) { line-height: 1.55; }
+html:lang(th) .app :where(button, select, label, small) { line-height: 1.6; }
+html:lang(th) .app :where(p, li) { line-height: 1.9; }
+
+html:lang(zh-CN) .app,
+html:lang(zh-CN) .app :where(h1, h2, h3, p, span, small, strong, label, button, select, input, output, summary, li, a) {
+  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+}

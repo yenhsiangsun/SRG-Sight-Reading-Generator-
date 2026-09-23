@@ -1,0 +1,3272 @@
+[
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/A1.mp3",
+    "blob": "9786febd9800af0a2608e76766a27efb1eb261c7",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 33,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/A2.mp3",
+    "blob": "ddd3a6b75e771d90a2eb40ed9c886940838dc09b",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 45,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/A3.mp3",
+    "blob": "712b52b75bd5cde74d4513063c53763a64627c6e",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 57,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/A4.mp3",
+    "blob": "6fd3ccb03a4e602c399260920dac61be45f1283d",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 69,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/A5.mp3",
+    "blob": "74de2ce310bb6b520deae1efcff2f0e1c27a7084",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 81,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/A6.mp3",
+    "blob": "e003fcda4d3d4a9f8ee3587b0675a3c0f80abc95",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 93,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/A7.mp3",
+    "blob": "b432e69208d6bbc9229422987f35bcadaf3a631b",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 105,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/As1.mp3",
+    "blob": "52101afc86139ee92ee816523245f9665362d68b",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 34,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/As2.mp3",
+    "blob": "765ece36fab7f4a1a40a5ab9c297489d16d7e1db",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 46,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/As3.mp3",
+    "blob": "835afd21f30dec828b5b04f2b568f2585e753cce",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 58,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/As4.mp3",
+    "blob": "b087e3879e4bcf6152800e344aa3548849d16e0c",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 70,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/As5.mp3",
+    "blob": "bfe29ad7c4d0aaac67f67410c62c0a1bd6b32a88",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 82,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/As6.mp3",
+    "blob": "a0f4cd2ad6228902e0552e6b37a335452ff92533",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 94,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/As7.mp3",
+    "blob": "05b7e0e0fe4733b7c61c46959e67fd4c1d604e5e",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 106,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/B1.mp3",
+    "blob": "425cca865cd66389a6a7627d3ca60939e9e2d1e1",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 35,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/B2.mp3",
+    "blob": "f20d9d063263c530077ff4738e0f8d721c5c5b2c",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 47,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/B3.mp3",
+    "blob": "e93dfbdb29a3e68371f6eb7c652ef1f1762e9d00",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 59,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/B4.mp3",
+    "blob": "7198ab7010a8d40ff1e9e35500b10578e4e335c3",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 71,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/B5.mp3",
+    "blob": "6215acf7e65e53babe3a6ed96b42d5b3780ce201",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 83,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/B6.mp3",
+    "blob": "7cc62ebd1ec354c6c8413f8944bf8d143f0834fd",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 95,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/B7.mp3",
+    "blob": "ee3b359875914120c151379494ada2c0a62efcc3",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 107,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/C1.mp3",
+    "blob": "fc01508c2600fb6f0c9c537619a5cf7ac8778f7c",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 24,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/C2.mp3",
+    "blob": "4cfa54ff423dd4f5735445544b58e536ffe94e97",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 36,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/C3.mp3",
+    "blob": "72ba9db7adf6c01eb40ecefd233db3637ca47c44",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 48,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/C4.mp3",
+    "blob": "9bb45377ea63ceb4409ec52ebd7d46f8342aafc0",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 60,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/C5.mp3",
+    "blob": "254362b99a78ec90364b1ac275bea11ebefdb4f8",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 72,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/C6.mp3",
+    "blob": "376f30f65f66c8b9960cf5e5644f08e8887aaac8",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 84,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/C7.mp3",
+    "blob": "4f9e5ebf8416a5f996acbd04f32bfbb9a922f3b0",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 96,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/C8.mp3",
+    "blob": "e27dbdd3a3245260ecc83a985fdae2c19f84d137",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 108,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Cs1.mp3",
+    "blob": "d8fd25f81626673a1a45ce49be0630ed1d2a17c5",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 25,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Cs2.mp3",
+    "blob": "e8710729b7bf88cf27cbc26a7ebc3c799ad88311",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 37,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Cs3.mp3",
+    "blob": "eba8292bc277618d0a54349eaa8b26fd73c621be",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 49,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Cs4.mp3",
+    "blob": "9a7799523b668f8ffed4c1b02619ef6e89a26759",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 61,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Cs5.mp3",
+    "blob": "d5578edfdbe194d1bf3646c22d8a4127305b673a",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 73,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Cs6.mp3",
+    "blob": "6559dbedf25072da26a55f9e6fb7d43f2c65d0e2",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 85,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Cs7.mp3",
+    "blob": "759ca43706606693850f4c55ad75a573e6f37c88",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 97,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/D1.mp3",
+    "blob": "b960fc33627ddf1fda98a926b13364247831660f",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 26,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/D2.mp3",
+    "blob": "5596f2c32be375448c2a0784cc9442f2425c8b4e",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 38,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/D3.mp3",
+    "blob": "e799fdea88318326f6219f170e44f7c5f8b0015e",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 50,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/D4.mp3",
+    "blob": "adfd8e88cb519c10efb2bdc83fc603727d72c617",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 62,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/D5.mp3",
+    "blob": "9ccc1df200cb9584a9d38549d816e7e88e9eee5f",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 74,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/D6.mp3",
+    "blob": "a5a51039631a00db02c00a00d67c2dcf7f26a9a3",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 86,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/D7.mp3",
+    "blob": "c635aeb11bd57805a6b1ddde1fa88dda01488032",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 98,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Ds1.mp3",
+    "blob": "a3fe18f4a8cd405a721a3e3f89a3214689500d1b",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 27,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Ds2.mp3",
+    "blob": "892de5c61e4c4d3315b64300bcfc92622dd8a281",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 39,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Ds3.mp3",
+    "blob": "60c66a4442dbe22b1775a546948aed6aa137426b",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 51,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Ds4.mp3",
+    "blob": "f148dff5aae377414767f9a8c1a3e2aff869ba2d",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 63,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Ds5.mp3",
+    "blob": "8e4bcad4a82800e550e3116055328e2bbe2ea37f",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 75,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Ds6.mp3",
+    "blob": "39ccd61f4582f6897e462aad7cc65eb5ad1fa496",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 87,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Ds7.mp3",
+    "blob": "a23c6f760d85afd14ef535423feca6e200a5a949",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 99,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/E1.mp3",
+    "blob": "01535af86f9b392fb8cf229e6a679a3c0097ffcd",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 28,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/E2.mp3",
+    "blob": "519169c03c2877e65136d5c258eedab09aa24b67",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 40,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/E3.mp3",
+    "blob": "c834fa0f2b5d918deeda68b339eaa05e1c77c3bc",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 52,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/E4.mp3",
+    "blob": "a1e2e6f85d5cc19dee5d1bc35c8469ed084d2f50",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 64,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/E5.mp3",
+    "blob": "bc0894942c70f9285f8ce9b584c3d39f6fa87ba7",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 76,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/E6.mp3",
+    "blob": "121e9bb49fdcf7281de52df2aee3e772aff46054",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 88,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/E7.mp3",
+    "blob": "28f829afa2a37c55bef2218d087cdef9e971f8f9",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 100,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/F1.mp3",
+    "blob": "81fe9d6e87cc2ab9b59895e6b77660218c25884f",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 29,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/F2.mp3",
+    "blob": "a4e9ffd0c7abfa12a27016f8fe62c1cd410400b8",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 41,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/F3.mp3",
+    "blob": "f6159266502cb9d0e289c0a1bc5dff4e150ca942",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 53,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/F4.mp3",
+    "blob": "955fa757417a40c3ad1058885545bd4331c2749f",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 65,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/F5.mp3",
+    "blob": "5172c513573bf954fdc933a1b8449d3b213ccbd6",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 77,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/F6.mp3",
+    "blob": "4243f9ea64c22ee034ee5b43ec3ffd71d7cc54c5",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 89,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/F7.mp3",
+    "blob": "4bfaa8858b190cd19145c01954f7dd121d21d6b4",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 101,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Fs1.mp3",
+    "blob": "b1d0b2399363eff92bfdf88e50bb4859732a9b20",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 30,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Fs2.mp3",
+    "blob": "7407e2ac87db924a0f50deafb4d502b4a25ae220",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 42,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Fs3.mp3",
+    "blob": "6b1cdbc4922d9c0a666982c0abfcaebda61b53ca",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 54,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Fs4.mp3",
+    "blob": "f9e80e6f1d5a8fc18ce0e860700edbeef5bfcac1",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 66,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Fs5.mp3",
+    "blob": "8563296f89cec5a6971ef42b21a797b69189661a",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 78,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Fs6.mp3",
+    "blob": "4a66ff4913463e8b3f9259cd099235dc178a0035",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 90,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Fs7.mp3",
+    "blob": "373f5c0531bdd814fcf8b488fef0fac183d56c62",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 102,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/G1.mp3",
+    "blob": "c4533f529a84cd4f84f1e331105dbf5f2a6b1402",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 31,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/G2.mp3",
+    "blob": "e61a455b61dedd5322a3cbbc1e8da55384a7a4d4",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 43,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/G3.mp3",
+    "blob": "0a55756e8bd6bcddaf27e6dcd36fb0e574fc5ef5",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 55,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/G4.mp3",
+    "blob": "59e486f41d61c6bd30a804b6f7b84b2c82400335",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 67,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/G5.mp3",
+    "blob": "9b67fb0a981ce00766c6b0645710d1ba8dff87e7",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 79,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/G6.mp3",
+    "blob": "e600bc1f9f9111f0c5b2d48c530739513b7101bc",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 91,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/G7.mp3",
+    "blob": "ae483a08144789db827e71002601054deda3a32b",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 103,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Gs1.mp3",
+    "blob": "5c27d92b16dea4511c8789d94c6bee27e2fcc7a4",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 32,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Gs2.mp3",
+    "blob": "84429453e3bc624ff03154ddd28ddbdd6e17cece",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 44,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Gs3.mp3",
+    "blob": "15a196aa4f2ab822c80245b822243186adfb50e9",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 56,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Gs4.mp3",
+    "blob": "f2edcfeece3c2d7d4bcb18bb3e86175bc59552a3",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 68,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Gs5.mp3",
+    "blob": "c81a1d3436e3c4e89b8dc1b746443bac92973849",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 80,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Gs6.mp3",
+    "blob": "9d77f9ffddf3ecff20d1d8a85645633706a38d2f",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 92,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/piano/Gs7.mp3",
+    "blob": "e0499e5ef75ff484645c997e6a3f308f5898b791",
+    "instrument": "Piano",
+    "folder": "piano",
+    "midi": 104,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/A3.mp3",
+    "blob": "21df7a4ad23e176b58aefa8e4002adbd85b682a1",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 57,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/A4.mp3",
+    "blob": "fdec1284d2c24456315f3f2a6118b253241823ae",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 69,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/A5.mp3",
+    "blob": "c7d625bea4f7a3319ffe95d3a848237a07fea52c",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 81,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/A6.mp3",
+    "blob": "df7098e806b957ccd9241fa4bfe4dee8e477f06e",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 93,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/C4.mp3",
+    "blob": "a0d87d8f374d8d201df54ac15ba671a31674371b",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 60,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/C5.mp3",
+    "blob": "7cdf4a5b2135fca006230772b85b6462fd58b596",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 72,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/C6.mp3",
+    "blob": "7f813c01b0620089c10b487de036070be17918f7",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 84,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/C7.mp3",
+    "blob": "584572a060e16488671faf126bf834b8c9f47f97",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 96,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/E4.mp3",
+    "blob": "cc175581fbda73806292d8cec7830dc6563deb62",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 64,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/E5.mp3",
+    "blob": "1a4351abef4cecab8235ab96d44dc6513df8b44c",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 76,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/E6.mp3",
+    "blob": "5879d957bcea6e48a4f35d4ae8b41f94054bd7da",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 88,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/G3.mp3",
+    "blob": "3c9454a1f4bf011293b05ce40b7e426b5450c716",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 55,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/G4.mp3",
+    "blob": "820af1f52cd2a62f1e083a73b6b9ec2ff5fd739b",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 67,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/G5.mp3",
+    "blob": "c559c09829cf35b37156f925b3e0cb3280101728",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 79,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/violin/G6.mp3",
+    "blob": "5e741c991008d303ae5e931cbf6af426c16cc53f",
+    "instrument": "Violin",
+    "folder": "violin",
+    "midi": 91,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/flute/A4.mp3",
+    "blob": "217d28967a9202a3530aa8df9043e21a317d83e4",
+    "instrument": "Flute",
+    "folder": "flute",
+    "midi": 69,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/flute/A5.mp3",
+    "blob": "206f907797287fa48c3137f1d62be6c163bdd4e9",
+    "instrument": "Flute",
+    "folder": "flute",
+    "midi": 81,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/flute/A6.mp3",
+    "blob": "836da103ea1e56d4603b161f72b6ab5fb1c96c77",
+    "instrument": "Flute",
+    "folder": "flute",
+    "midi": 93,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/flute/C4.mp3",
+    "blob": "186f5822be429415df812af5b2c082275c05127c",
+    "instrument": "Flute",
+    "folder": "flute",
+    "midi": 60,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/flute/C5.mp3",
+    "blob": "f184ace719a2b41e7d1011397acb5ef34bda8979",
+    "instrument": "Flute",
+    "folder": "flute",
+    "midi": 72,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/flute/C6.mp3",
+    "blob": "83b86027fde989f9e433c151b86970c8fe74a936",
+    "instrument": "Flute",
+    "folder": "flute",
+    "midi": 84,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/flute/C7.mp3",
+    "blob": "2f0d93a04145c0d90439d72d4898a26cf56026ea",
+    "instrument": "Flute",
+    "folder": "flute",
+    "midi": 96,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/flute/E4.mp3",
+    "blob": "4292a74a0994f4f79c7fe8008e0c94f4a365eba2",
+    "instrument": "Flute",
+    "folder": "flute",
+    "midi": 64,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/flute/E5.mp3",
+    "blob": "89db47bf9ed935387d85808c539184192a5bc38c",
+    "instrument": "Flute",
+    "folder": "flute",
+    "midi": 76,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/flute/E6.mp3",
+    "blob": "cae0be107a7bfb9f60b75a3b88f9444abf032f48",
+    "instrument": "Flute",
+    "folder": "flute",
+    "midi": 88,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bassoon/A2.mp3",
+    "blob": "4c9736749e4bf2212805662f5031b3dbdd64c0c6",
+    "instrument": "Bassoon",
+    "folder": "bassoon",
+    "midi": 45,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bassoon/A3.mp3",
+    "blob": "9bfc03d095e47a52a631cd4bae9acecdb4e27555",
+    "instrument": "Bassoon",
+    "folder": "bassoon",
+    "midi": 57,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bassoon/A4.mp3",
+    "blob": "4ad52c6542e3516dbb88856d8dab3db861ef2110",
+    "instrument": "Bassoon",
+    "folder": "bassoon",
+    "midi": 69,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bassoon/C3.mp3",
+    "blob": "9fa479532f7bd7f1f598ccf9c12bbed0e2e3afa4",
+    "instrument": "Bassoon",
+    "folder": "bassoon",
+    "midi": 48,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bassoon/C4.mp3",
+    "blob": "3d478215edf69ae5d56a4f3c5dcf01309f8ca822",
+    "instrument": "Bassoon",
+    "folder": "bassoon",
+    "midi": 60,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bassoon/C5.mp3",
+    "blob": "b8c1f71c5a784f7179e962d6ef5c5e0af8619b54",
+    "instrument": "Bassoon",
+    "folder": "bassoon",
+    "midi": 72,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bassoon/E4.mp3",
+    "blob": "10eacdff115d3c0e3e0f55f4c54eaa118f42694d",
+    "instrument": "Bassoon",
+    "folder": "bassoon",
+    "midi": 64,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bassoon/G2.mp3",
+    "blob": "82653724b3a7d9785482245b0b5bcfb3266f31cd",
+    "instrument": "Bassoon",
+    "folder": "bassoon",
+    "midi": 43,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bassoon/G3.mp3",
+    "blob": "b40f11069bb9340885f7b57611c4733cff5783a3",
+    "instrument": "Bassoon",
+    "folder": "bassoon",
+    "midi": 55,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bassoon/G4.mp3",
+    "blob": "7965ef2674c8bb8a98046bd1d1d82b01401e6ceb",
+    "instrument": "Bassoon",
+    "folder": "bassoon",
+    "midi": 67,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/contrabass/A2.mp3",
+    "blob": "8c0f0e7e95bb19ba43287fa0af4b42f62ca08570",
+    "instrument": "Double Bass",
+    "folder": "contrabass",
+    "midi": 45,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/contrabass/As1.mp3",
+    "blob": "4650d66c87068ee6d9d2533417721a9944fe2af8",
+    "instrument": "Double Bass",
+    "folder": "contrabass",
+    "midi": 34,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/contrabass/B3.mp3",
+    "blob": "d942003bcfd8663cb8498028ef861962cfc16057",
+    "instrument": "Double Bass",
+    "folder": "contrabass",
+    "midi": 59,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/contrabass/C2.mp3",
+    "blob": "032ae1ee3d8d59153a144ec7dc3e0d267be3a50f",
+    "instrument": "Double Bass",
+    "folder": "contrabass",
+    "midi": 36,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/contrabass/Cs3.mp3",
+    "blob": "ec65591107ec14c13d477ae5fd0b4d9495a9bdeb",
+    "instrument": "Double Bass",
+    "folder": "contrabass",
+    "midi": 49,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/contrabass/D2.mp3",
+    "blob": "d519ab5ca0213a0a9fc13313890061313fa27d4b",
+    "instrument": "Double Bass",
+    "folder": "contrabass",
+    "midi": 38,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/contrabass/E2.mp3",
+    "blob": "f445efe4ae4931b6c1c5ea5c77678128c3abbfc5",
+    "instrument": "Double Bass",
+    "folder": "contrabass",
+    "midi": 40,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/contrabass/E3.mp3",
+    "blob": "f3a4879660f4efff0c8dacf1a1e8676089f3dae5",
+    "instrument": "Double Bass",
+    "folder": "contrabass",
+    "midi": 52,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/contrabass/Fs1.mp3",
+    "blob": "c670aeabd0b4bee11b6c01f8de7008982f66d241",
+    "instrument": "Double Bass",
+    "folder": "contrabass",
+    "midi": 30,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/contrabass/Fs2.mp3",
+    "blob": "c564618865b36331feb016a9619322af96a6ef2c",
+    "instrument": "Double Bass",
+    "folder": "contrabass",
+    "midi": 42,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/contrabass/G1.mp3",
+    "blob": "b13630bcc568047e5d7eac98bb14ba2ebb90a0d2",
+    "instrument": "Double Bass",
+    "folder": "contrabass",
+    "midi": 31,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/contrabass/Gs2.mp3",
+    "blob": "27c43d10293c3bfb0472df8530a6386740829eef",
+    "instrument": "Double Bass",
+    "folder": "contrabass",
+    "midi": 44,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/contrabass/Gs3.mp3",
+    "blob": "990b238bf2088a7d2d35d0190a4d2fc7bf68f720",
+    "instrument": "Double Bass",
+    "folder": "contrabass",
+    "midi": 56,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/french-horn/A1.mp3",
+    "blob": "18eb74b181779687f7c15ff9215048e4192f9e85",
+    "instrument": "French Horn",
+    "folder": "french-horn",
+    "midi": 33,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/french-horn/A3.mp3",
+    "blob": "8859783b2f9fe528524dba668903777b827ee209",
+    "instrument": "French Horn",
+    "folder": "french-horn",
+    "midi": 57,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/french-horn/C2.mp3",
+    "blob": "222acdee1b605d9899f87937a354e4ab2575e5bf",
+    "instrument": "French Horn",
+    "folder": "french-horn",
+    "midi": 36,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/french-horn/C4.mp3",
+    "blob": "b6f9493189009034d4a09085a3216d4acef8120e",
+    "instrument": "French Horn",
+    "folder": "french-horn",
+    "midi": 60,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/french-horn/D3.mp3",
+    "blob": "2d8bfaac0d8eed0876d3e0627862189230205435",
+    "instrument": "French Horn",
+    "folder": "french-horn",
+    "midi": 50,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/french-horn/D5.mp3",
+    "blob": "805ac1e858cb6449a38c3c796ff280e8ff1150f4",
+    "instrument": "French Horn",
+    "folder": "french-horn",
+    "midi": 74,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/french-horn/Ds2.mp3",
+    "blob": "73dd513b95ede2d3f2999bee8aea1d947cca5f91",
+    "instrument": "French Horn",
+    "folder": "french-horn",
+    "midi": 39,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/french-horn/F3.mp3",
+    "blob": "a1b47164567da38fcbb858fd4e3d0fe0298b04ca",
+    "instrument": "French Horn",
+    "folder": "french-horn",
+    "midi": 53,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/french-horn/F5.mp3",
+    "blob": "14e2d7bcc1ba20298946b85f157e080b7bdded01",
+    "instrument": "French Horn",
+    "folder": "french-horn",
+    "midi": 77,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/french-horn/G2.mp3",
+    "blob": "f170646833abd1bccc9a1a30054547249bea9411",
+    "instrument": "French Horn",
+    "folder": "french-horn",
+    "midi": 43,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/As2.mp3",
+    "blob": "dea3eda70cbd28fdbd327bef1385bc7401a12acd",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 46,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/As3.mp3",
+    "blob": "cb19b147bb33471af0b88ab15db0ffa647ff605e",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 58,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/C3.mp3",
+    "blob": "0fcb0c16188f27af0c900231cc55a4fd2add0872",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 48,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/C4.mp3",
+    "blob": "7aefefeacd168137fd36bd7d70118fabfe908964",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 60,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/Cs2.mp3",
+    "blob": "ab81e1428d911c3caef2e78e2afaad8166987409",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 37,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/Cs4.mp3",
+    "blob": "90a9ec8f8cb222d1606d9e40c17f263ada29f23b",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 61,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/D3.mp3",
+    "blob": "00cc0ba9070fcad71f30821fe10ac9fe7ba133e5",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 50,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/D4.mp3",
+    "blob": "379afbee7a7820ff9bc66c4cba31b35f3b1378a8",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 62,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/Ds2.mp3",
+    "blob": "d5ed7d58fe052622f45ced3c838f7a03c1e5e151",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 39,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/Ds3.mp3",
+    "blob": "9c3c496bf554862dc351ffbff96eb9a77904fd3f",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 51,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/Ds4.mp3",
+    "blob": "80fd7e4cb2723a5c2b64d8aee3c356398d53edea",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 63,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/F2.mp3",
+    "blob": "997c04b3873e7cf16914cd75cdf14e9b85d98fdf",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 41,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/F3.mp3",
+    "blob": "72210d9fecfdad029ed60bcfa2efa796b4de82a6",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 53,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/F4.mp3",
+    "blob": "60b882f8501c834e52f5dce7786f007db39b711a",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 65,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/Gs2.mp3",
+    "blob": "6f802e0eb1321affb5cd676d17ef277a9d234e5d",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 44,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trombone/Gs3.mp3",
+    "blob": "ef3afc052424b9c63962094f7c782a0ad32b1b57",
+    "instrument": "Trombone",
+    "folder": "trombone",
+    "midi": 56,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trumpet/A3.mp3",
+    "blob": "adccf3824553b63e69bdeec9d2e01bef207c402a",
+    "instrument": "Trumpet",
+    "folder": "trumpet",
+    "midi": 57,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trumpet/A5.mp3",
+    "blob": "637be491dacef70e4ac21914eddc66b84af9d319",
+    "instrument": "Trumpet",
+    "folder": "trumpet",
+    "midi": 81,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trumpet/As4.mp3",
+    "blob": "c35fac4f37b53b34bc040c4339ee48e0cbb099a0",
+    "instrument": "Trumpet",
+    "folder": "trumpet",
+    "midi": 70,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trumpet/C4.mp3",
+    "blob": "1d8e9c8892b5db8046a3e8b4d73e2ea6dad1ed18",
+    "instrument": "Trumpet",
+    "folder": "trumpet",
+    "midi": 60,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trumpet/C6.mp3",
+    "blob": "5cc20282b9dcb9610ac6afd0ca7d03204a4b8876",
+    "instrument": "Trumpet",
+    "folder": "trumpet",
+    "midi": 84,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trumpet/D5.mp3",
+    "blob": "eed0884d1d0364019e448c9ef361735e79dae1a8",
+    "instrument": "Trumpet",
+    "folder": "trumpet",
+    "midi": 74,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trumpet/Ds4.mp3",
+    "blob": "5e5b7716b01d5312c787d0867ab987e7d370281f",
+    "instrument": "Trumpet",
+    "folder": "trumpet",
+    "midi": 63,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trumpet/F3.mp3",
+    "blob": "c1f8976c6270bb3c47960ea506f6f4c33343c2b2",
+    "instrument": "Trumpet",
+    "folder": "trumpet",
+    "midi": 53,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trumpet/F4.mp3",
+    "blob": "dd670642a81fa3cc7a0b1a717f5107c588f49c5d",
+    "instrument": "Trumpet",
+    "folder": "trumpet",
+    "midi": 65,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trumpet/F5.mp3",
+    "blob": "5b2b954f532c6ed8b70a5d335a06b22b65c38116",
+    "instrument": "Trumpet",
+    "folder": "trumpet",
+    "midi": 77,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/trumpet/G4.mp3",
+    "blob": "61928c569d58308497e5dbc08f4d9f8269b76b44",
+    "instrument": "Trumpet",
+    "folder": "trumpet",
+    "midi": 67,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/tuba/As1.mp3",
+    "blob": "847bf773c08f497b1b6a917fd4e24e47653db2a2",
+    "instrument": "Tuba",
+    "folder": "tuba",
+    "midi": 34,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/tuba/As2.mp3",
+    "blob": "c00da206f3e2e6c7f5954fd0f7d30cb090a9a288",
+    "instrument": "Tuba",
+    "folder": "tuba",
+    "midi": 46,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/tuba/As3.mp3",
+    "blob": "71b1c62237f5951a43f8b14e53ea1b38a35d724e",
+    "instrument": "Tuba",
+    "folder": "tuba",
+    "midi": 58,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/tuba/D3.mp3",
+    "blob": "fb269806bcaeb1135fb8f823e5a0feb8de4342a1",
+    "instrument": "Tuba",
+    "folder": "tuba",
+    "midi": 50,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/tuba/D4.mp3",
+    "blob": "7c121a91fea1bd897b2cb91b91a768bf38e375f8",
+    "instrument": "Tuba",
+    "folder": "tuba",
+    "midi": 62,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/tuba/Ds2.mp3",
+    "blob": "3b06e12b27c2f218819afd27d1aa65171f3c6469",
+    "instrument": "Tuba",
+    "folder": "tuba",
+    "midi": 39,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/tuba/F1.mp3",
+    "blob": "c4fea9c09cc7faf6a0217742ed19b1bef894c80e",
+    "instrument": "Tuba",
+    "folder": "tuba",
+    "midi": 29,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/tuba/F2.mp3",
+    "blob": "21d1b48899b32a0af3f39d129540ec0f6f6b8062",
+    "instrument": "Tuba",
+    "folder": "tuba",
+    "midi": 41,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/tuba/F3.mp3",
+    "blob": "dfd328a27b0c959e7d92d699b97afe38740c7788",
+    "instrument": "Tuba",
+    "folder": "tuba",
+    "midi": 53,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/A2.mp3",
+    "blob": "301acd84ae89613c931a0f28c21729f180a244e2",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 45,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/A3.mp3",
+    "blob": "45a40d5f47ae03093ee56f6a42bb6d627c794582",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 57,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/A4.mp3",
+    "blob": "1558019bfaefb164e250b204aabcffb8d77914ac",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 69,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/As2.mp3",
+    "blob": "33d9e4305def9ccd8e44e2b0148d0812fa67d5fd",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 46,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/As3.mp3",
+    "blob": "befeb8e0093c18d73ef833e0fcdecb10ee1f0e3e",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 58,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/As4.mp3",
+    "blob": "2d0972a4e99c8389ec0200c60d4d63ede2c1b9ea",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 70,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/B2.mp3",
+    "blob": "79536f9587eabad668bd06cd7c131c49597384c6",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 47,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/B3.mp3",
+    "blob": "3ea713053b65b0dad965704440846f7ff205543d",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 59,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/B4.mp3",
+    "blob": "9be9e04c3c8aedfe6ca1cfbaaecfdf8e20a4e679",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 71,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/C3.mp3",
+    "blob": "115762f58fd64d1a26f6ffee1160cdc3a9769982",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 48,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/C4.mp3",
+    "blob": "9649e0e9fd72608342c95e22a71609a96ad4dbf8",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 60,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/C5.mp3",
+    "blob": "7c7b15bf02d4815616c60592d3ffb349c089cf2f",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 72,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/Cs3.mp3",
+    "blob": "707e4c4dfb75d38c2fbfcf992438d11f6f68bad2",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 49,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/Cs4.mp3",
+    "blob": "52b104803b12e016d542c237edd6982e72fd69ba",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 61,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/Cs5.mp3",
+    "blob": "00b369a032471e1e6c9a66be94e2c5b3bc36cf11",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 73,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/D2.mp3",
+    "blob": "42489708d36c69b003d993cdb749a30005612303",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 38,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/D3.mp3",
+    "blob": "4fc4c7f233747843f3b4d514ba6046918ce17219",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 50,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/D4.mp3",
+    "blob": "32c010d975402925b175c76bcbb3967a7738648a",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 62,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/D5.mp3",
+    "blob": "0d0b357235b43bf01f926e49b403a9421af0d461",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 74,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/Ds2.mp3",
+    "blob": "4884f8b97b73f351ad5ce3c0f30f4480fba088b0",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 39,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/Ds3.mp3",
+    "blob": "5fec56ee6aa58ce5fbc54ac1e96bb14d25d7e95d",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 51,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/Ds4.mp3",
+    "blob": "c9aaae1e7de648cbe50d5cd3a5ef52e862690df7",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 63,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/E2.mp3",
+    "blob": "1c127045e63a896f3457dfe6618331fce56d9c87",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 40,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/E3.mp3",
+    "blob": "1dc00f5503c0c823ea996a83b3c2c01c91c36a60",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 52,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/E4.mp3",
+    "blob": "4b22dcd424038c8f4632dc810cea7c1574a12180",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 64,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/F2.mp3",
+    "blob": "6fc65ab8cc7fb845139643973f03db04f9be4c2b",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 41,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/F3.mp3",
+    "blob": "0fe8f22a9315dc5ec6b7abef75ddb5d00c59af60",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 53,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/F4.mp3",
+    "blob": "5cf6f4e7b518845bb3a4bc6e1f9cd59c5cab2fa5",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 65,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/Fs2.mp3",
+    "blob": "0b9ce5ac4327ea5da45982d4d1ad07169ca14c6f",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 42,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/Fs3.mp3",
+    "blob": "5a9f81584acae585ad302af459a16b81fda2ba64",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 54,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/Fs4.mp3",
+    "blob": "b7fdde7451a783e253254018d7734ca5db1b9519",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 66,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/G2.mp3",
+    "blob": "0b7e207ca5e4586c571a061772ffee1329f6ab76",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 43,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/G3.mp3",
+    "blob": "3155b2b98440cf39479656e514494e406e9c7c96",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 55,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/G4.mp3",
+    "blob": "f2442ff4492f189c0203d1b72ef85a54ba5fb856",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 67,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/Gs2.mp3",
+    "blob": "7e8c9ee8a3e35e9317ece3be4d5a8f14e5e58f2a",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 44,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/Gs3.mp3",
+    "blob": "cee0181195c1033b4e3da25552b39d2ba123d2ce",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 56,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/guitar-acoustic/Gs4.mp3",
+    "blob": "627dbdcd4922a94828cae6b85b4185f8620e8d37",
+    "instrument": "Guitar",
+    "folder": "guitar-acoustic",
+    "midi": 68,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/As1.mp3",
+    "blob": "d657b2d676b67fe11536b6e89a793b1edabdf23c",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 34,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/As2.mp3",
+    "blob": "c5a2f9370636397369c300b37d1ba3fb7ed28ccc",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 46,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/As3.mp3",
+    "blob": "ab24fe3ee16085e1871598746a558df4974ee054",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 58,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/As4.mp3",
+    "blob": "e127b79deb7a4e199ce46337a0368b37ea0ad9d9",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 70,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/Cs1.mp3",
+    "blob": "fd69e53d5734d045bbe9f1d88db47ed0a8d0a41f",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 25,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/Cs2.mp3",
+    "blob": "8b1eeb47bf4819c171866df7f3e8b8d89a1d47c9",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 37,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/Cs3.mp3",
+    "blob": "b7d1bd4768a0c37e6f195bc488d7d11e1620825c",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 49,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/Cs4.mp3",
+    "blob": "21aa51170b4f2dbf9e0f9613f9928adacb12e799",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 61,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/E1.mp3",
+    "blob": "c4796273b34cba80beeeb62da4342c557454141f",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 28,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/E2.mp3",
+    "blob": "52c5169c94d9e2d5d910a8b6a910bd3fd2f8bffa",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 40,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/E3.mp3",
+    "blob": "cf042068048a208062b03feebac11a862ea4d8bd",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 52,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/E4.mp3",
+    "blob": "bb0a3f4256ad2c7c5a2031b7a19ecb15af04519a",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 64,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/G1.mp3",
+    "blob": "6f631af88e8737b150997d4f1d80af1e2d65c4ce",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 31,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/G2.mp3",
+    "blob": "08bb3d47157c53e5e162aba958866d4807b90bdd",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 43,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/G3.mp3",
+    "blob": "e9f782aa1315682e06bfe56c173241c26ef60f42",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 55,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/bass-electric/G4.mp3",
+    "blob": "a81ffc3a5ca82645bad55403b85577fc36b54f67",
+    "instrument": "Bass Guitar",
+    "folder": "bass-electric",
+    "midi": 67,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/A4.mp3",
+    "blob": "c9f3cc112932b7c73043f8d5bb4d86752ef8cf52",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 69,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/A5.mp3",
+    "blob": "d9bbe6e021bec2854a711b37b76ed50077813dfb",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 81,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/As3.mp3",
+    "blob": "ced039e4a2eca06ddd6325a8c7f2fdd7ec943b3d",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 58,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/As4.mp3",
+    "blob": "a933ed5c970748fb51332f989d87caf2fc36e664",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 70,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/B3.mp3",
+    "blob": "b79328834832e3580314f6a9928fa7758daeb017",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 59,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/B4.mp3",
+    "blob": "efaafc1c9380fcf34616ad1950b0f32323ce0417",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 71,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/C4.mp3",
+    "blob": "c73379f81d10b2db95d6e8a1aa6b52d1f9f2baad",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 60,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/C5.mp3",
+    "blob": "8d007e5b25dc9e6546d9da071308e46ae7ba8481",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 72,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/Cs3.mp3",
+    "blob": "b52dd02cc2ac4e4a8cff0c19eaad28634b780716",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 49,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/Cs4.mp3",
+    "blob": "da344add39588182b5eb6d7d09b24941871d131b",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 61,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/Cs5.mp3",
+    "blob": "e82a18cfa20b0914d9babb93c785fd8cfa1e7633",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 73,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/D3.mp3",
+    "blob": "b12b0870bd7190e29bf75d8bb38da927e7c20626",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 50,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/D4.mp3",
+    "blob": "79269d9869c770509542e748575a8729b1a57a20",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 62,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/D5.mp3",
+    "blob": "eb342b21ee5d96ceccdd12a4e231aae20e73d755",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 74,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/Ds3.mp3",
+    "blob": "95ec993c98808c724ce1900432ca1017e3e7ed49",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 51,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/Ds4.mp3",
+    "blob": "6659c2a16c854c56a9f86cb2d3875cb881455dfb",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 63,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/Ds5.mp3",
+    "blob": "af7c457c18aec40ce16e413b2fa1c6c5a80294cb",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 75,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/E3.mp3",
+    "blob": "ac81004dc033874be99c9961ad4025534c97b1ce",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 52,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/E4.mp3",
+    "blob": "1429e9bf196a13e13e43e0f29bf898fc4c17b8a2",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 64,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/E5.mp3",
+    "blob": "33e5e69c9d39510bc11371c58f5b8b73c0098617",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 76,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/F3.mp3",
+    "blob": "61dbfe48d6a6fe348417a66e64359201bd49329a",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 53,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/F4.mp3",
+    "blob": "da36800f20a6f540fd4081c2435a685a2d16a346",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 65,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/F5.mp3",
+    "blob": "af1a3db21cc53be696f77c1298cc6c8bdf726724",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 77,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/Fs3.mp3",
+    "blob": "ade1932c55513b6639ce9de0456be0a81ad6c43b",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 54,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/Fs4.mp3",
+    "blob": "09b0696d9b31edfd61167b4b874705e64b12df3e",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 66,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/Fs5.mp3",
+    "blob": "27d4a72344b23a6cb45ec410c030abdcea5eab89",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 78,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/G3.mp3",
+    "blob": "3975045b90be8cfafb6b59d73947ac63abf45168",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 55,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/G4.mp3",
+    "blob": "44751644d0d8b68db8efe18d94b208d0e9c165b1",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 67,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/G5.mp3",
+    "blob": "c64bb59cad7eaf0a747ebef01da609a878b93fa5",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 79,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/Gs3.mp3",
+    "blob": "35606b2e466adbd2f7358a6e179cc8227554538e",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 56,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/Gs4.mp3",
+    "blob": "cac04c8422c3d8d2e8621e1eba85a6913e7aa786",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 68,
+    "kind": "mp3"
+  },
+  {
+    "repo": "nbrosowsky/tonejs-instruments",
+    "revision": "622c2f1c32c8cfce4158ddc3eb26e518ddef37e5",
+    "path": "samples/saxophone/Gs5.mp3",
+    "blob": "c2b6f5377765d7872597f29cafa0382d0d817dac",
+    "instrument": "Alto Saxophone",
+    "folder": "saxophone",
+    "midi": 80,
+    "kind": "mp3"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Viola Section/susvib/ViolaEns_susvib_A3_v2_1.wav",
+    "blob": "b479361fe3bed076db011092b8d48bca54daf83f",
+    "instrument": "Viola",
+    "folder": "viola",
+    "midi": 69,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Viola Section/susvib/ViolaEns_susvib_B2_v2_1.wav",
+    "blob": "0f7bee6ccadc6e25a101cbd7be1c27ac6e896ea4",
+    "instrument": "Viola",
+    "folder": "viola",
+    "midi": 59,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Viola Section/susvib/ViolaEns_susvib_B4_v2_1.wav",
+    "blob": "818ac60340e41f1287024c738d43c5bf3cf7dc9d",
+    "instrument": "Viola",
+    "folder": "viola",
+    "midi": 83,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Viola Section/susvib/ViolaEns_susvib_C2_v2_1.wav",
+    "blob": "7851268d881b226650cba4ef1d4e9578ae212099",
+    "instrument": "Viola",
+    "folder": "viola",
+    "midi": 48,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Viola Section/susvib/ViolaEns_susvib_C4_v2_1.wav",
+    "blob": "4561f010d9b6de44b121246731042d1879d38ab7",
+    "instrument": "Viola",
+    "folder": "viola",
+    "midi": 72,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Viola Section/susvib/ViolaEns_susvib_D2_v2_1.wav",
+    "blob": "bf8a94de83b7d96375bef7c94e07d616f43f9c14",
+    "instrument": "Viola",
+    "folder": "viola",
+    "midi": 50,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Viola Section/susvib/ViolaEns_susvib_D3_v2_1.wav",
+    "blob": "2f6d74aa54f4f23889de311ff85d9f704fb600b9",
+    "instrument": "Viola",
+    "folder": "viola",
+    "midi": 62,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Viola Section/susvib/ViolaEns_susvib_D5_v2_1.wav",
+    "blob": "05a181827b7f6b3f339a92fa8eaf648f352651a5",
+    "instrument": "Viola",
+    "folder": "viola",
+    "midi": 86,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Viola Section/susvib/ViolaEns_susvib_E2_v2_1.wav",
+    "blob": "764698fba8db1da82ecc6b5ec54fe61c0036e4f2",
+    "instrument": "Viola",
+    "folder": "viola",
+    "midi": 52,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Viola Section/susvib/ViolaEns_susvib_E4_v2_1.wav",
+    "blob": "c0e669461ba50854dd80e68767604a6f57471cc2",
+    "instrument": "Viola",
+    "folder": "viola",
+    "midi": 76,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Viola Section/susvib/ViolaEns_susvib_F3_v2_1.wav",
+    "blob": "e6b387021b4b98c926d737b2d451037aad087d0e",
+    "instrument": "Viola",
+    "folder": "viola",
+    "midi": 65,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Viola Section/susvib/ViolaEns_susvib_G2_v2_1.wav",
+    "blob": "e8b4cc651229723bc4dcb781d715d6b995b5589d",
+    "instrument": "Viola",
+    "folder": "viola",
+    "midi": 55,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Viola Section/susvib/ViolaEns_susvib_G4_v2_1.wav",
+    "blob": "54255fd83b3bf242022e61ff6d9fe518401dc537",
+    "instrument": "Viola",
+    "folder": "viola",
+    "midi": 79,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Cello Section/susvib/susvib_A2_v3_1.wav",
+    "blob": "ad696c6ad3cbacb37b6d9cf4f26da4a54521e7ce",
+    "instrument": "Cello",
+    "folder": "cello",
+    "midi": 57,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Cello Section/susvib/susvib_B1_v3_1.wav",
+    "blob": "56c81412c60a2b04b8556dfa26a7e0127357c5cb",
+    "instrument": "Cello",
+    "folder": "cello",
+    "midi": 47,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Cello Section/susvib/susvib_B3_v3_1.wav",
+    "blob": "3b1685e657db57bd71c979da8c2d9d35d2d0d197",
+    "instrument": "Cello",
+    "folder": "cello",
+    "midi": 71,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Cello Section/susvib/susvib_C1_v3_1.wav",
+    "blob": "d3820a6d57daf9a202a000bff0fa082a3f77acf6",
+    "instrument": "Cello",
+    "folder": "cello",
+    "midi": 36,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Cello Section/susvib/susvib_C3_v3_1.wav",
+    "blob": "a192845091cb8e669c72d3ff4a88eb1c5968e626",
+    "instrument": "Cello",
+    "folder": "cello",
+    "midi": 60,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Cello Section/susvib/susvib_D2_v3_1.wav",
+    "blob": "fdb46242bb68876ad275b9b8ed10c4b8508b9292",
+    "instrument": "Cello",
+    "folder": "cello",
+    "midi": 50,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Cello Section/susvib/susvib_D4_v3_1.wav",
+    "blob": "9189549dab9d3e0928fc7e42f94c04d66d28c52b",
+    "instrument": "Cello",
+    "folder": "cello",
+    "midi": 74,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Cello Section/susvib/susvib_E1_v3_1.wav",
+    "blob": "666f0d1ba1a76133c12c9859222c1c7094b613cf",
+    "instrument": "Cello",
+    "folder": "cello",
+    "midi": 40,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Cello Section/susvib/susvib_E3_v3_1.wav",
+    "blob": "7711cb67795d692b0d732eb8fd234c41d5980f42",
+    "instrument": "Cello",
+    "folder": "cello",
+    "midi": 64,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Cello Section/susvib/susvib_F2_v3_1.wav",
+    "blob": "a384e84a342ab9be12ca55b92c845a3c351b75bf",
+    "instrument": "Cello",
+    "folder": "cello",
+    "midi": 53,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Cello Section/susvib/susvib_F4_v3_1.wav",
+    "blob": "074f12a91124e13ea0e4fb34d9ecbe7279ec0806",
+    "instrument": "Cello",
+    "folder": "cello",
+    "midi": 77,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Cello Section/susvib/susvib_G1_v3_1.wav",
+    "blob": "35971538059e18b8f38cdc556630967777a0a0d5",
+    "instrument": "Cello",
+    "folder": "cello",
+    "midi": 43,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Strings/Cello Section/susvib/susvib_G3_v3_1.wav",
+    "blob": "732d0c80596fdfc593f55b5a24f65c07cd3191cd",
+    "instrument": "Cello",
+    "folder": "cello",
+    "midi": 67,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Clarinet/susLong/DCClar_susLong_A#2_v2_rr1_sum.wav",
+    "blob": "4ab307dd0c82ce0900eb7439bdb8d0a1008d4034",
+    "instrument": "Clarinet",
+    "folder": "clarinet",
+    "midi": 58,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Clarinet/susLong/DCClar_susLong_A#3_v2_rr1_sum.wav",
+    "blob": "c80415402c31b050eb51796e17fba541a24a57a0",
+    "instrument": "Clarinet",
+    "folder": "clarinet",
+    "midi": 70,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Clarinet/susLong/DCClar_susLong_A#4_v2_rr1_sum.wav",
+    "blob": "4250227b229f8f94ea73ecb3ff4e996bfa1cf91b",
+    "instrument": "Clarinet",
+    "folder": "clarinet",
+    "midi": 82,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Clarinet/susLong/DCClar_susLong_D2_v2_rr1_sum.wav",
+    "blob": "e435f825232aff390c93e0462d9e93e9e488d7ed",
+    "instrument": "Clarinet",
+    "folder": "clarinet",
+    "midi": 50,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Clarinet/susLong/DCClar_susLong_D3_v2_rr1_sum.wav",
+    "blob": "dfffae60b3793d9687b2cb2c9b3850f593c723c6",
+    "instrument": "Clarinet",
+    "folder": "clarinet",
+    "midi": 62,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Clarinet/susLong/DCClar_susLong_D4_v2_rr1_sum.wav",
+    "blob": "9efaf747591d3c39b7b6e87a077963a1ac71ae45",
+    "instrument": "Clarinet",
+    "folder": "clarinet",
+    "midi": 74,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Clarinet/susLong/DCClar_susLong_D5_v2_rr1_sum.wav",
+    "blob": "d2c1fa23c73a15d50b581b6f83aa9e56e7e01a0c",
+    "instrument": "Clarinet",
+    "folder": "clarinet",
+    "midi": 86,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Clarinet/susLong/DCClar_susLong_F#5_v2_rr1_sum.wav",
+    "blob": "5e103799bb30ef1afa405511230c852b942a9d7c",
+    "instrument": "Clarinet",
+    "folder": "clarinet",
+    "midi": 90,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Clarinet/susLong/DCClar_susLong_F2_v2_rr1_sum.wav",
+    "blob": "090db5da13fb0ec67673b6a656887644c923d341",
+    "instrument": "Clarinet",
+    "folder": "clarinet",
+    "midi": 53,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Clarinet/susLong/DCClar_susLong_F3_v2_rr1_sum.wav",
+    "blob": "1a445b0610a060c571574916d140344fc60922b2",
+    "instrument": "Clarinet",
+    "folder": "clarinet",
+    "midi": 65,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Clarinet/susLong/DCClar_susLong_F4_v2_rr1_sum.wav",
+    "blob": "9188e6eb2204ec227bac95cf254b9ce20e5d9d58",
+    "instrument": "Clarinet",
+    "folder": "clarinet",
+    "midi": 77,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Oboe/Sus/Oboe_Sus_A#2_v3_Main.wav",
+    "blob": "46e3ba91c7ed6e5f0e952e1c57738e91bd8dfbb1",
+    "instrument": "Oboe",
+    "folder": "oboe",
+    "midi": 58,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Oboe/Sus/Oboe_Sus_A#3_v3_Main.wav",
+    "blob": "a647e2253125834b891e8eedb594a3902c8a1def",
+    "instrument": "Oboe",
+    "folder": "oboe",
+    "midi": 70,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Oboe/Sus/Oboe_Sus_A#4_v3_Main.wav",
+    "blob": "d41287e7cd6043ce9081ff49dd03c6e4ddc6730d",
+    "instrument": "Oboe",
+    "folder": "oboe",
+    "midi": 82,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Oboe/Sus/Oboe_Sus_D3_v3_Main.wav",
+    "blob": "807d1b60150381bcbbfa7adba01f6c9d1d9e56f2",
+    "instrument": "Oboe",
+    "folder": "oboe",
+    "midi": 62,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Oboe/Sus/Oboe_Sus_D4_v3_Main.wav",
+    "blob": "c2d464efea3547555666a781f4873c7f80dd1393",
+    "instrument": "Oboe",
+    "folder": "oboe",
+    "midi": 74,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Oboe/Sus/Oboe_Sus_D5_v3_Main.wav",
+    "blob": "9374b432947c30aa361dafae72ea0ef9b1cc730b",
+    "instrument": "Oboe",
+    "folder": "oboe",
+    "midi": 86,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Oboe/Sus/Oboe_Sus_F3_v3_Main.wav",
+    "blob": "2024bd3888a256f86d7b9c1fdf7f06fc0877135e",
+    "instrument": "Oboe",
+    "folder": "oboe",
+    "midi": 65,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Oboe/Sus/Oboe_Sus_F4_v3_Main.wav",
+    "blob": "4f2c0ca39a4604d8493367eaf953e8756bc0bf90",
+    "instrument": "Oboe",
+    "folder": "oboe",
+    "midi": 77,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VSCO-2-CE",
+    "revision": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+    "path": "Woodwinds/Oboe/Sus/Oboe_Sus_F5_v3_Main.wav",
+    "blob": "55038a3b147179cef644aa58b390160ed37dcee5",
+    "instrument": "Oboe",
+    "folder": "oboe",
+    "midi": 89,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_A#1_vl2_rr1.wav",
+    "blob": "f8d89266ff4ba94711e537db7a517795e5c01da6",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 46,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_A#2_vl2_rr1.wav",
+    "blob": "10a0ef18b56032d496e96cad2173bac8c8ecb605",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 58,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_A#3_vl2_rr1.wav",
+    "blob": "bc92516cc9cbd3016ac9e2b7fa8bd679ffaf6c96",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 70,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_C2_vl2_rr1.wav",
+    "blob": "5b327c8f95808da4995f74f5f6da82bf4792f457",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 48,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_C3_vl2_rr1.wav",
+    "blob": "47868ef41bb3ca79f94706510d898b3cd0a6a0e2",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 60,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_C4_vl2_rr1.wav",
+    "blob": "9e9df9d0336413de8ba7b3aa4f0a564bdee17346",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 72,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_D2_vl2_rr1.wav",
+    "blob": "cdcc49208e9b4771261c780e60eb81b7b20a942b",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 50,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_D3_vl2_rr1.wav",
+    "blob": "4a9ce914994589b289d46c3a122dc9ecc164767c",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 62,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_D4_vl2_rr1.wav",
+    "blob": "4e944c35e8b57972e927635c84e9896beff063ef",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 74,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_E2_vl2_rr1.wav",
+    "blob": "0c66f6bb0744a8488c3607bc89935b7f6c2fbdc4",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 52,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_E3_vl2_rr1.wav",
+    "blob": "92f01526084bd01bc5f16344b11847220ef6d8ba",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 64,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_E4_vl2_rr1.wav",
+    "blob": "84de0c2a4f807f92bc51974f17f500cbb3865d13",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 76,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_F#2_vl2_rr1.wav",
+    "blob": "86314722b774a5464f00788bbb5afdb8971d45d9",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 54,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_F#3_vl2_rr1.wav",
+    "blob": "353bab1d01d7c2102ca24ed71196eb8aa2f15764",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 66,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_G#1_vl2_rr1.wav",
+    "blob": "f3e0959b55b00ee7c76a83894da4e453653bead0",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 44,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_G#2_vl2_rr1.wav",
+    "blob": "363c2d481c019aa766e8f1b38653b6a6c5afac96",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 56,
+    "kind": "wav"
+  },
+  {
+    "repo": "sgossner/VCSL",
+    "revision": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+    "path": "Aerophones/Reed Aerophones/Tenor Saxophone/Non-Vibrato/BrettTenor_NV_Main_G#3_vl2_rr1.wav",
+    "blob": "9dafb7ec9e6d79ebef68fa6f0cd1dd259d8d2b45",
+    "instrument": "Tenor Saxophone",
+    "folder": "tenor-saxophone",
+    "midi": 68,
+    "kind": "wav"
+  }
+]

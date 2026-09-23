@@ -1,0 +1,23 @@
+// Same locale order as messages.ts: zh-TW, en, ja, es, de, fr, ko, pt-BR, ru, it.
+export const themeMessages = {
+  theme: ['主題色彩','Theme colors','テーマカラー','Colores','Farben','Couleurs','테마 색상','Cores','Цвета темы','Colori'],
+  themePresets: ['精選配色','Curated palettes','おすすめ配色','Paletas seleccionadas','Farbpaletten','Palettes sélectionnées','추천 팔레트','Paletas selecionadas','Готовые палитры','Palette selezionate'],
+  themeHelp: ['讓練習室換上你喜歡的色彩。選擇配色，立即套用。','Make this studio your own. Choose a palette to apply it instantly.','好きな配色で、自分らしい練習室に。選ぶとすぐに反映されます。','Haz tuyo este estudio. Elige una paleta para aplicarla al instante.','Gestalte dein Studio. Wähle eine Palette, die sofort angewendet wird.','Personnalisez votre studio. Choisissez une palette pour l’appliquer immédiatement.','좋아하는 색으로 연습실을 꾸며 보세요. 선택하면 바로 적용됩니다.','Deixe o estúdio com a sua cara. Escolha uma paleta para aplicar na hora.','Оформите студию по своему вкусу. Палитра применяется сразу.','Personalizza il tuo studio. Scegli una palette per applicarla subito.'],
+  primaryColor: ['主要色','Primary color','メインカラー','Color principal','Hauptfarbe','Couleur principale','주 색상','Cor principal','Основной цвет','Colore principale'],
+  accentColor: ['點綴色','Accent color','アクセント色','Color de acento','Akzentfarbe','Couleur d’accent','강조 색상','Cor de destaque','Акцентный цвет','Colore di accento'],
+  backgroundColor: ['背景色','Background','背景色','Fondo','Hintergrund','Arrière-plan','배경색','Fundo','Фон','Sfondo'],
+  surfaceColor: ['卡片色','Card color','カードの色','Color de tarjetas','Kartenfarbe','Couleur des cartes','카드 색상','Cor dos cartões','Цвет карточек','Colore delle schede'],
+  customColors: ['自己的配色','Your own colors','カスタムカラー','Tus propios colores','Eigene Farben','Vos propres couleurs','나만의 색상','Suas próprias cores','Свои цвета','I tuoi colori'],
+  hexColor: ['HEX 色碼','HEX color code','HEXカラーコード','Código HEX','HEX-Farbcode','Code couleur HEX','HEX 색상 코드','Código HEX','Код HEX','Codice HEX'],
+  themeForest: ['森林綠','Forest','フォレスト','Bosque','Wald','Forêt','숲','Floresta','Лес','Foresta'],
+  themeOcean: ['深海藍','Ocean','オーシャン','Océano','Ozean','Océan','바다','Oceano','Океан','Oceano'],
+  themeLavender: ['薰衣草紫','Lavender','ラベンダー','Lavanda','Lavendel','Lavande','라벤더','Lavanda','Лаванда','Lavanda'],
+  themeRose: ['玫瑰粉','Rose','ローズ','Rosa','Rose','Rose','장미','Rosa','Роза','Rosa'],
+  themeSand: ['暖沙金','Sand','サンド','Arena','Sand','Sable','모래','Areia','Песок','Sabbia'],
+  themeMidnight: ['午夜深色','Midnight','ミッドナイト','Medianoche','Mitternacht','Minuit','한밤','Meia-noite','Полночь','Mezzanotte'],
+  themeContrastHelp: ['文字會自動調整深淺，保持清楚易讀；樂譜維持白底黑字。','Text adjusts automatically for readability. Sheet music stays black on white.','文字の明るさを自動調整します。楽譜は白地に黒のままです。','El texto se ajusta para facilitar la lectura. La partitura conserva el negro sobre blanco.','Der Text passt sich für gute Lesbarkeit an. Noten bleiben schwarz auf weiß.','Le texte s’adapte pour rester lisible. La partition reste noire sur fond blanc.','글자 색은 읽기 쉽게 자동 조정됩니다. 악보는 흰 바탕에 검은색으로 유지됩니다.','O texto se ajusta para facilitar a leitura. A partitura continua em preto e branco.','Цвет текста подстраивается для удобства чтения. Ноты остаются чёрными на белом фоне.','Il testo si adatta per restare leggibile. Lo spartito rimane nero su bianco.'],
+  themeSaved: ['自動儲存在此裝置的瀏覽器','Saved automatically in this browser','このブラウザに自動保存','Se guarda automáticamente en este navegador','Automatisch in diesem Browser gespeichert','Enregistrement automatique dans ce navigateur','이 브라우저에 자동 저장','Salvo automaticamente neste navegador','Автосохранение в этом браузере','Salvataggio automatico in questo browser'],
+  themeSaveWarning: ['目前無法儲存配色，關閉後可能需要重新設定。','Colors cannot be saved right now. You may need to set them again next time.','配色を保存できません。次回は再設定が必要な場合があります。','No se pueden guardar los colores. Quizás debas configurarlos de nuevo.','Die Farben können nicht gespeichert werden. Bitte beim nächsten Mal erneut einstellen.','Les couleurs ne peuvent pas être enregistrées. Il faudra peut-être les choisir à nouveau.','색상을 저장할 수 없습니다. 다음에 다시 설정해야 할 수 있습니다.','Não foi possível salvar as cores. Pode ser necessário configurá-las novamente.','Не удалось сохранить цвета. Возможно, их придётся выбрать снова.','Impossibile salvare i colori. Potrebbe essere necessario reimpostarli.'],
+  resetTheme: ['恢復預設','Restore default','初期設定に戻す','Restablecer','Zurücksetzen','Rétablir','기본값 복원','Restaurar padrão','Сбросить','Ripristina'],
+  themeDone: ['完成','Done','完了','Listo','Fertig','Terminé','완료','Concluído','Готово','Fatto'],
+} as const;

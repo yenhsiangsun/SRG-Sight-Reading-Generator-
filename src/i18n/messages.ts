@@ -1,4 +1,33 @@
+import {themeMessages} from './themeMessages';
+import {layoutMessages} from './layoutMessages';
+import {practiceToolsMessages} from './practiceToolsMessages';
+import {playbackMessages} from './playbackMessages';
+import {additionalMessages} from './additionalMessages';
+import {additionalDetails} from './additionalDetails';
+import {practiceCompanionMessages} from './practiceCompanionMessages';
+import {namedCatalogs} from './namedCatalogs';
+import {tuningMessages} from './tuningMessages';
+import {staffMessages} from './staffMessages';
+import {difficultyMessages} from './difficultyMessages';
+import {tonalityMessages} from './tonalityMessages';
+import {pdfMessages} from './pdfMessages';
+
+export const localeOrder = ['zh-TW', 'en', 'ja', 'es', 'de', 'fr', 'ko', 'pt-BR', 'ru', 'it', 'zh-CN', 'th'] as const;
+
+export type Locale = (typeof localeOrder)[number];
+
+export const locales: Locale[] = [...localeOrder];
+
 export const messages = {
+  ...pdfMessages,
+  ...tonalityMessages,
+  ...difficultyMessages,
+  ...staffMessages,
+  ...tuningMessages,
+  ...layoutMessages,
+  ...practiceToolsMessages,
+  ...practiceCompanionMessages,
+  ...playbackMessages,
   recorded:['真實樂器錄音','Recorded instrument samples','実楽器の録音'],
   soundCredits:['音色來源與授權','Sound credits & licenses','音源とライセンス'],
   calibrationTitle:['麥克風時間校正','Microphone timing calibration','マイクのタイミング調整'],
@@ -24,7 +53,8 @@ export const messages = {
   chooseRange:['找到舒適的音域','Find your comfortable range','無理のない音域を選びましょう'],
   chooseChallenge:['設計今天的挑戰','Shape today’s practice','今日の練習を設定'],
   intro:['每天一點，讀譜更從容。','A little practice. More fluent reading.','毎日の練習で、読譜をもっと自然に。'],
-  setupHelp:['先選樂器，再設定音域、調式與節奏。','Choose an instrument, then set your range, scale and rhythm.','楽器を選び、音域・音階・リズムを設定します。'],
+  setupHelp:['先選樂器，再設定音域、譜表與節奏。','Choose an instrument, then set your range, staff and rhythm.','楽器を選び、音域・譜表・リズムを設定します。'],
+  ...themeMessages,
   all:['全部','All','すべて'],keyboard:['鍵盤','Keyboard','鍵盤'],strings:['弦樂','Strings','弦楽器'],woodwinds:['木管','Woodwinds','木管楽器'],brass:['銅管','Brass','金管楽器'],other:['其他','Other','その他'],
   cnWind:['國樂・吹管','Chinese winds','中国の吹奏楽器'],cnPlucked:['國樂・彈撥','Chinese plucked strings','中国の撥弦楽器'],cnBowed:['國樂・拉弦','Chinese bowed strings','中国の擦弦楽器'],cnPercussion:['國樂・打擊','Chinese percussion','中国の打楽器'],
   search:['搜尋樂器或規格','Search instruments or models','楽器・仕様を検索'],
@@ -44,7 +74,7 @@ export const messages = {
   length:['小節數','Measures','小節数'],phoneHelp:['手機新題最多 8 小節，每行一小節；平板與電腦可產生更長練習。','Phone exercises are limited to 8 measures, one per row. Tablets and computers support longer exercises.','スマートフォンは最大8小節、1段1小節です。タブレットとパソコンでは長い練習も可能です。'],
   beginner:['初級','Beginner','初級'],intermediate:['中級','Intermediate','中級'],advanced:['進階','Advanced','上級'],difficulty:['視譜難度','Reading difficulty','読譜の難易度'],rhythm:['節奏複雜度','Rhythm complexity','リズムの複雑さ'],simple:['簡單','Simple','簡単'],moderate:['適中','Moderate','普通'],complex:['複雜','Complex','複雑'],
   meter:['拍號','Time signature','拍子'],mixed:['混合拍號','Mixed meter','変拍子'],mixedHelp:['每兩小節切換拍號，至少選擇兩種。','Change meter every two measures. Select at least two.','2小節ごとに拍子を変えます。2種類以上選んでください。'],
-  chromatic:['額外加入音階外音','Add notes outside the scale','音階外の音を追加'],chromaticHelp:['必要的升降與還原記號會自動顯示；關閉時只使用所選音階。','Required accidentals are always shown. Turn this off to stay within the selected scale.','必要な臨時記号は常に表示されます。オフにすると選んだ音階の音のみを使います。'],
+  chromatic:['增加音高變化','Add chromatic variety','音の変化を増やす'],chromaticHelp:['加入少量額外變化音。無論開關，記譜所需的升降與還原記號都會保留。','Add occasional altered notes. Necessary accidentals are always included, even with this off.','変化音を少し加えます。オフでも、記譜に必要な臨時記号は表示されます。'],
   previous:['← 上一步','← Back','← 戻る'],next:['下一步 →','Continue →','次へ →'],start:['開始視譜練習 →','Start reading →','読譜を始める →'],
   scale:['音階／調式','Scale / mode','音階／モード'],tonic:['主音','Tonic','主音'],noTonic:['非調性・無主音','Atonal · no tonic','無調・主音なし'],keySignature:['調號','Key signature','調号'],noSignature:['不預設調號；逐音標示記號','Open key signature; explicit accidentals','調号なし・臨時記号を表示'],intervals:['距主音半音數','Semitones above tonic','主音からの半音数'],
   modeFamily:['大小調與教會調式','Tonal & church modes','長短音階・教会旋法'],pentatonic:['五聲音階','Pentatonic scales','五音音階'],japanese:['日本音階','Japanese scales','日本の音階'],otherScales:['藍調與其他音階','Blues & other scales','ブルース・その他'],atonalFamily:['非調性','Atonal','無調'],
@@ -52,7 +82,7 @@ export const messages = {
   backSetup:['← 調整設定','← Settings','← 設定'],newExercise:['↻ 產生下一份','↻ New exercise','↻ 新しい練習'],practiceTitle:['讓每一拍，都更從容。','Find your reading rhythm.','自分の読譜リズムを見つけよう。'],
   play:['播放樂譜','Play score','楽譜を再生'],resume:['繼續播放','Resume','再開'],pause:['暫停','Pause','一時停止'],stop:['停止','Stop','停止'],replay:['從頭重播','Replay','最初から再生'],tempo:['速度','Tempo','テンポ'],metronome:['節拍器','Metronome','メトロノーム'],downbeat:['每小節首拍加重音','Accent each measure’s first beat','各小節の第1拍を強調'],
   ready:['準備就緒','Ready','準備完了'],loadingAudio:['正在啟動音訊','Starting audio','音声を準備中'],playing:['樂譜播放中','Playing score','再生中'],clicking:['節拍器運行中','Metronome running','メトロノーム動作中'],paused:['已暫停','Paused','一時停止中'],sound:['音色','Sound','音色'],
-  tempoHelp:['/4 的 BPM 計四分音符，/8 計八分音符。混合拍號維持每下速度；密集譜面可水平捲動。','BPM counts quarter notes in /4 and eighth notes in /8. Mixed meters keep the click rate. Dense notation can scroll horizontally.','/4 は四分音符、/8 は八分音符を BPM の単位とします。変拍子でもクリック速度を維持します。密な楽譜は横スクロールできます。'],
+  tempoHelp: ["BPM 以第一小節為準；混合拍號維持音符時值。例如 ♩ = 60 切到 /8 時為 ♪ = 120，切回 /4 則為 ♩ = 60。","BPM refers to the opening meter. Note values stay constant: ♩ = 60 becomes ♪ = 120 in /8, then ♩ = 60 on returning to /4.","BPM は最初の拍子が基準です。音価は一定：♩ = 60 → /8 では ♪ = 120 → /4 では ♩ = 60。","El BPM se refiere al compás inicial. Los valores se mantienen: ♩ = 60 → ♪ = 120 en /8 → ♩ = 60 al volver a /4.","Der BPM-Wert gilt für den Anfangstakt. Notenwerte bleiben gleich: ♩ = 60 → ♪ = 120 bei /8 → ♩ = 60 zurück bei /4.","Le BPM se réfère à la mesure initiale. Les durées restent constantes : ♩ = 60 → ♪ = 120 en /8 → ♩ = 60 au retour en /4.","BPM은 첫 마디 기준이에요. 음표 길이는 유지돼요: ♩ = 60 → /8에서 ♪ = 120 → /4로 돌아오면 ♩ = 60.","O BPM se refere ao compasso inicial. As durações se mantêm: ♩ = 60 → ♪ = 120 em /8 → ♩ = 60 ao voltar a /4.","BPM относится к начальному размеру. Длительности сохраняются: ♩ = 60 → ♪ = 120 в /8 → ♩ = 60 при возврате в /4.","Il BPM si riferisce al metro iniziale. Le durate restano costanti: ♩ = 60 → ♪ = 120 in /8 → ♩ = 60 tornando a /4."],
   score:['五線譜','Score','楽譜'],error:['無法完成操作，請檢查音域、拍號或裝置權限後重試。','Unable to complete this action. Check the range, meters or device permissions and try again.','操作を完了できません。音域・拍子・端末の権限を確認してください。'],
   readingTime:['讀譜時間','Reading time','読譜時間'],seconds:['秒','seconds','秒'],questions:['題數','Questions','問題数'],oneQuestion:['單題練習','One question','1問'],tenQuestions:['10 題綜合評估','10-question assessment','10問の総合評価'],
   examHelp:['先讀譜 30 或 60 秒，再聽四下預備拍後演奏。收音只在本機分析，不保存或上傳錄音。請戴耳機，避免預備拍被麥克風收進去。','Read for 30 or 60 seconds, then play after four count-in clicks. Audio is analyzed locally, never saved or uploaded. Use headphones to keep the count-in out of the microphone.','30秒または60秒読譜し、4回の予備拍の後に演奏します。音声は端末内で解析し、保存・送信しません。予備拍の回り込みを防ぐためイヤホンを使用してください。'],
@@ -70,7 +100,12 @@ export const messages = {
   micError:['無法啟用麥克風，請檢查權限並使用 HTTPS 或本機預覽。','Microphone unavailable. Check permission and use HTTPS or localhost.','マイクを使用できません。権限を確認し、HTTPS または localhost を使用してください。'],
   interrupted:['測驗因離開頁面或切換背景而取消，本題未計分。','Assessment canceled after leaving the page or switching to the background. This question was not graded.','ページ移動またはバックグラウンド移行により中止しました。この問題は採点していません。'],
 } as const;
-export type MessageKey=keyof typeof messages;
-export type Locale='zh-TW'|'en'|'ja';
-export const locales:Locale[]=['zh-TW','en','ja'];
-export function translate(locale:Locale,key:MessageKey):string {return messages[key][locales.indexOf(locale)]??messages[key][1];}
+export type MessageKey = keyof typeof messages;
+type MessageValue = ReadonlyArray<string>;
+export function translate(locale: Locale, key: MessageKey): string {
+  const named = namedCatalogs[locale];
+  if (named) return named.messages[key];
+  const values: MessageValue = messages[key];
+  const index = localeOrder.indexOf(locale);
+  return values[index] ?? additionalMessages[key]?.[index - 3] ?? additionalDetails[key]?.[index - 3] ?? values[1];
+}

@@ -10,8 +10,9 @@ test('instrument profiles generate within written bounds and transpose into audi
   for(const [name,p] of Object.entries(INSTRUMENTS)) {
     assert.ok(p.min<p.max,name);
     assert.ok(p.min+p.transpose>=0&&p.max+p.transpose<=127,name);
-    if(name!=='Voice')assert.match(p.source,/^https:\/\//,name);
-    const e=generatePracticeExercise({...base,clef:p.clef==='grand'?'treble':p.clef,range:{min:p.min,max:p.max}});
+    // Voice is customizable; Alto Sheng uses the user's explicitly supplied range.
+    if(!['Voice','Alto Sheng'].includes(name))assert.match(p.source,/^https:\/\//,name);
+    const e=generatePracticeExercise({...base,clef:['grand','mixedStaff'].includes(p.clef)?'treble':p.clef,range:{min:p.min,max:p.max}});
     for(const m of e.measures)for(const n of m.events)if(!n.rest)assert.ok(n.midi>=p.min&&n.midi<=p.max,name);
   }
   assert.equal(INSTRUMENTS.Piano.min,21);

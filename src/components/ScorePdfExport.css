@@ -1,0 +1,3 @@
+.pdf-export{display:flex;flex-direction:column;align-items:stretch;gap:6px}
+.pdf-export button{display:flex;align-items:center;justify-content:center;gap:7px;height:100%}
+.pdf-export-error{max-width:250px;font-size:.8rem;color:var(--theme-danger,#b42318)}

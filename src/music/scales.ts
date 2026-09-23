@@ -17,6 +17,7 @@ export const SCALES = [
   {id:'locrian',label:'洛克里安 Locrian',family:'大小調與教會調式',intervals:[0,1,3,5,6,8,10],degrees:seven,parent:[1,1],description:'包含降二級與減五度。'},
   {id:'major-pentatonic',label:'大調五聲／宮調式',family:'五聲音階',intervals:[0,2,4,7,9],degrees:[0,1,2,4,5],parent:[0,0],description:'一、二、三、五、六級；五聲宮調式的音集合。'},
   {id:'shang',label:'商調式（五聲）',family:'五聲音階',intervals:[0,2,5,7,10],degrees:[0,1,3,4,6],parent:[-2,-1],description:'以商音為中心的五聲音集合。'},
+  {id:'egyptian-pentatonic',label:'埃及五聲音階',family:'五聲音階',intervals:[0,2,5,7,10],degrees:[0,1,3,4,6],parent:[-2,-1],description:'採常稱 Egyptian pentatonic 的一、二、四、五、降七級形式；與商調式同音集合，不代表完整埃及傳統音樂語法。'},
   {id:'jue',label:'角調式（五聲）',family:'五聲音階',intervals:[0,3,5,8,10],degrees:[0,2,3,5,6],parent:[-4,-2],description:'以角音為中心的五聲音集合。'},
   {id:'zhi',label:'徵調式（五聲）',family:'五聲音階',intervals:[0,2,5,7,9],degrees:[0,1,3,4,5],parent:[-7,-4],description:'以徵音為中心的五聲音集合。'},
   {id:'minor-pentatonic',label:'小調五聲／羽調式',family:'五聲音階',intervals:[0,3,5,7,10],degrees:[0,2,3,4,6],parent:[3,2],description:'一、降三、四、五、降七級。'},
@@ -27,6 +28,9 @@ export const SCALES = [
   {id:'yo',label:'陽音階 Yo',family:'日本音階',intervals:[0,2,5,7,9],degrees:[0,1,3,4,5],description:'採 0–2–5–7–9 形式，與徵調式同音集合；不代表完整傳統演奏語法。'},
   {id:'kumoi',label:'雲井 Kumoi',family:'日本音階',intervals:[0,2,3,7,9],degrees:[0,1,2,4,5],description:'採 0–2–3–7–9 形式。'},
   {id:'ryukyu',label:'琉球音階 Ryukyu',family:'日本音階',intervals:[0,4,5,7,11],degrees:[0,2,3,4,6],description:'採 0–4–5–7–11 形式。'},
+  // Twelve-tone practice adaptations, not authentic gamelan tunings; see docs/southeast-asian-scales.md.
+  {id:'pelog-pentatonic',label:'南洋風格・Pelog 五聲（近似）',family:'東南亞風格音階',intervals:[0,1,3,7,8],degrees:[0,1,2,4,5],description:'採西方音階資料庫常用的 Pelog 五聲近似：一、降二、降三、五、降六級；以十二平均律供視譜練習，不代表完整傳統 Pelog 調律或旋律語法。'},
+  {id:'slendro-pentatonic',label:'南洋風格・Slendro 五聲（近似）',family:'東南亞風格音階',intervals:[0,2,5,7,10],degrees:[0,1,3,4,6],description:'將理想化五等分八度的 0、240、480、720、960 音分就近取整為半音；與埃及五聲同音集合，不代表真實 Slendro／Salendro 調律或旋律語法。'},
   {id:'minor-blues',label:'小調藍調音階',family:'藍調與其他音階',intervals:[0,3,5,6,7,10],degrees:[0,2,3,4,4,6],description:'小調五聲加入降五級藍音。'},
   {id:'major-blues',label:'大調藍調音階',family:'藍調與其他音階',intervals:[0,2,3,4,7,9],degrees:[0,1,2,2,4,5],description:'大調五聲加入降三級藍音。'},
   {id:'harmonic-major',label:'和聲大音階',family:'藍調與其他音階',intervals:[0,2,4,5,7,8,11],degrees:seven,parent:[0,0],description:'大音階降低第六級。'},

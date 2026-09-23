@@ -5,7 +5,9 @@ import type {ExerciseData} from '../music';
 import {MicrophoneSession,type ExamStage} from '../assessment/MicrophoneSession';
 import {assess,type AssessmentResult} from '../assessment/scoring';
 import {createPlaybackEvents} from '../audio/PlaybackController';
-export default function AssessmentPanel({exercise,bpm,onNext,onActive}:{exercise:ExerciseData;bpm:number;onNext:()=>void;onActive:(active:boolean)=>void}){
+import {suggestedPractice} from '../practice/feedback';
+import {hasPolyphony} from '../music/notePitches';
+export default function AssessmentPanel({exercise,bpm,onNext,onActive,onResult,onPracticeWeakness}:{exercise:ExerciseData;bpm:number;onNext:()=>void;onActive:(active:boolean)=>void;onResult?:(result:AssessmentResult|null)=>void;onPracticeWeakness?:(result:AssessmentResult)=>void}){
   const {t}=useI18n();const [reading,setReading]=useState(30),[questionCount,setQuestionCount]=useState(10),[calibration,setCalibration]=useState(loadCalibration);
   const [stage,setStage]=useState<ExamStage>('idle'),[remaining,setRemaining]=useState(0),[error,setError]=useState<'micError'|'interrupted'|null>(null);
   const [results,setResults]=useState<AssessmentResult[]>([]),[current,setCurrent]=useState<AssessmentResult|null>(null);
@@ -17,7 +19,8 @@ export default function AssessmentPanel({exercise,bpm,onNext,onActive}:{exercise
   const active=['permission','reading','countin','performing'].includes(stage);
   const done=results.length>=questionCount;
   const expected=createPlaybackEvents(exercise,bpm);
-  const unsupported=(!!exercise.lowerMeasures&&exercise.grandMode!=='mono')||expected.events.some(n=>{const match=n.note.match(/^([a-g])([#b]*)(-?\d+)$/i);if(!match)return true;const pc=({c:0,d:2,e:4,f:5,g:7,a:9,b:11}[match[1].toLowerCase()]!)+[...match[2]].reduce((v,a)=>v+(a==='#'?1:-1),0);const midi=(+match[3]+1)*12+pc;return midi<36||midi>90;});
+  useEffect(()=>{onResult?.(current);},[current,onResult]);
+  const unsupported=hasPolyphony(exercise)||expected.events.some(n=>{const match=n.note.match(/^([a-g])([#b]*)(-?\d+)$/i);if(!match)return true;const pc=({c:0,d:2,e:4,f:5,g:7,a:9,b:11}[match[1].toLowerCase()]!)+[...match[2]].reduce((v,a)=>v+(a==='#'?1:-1),0);const midi=(+match[3]+1)*12+pc;return midi<36||midi>90;});
   useEffect(()=>{onActive(active);return()=>onActive(false);},[active,onActive]);
   useEffect(()=>{const running=session.current;running.stop();return()=>running.stop();},[exercise]);
   useEffect(()=>{const visibility=()=>{if(document.hidden&&active){session.current.stop();setError('interrupted');setStage('idle');}};document.addEventListener('visibilitychange',visibility);return()=>document.removeEventListener('visibilitychange',visibility);},[active]);
@@ -41,5 +44,6 @@ export default function AssessmentPanel({exercise,bpm,onNext,onActive}:{exercise
     {active?<div className="exam-live" role="status"><strong>{calibrating?t('calibrationTitle')+' · ':''}{t(stage as 'permission'|'reading'|'countin'|'performing')}</strong><output>{stage==='permission'?'…':remaining}</output><button className="secondary-button" onClick={()=>{session.current.stop();setCalibrating(false);setStage('idle');}}>{t('cancelExam')}</button></div>:<div className="exam-actions">{done?<button className="primary-button" onClick={()=>{setResults([]);setCurrent(null);setStage('idle');onNext();}}>{t('restartExam')}</button>:current?.reliable?<button className="primary-button" onClick={onNext}>{t('nextQuestion')}</button>:<button className="primary-button" disabled={!calibration||unsupported||expected.events.length===0} onClick={()=>{void start();}}>{t('startExam')}</button>}</div>}
     {error&&<p className="error-message" role="alert">{t(error)}</p>}{current&&!current.reliable&&<p className="error-message" role="alert">{t('noSignal')}</p>}
     {summary&&current?.reliable&&<div className="exam-result"><h3>{t(done?'summary':'result')}</h3><div className="exam-scores">{(['pitch','rhythm','completion'] as const).map(key=><div key={key}><span>{t(key==='pitch'?'pitchScore':key==='rhythm'?'rhythmScore':'completion')}</span><strong>{summary[key]}<small>%</small></strong></div>)}</div><p>{t(summary.completion<70?'completionAdvice':summary.pitch+10<summary.rhythm?'pitchAdvice':summary.rhythm+10<summary.pitch?'rhythmAdvice':'balancedAdvice')}</p><details><summary>{t('noteDetails')}</summary><div className="result-table"><table><thead><tr><th>#</th><th>{t('expected')}</th><th>{t('pitchScore')}</th><th>{t('onset')}</th></tr></thead><tbody>{current.notes.map(n=><tr key={n.index}><td>{n.index+1}</td><td>{n.expected}</td><td>{n.heard?(n.pitch?'✓':Math.round(n.cents??0)+' ¢'):t('notHeard')}</td><td>{n.offsetMs??'—'}</td></tr>)}</tbody></table></div></details></div>}
+    {current&&suggestedPractice(exercise,bpm,current)&&onPracticeWeakness&&<button className="secondary-button weakness-action" onClick={()=>onPracticeWeakness(current)}>{t('practiceWeakness')} →</button>}
   </section>;
 }

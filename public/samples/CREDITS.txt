@@ -7,4 +7,59 @@ Distribution sample license: Creative Commons Attribution 3.0 Unported.
 https://creativecommons.org/licenses/by/3.0/
 Provenance: https://github.com/nbrosowsky/tonejs-instruments/blob/master/sample-source-info.txt
 Files selected from the distribution without audio modification; pitches between samples are repitched during playback. No endorsement implied.
-Other instruments use project-authored synthesized approximations, not recordings of those instruments.
+Erhu preview: Berklee Intersectional Soundbox Archive (BISA), Chinese Erhu Sample Pack (2025).
+Instrumentalist: Yu Chun Chan. Recording engineer: Josefina Ugarte. Editor: Asher Deverna.
+Sources: "Regular (A4)" and "Regular (E5)":
+https://remix.berklee.edu/bisa-chinese-erhu-oneshots-vibrato/7/
+https://remix.berklee.edu/bisa-chinese-erhu-oneshots-vibrato/8/
+Collection declares Creative Commons Attribution (CC BY):
+https://remix.berklee.edu/bisa-chinese-erhu/
+The collection does not specify a license version on its public overview.
+Changes: pitch-centre correction, crossfaded sustain extension after 1.8 seconds, and final fade. Original stereo attack and dynamics are retained.
+Only A4 and E5 are recorded anchors; other notes are repitched. This is a prototype, not full-range multisampling.
+No endorsement by Berklee or the contributors is implied.
+
+Other instruments without sample mappings use project-authored synthesized approximations.
+
+Voice: "vocal C sharp long.wav" sung and recorded by owstu, Freesound 555984.
+https://freesound.org/people/owstu/sounds/555984/
+Creative Commons Zero 1.0: https://creativecommons.org/publicdomain/zero/1.0/
+Source used: public lossy MP3 preview (not the original WAV).
+https://cdn.freesound.org/previews/555/555984_1690102-lq.mp3
+Changes: crop 0.65-8.65 seconds to omit initial pitch scoop and final breath,
+pitch-centre correction to C#5, level adjustment and edge fades.
+One recorded female sung-vowel anchor; other pitches are repitched. This does not
+sing solfege syllables or lyrics and is not a full-range male/female voice library.
+Source hash and measured tuning: voice/provenance.json. No endorsement implied.
+
+Western instrument expansion (2026-09-15):
+- Piano, Violin, Flute, Bassoon, Double Bass, French Horn, Trombone, Trumpet,
+  Tuba, Acoustic Guitar, Electric Bass and Alto Saxophone: MP3 distribution by
+  Nicholaus P. Brosowsky, tonejs-instruments (CC BY 3.0).
+  https://github.com/nbrosowsky/tonejs-instruments/blob/master/LICENSE.md
+  Guitar recordings: University of Iowa Musical Instrument Samples.
+  Electric bass and sax recordings: Karoryfer Samples (Weresax alto sax).
+  Original source list: https://github.com/nbrosowsky/tonejs-instruments/blob/master/sample-source-info.txt
+- Viola and Cello SECTION sustains, Clarinet and Oboe: VSCO 2 Community Edition,
+  Versilian Studios / Sam Gossner and contributors. CC0 1.0.
+  https://github.com/sgossner/VSCO-2-CE
+- Tenor Saxophone non-vibrato: VCSL, Versilian Studios and contributors. CC0 1.0.
+  https://github.com/sgossner/VCSL
+  https://creativecommons.org/publicdomain/zero/1.0/
+Changes: WAV sources converted to stereo 44.1 kHz PCM16; MP3 files unchanged.
+Playback gain is balanced per instrument. Source octave names converted to scientific
+pitch convention where needed. One mistuned clarinet source was excluded.
+Every source is pinned by commit in western-source-report.json, with decode checks.
+The source plan also records Git blob hashes. No endorsement is implied.
+
+Pipa prototype: "Pipa-2.wav" by xserra, Freesound sound 162086.
+https://freesound.org/people/xserra/sounds/162086/
+License: Creative Commons Attribution 4.0 International.
+https://creativecommons.org/licenses/by/4.0/
+Recorded May 27, 2012 at a Pipa graduation recital, Central Conservatory of Music, Beijing.
+Changes: excerpting two stable pitched passages, pitch correction, level adjustment and edge fades.
+Exact source times, source hash and tuning are in pipa/provenance.json.
+This is a recital-recording prototype with room sound and performance articulation,
+not a dry isolated-note library. Only A3 and B3 are recorded anchors; other pitches
+are repitched. Samples end naturally; sustained notes can outlast the short recording.
+No endorsement by the author or performers is implied.
