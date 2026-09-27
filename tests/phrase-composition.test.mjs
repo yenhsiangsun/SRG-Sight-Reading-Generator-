@@ -103,7 +103,7 @@ test('bounded candidate review selects a better legal score, keeps its rhythm, a
   const repeated=fixture([[60,60,60,60],[60,60,60,60]]),good=fixture([[60,64,67,65],[64,62,59,60]]);
   const malformed=plain(good);malformed.measures[0].events[0].durationUnits=3;
   const candidates=[malformed,repeated,good];let calls=0;
-  const plan={shared:'plan'};
+  const plan=good.measures.map(bar=>({meter:bar.timeSignature,notes:bar.events.map(n=>({units:n.durationUnits}))}));
   const api=loadModule('src/music/composeExercise.ts',1,undefined,{
     '../music':{createPracticeRhythmPlan:()=>plan,generatePracticeExercise:(_options,received)=>{
       assert.equal(received,plan);return candidates[calls++];

@@ -125,7 +125,7 @@ test('the free original remains available before purchase and after switching or
   const initial = createProgress(today);
   assert.equal(initial.activePet, null);
   assert.equal(unequipPet(initial, today).activePet, null);
-  let state = {...initial, points: 1000};
+  let state = {...initial, points: REWARDS.reduce((sum, reward) => sum + reward.cost, 0)};
   for (const pet of PET_IDS) {
     const purchased = redeemReward(state, pet, today);
     assert.equal(purchased.redeemed, true);

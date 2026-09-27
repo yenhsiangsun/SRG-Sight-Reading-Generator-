@@ -1,4 +1,7 @@
 import type { ExerciseData, MeasureData } from '../music';
+// Include legacy slow studies and the full free-metronome range in saved data.
+export const SUPPORTED_BPM = {min:40,max:400} as const;
+export const validBpm = (value: unknown): value is number => typeof value === 'number' && Number.isInteger(value) && value >= SUPPORTED_BPM.min && value <= SUPPORTED_BPM.max;
 /** The BPM input refers to the opening meter. Note values stay constant at meter changes. */
 export function beatUnits(meter:string) { return 16 / Number(meter.split('/')[1]); }
 export function tempoSymbol(meter:string) { return meter.endsWith('/8') ? '♪' : '♩'; }

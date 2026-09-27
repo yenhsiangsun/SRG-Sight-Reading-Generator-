@@ -1,7 +1,11 @@
+import {forestPalettes} from '../progress/companionPalette';
 import {useId} from 'react';
 import type {PetCompanion} from '../progress/progress';
 import {OriginalCompanion} from './OriginalCompanion';
 import {WorldAnimalPortrait} from './WorldAnimalPortrait';
+import {StorybookCompanionPortrait} from './StorybookCompanionPortrait';
+import type {CompanionDesign} from '../progress/companionDesign';
+import {useCompanionDesign} from '../progress/useCompanionDesign';
 import './NoteCompanion.css';
 
 function Eyes({y = 82, spacing = 23}: {y?: number; spacing?: number}) {
@@ -17,7 +21,7 @@ function Eyes({y = 82, spacing = 23}: {y?: number; spacing?: number}) {
 }
 
 /** The weight swings about the bottom pivot, clear of the animal's face. */
-function Clockwork({id, dark = '#524335'}: {id: string; dark?: string}) {
+function Clockwork({id, dark = '#604021'}: {id: string; dark?: string}) {
   return <g>
     <path d="M149 119Q160 114 171 119L186 164Q188 171 180 172H140Q132 171 134 164Z" fill={dark}/>
     <path d="M146 133h28m-31 10h34m-37 10h40" stroke="#ead7b0" strokeWidth="1.3" opacity=".42"/>
@@ -58,73 +62,73 @@ function Fox({id}: {id: string}) {
 
 function Lark({id}: {id: string}) {
   return <g strokeLinejoin="round" strokeLinecap="round">
-    <path d="M138 57Q130 27 150 19Q149 31 159 40Q159 16 177 19Q169 29 175 48" fill={`url(#${id}-bird)`} stroke="#55758a" strokeWidth="2"/>
+    <path d="M138 57Q130 27 150 19Q149 31 159 40Q159 16 177 19Q169 29 175 48" fill={`url(#${id}-bird)`} stroke="#345d6c" strokeWidth="2"/>
     <path d="M122 167l-15 16 28-4m63-12 15 16-28-4" fill="#d2a065" stroke="#a87948" strokeWidth="2"/>
-    <path d="M160 44C126 44 112 68 107 95L95 151C89 179 120 184 160 184C200 184 231 179 225 151L213 95C208 68 194 44 160 44Z" fill={`url(#${id}-bird)`} stroke="#55758a" strokeWidth="2"/>
+    <path d="M160 44C126 44 112 68 107 95L95 151C89 179 120 184 160 184C200 184 231 179 225 151L213 95C208 68 194 44 160 44Z" fill={`url(#${id}-bird)`} stroke="#345d6c" strokeWidth="2"/>
     <path d="M126 91Q160 107 194 91L207 159Q209 177 160 178Q111 177 113 159Z" fill="#f5f0dd"/>
-    <path d="M108 103C84 112 78 141 93 157C110 150 117 132 108 103Z" fill="#88b3c2" stroke="#55758a" strokeWidth="2"/>
-    <path d="M212 103C236 112 242 141 227 157C210 150 203 132 212 103Z" fill="#88b3c2" stroke="#55758a" strokeWidth="2"/>
-    <path d="M98 124q-4 10-3 17m7-9-2 10M222 124q4 10 3 17m-7-9 2 10" fill="none" stroke="#c8e0df" strokeWidth="2"/>
+    <path d="M108 103C84 112 78 141 93 157C110 150 117 132 108 103Z" fill="#548998" stroke="#345d6c" strokeWidth="2"/>
+    <path d="M212 103C236 112 242 141 227 157C210 150 203 132 212 103Z" fill="#548998" stroke="#345d6c" strokeWidth="2"/>
+    <path d="M98 124q-4 10-3 17m7-9-2 10M222 124q4 10 3 17m-7-9 2 10" fill="none" stroke="#b0c9c5" strokeWidth="2"/>
     <Eyes y={80} spacing={23}/>
     <ellipse cx="124" cy="94" rx="8" ry="4" fill="#e6b3a0" opacity=".7"/>
     <ellipse cx="196" cy="94" rx="8" ry="4" fill="#e6b3a0" opacity=".7"/>
     <path d="M148 94Q160 84 172 94L160 105Z" fill="#e6b269" stroke="#b98649" strokeWidth="1.4"/>
     <path d="M148 94h24" stroke="#b98649" strokeWidth="1.2"/>
-    <Clockwork id={id} dark="#3c5e6c"/>
+    <Clockwork id={id} dark="#604021"/>
   </g>;
 }
 
 function Raccoon({id}: {id: string}) {
   return <g strokeLinejoin="round" strokeLinecap="round">
     <defs><clipPath id={`${id}-tail-clip`}><path d="M206 167C248 176 271 144 251 122C253 145 224 135 211 149Z"/></clipPath></defs>
-    <path d="M206 167C248 176 271 144 251 122C253 145 224 135 211 149Z" fill="#a6a4b7" stroke="#6c687f" strokeWidth="2"/>
-    <path d="M226 141l12 23m4-29 11 16" stroke="#5f6075" strokeWidth="10" clipPath={`url(#${id}-tail-clip)`}/>
-    <ellipse cx="127" cy="183" rx="15" ry="6" fill="#55566d"/>
-    <ellipse cx="193" cy="183" rx="15" ry="6" fill="#55566d"/>
-    <path d="M114 80Q160 55 206 80L225 158Q231 183 201 184H119Q89 183 95 158Z" fill={`url(#${id}-raccoon)`} stroke="#6c687f" strokeWidth="2"/>
+    <path d="M206 167C248 176 271 144 251 122C253 145 224 135 211 149Z" fill="#958779" stroke="#665b52" strokeWidth="2"/>
+    <path d="M226 141l12 23m4-29 11 16" stroke="#3e3631" strokeWidth="10" clipPath={`url(#${id}-tail-clip)`}/>
+    <ellipse cx="127" cy="183" rx="15" ry="6" fill="#51463e"/>
+    <ellipse cx="193" cy="183" rx="15" ry="6" fill="#51463e"/>
+    <path d="M114 80Q160 55 206 80L225 158Q231 183 201 184H119Q89 183 95 158Z" fill={`url(#${id}-raccoon)`} stroke="#665b52" strokeWidth="2"/>
     <path d="M132 111Q160 101 188 111L202 166Q205 176 192 177H128Q115 176 118 166Z" fill="#f3e9e2"/>
-    <circle cx="118" cy="49" r="23" fill="#9293aa" stroke="#6c687f" strokeWidth="2"/>
-    <circle cx="202" cy="49" r="23" fill="#9293aa" stroke="#6c687f" strokeWidth="2"/>
+    <circle cx="118" cy="49" r="23" fill="#958779" stroke="#665b52" strokeWidth="2"/>
+    <circle cx="202" cy="49" r="23" fill="#958779" stroke="#665b52" strokeWidth="2"/>
     <circle cx="118" cy="49" r="13" fill="#d7bec3"/>
     <circle cx="202" cy="49" r="13" fill="#d7bec3"/>
-    <path d="M160 45C124 43 103 61 101 84L95 96L108 95C124 118 145 120 160 118C175 120 196 118 212 95L225 96L219 84C217 61 196 43 160 45Z" fill={`url(#${id}-raccoon)`} stroke="#6c687f" strokeWidth="2"/>
-    <path d="M114 76Q132 62 156 82Q160 86 164 82Q188 62 206 76L201 91Q186 104 163 94Q160 92 157 94Q134 104 119 91Z" fill="#545569"/>
+    <path d="M160 45C124 43 103 61 101 84L95 96L108 95C124 118 145 120 160 118C175 120 196 118 212 95L225 96L219 84C217 61 196 43 160 45Z" fill={`url(#${id}-raccoon)`} stroke="#665b52" strokeWidth="2"/>
+    <path d="M114 76Q132 62 156 82Q160 86 164 82Q188 62 206 76L201 91Q186 104 163 94Q160 92 157 94Q134 104 119 91Z" fill="#403832"/>
     <path d="M155 51h10l5 23-10 12-10-12Z" fill="#e8e2e3"/>
     <Eyes y={82} spacing={25}/>
     <path d="M137 100Q160 85 183 100Q181 115 160 118Q139 115 137 100Z" fill="#f7ece3"/>
     <path d="M154 99Q160 95 166 99Q167 103 160 106Q153 103 154 99Z" fill="#424152"/>
     <path d="M153 109q7 7 14 0" fill="none" stroke="#6c5e67" strokeWidth="1.8"/>
-    <Clockwork id={id} dark="#555369"/>
-    <path d="M106 128q-7 14-3 24M214 128q7 14 3 24" fill="none" stroke="#cfbfce" strokeWidth="7"/>
+    <Clockwork id={id} dark="#604021"/>
+    <path d="M106 128q-7 14-3 24M214 128q7 14 3 24" fill="none" stroke="#bcaa95" strokeWidth="7"/>
   </g>;
 }
 
 function Rabbit({id}: {id: string}) {
   return <g strokeLinejoin="round" strokeLinecap="round">
     <circle cx="216" cy="161" r="17" fill="#fff2e8" stroke="#c6a99e" strokeWidth="2"/>
-    <path d="M121 68C94 26 113 6 123 15C137 29 139 48 139 63M178 63C180 43 184 9 199 11C218 17 201 56 197 68" fill={`url(#${id}-rabbit)`} stroke="#bba296" strokeWidth="2"/>
+    <path d="M121 68C94 26 113 6 123 15C137 29 139 48 139 63M178 63C180 43 184 9 199 11C218 17 201 56 197 68" fill={`url(#${id}-rabbit)`} stroke="#b59a79" strokeWidth="2"/>
     <path d="M123 53Q112 28 120 23Q128 33 130 52M187 51Q190 25 197 23Q201 31 193 53" fill="none" stroke="#dfb0b0" strokeWidth="8"/>
     <ellipse cx="128" cy="182" rx="17" ry="7" fill="#dbc1b8"/><ellipse cx="192" cy="182" rx="17" ry="7" fill="#dbc1b8"/>
-    <path d="M119 91Q160 69 201 91L220 158Q226 183 201 183H119Q94 183 100 158Z" fill={`url(#${id}-rabbit)`} stroke="#bba296" strokeWidth="2"/>
-    <path d="M132 114H188L204 167Q205 176 194 177H126Q115 176 116 167Z" fill="#f2d5d2"/>
-    <path d="M160 53C124 53 104 68 106 90C107 112 129 121 160 117C191 121 213 112 214 90C216 68 196 53 160 53Z" fill={`url(#${id}-rabbit)`} stroke="#bba296" strokeWidth="2"/>
-    <Eyes y={84}/><ellipse cx="124" cy="98" rx="8" ry="4" fill="#e5aeac" opacity=".65"/><ellipse cx="196" cy="98" rx="8" ry="4" fill="#e5aeac" opacity=".65"/>
+    <path d="M119 91Q160 69 201 91L220 158Q226 183 201 183H119Q94 183 100 158Z" fill={`url(#${id}-rabbit)`} stroke="#b59a79" strokeWidth="2"/>
+    <path d="M132 114H188L204 167Q205 176 194 177H126Q115 176 116 167Z" fill="#ecd4b5"/>
+    <path d="M160 53C124 53 104 68 106 90C107 112 129 121 160 117C191 121 213 112 214 90C216 68 196 53 160 53Z" fill={`url(#${id}-rabbit)`} stroke="#b59a79" strokeWidth="2"/>
+    <Eyes y={84}/><ellipse cx="124" cy="98" rx="8" ry="4" fill="#d99b89" opacity=".65"/><ellipse cx="196" cy="98" rx="8" ry="4" fill="#d99b89" opacity=".65"/>
     <path d="M155 99Q160 95 165 99L160 104Z" fill="#bf838c"/><path d="M160 104v3m-6 1q6 6 12 0" fill="none" stroke="#98726e" strokeWidth="1.8"/>
-    <Clockwork id={id} dark="#927777"/>
+    <Clockwork id={id} dark="#604021"/>
     <path d="M107 132q-6 12-2 21M213 132q6 12 2 21" fill="none" stroke="#f9e7dc" strokeWidth="9"/>
   </g>;
 }
 
 function Cat({id}: {id: string}) {
   return <g strokeLinejoin="round" strokeLinecap="round">
-    <path className="companion-tail" d="M212 168C257 178 260 141 243 141C234 141 234 151 240 153" fill="none" stroke="#424e6a" strokeWidth="15"/>
-    <ellipse cx="129" cy="183" rx="15" ry="6" fill="#303a52"/><ellipse cx="191" cy="183" rx="15" ry="6" fill="#303a52"/>
-    <path d="M118 91Q160 71 202 91L219 160Q224 183 202 183H118Q96 183 101 160Z" fill={`url(#${id}-cat)`} stroke="#354157" strokeWidth="2"/>
-    <path d="M133 113Q160 104 187 113L202 166Q205 176 193 176H127Q115 176 118 166Z" fill="#a4aec6"/>
-    <path d="M109 70Q104 42 110 27Q128 29 145 49Q160 44 175 49Q192 29 210 27Q216 42 211 70C230 113 198 119 160 117C122 119 90 113 109 70Z" fill={`url(#${id}-cat)`} stroke="#354157" strokeWidth="2"/>
+    <path className="companion-tail" d="M212 168C257 178 260 141 243 141C234 141 234 151 240 153" fill="none" stroke="#68615c" strokeWidth="15"/>
+    <ellipse cx="129" cy="183" rx="15" ry="6" fill="#514a44"/><ellipse cx="191" cy="183" rx="15" ry="6" fill="#514a44"/>
+    <path d="M118 91Q160 71 202 91L219 160Q224 183 202 183H118Q96 183 101 160Z" fill={`url(#${id}-cat)`} stroke="#514a44" strokeWidth="2"/>
+    <path d="M133 113Q160 104 187 113L202 166Q205 176 193 176H127Q115 176 118 166Z" fill="#d4c4b2"/>
+    <path d="M109 70Q104 42 110 27Q128 29 145 49Q160 44 175 49Q192 29 210 27Q216 42 211 70C230 113 198 119 160 117C122 119 90 113 109 70Z" fill={`url(#${id}-cat)`} stroke="#514a44" strokeWidth="2"/>
     <path d="M116 54l1-16 16 15M187 53l16-15 1 16" fill="#bb9dab"/>
-    <path d="M142 53l10 13 8-11 8 11 10-13M111 74l14 5m-15 6 13 5m73-11 14-5m-13 16 13-5" fill="none" stroke="#59626e" strokeWidth="4"/>
-    <path d="M106 143l14 4m-13 7 15 3m77-10 14-4m-15 14 14-3" stroke="#59626e" strokeWidth="4"/>
+    <path d="M142 53l10 13 8-11 8 11 10-13M111 74l14 5m-15 6 13 5m73-11 14-5m-13 16 13-5" fill="none" stroke="#514a44" strokeWidth="4"/>
+    <path d="M106 143l14 4m-13 7 15 3m77-10 14-4m-15 14 14-3" stroke="#514a44" strokeWidth="4"/>
     <path d="M130 95Q144 87 160 99Q176 87 190 95Q191 116 160 115Q129 116 130 95Z" fill="#f3f0e9"/>
     <g className="companion-eyes">{[136,184].map(x=><g key={x}>
       <ellipse cx={x} cy="83" rx="11" ry="12.5" fill="#ffebba"/>
@@ -135,24 +139,24 @@ function Cat({id}: {id: string}) {
     </g>)}</g>
     <ellipse cx="118" cy="98" rx="8" ry="4" fill="#e4b9b5" opacity=".6"/><ellipse cx="202" cy="98" rx="8" ry="4" fill="#e4b9b5" opacity=".6"/>
     <path d="M155 98h10l-5 6Z" fill="#d2a9b5"/><path d="M160 104v3m-7 0q3 6 7 1q4 5 7-1M112 99l16 2m-17 5 16-1m65-4 16-2m-15 6 16 1" fill="none" stroke="#535b65" strokeWidth="1.5"/>
-    <Clockwork id={id} dark="#35415a"/>
-    <path d="M107 132q-6 12-2 21M213 132q6 12 2 21" fill="none" stroke="#7c8da9" strokeWidth="7"/>
+    <Clockwork id={id} dark="#604021"/>
+    <path d="M107 132q-6 12-2 21M213 132q6 12 2 21" fill="none" stroke="#958779" strokeWidth="7"/>
   </g>;
 }
 
 function Panda({id}: {id: string}) {
   return <g strokeLinejoin="round" strokeLinecap="round">
-    <ellipse cx="124" cy="181" rx="20" ry="9" fill="#3e4c49"/><ellipse cx="196" cy="181" rx="20" ry="9" fill="#3e4c49"/>
+    <ellipse cx="124" cy="181" rx="20" ry="9" fill="#39322e"/><ellipse cx="196" cy="181" rx="20" ry="9" fill="#39322e"/>
     <path d="M117 94Q160 73 203 94L224 156Q233 184 201 184H119Q87 184 96 156Z" fill={`url(#${id}-panda)`} stroke="#959e91" strokeWidth="2"/>
-    <path d="M130 112Q160 105 190 112L205 165Q209 177 196 178H124Q111 177 115 165Z" fill="#b9cbb0"/>
-    <circle cx="117" cy="49" r="23" fill="#414e4a"/><circle cx="203" cy="49" r="23" fill="#414e4a"/>
+    <path d="M130 112Q160 105 190 112L205 165Q209 177 196 178H124Q111 177 115 165Z" fill="#e4d4b9"/>
+    <circle cx="117" cy="49" r="23" fill="#39322e"/><circle cx="203" cy="49" r="23" fill="#39322e"/>
     <ellipse cx="160" cy="82" rx="59" ry="39" fill={`url(#${id}-panda)`} stroke="#959e91" strokeWidth="2"/>
-    <ellipse cx="136" cy="83" rx="14" ry="18" transform="rotate(24 136 83)" fill="#4f5b56"/><ellipse cx="184" cy="83" rx="14" ry="18" transform="rotate(-24 184 83)" fill="#4f5b56"/>
+    <ellipse cx="136" cy="83" rx="14" ry="18" transform="rotate(24 136 83)" fill="#403630"/><ellipse cx="184" cy="83" rx="14" ry="18" transform="rotate(-24 184 83)" fill="#403630"/>
     <Eyes y={84} spacing={24}/>
     <ellipse cx="122" cy="103" rx="7" ry="3" fill="#e1b3a0"/><ellipse cx="198" cy="103" rx="7" ry="3" fill="#e1b3a0"/>
     <path d="M154 98Q160 95 166 98Q167 102 160 105Q153 102 154 98Z" fill="#3d4944"/><path d="M153 109q7 5 14 0" fill="none" stroke="#6a786b" strokeWidth="1.8"/>
-    <Clockwork id={id} dark="#466457"/>
-    <path d="M104 128q-9 11-2 24M216 128q9 11 2 24" fill="none" stroke="#46564d" strokeWidth="13"/>
+    <Clockwork id={id} dark="#604021"/>
+    <path d="M104 128q-9 11-2 24M216 128q9 11 2 24" fill="none" stroke="#39322e" strokeWidth="13"/>
     <path d="M209 59q-4-18 13-23q-1 13-13 23m0 0q8-10 17-5q-5 9-17 5" fill="#91ad78" stroke="#6b8a58" strokeWidth="1"/>
   </g>;
 }
@@ -160,50 +164,71 @@ function Panda({id}: {id: string}) {
 function Penguin({id}: {id: string}) {
   return <g strokeLinejoin="round" strokeLinecap="round">
     <path d="M120 177l-17 11q19 8 40 0l-7-13m48 0-7 13q21 8 40 0l-17-11" fill="#dba063" stroke="#ae794c" strokeWidth="1.5"/>
-    <path d="M160 36C123 36 114 71 108 106L94 153C88 180 116 185 160 185C204 185 232 180 226 153L212 106C206 71 197 36 160 36Z" fill={`url(#${id}-penguin)`} stroke="#3a5363" strokeWidth="2"/>
+    <path d="M160 36C123 36 114 71 108 106L94 153C88 180 116 185 160 185C204 185 232 180 226 153L212 106C206 71 197 36 160 36Z" fill={`url(#${id}-penguin)`} stroke="#264765" strokeWidth="2"/>
     <path d="M160 65C143 42 121 67 124 95Q124 107 131 113L113 156Q103 179 160 179Q217 179 207 156L189 113Q196 107 196 95C199 67 177 42 160 65Z" fill="#f6f1e2"/>
-    <Eyes y={84}/><path d="M149 99q11-10 22 0l-11 7Z" fill="#4e6571" stroke="#344e5e" strokeWidth="1"/>
+    <Eyes y={84}/><path d="M149 99q11-10 22 0l-11 7Z" fill="#c8782b" stroke="#94531f" strokeWidth="1"/>
     <ellipse cx="128" cy="100" rx="7" ry="4" fill="#ecb6b0" opacity=".7"/><ellipse cx="192" cy="100" rx="7" ry="4" fill="#ecb6b0" opacity=".7"/>
-    <g transform="translate(0 8) scale(1 .955)"><Clockwork id={id} dark="#3b5e70"/></g>
-    <path d="M108 110C86 119 78 143 87 153Q105 144 108 110M212 110C234 119 242 143 233 153Q215 144 212 110" fill="#527a91" stroke="#3a5363" strokeWidth="2"/>
+    <g transform="translate(0 8) scale(1 .955)"><Clockwork id={id} dark="#604021"/></g>
+    <path d="M108 110C86 119 78 143 87 153Q105 144 108 110M212 110C234 119 242 143 233 153Q215 144 212 110" fill="#3c6d92" stroke="#264765" strokeWidth="2"/>
+  </g>;
+}
+
+function Ragdoll({id}: {id: string}) {
+  return <g strokeLinecap="round" strokeLinejoin="round">
+    <path className="companion-tail" d="M206 163Q251 182 247 146" stroke="#9e7e65" strokeWidth="22" fill="none"/>
+    <ellipse cx="129" cy="183" rx="17" ry="7" fill="#8e705d"/><ellipse cx="191" cy="183" rx="17" ry="7" fill="#8e705d"/>
+    <path d="M118 87Q160 65 202 87L223 158Q231 184 200 184H120Q89 184 97 158Z" fill="#f3ece2" stroke="#b59b82" strokeWidth="1.5"/>
+    <path d="M109 70Q99 28 111 22Q134 29 146 49Q160 44 174 49Q186 29 209 22Q221 28 211 70" fill="#a6866e" stroke="#9f8b80" strokeWidth="1.5"/>
+    <path d="M115 51l-1-17 17 20m58 0 17-20-1 17" fill="#dcb8b5"/>
+    <path d="M160 46C127 40 103 57 101 81L94 90 104 94 97 103 114 103Q124 124 160 121Q196 124 206 103L223 103 216 94 226 90 219 81C217 57 193 40 160 46Z" fill="#fcf8ef" stroke="#b59b82" strokeWidth="1.5"/>
+    <path d="M109 67Q128 51 146 57L156 89 137 108Q108 105 109 67M211 67Q192 51 174 57L164 89 183 108Q212 105 211 67" fill="#a6866e"/>
+    <path d="M160 65Q150 88 139 104Q140 121 160 120Q180 121 181 104Q170 88 160 65" fill="#fffaf1"/>
+    <g className="companion-eyes">{[136,184].map(x => <g key={x}><ellipse cx={x} cy="83" rx="10" ry="12" fill="#87c3df"/><ellipse cx={x} cy="82" rx="6.5" ry="9" fill="#334a62"/><circle cx={x-3} cy="78" r="3" fill="white"/><circle cx={x+3} cy="87" r="1.5" fill="#d5f3ff"/></g>)}</g>
+    <path d="M155 99h10l-5 6Z" fill="#c48d99"/><path d="M154 110q6 6 12 0M114 99l15 3m-13 7 13-3m62-4 15-3m-15 7 13 3" fill="none" stroke="#988177" strokeWidth="1.5"/>
+    <path d="M134 115l-9 14 15-3-3 9 23-12 23 12-3-9 15 3-9-14" fill="#fffaf1"/>
+    <Clockwork id={id} dark="#604021"/>
+    <path d="M106 133q-7 13-2 22m110-22q7 13 2 22" stroke="#c8b5a8" strokeWidth="8" fill="none"/>
   </g>;
 }
 
 const petArt: Record<PetCompanion, (props: {id: string}) => React.JSX.Element> = {
   'pet-celeste': Lark, 'pet-musicfox': Fox, 'pet-lily': Raccoon,
   'pet-moonrabbit': Rabbit, 'pet-nocturne': Cat, 'pet-bamboo': Panda, 'pet-penguin': Penguin,
-  'pet-dragon': ({id})=><WorldAnimalPortrait kind="dragon"><Clockwork id={id} dark="#783b37"/></WorldAnimalPortrait>,
-  'pet-snowbird': ({id})=><WorldAnimalPortrait kind="snowbird"><Clockwork id={id} dark="#8797a8"/></WorldAnimalPortrait>,
-  'pet-kiwi': ({id})=><WorldAnimalPortrait kind="kiwi"><Clockwork id={id} dark="#76593f"/></WorldAnimalPortrait>,
-  'pet-blackbear': ({id})=><WorldAnimalPortrait kind="blackbear"><Clockwork id={id} dark="#202e38"/></WorldAnimalPortrait>,
-  'pet-otter': ({id})=><WorldAnimalPortrait kind="otter"><Clockwork id={id} dark="#7c5e49"/></WorldAnimalPortrait>,
-  'pet-kangaroo': ({id})=><WorldAnimalPortrait kind="kangaroo"><Clockwork id={id} dark="#97704e"/></WorldAnimalPortrait>,
-  'pet-lion': ({id})=><WorldAnimalPortrait kind="lion"><Clockwork id={id} dark="#985f37"/></WorldAnimalPortrait>,
+  'pet-dragon': ({id})=><WorldAnimalPortrait kind="dragon"><Clockwork id={id} dark="#604021"/></WorldAnimalPortrait>,
+  'pet-snowbird': ({id})=><WorldAnimalPortrait kind="snowbird"><Clockwork id={id} dark="#604021"/></WorldAnimalPortrait>,
+  'pet-kiwi': ({id})=><WorldAnimalPortrait kind="kiwi"><Clockwork id={id} dark="#604021"/></WorldAnimalPortrait>,
+  'pet-blackbear': ({id})=><WorldAnimalPortrait kind="blackbear"><Clockwork id={id} dark="#604021"/></WorldAnimalPortrait>,
+  'pet-otter': ({id})=><WorldAnimalPortrait kind="otter"><Clockwork id={id} dark="#604021"/></WorldAnimalPortrait>,
+  'pet-kangaroo': ({id})=><WorldAnimalPortrait kind="kangaroo"><Clockwork id={id} dark="#604021"/></WorldAnimalPortrait>,
+  'pet-lion': ({id})=><WorldAnimalPortrait kind="lion"><Clockwork id={id} dark="#604021"/></WorldAnimalPortrait>,
+  'pet-ragdoll': Ragdoll,
 };
 
 /** One source for the equipped companion, store cards, and free previews. */
-export function CompanionPortrait({pet = null, className = '', animated = false, closeUp = false}: {
-  pet?: PetCompanion | null; className?: string; animated?: boolean; closeUp?: boolean;
+export function CompanionPortrait({pet = null, className = '', animated = false, closeUp = false, design}: {
+  pet?: PetCompanion | null; className?: string; animated?: boolean; closeUp?: boolean; design?: CompanionDesign;
 }) {
   const id = useId().replace(/:/g, '');
+  const preference = useCompanionDesign();
+  const selectedDesign = design ?? preference.design;
   const Artwork = pet === null ? OriginalCompanion : petArt[pet];
-  return <svg viewBox={closeUp ? '45 -8 240 216' : '0 0 320 208'} className={`companion-portrait ${className}${animated ? ' companion-portrait--animated' : ''}`} aria-hidden="true" focusable="false" data-pet={pet ?? 'original'}>
+  return <svg viewBox={closeUp ? '45 -8 240 216' : '0 0 320 208'} className={`companion-portrait ${className}${animated ? ' companion-portrait--animated' : ''}`} aria-hidden="true" focusable="false" data-pet={pet ?? 'original'} data-design={selectedDesign}>
     <defs>
-      <linearGradient id={`${id}-body`} x1=".15" y1="0" x2=".85" y2="1"><stop stopColor="#adc5a8"/><stop offset=".43" stopColor="#789777"/><stop offset="1" stopColor="#486a53"/></linearGradient>
-      <linearGradient id={`${id}-face`} x1="0" y1="0" x2=".7" y2="1"><stop stopColor="#fff8df"/><stop offset="1" stopColor="#ede1bc"/></linearGradient>
+      <linearGradient id={`${id}-body`} x2=".7" y2="1"><stop stopColor={forestPalettes.original[0]}/><stop offset=".5" stopColor={forestPalettes.original[1]}/><stop offset="1" stopColor={forestPalettes.original[2]}/></linearGradient>
+      <linearGradient id={`${id}-face`} x1="0" y1="0" x2=".7" y2="1"><stop stopColor="#fff0cf"/><stop offset="1" stopColor="#e3c38b"/></linearGradient>
       <linearGradient id={`${id}-brass`} x2="1" y2="1"><stop stopColor="#f5d895"/><stop offset=".5" stopColor="#c59b55"/><stop offset="1" stopColor="#9b743d"/></linearGradient>
-      <linearGradient id={`${id}-fox`} x2=".6" y2="1"><stop stopColor="#f5bd80"/><stop offset=".48" stopColor="#e89256"/><stop offset="1" stopColor="#c97145"/></linearGradient>
-      <linearGradient id={`${id}-bird`} x2=".7" y2="1"><stop stopColor="#b9d9de"/><stop offset=".5" stopColor="#86b3c3"/><stop offset="1" stopColor="#658d9f"/></linearGradient>
-      <linearGradient id={`${id}-raccoon`} x2=".8" y2="1"><stop stopColor="#d6cfdc"/><stop offset=".5" stopColor="#ada6bf"/><stop offset="1" stopColor="#8b87a4"/></linearGradient>
-      <linearGradient id={`${id}-rabbit`} x2=".7" y2="1"><stop stopColor="#fff9ef"/><stop offset="1" stopColor="#ebd5ca"/></linearGradient>
-      <linearGradient id={`${id}-cat`} x2=".8" y2="1"><stop stopColor="#edf0f1"/><stop offset=".55" stopColor="#bdc5cb"/><stop offset="1" stopColor="#909da8"/></linearGradient>
-      <linearGradient id={`${id}-panda`} x2=".7" y2="1"><stop stopColor="#fffcf0"/><stop offset="1" stopColor="#dedfce"/></linearGradient>
-      <linearGradient id={`${id}-penguin`} x2=".8" y2="1"><stop stopColor="#82c1dc"/><stop offset=".6" stopColor="#4986af"/><stop offset="1" stopColor="#32628a"/></linearGradient>
+      <linearGradient id={`${id}-fox`} x2=".7" y2="1"><stop stopColor={forestPalettes.fox[0]}/><stop offset=".5" stopColor={forestPalettes.fox[1]}/><stop offset="1" stopColor={forestPalettes.fox[2]}/></linearGradient>
+      <linearGradient id={`${id}-bird`} x2=".7" y2="1"><stop stopColor={forestPalettes.lark[0]}/><stop offset=".5" stopColor={forestPalettes.lark[1]}/><stop offset="1" stopColor={forestPalettes.lark[2]}/></linearGradient>
+      <linearGradient id={`${id}-raccoon`} x2=".7" y2="1"><stop stopColor={forestPalettes.raccoon[0]}/><stop offset=".5" stopColor={forestPalettes.raccoon[1]}/><stop offset="1" stopColor={forestPalettes.raccoon[2]}/></linearGradient>
+      <linearGradient id={`${id}-rabbit`} x2=".7" y2="1"><stop stopColor={forestPalettes.rabbit[0]}/><stop offset=".5" stopColor={forestPalettes.rabbit[1]}/><stop offset="1" stopColor={forestPalettes.rabbit[2]}/></linearGradient>
+      <linearGradient id={`${id}-cat`} x2=".7" y2="1"><stop stopColor={forestPalettes.cat[0]}/><stop offset=".5" stopColor={forestPalettes.cat[1]}/><stop offset="1" stopColor={forestPalettes.cat[2]}/></linearGradient>
+      <linearGradient id={`${id}-panda`} x2=".7" y2="1"><stop stopColor={forestPalettes.panda[0]}/><stop offset=".5" stopColor={forestPalettes.panda[1]}/><stop offset="1" stopColor={forestPalettes.panda[2]}/></linearGradient>
+      <linearGradient id={`${id}-penguin`} x2=".7" y2="1"><stop stopColor={forestPalettes.penguin[0]}/><stop offset=".5" stopColor={forestPalettes.penguin[1]}/><stop offset="1" stopColor={forestPalettes.penguin[2]}/></linearGradient>
       <radialGradient id={`${id}-shadow`}><stop stopColor="#334a33" stopOpacity=".18"/><stop offset="1" stopColor="#334a33" stopOpacity="0"/></radialGradient>
     </defs>
     <ellipse cx="160" cy="191" rx="73" ry="9" fill={`url(#${id}-shadow)`}/>
     <g className="note-companion__character">
-      <Artwork id={id}/>
+      {selectedDesign === 'storybook' ? <StorybookCompanionPortrait pet={pet} id={id}/> : <Artwork id={id}/>}
     </g>
   </svg>;
 }

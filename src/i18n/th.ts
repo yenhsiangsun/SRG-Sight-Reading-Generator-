@@ -1,7 +1,13 @@
 import type {LocaleCatalog} from './catalogTypes';
+import {improvementNamed} from './improvementMessages';
+import {pipaNamed} from './pipaMessages';
+import {assessmentNamed} from './assessmentMessages';
 
 export const thai: LocaleCatalog = {
   messages: {
+    ...assessmentNamed(11),
+    ...improvementNamed(11),
+    ...pipaNamed(11),
     exportPdf: 'ส่งออก PDF',
     exportingPdf: 'กำลังสร้าง PDF…',
     pdfError: 'ไม่สามารถส่งออก PDF ได้ โปรดลองอีกครั้ง',
@@ -270,6 +276,7 @@ export const thai: LocaleCatalog = {
     'Semitone up': 'สูงขึ้นครึ่งเสียง',
     'Adjust by note name': 'ปรับด้วยชื่อโน้ต',
     'Tap the staff or drag vertically to choose the lowest and highest notes. Use ♭/♯ for semitones and ±8 for octaves.': 'แตะบรรทัดโน้ตหรือลากขึ้นลงเพื่อเลือกโน้ตต่ำสุดและสูงสุด ใช้ ♭/♯ เพื่อปรับครึ่งเสียง และ ±8 เพื่อปรับช่วงคู่แปด',
+    'Cloud Ragdoll': 'แมวแร็กดอลล์ก้อนเมฆ',
     'Twilight Dragon': 'มังกรน้อยยามสนธยา',
     'Hokkaido Snowbird': 'นกหิมะฮอกไกโด',
     'New Zealand Kiwi': 'กีวีนิวซีแลนด์',

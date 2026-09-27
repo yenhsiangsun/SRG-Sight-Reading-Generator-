@@ -12,7 +12,7 @@ interface EighthRhythmTemplate {
 const EIGHTH_RHYTHMS: Record<number, EighthRhythmTemplate[]> = {
   4: [
     {units: [2, 2], weights: [12, 6, .5]},
-    {units: [4], weights: [2, 2, .3]},
+    {units: [4], weights: [4, 2, .3]},
     {units: [1, 1, 2], weights: [2, 3, 3]},
     {units: [2, 1, 1], weights: [2, 3, 3]},
     {units: [3, 1], weights: [0, 2, 3]},
@@ -21,9 +21,9 @@ const EIGHTH_RHYTHMS: Record<number, EighthRhythmTemplate[]> = {
   ],
   6: [
     {units: [2, 2, 2], weights: [12, 6, .5]},
-    {units: [4, 2], weights: [3, 2, .3]},
-    {units: [2, 4], weights: [2, 1, .3]},
-    {units: [6], weights: [1, 1, .2]},
+    {units: [4, 2], weights: [6, 2, .3]},
+    {units: [2, 4], weights: [4, 1, .3]},
+    {units: [6], weights: [2, 1, .2]},
     {units: [1, 1, 2, 2], weights: [3, 3, 1]},
     {units: [2, 1, 1, 2], weights: [3, 3, 1]},
     {units: [2, 2, 1, 1], weights: [3, 3, 1]},

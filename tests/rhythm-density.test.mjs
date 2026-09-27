@@ -30,8 +30,8 @@ function inspectContinuity(exercise) {
     assert.ok(barRests <= measure.totalUnits / 4, 'no more than a quarter of a bar is silent');
     let beatStart = 0;
     for (const units of groups) {
-      const events = measure.events.filter(note => note.startUnits >= beatStart && note.startUnits < beatStart + units);
-      const rests = events.filter(note => note.rest).reduce((sum, note) => sum + note.durationUnits, 0);
+      const events = measure.events.filter(note => note.startUnits + note.durationUnits > beatStart && note.startUnits < beatStart + units);
+      const rests = events.filter(note => note.rest).reduce((sum, note) => sum + Math.min(note.startUnits+note.durationUnits,beatStart+units)-Math.max(note.startUnits,beatStart), 0);
       assert.ok(events.some(note => !note.rest), 'every primary beat contains sounded music');
       assert.ok(rests <= units / 2, 'short rests never empty a primary beat');
       if (events[0].rest) beatStartRests++;

@@ -3,6 +3,7 @@ import type {AssessmentResult} from '../assessment/scoring';
 import {measureTimeline} from '../audio/tempo';
 import type {RhythmFocus} from './focus';
 import {addRhythmUnits} from '../music/rhythmTiming';
+import {metricPosition} from '../music/meterFeel';
 
 /** Match the same upper/lower stable time ordering used by the audio and grader. */
 export function scoreEvents(exercise: ExerciseData, bpm: number) {
@@ -32,8 +33,14 @@ export function suggestedPractice(exercise: ExerciseData, bpm: number, result: A
   const pitchErrors=errors.filter(n=>!n.result.pitch).length;
   const rhythmErrors=errors.filter(n=>!n.result.rhythm);
   if (!pitchErrors && !rhythmErrors.length) return null;
-  if (pitchErrors > rhythmErrors.length) return {target:'pitch' as const, rhythmFocus:'balanced' as RhythmFocus, rhythmLevel:'Simple' as const};
+  const events=scoreEvents(exercise,bpm);
+  const leapErrors=errors.filter(n=>!n.result.pitch&&n.result.index>0&&Math.abs((n.note.midi??60)-(events[n.result.index-1]?.note.midi??60))>=5).length;
+  if (pitchErrors > rhythmErrors.length) return {target:'pitch' as const, rhythmFocus:'balanced' as RhythmFocus, rhythmLevel:'Simple' as const, pitchFocus:leapErrors?'leaps' as const:'balanced' as const};
+  const triplets=rhythmErrors.filter(n=>n.note.tuplet===3).length;
+  const offbeats=rhythmErrors.filter(n=>!metricPosition(exercise.measures[n.measure],n.note.startUnits,exercise.timeSignature).onPulse&&n.note.durationUnits>=2).length;
+  const meterChanges=rhythmErrors.filter(n=>n.measure>0&&n.units===0&&exercise.measures[n.measure].timeSignature!==exercise.measures[n.measure-1].timeSignature).length;
   const dotted=rhythmErrors.filter(n=>n.note.dots>0).length;
   const short=rhythmErrors.filter(n=>n.note.duration==='16').length;
-  return {target:'rhythm' as const, rhythmFocus:(dotted>0&&dotted>=short?'dotted':short>0?'sixteenths':'balanced') as RhythmFocus};
+  const focus=[...([[triplets,'triplets'],[dotted,'dotted'],[short,'sixteenths'],[offbeats,'offbeats']] as const)].sort((a,b)=>b[0]-a[0])[0];
+  return {target:'rhythm' as const, rhythmFocus:(focus[0]>0?focus[1]:'balanced') as RhythmFocus, pitchFocus:'balanced' as const,mixedMeterFocus:meterChanges>0&&meterChanges>=Math.max(triplets,dotted,short,offbeats)};
 }

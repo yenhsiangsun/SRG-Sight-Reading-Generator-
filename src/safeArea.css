@@ -1,0 +1,52 @@
+/* The same safe-area policy covers Capacitor, installed PWAs and Safari.
+   Keep insets outside density-dependent header padding and score coordinates. */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+}
+
+.studio-app {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
+}
+
+/* Scrolling content must not show through beneath the system clock/battery. */
+.studio-app::before {
+  content: '';
+  position: fixed;
+  inset: 0 0 auto;
+  height: var(--safe-top);
+  background: var(--theme-surface);
+  z-index: 50;
+  pointer-events: none;
+}
+
+.studio-app .header-content { flex-wrap: wrap; }
+.studio-app .header-tools { flex-wrap: wrap; max-width: 100%; }
+.studio-app .brand { flex-shrink: 0; }
+
+.studio-app .setup-intro { top: calc(var(--safe-top) + 24px); }
+.studio-app .setup-actions { bottom: var(--safe-bottom); }
+.studio-app.is-score-focused .practice-toolbar { top: var(--safe-top); }
+.studio-app .assessment-panel.is-active { top: calc(var(--safe-top) + 90px); }
+.studio-app #exam-title { scroll-margin-top: calc(var(--safe-top) + 100px); }
+
+.studio-app .studio-dialog {
+  inset: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
+  width: min(760px, calc(100% - var(--safe-left) - var(--safe-right) - 32px));
+  max-height: min(88vh, calc(100vh - var(--safe-top) - var(--safe-bottom) - 32px));
+  max-height: min(88dvh, calc(100dvh - var(--safe-top) - var(--safe-bottom) - 32px));
+}
+
+@media (max-width: 899px) {
+  .studio-app .assessment-panel.is-active { top: calc(var(--safe-top) + 5px); }
+  .studio-app #exam-title { scroll-margin-top: calc(var(--safe-top) + 12px); }
+}
+
+@media (min-width: 900px) {
+  .studio-app .practice-toolbar { top: calc(var(--safe-top) + 10px); }
+  .studio-app.is-score-focused .practice-toolbar { top: var(--safe-top); }
+}

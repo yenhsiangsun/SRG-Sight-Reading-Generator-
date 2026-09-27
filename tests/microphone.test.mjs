@@ -10,8 +10,11 @@ test('capture worklet batches complete samples with sample-clock timestamps',()=
   vm.runInContext(fs.readFileSync('public/capture-worklet.js','utf8'),context);
   const processor=new Processor();
   for(let i=0;i<32;i++){context.currentTime=i*128/48000;processor.process([[new Float32Array(128).fill(i)]]);}
-  assert.equal(messages.length,2);assert.equal(messages[0].time,0);assert.ok(Math.abs(messages[1].time-2048/48000)<1e-10);
-  assert.equal(messages[0].samples.length,2048);assert.equal(messages[0].samples[0],0);assert.equal(messages[0].samples[2047],15);assert.equal(messages[1].samples[0],16);
+  assert.equal(messages.length,5);assert.equal(messages[0].time,0);assert.ok(Math.abs(messages[1].time-512/48000)<1e-10);
+  for(let i=0;i<messages.length;i++){
+    assert.equal(messages[i].samples.length,2048);assert.equal(messages[i].samples[0],i*4);assert.equal(messages[i].samples[2047],i*4+15);
+    assert.ok(Math.abs(messages[i].time-i*512/48000)<1e-10);
+  }
 });
 function sessionFixture(getUserMedia){
   let closed=0;

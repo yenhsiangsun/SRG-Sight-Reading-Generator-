@@ -80,6 +80,8 @@
 .companion-portrait { display: block; width: 100%; height: auto; overflow: visible; }
 .companion-portrait:not(.companion-portrait--animated) * { animation: none !important; }
 .companion-portrait .companion-clockwork { transform-origin: 160px 165px; animation: companion-sway 2.4s ease-in-out infinite; }
+.companion-portrait .storybook-companion { transform-origin: 160px 190px; animation: storybook-breathe 5s ease-in-out infinite; }
+@keyframes storybook-breathe { 0%, 100% { transform: translateY(0) rotate(-.6deg); } 50% { transform: translateY(-2px) rotate(.6deg); } }
 .companion-portrait .companion-eyes { transform-box: fill-box; transform-origin: center; animation: companion-blink 7s ease-in-out infinite; }
 .companion-portrait .companion-dragon-wing--left { transform-origin: 111px 127px; animation: companion-wing-left 4.8s ease-in-out infinite; }
 .companion-portrait .companion-dragon-wing--right { transform-origin: 209px 127px; animation: companion-wing-right 4.8s ease-in-out infinite; }

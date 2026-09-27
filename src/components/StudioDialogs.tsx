@@ -4,6 +4,9 @@ import type {ProgressState} from '../progress/progress';
 import {REWARDS,getLevel,type RewardId} from '../progress/progress';
 import {CompanionPortrait} from './CompanionPortrait';
 import {words} from '../progress/words';
+import {CompanionDesignPicker} from './CompanionDesignPicker';
+import {useCompanionDesign} from '../progress/useCompanionDesign';
+import {companionName} from '../progress/companionNames';
 export function StudioDialog({title,onClose,children}:{title:string;onClose:()=>void;children:ReactNode}){
   const ref=useRef<HTMLDialogElement>(null);const {locale}=useI18n();
   useEffect(()=>{const d=ref.current;d?.showModal();return()=>d?.close();},[]);
@@ -11,6 +14,7 @@ export function StudioDialog({title,onClose,children}:{title:string;onClose:()=>
 }
 export function RewardsDialog({progress,onRedeem,onResetPet,onClose,onGrantPreviewPoints}:{progress:ProgressState;onRedeem:(id:RewardId)=>void;onResetPet:()=>void;onClose:()=>void;onGrantPreviewPoints?:()=>void}){
   const {locale}=useI18n();const w=(zh:string,en:string,ja:string)=>words(locale,zh,en,ja);const level=getLevel(progress.xp);
+  const {design, setDesign} = useCompanionDesign();
   const previewTools=import.meta.env.DEV&&onGrantPreviewPoints?<p className="reward-help"><button className="secondary-button" onClick={onGrantPreviewPoints}>{w('補滿 10,000 測試星點','Top up to 10,000 test stars','テスト用スターを10,000まで補充')}</button></p>:null;
   const [preview, setPreview] = useState<ProgressState['activePet']>(progress.activePet);
   const previewRef = useRef<HTMLElement>(null);
@@ -34,23 +38,24 @@ export function RewardsDialog({progress,onRedeem,onResetPet,onClose,onGrantPrevi
         : `${w('兌換','Unlock','獲得')} ${labelCost}`;
     return <article className={`reward-item reward-pet ${active ? 'is-active' : ''}`} key={reward.id}>
       <div className="reward-orb reward-orb--pet" aria-hidden="true"><CompanionPortrait pet={reward.id}/></div>
-      <h3>{w(reward.name.zh, reward.name.en, reward.name.ja)}</h3>
+      <h3>{companionName(reward.id, locale)}</h3>
       <button className="pet-preview-link" aria-pressed={preview === reward.id} onClick={() => showPreview(reward.id)}>{w('預覽造型','Preview','プレビュー')}</button>
       <p>{owned ? labelOwned : w(reward.description.zh, reward.description.en, reward.description.ja)}<br/><small>{labelCost}</small></p>
       <button className="secondary-button" disabled={active || (!owned && !canAfford)} onClick={() => {onRedeem(reward.id as RewardId); if (reward.type === 'pet') setPreview(reward.id as ProgressState['activePet']);}}>{action}</button>
     </article>;
   });
-  const defaultPetActive = progress.activePet === null;
+  const defaultPetActive = progress.activePet === null && design === 'classic';
   return <StudioDialog title={w('節拍器小精靈收藏','Metronome pet collection','メトロノーム・コレクション')} onClose={onClose}>
     {previewTools}
     <div className="rewards-summary"><span className="reward-medal">✦</span><div><span className="studio-kicker">{w('等級','LEVEL','レベル')} {level.level}</span><h3>{w('每次投入，都值得收藏。','A little effort, a little sparkle.','頑張った時間を、きらめきに。')}</h3><p>{progress.points} {w('星點','stars','スター')} · {progress.xp} XP</p></div></div>
     <progress className="level-progress" value={level.current} max={level.needed}/>
     <p className="reward-help">{level.current} / {level.needed} XP · {w('再多一點練習，就能升級。','Keep practicing to reach the next level.','少しずつ、次のレベルへ。')}</p>
+    <CompanionDesignPicker pet={preview}/>
     <section ref={previewRef} className="pet-collection-preview" aria-label={w('造型預覽','Companion preview','プレビュー')}>
       <CompanionPortrait pet={preview} animated/>
       <div aria-live="polite" aria-atomic="true">
         <span className="pet-collection-label">{preview === null ? w('永久免費','ALWAYS FREE','ずっと無料') : w('動物節拍器系列','ANIMAL METRONOMES','動物メトロノーム')}</span>
-        <h3>{previewReward ? w(previewReward.name.zh,previewReward.name.en,previewReward.name.ja) : w('拍米 · 原始小精靈','Mimo · Original companion','ミモ · オリジナル')}</h3>
+        <h3>{companionName(preview, locale)}</h3>
         <p>{preview === null ? w('最初陪你練習的綠色節拍器，隨時可以回來。','Your original green metronome. Always here for you.','いつでも戻れる、最初の緑のメトロノーム。') : w('先看看牠的樣子，再決定是否兌換。','Meet your companion before unlocking.','交換する前に、姿を見てみよう。')}</p>
         <button className="secondary-button" disabled={previewActive || (!previewOwned && progress.points < (previewReward?.cost ?? 0))} onClick={() => preview === null ? onResetPet() : onRedeem(preview)}>
           {previewActive ? w('使用中','Equipped','使用中') : previewOwned ? w('套用這個造型','Equip companion','この姿を使う') : `${w('兌換','Unlock','交換')} ${previewReward?.cost} ${w('星點','stars','スター')}`}
@@ -59,11 +64,11 @@ export function RewardsDialog({progress,onRedeem,onResetPet,onClose,onGrantPrevi
     </section>
     <div className="reward-grid">
       <article className={`reward-item reward-pet reward-original ${defaultPetActive ? 'is-active' : ''}`}>
-        <div className="reward-orb reward-orb--pet"><CompanionPortrait/></div>
+        <div className="reward-orb reward-orb--pet"><CompanionPortrait design="classic"/></div>
         <h3>{w('拍米 · 原始小精靈','Mimo · Original companion','ミモ · オリジナル')}</h3>
         <button className="pet-preview-link" aria-pressed={preview === null} onClick={() => showPreview(null)}>{w('預覽造型','Preview','プレビュー')}</button>
         <p>{w('永久免費 · 不需購買','Always free · No purchase needed','ずっと無料 · 購入不要')}</p>
-        <button className="secondary-button" disabled={defaultPetActive} onClick={() => {onResetPet(); setPreview(null);}}>{defaultPetActive ? w('使用中','Equipped','使用中') : w('切回原始小精靈','Use original companion','元の姿に戻す')}</button>
+        <button className="secondary-button" disabled={defaultPetActive} onClick={() => {setDesign('classic'); onResetPet(); setPreview(null);}}>{defaultPetActive ? w('使用中','Equipped','使用中') : w('切回原始小精靈','Use original companion','元の姿に戻す')}</button>
       </article>
       {rewardCards}
     </div>

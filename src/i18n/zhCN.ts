@@ -1,7 +1,13 @@
 import type {LocaleCatalog} from './catalogTypes';
+import {improvementNamed} from './improvementMessages';
+import {pipaNamed} from './pipaMessages';
+import {assessmentNamed} from './assessmentMessages';
 
 export const simplifiedChinese: LocaleCatalog = {
   "messages": {
+    ...assessmentNamed(10),
+    ...improvementNamed(10),
+    ...pipaNamed(10),
     "exportPdf": "导出 PDF",
     "exportingPdf": "正在制作 PDF…",
     "pdfError": "无法导出 PDF，请重试。",
@@ -270,6 +276,7 @@ export const simplifiedChinese: LocaleCatalog = {
     "Semitone up": "升高半音",
     "Adjust by note name": "用音名精确调整",
     "Tap the staff or drag vertically to choose the lowest and highest notes. Use ♭/♯ for semitones and ±8 for octaves.": "点选谱线或上下拖移音符，选出练习的最低音与最高音；♭／♯ 微调半音，±8 切换八度。",
+    "Cloud Ragdoll": "云朵布偶猫",
     "Twilight Dragon": "暮光幼龙",
     "Hokkaido Snowbird": "北海道雪团",
     "New Zealand Kiwi": "新西兰奇异鸟",

@@ -3,8 +3,11 @@ import type {ExerciseSettings} from '../hooks/useExercise';
 import {CLEFS, INSTRUMENTS, KEY_SIGNATURES, TIME_SIGNATURES} from '../exerciseConfig';
 import {SCALES, TONICS} from '../music/scales';
 import {midiFromKey} from '../music/notePitches';
-import {canPlayShengChord} from '../music/shengFingering';
+import {canPlayShengChord, isShengInstrument} from '../music/shengFingering';
 import {assertMeasureRhythm} from '../music/rhythmTiming';
+import {validBpm} from '../audio/tempo';
+import {validRhythmFocus} from './focus';
+import {validPipaTechnique} from '../music/pipaTechniques';
 
 export const LIBRARY_KEY = 'sight-reading-library-v1';
 export interface SavedStudy {id: string; created: number; bpm: number; settings: ExerciseSettings; exercise?: ExerciseData}
@@ -18,7 +21,7 @@ export function validSettings(value: unknown): value is ExerciseSettings {
   if (!record(value)) return false;
   return typeof value.instrument === 'string' && Object.hasOwn(INSTRUMENTS, value.instrument) && member(value.clef, CLEFS)
     && member(value.difficulty, ['Beginner','Intermediate','Advanced']) && member(value.rhythmLevel, ['Simple','Moderate','Complex'])
-    && member(value.rhythmFocus, [undefined,'balanced','sixteenths','dotted']) && member(value.keySignature, KEY_SIGNATURES)
+    && validRhythmFocus(value.rhythmFocus) && member(value.pitchFocus,[undefined,'balanced','leaps','scales']) && member(value.keySignature, KEY_SIGNATURES)
     && member(value.tonic, TONICS) && SCALES.some(scale => scale.id === value.scaleId)
     && member(value.timeSignature, TIME_SIGNATURES) && integer(value.measureCount,1,32)
     && integer(value.rangeMinMidi,0,126) && integer(value.rangeMaxMidi,1,127) && Number(value.rangeMinMidi) < Number(value.rangeMaxMidi)
@@ -35,7 +38,7 @@ function validMeasure(value: unknown, fallback: string): value is MeasureData {
   if (value.totalUnits !== total || !Array.isArray(value.groups) || !value.groups.length || !value.groups.every(n => integer(n,1,16)) || value.groups.reduce((a,b)=>a+b,0)!==total) return false;
   for (const note of value.events) {
     if (!record(note) || typeof note.rest !== 'boolean' || typeof note.key !== 'string' || !/^[a-g][#b]{0,2}\/-?\d$/.test(note.key)
-      || !integer(note.octave,-1,9) || !member(note.duration,['w','h','q','8','16']) || !integer(note.dots,0,2)
+      || !integer(note.octave,-1,9) || !member(note.duration,['w','h','q','8','16','32']) || !integer(note.dots,0,2)
       || typeof note.startUnits !== 'number' || typeof note.durationUnits !== 'number') return false;
     if (note.chord !== undefined) {
       if (note.rest || !Array.isArray(note.chord) || note.chord.length < 2 || note.chord.length > 4) return false;
@@ -49,26 +52,32 @@ function validMeasure(value: unknown, fallback: string): value is MeasureData {
 }
 
 export function validStudy(value: unknown, score: boolean): value is SavedStudy {
-  if (!record(value) || typeof value.id !== 'string' || value.id.length > 100 || !integer(value.created,0,Number.MAX_SAFE_INTEGER) || !integer(value.bpm,40,180) || !validSettings(value.settings)) return false;
+  if (!record(value) || typeof value.id !== 'string' || value.id.length > 100 || !integer(value.created,0,Number.MAX_SAFE_INTEGER) || !validBpm(value.bpm) || !validSettings(value.settings)) return false;
   if (!score) return value.exercise === undefined;
   const ex = value.exercise;
   const settings = value.settings;
   if (!record(ex) || !member(ex.timeSignature,TIME_SIGNATURES) || !member(ex.clef,['treble','bass','alto','tenor'])
     || !member(ex.staffMode,[undefined,'fixed','mixed']) || (ex.staffMode==='mixed' && ex.lowerMeasures!==undefined)
     || !member(ex.keySignature,KEY_SIGNATURES) || !member(ex.difficulty,['beginner','intermediate','advanced']) || !member(ex.rhythmLevel,['simple','medium','complex'])
-    || !integer(ex.tempo,40,180) || !integer(ex.transposition ?? 0,-48,48) || ex.soundProfile !== value.settings.instrument
+    || !validBpm(ex.tempo) || !integer(ex.transposition ?? 0,-48,48) || ex.soundProfile !== value.settings.instrument
     || !Array.isArray(ex.measures) || !ex.measures.length || ex.measures.length > 32 || !ex.measures.every(m => validMeasure(m,String(ex.timeSignature)))) return false;
   if (ex.tonality !== undefined) {
     const tonality=ex.tonality;
     if (!record(tonality) || !member(tonality.tonic,[null,...TONICS]) || !SCALES.some(s=>s.id===tonality.scaleId)
       || !member(tonality.signature,[null,...TONICS]) || !Array.isArray(tonality.notes) || !tonality.notes.every(n=>typeof n==='string' && /^[A-G][#b]{0,2}$/.test(n))) return false;
   }
+  if(ex.harmonyPlan!==undefined && (!Array.isArray(ex.harmonyPlan)||ex.harmonyPlan.length!==ex.measures.length||
+    !ex.harmonyPlan.every(bar=>record(bar)&&integer(bar.root,0,11)&&member(bar.role,['home','depart','prepare','arrive'])&&
+      Array.isArray(bar.pitches)&&bar.pitches.length>0&&bar.pitches.length<=12&&bar.pitches.every(n=>integer(n,0,11)))))return false;
   if (ex.lowerMeasures !== undefined && (!Array.isArray(ex.lowerMeasures) || ex.lowerMeasures.length !== ex.measures.length
     || !member(ex.grandMode,['mono','two-hand']) || !ex.lowerMeasures.every((m,i) => validMeasure(m,String(ex.timeSignature)) && m.totalUnits === (ex.measures as MeasureData[])[i].totalUnits))) return false;
   const staves = [...ex.measures as MeasureData[], ...(ex.lowerMeasures as MeasureData[] | undefined ?? [])];
+  if (staves.some(bar => bar.events.some(note => note.technique !== undefined &&
+    (ex.soundProfile !== 'Pipa' || !validPipaTechnique(note))))) return false;
+  const shengProfile = typeof ex.soundProfile === 'string' && isShengInstrument(ex.soundProfile) ? ex.soundProfile : undefined;
   if (staves.some(bar => bar.events.some(note => note.chord && (
     note.chord.some(pitch => pitch.midi < settings.rangeMinMidi || pitch.midi > settings.rangeMaxMidi) ||
-    (ex.soundProfile === 'Sheng' && !canPlayShengChord(note.chord.map(pitch => pitch.midi)))
+    (shengProfile && !canPlayShengChord(note.chord.map(pitch => pitch.midi),shengProfile))
   )))) return false;
   return true;
 }
@@ -78,11 +87,24 @@ export function readLibrary(raw: string | null): Library {
     if (!raw || raw.length > 16_000_000) return emptyLibrary();
     const data: unknown = JSON.parse(raw);
     if (!record(data) || data.version !== 1 || !Array.isArray(data.scores) || !Array.isArray(data.presets)) return emptyLibrary();
+    // Retire the old harmonic annotation without discarding a user's saved score.
+    // These notes were already written and played at their resultant pitch.
+    for (const study of data.scores) {
+      if (!record(study) || !record(study.exercise)) continue;
+      for (const staff of [study.exercise.measures, study.exercise.lowerMeasures]) {
+        if (!Array.isArray(staff)) continue;
+        for (const bar of staff) {
+          if (!record(bar) || !Array.isArray(bar.events)) continue;
+          for (const note of bar.events) if (record(note) && note.technique === 'pipa-harmonic') delete note.technique;
+        }
+      }
+    }
     return {version:1, scores:data.scores.filter(s=>validStudy(s,true)).slice(0,50), presets:data.presets.filter(s=>validStudy(s,false)).slice(0,20)};
   } catch { return emptyLibrary(); }
 }
 
 export function addStudy(library: Library, study: SavedStudy, kind: 'scores' | 'presets'): Library {
+  if (!validStudy(study,kind === 'scores')) throw new Error('libraryError');
   const limit = kind === 'scores' ? 50 : 20;
   const same = (item: SavedStudy) => JSON.stringify(kind === 'scores' ? item.exercise : item.settings) === JSON.stringify(kind === 'scores' ? study.exercise : study.settings) && item.bpm === study.bpm;
   if (library[kind].some(same)) return library;

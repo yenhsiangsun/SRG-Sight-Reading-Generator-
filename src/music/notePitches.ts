@@ -23,10 +23,11 @@ export function hasPolyphony(exercise: ExerciseData) {
  * Independent piano/Yangqin hands remain unsupported by this detector.
  */
 export function forMonophonicAssessment(exercise: ExerciseData): ExerciseData {
-  if (!hasPolyphony(exercise) || (exercise.lowerMeasures && exercise.grandMode !== 'mono')) return exercise;
+  const techniques = [...exercise.measures,...(exercise.lowerMeasures ?? [])].some(bar => bar.events.some(note => note.technique));
+  if ((!hasPolyphony(exercise) && !techniques) || (exercise.lowerMeasures && exercise.grandMode !== 'mono')) return exercise;
   const melody = (measures: ExerciseData['measures']) => measures.map(bar => ({...bar,events:bar.events.map(note => {
-    if (!note.chord) return note;
-    const single = {...note}; delete single.chord; return single;
+    if (!note.chord && !note.technique) return note;
+    const single = {...note}; delete single.chord; delete single.technique; return single;
   })}));
   return {...exercise,measures:melody(exercise.measures),...(exercise.lowerMeasures ? {lowerMeasures:melody(exercise.lowerMeasures)} : {})};
 }

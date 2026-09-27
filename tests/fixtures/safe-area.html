@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Safe-area layout verification</title>
+    <style>
+      .fixture-status { position:fixed; z-index:100; top:0; left:0; right:0; height:var(--safe-top); display:flex; justify-content:space-between; align-items:center; padding-inline:24px; overflow:hidden; pointer-events:none; font:12px system-ui; color:#111; }
+      .fixture-controls { position:fixed; z-index:100; bottom:calc(var(--safe-bottom) + 8px); right:calc(var(--safe-right) + 8px); padding:8px; background:#fff; color:#111; border:1px solid #aaa; border-radius:8px; font:12px system-ui; }
+    </style>
+  </head>
+  <body>
+    <!-- Dev-only fixture: not an entry point in the production Vite build.
+         Insets simulate geometry, not actual iOS/WebKit behavior. -->
+    <div class="fixture-status"><span>12:15　9月24日</span><span>Wi-Fi　100%</span></div>
+    <label class="fixture-controls">模擬安全區域
+      <select id="safe-profile">
+        <option value="tablet">iPad：上 24／下 20</option>
+        <option value="landscape">橫放：上 24／左右 24／下 20</option>
+        <option value="phone">iPhone：上 59／下 34</option>
+        <option value="browser">一般網頁：無邊界</option>
+      </select>
+    </label>
+    <div id="root"></div>
+    <script type="module">
+      import '/src/main.tsx';
+      const profiles={tablet:[24,0,20,0],landscape:[24,24,20,24],phone:[59,0,34,0],browser:[0,0,0,0]};
+      const select=document.getElementById('safe-profile');
+      function apply(){['top','right','bottom','left'].forEach((edge,i)=>document.documentElement.style.setProperty('--safe-'+edge,profiles[select.value][i]+'px'));}
+      select.addEventListener('change',apply);apply();
+    </script>
+  </body>
+</html>

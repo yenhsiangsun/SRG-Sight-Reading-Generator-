@@ -14,7 +14,7 @@ export function useLibrary() {
     try {
       const entry = {...study, id: crypto.randomUUID?.() ?? `${Date.now()}-${Math.random()}`, created: Date.now()};
       return write(addStudy(library, entry, kind), kind==='scores'?'savedStudy':'savedPreset');
-    } catch { setMessage('libraryFull'); return false; }
+    } catch (error) { setMessage(error instanceof Error && error.message === 'libraryFull' ? 'libraryFull' : 'libraryError'); return false; }
   }
   function remove(id: string, kind: 'scores' | 'presets') {
     if (write({...library,[kind]:library[kind].filter(item=>item.id!==id)})) setMessage(null);

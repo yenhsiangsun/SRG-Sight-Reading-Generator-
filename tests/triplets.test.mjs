@@ -39,6 +39,7 @@ test('all /4 meters generate complete triplet beats at every pitch grade, increa
       let groups=0,beats=0;
       for(let sample=0;sample<12;sample++) {
         const ex=engine.generatePracticeExercise({...opts,timeSignature:meter,difficulty,rhythmLevel});
+        if(rhythmLevel==='simple')assert.ok(ex.measures.flatMap(m=>m.events).filter(n=>n.tuplet).length<=3,'at most one incidental triplet group per simple study');
         for(const measure of ex.measures) {
           assert.doesNotThrow(()=>assertMeasureRhythm(measure,meter));
           let ticks=0;
@@ -55,7 +56,7 @@ test('all /4 meters generate complete triplet beats at every pitch grade, increa
       }
       rates.push(groups/beats);
     }
-    assert.ok(rates[0]>.02 && rates[0]<.07,`${meter} ${rates}`);
+    assert.ok(rates[0]>0 && rates[0]<.025,`${meter} ${rates}`);
     assert.ok(rates[1]>.05 && rates[1]<.12 && rates[2]>.075 && rates[2]<.16,`${meter} ${rates}`);
     assert.ok(rates[1]>rates[0]+.01 && rates[2]>rates[1]+.01,`${meter} ${rates}`);
   }

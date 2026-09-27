@@ -1,8 +1,10 @@
 import {composeExercise} from '../music/composeExercise';
 import {addPerformanceMarks} from '../music/performanceMarks';
 import {addInstrumentHarmony} from '../music/instrumentHarmony';
+import {addPipaTechniques} from '../music/pipaTechniques';
 import { selectPracticeTempo } from '../practice/tempo';
-import type { RhythmFocus } from '../practice/focus';
+import {validBpm} from '../audio/tempo';
+import type { RhythmFocusSelection, PitchFocus } from '../practice/focus';
 import type { Tonic } from '../music/scales';
 import { selectRandomTonality, type RandomTonality } from '../music/randomTonality';
 import { useState } from 'react';
@@ -10,8 +12,9 @@ import {type ExerciseData, type KeySignature, type TimeSignature } from '../musi
 import { INSTRUMENTS, mapDifficulty, mapRhythmLevel, type Instrument, type Clef, type Difficulty, type RhythmLevel } from '../exerciseConfig';
 
 export interface ExerciseSettings {
+  pitchFocus?: PitchFocus;
   performanceMarks?: boolean;
-  rhythmFocus?: RhythmFocus;
+  rhythmFocus?: RhythmFocusSelection;
   instrument: Instrument;
   clef: Clef;
   difficulty: Difficulty;
@@ -46,7 +49,7 @@ export function useExercise(previewTonality?: RandomTonality) {
 
   function change<K extends keyof ExerciseSettings>(key: K, value: ExerciseSettings[K]) {
     setSettings((previous) => ({ ...previous, [key]: value,
-      ...(key === 'rhythmLevel' ? {rhythmFocus:'balanced' as const} : {}),
+      ...(['timeSignature','mixedMeters','meters'].includes(key) ? {rhythmFocus:'balanced' as const} : {}),
       ...(key === 'instrument' ? {
         clef: INSTRUMENTS[value as Instrument].clef,
         rangeMinMidi: INSTRUMENTS[value as Instrument].min,
@@ -56,12 +59,12 @@ export function useExercise(previewTonality?: RandomTonality) {
     setError('');
   }
 
-  function generateNew(bpm: number, overrides: Partial<ExerciseSettings> = {}) {
+  function generateNew(bpm: number, overrides: Partial<ExerciseSettings> = {}, tempoOverride?:number) {
     const nextSettings = { ...settings, ...overrides };
-    return generateFrom(nextSettings, bpm);
+    return generateFrom(nextSettings, bpm,tempoOverride);
   }
 
-  function generateFrom(settings: ExerciseSettings, bpm: number) {
+  function generateFrom(settings: ExerciseSettings, bpm: number,tempoOverride?:number) {
     try {
       const measureCount=window.matchMedia('(max-width: 600px)').matches?Math.min(settings.measureCount,8):settings.measureCount;
       const twoHand = settings.clef === 'grand' && (settings.instrument === 'Piano' || settings.instrument === 'Yangqin');
@@ -71,9 +74,10 @@ export function useExercise(previewTonality?: RandomTonality) {
         : [range], Math.random, {allowAccidentals:settings.allowAccidentals, difficulty:mapDifficulty(settings.difficulty)});
       let exercise = composeExercise({
         instrument: INSTRUMENTS[settings.instrument].engineInstrument,
+        instrumentProfile: settings.instrument,
         clef: settings.clef === 'grand' || settings.clef === 'mixedStaff' ? 'treble' : settings.clef, difficulty: mapDifficulty(settings.difficulty),
         keySignature: settings.keySignature, timeSignature: settings.timeSignature,
-        rhythmLevel: mapRhythmLevel(settings.rhythmLevel), rhythmFocus: settings.rhythmFocus, measures: measureCount,
+        rhythmLevel: mapRhythmLevel(settings.rhythmLevel), rhythmFocus: settings.rhythmFocus, pitchFocus:settings.pitchFocus, measures: measureCount,
         tempo: bpm, range,
         allowAccidentals: pendingPreview ? false : settings.allowAccidentals, mixedMeters: settings.mixedMeters,
         meters: settings.meters, ...tonality,
@@ -81,9 +85,12 @@ export function useExercise(previewTonality?: RandomTonality) {
       exercise.soundProfile = settings.instrument;
       exercise.staffMode = settings.clef === 'mixedStaff' ? 'mixed' : 'fixed';
       exercise.transposition = INSTRUMENTS[settings.instrument].transpose;
-      exercise = addInstrumentHarmony(exercise, range);
-      exercise.tempo = selectPracticeTempo(exercise, bpm);
-      if(settings.performanceMarks ?? true) exercise=addPerformanceMarks(exercise);
+      if(settings.pitchFocus!=='scales')exercise = addInstrumentHarmony(exercise, range);
+      exercise.tempo = validBpm(tempoOverride)?tempoOverride:selectPracticeTempo(exercise, bpm);
+      if(settings.performanceMarks ?? true) {
+        exercise=addPerformanceMarks(exercise);
+        if(settings.pitchFocus!=='scales')exercise=addPipaTechniques(exercise,range);
+      }
       setSettings(settings);
       setCurrent((previous) => ({ exercise, settings: { ...settings, ...tonality, allowAccidentals: pendingPreview ? false : settings.allowAccidentals, measureCount, meters: [...settings.meters] }, number: (previous?.number ?? 0) + 1, isPreview: !!pendingPreview }));
       setPreviewConsumed(true);

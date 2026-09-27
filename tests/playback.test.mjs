@@ -112,6 +112,37 @@ test('stopping while loop samples load disposes late audio and never restarts',a
   assert.equal(disposed,true);assert.equal(f.scheduled.size,0);assert.ok(!f.log.includes('start'));
 });
 
+test('stop and dispose abort sample startup for score and passage playback without an error',async()=>{
+  for(const method of ['play','playLoop'])for(const action of ['stop','dispose']) {
+    const f=fixture();let signal;let loaded;
+    const loading=new Promise(resolve=>{loaded=resolve;});
+    f.audio.createSynth=(_,pendingSignal)=>{
+      signal=pendingSignal;loaded();
+      return new Promise((_,reject)=>signal.addEventListener('abort',()=>reject(Error('load canceled')),{once:true}));
+    };
+    const pending=method==='play'?f.player.play(exercise,60):f.player.playLoop(exercise,60,1,1);
+    await loading;f.player[action]();await pending;
+    assert.ok(signal.aborted,`${method}: ${action}`);
+    assert.equal(f.scheduled.size,0);assert.ok(!f.log.includes('start'));
+    assert.ok(f.states.every(state=>!state.error));
+  }
+});
+
+test('replay aborts the previous loader while preserving the replacement signal and playback',async()=>{
+  const f=fixture();const pending=[];
+  f.audio.createSynth=(_,signal)=>new Promise((resolve,reject)=>{
+    pending.push({signal,resolve});
+    signal.addEventListener('abort',()=>reject(Error('load canceled')),{once:true});
+  });
+  const first=f.player.play(exercise,60);await new Promise(setImmediate);
+  const replay=f.player.replay(exercise,60);await first;await new Promise(setImmediate);
+  assert.equal(pending[0].signal.aborted,true);assert.equal(pending[1].signal.aborted,false);
+  pending[1].resolve({triggerAttackRelease(){},releaseAll(){},dispose(){}});
+  await replay;
+  assert.equal(f.states.at(-1).state,'playing');assert.equal(f.log.filter(item=>item==='start').length,1);
+  f.player.stop();
+});
+
 test('resuming during loop count-in never sounds the preceding bar',async()=>{
   const ex={timeSignature:'4/4',measures:[{events:[{key:'c/4',rest:false,durationUnits:16}]},{events:[{key:'d/4',rest:false,durationUnits:16}]}]};
   const f=fixture(undefined,true);await f.player.playLoop(ex,60,2,2);

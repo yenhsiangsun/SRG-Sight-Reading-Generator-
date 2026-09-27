@@ -1,4 +1,4 @@
-export const PET_IDS = ['pet-celeste', 'pet-musicfox', 'pet-lily', 'pet-moonrabbit', 'pet-nocturne', 'pet-bamboo', 'pet-penguin', "pet-dragon", "pet-snowbird", "pet-kiwi", "pet-blackbear", "pet-otter", "pet-kangaroo", "pet-lion"] as const;
+export const PET_IDS = ['pet-celeste', 'pet-musicfox', 'pet-lily', 'pet-moonrabbit', 'pet-nocturne', 'pet-bamboo', 'pet-penguin', "pet-dragon", "pet-snowbird", "pet-kiwi", "pet-blackbear", "pet-otter", "pet-kangaroo", "pet-lion", 'pet-ragdoll'] as const;
 export type PetCompanion = typeof PET_IDS[number];
 export type RewardId = PetCompanion;
 
@@ -15,6 +15,7 @@ export interface RewardDefinition {
 }
 
 export const REWARDS: RewardDefinition[] = [
+  {id: 'pet-ragdoll', type: 'pet', name: {zh: '小精靈：雲朵布偶貓', en: 'Pet: Cloud Ragdoll', ja: 'ペット：ふわ雲ラグドール'}, cost: 75, description: {zh: '每次練習都會陪伴你', en: 'A companion that joins each practice session', ja: '毎回の練習に一緒に寄り添う'}},
   {"id":"pet-dragon","type":"pet","name":{"zh":"小精靈：暮光幼龍","en":"Pet: Twilight Dragon","ja":"ペット：夕暮れのちびドラゴン"},"cost":95,"description":{"zh":"每次練習都會陪伴你","en":"A companion that joins each practice session","ja":"毎回の練習に一緒に寄り添う"}},
   {"id":"pet-snowbird","type":"pet","name":{"zh":"小精靈：北海道雪糰","en":"Pet: Hokkaido Snowbird","ja":"ペット：シマエナガ"},"cost":75,"description":{"zh":"每次練習都會陪伴你","en":"A companion that joins each practice session","ja":"毎回の練習に一緒に寄り添う"}},
   {"id":"pet-kiwi","type":"pet","name":{"zh":"小精靈：紐西蘭奇異鳥","en":"Pet: New Zealand Kiwi","ja":"ペット：ニュージーランドのキーウィ"},"cost":80,"description":{"zh":"每次練習都會陪伴你","en":"A companion that joins each practice session","ja":"毎回の練習に一緒に寄り添う"}},

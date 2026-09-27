@@ -9,7 +9,7 @@ globalThis.document = { createElement: () => ({ style: {
   set font(value) { const match = value.match(/([\d.]+(?:px|pt))\s+(.+)$/); if (match) { this.fontSize = match[1]; this.fontFamily = match[2]; } },
 } }) };
 VF.Element.setTextMeasurementCanvas({ getContext: () => ({ measureText: text => ({ width: text.length * 8, actualBoundingBoxLeft: 0, actualBoundingBoxRight: text.length * 8, actualBoundingBoxAscent: 12, actualBoundingBoxDescent: 3, fontBoundingBoxAscent: 12, fontBoundingBoxDescent: 3 }) }) });
-const { collectMeasureAnchors, findCursor, hitTest } = loadModule('src/notation/scoreGeometry.ts', 1, undefined, { vexflow: VF });
+const { collectMeasureAnchors, findCursor, hitTest, scaleScoreLayout } = loadModule('src/notation/scoreGeometry.ts', 1, undefined, { vexflow: VF });
 const { prepareGrandMeasure } = loadModule('src/notation/drawGrandScore.ts', 1, undefined, { vexflow: VF });
 const { createMeasureNotation } = loadModule('src/notation/createMeasureNotation.ts', 1, undefined, { vexflow: VF });
 
@@ -26,6 +26,19 @@ const mixedLayout = { width: 900, height: 500, measures: [
   geometry(0, 0, 100, 450, 16), geometry(1, 0, 480, 880, 12, [0, 2, 4, 6, 8, 10]),
   geometry(2, 1, 100, 450, 14, [0, 2, 4, 6, 8, 10, 12]),
 ] };
+
+test('score size scales engraving, cursor, feedback and seeking together without altering time',()=>{
+  const source={...mixedLayout,notes:[{measure:0,staff:0,units:0,x:100,y:55}],systems:[{top:20,bottom:160}]};
+  const before=JSON.stringify(source);
+  for(const scale of [.8,1,1.25,1.5]){
+    const layout=scaleScoreLayout(source,scale),cursor=findCursor(layout,mixedExercise,60,5.5);
+    assert.equal(cursor.x,680*scale);assert.equal(cursor.y,30*scale);
+    assert.equal(layout.notes[0].y,55*scale);assert.equal(layout.systems[0].bottom,160*scale);
+    assert.equal(hitTest(layout,mixedExercise,60,681*scale,80*scale),5.5);
+    assert.equal(layout.width,900*scale);assert.equal(layout.height,500*scale);
+  }
+  assert.equal(JSON.stringify(source),before);
+});
 
 test('cursor preserves note-value timing across 4/4, 6/8 and 7/8 changes', () => {
   assert.equal(findCursor(mixedLayout, mixedExercise, 60, 2).units, 8);

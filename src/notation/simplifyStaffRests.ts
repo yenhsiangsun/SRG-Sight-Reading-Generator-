@@ -33,7 +33,7 @@ export function simplifyStaffRests(measure:MeasureData,meter:TimeSignature):Meas
       const boundary=boundaries[groupIndex+1]??measure.totalUnits;
       // In 4/4 each complete half-bar can be a half rest. Otherwise expose beat groups.
       const limit=meter==='4/4'&&at%8===0&&end-at>=8?at+8:Math.min(end,boundary);
-      const candidates:Array<[number,VexDuration,number]>=[[8,'h',0],...(compound?[[6,'q',1] as [number,VexDuration,number]]:[]),[4,'q',0],[3,'8',1],[2,'8',0],[1,'16',0]];
+      const candidates:Array<[number,VexDuration,number]>=[[8,'h',0],...(compound?[[6,'q',1] as [number,VexDuration,number]]:[]),[4,'q',0],[3,'8',1],[2,'8',0],[1,'16',0],[.5,'32',0]];
       // Subdivision alignment restarts at every big beat. In 6/8, for example,
       // the quarter rest at units 6–10 is identical to the one at units 0–4.
       // The last two eighths of a compound beat remain separate to expose its pulse.
@@ -44,7 +44,7 @@ export function simplifyStaffRests(measure:MeasureData,meter:TimeSignature):Meas
         // eighth rest. Keep offbeat silence and compound big beats distinct.
         u===3?at===groupStart&&boundary-groupStart===4:
         (at-groupStart)%u===0
-      ))??[1,'16',0];
+      ))??[.5,'32',0];
       events.push({...note,startUnits:at,durationUnits:units,duration,dots});at+=units;
     }
   }

@@ -37,7 +37,7 @@ export function planMixedStaff(measures: readonly MeasureData[], initial: Clef =
     const limit = Math.max(2,Math.min(...worst));
     const previousNote = events[index-1]?.note;
     const insideBeam = !boundary && !!previousNote && !previousNote.rest && !note.rest &&
-      ['8','16'].includes(previousNote.duration) && ['8','16'].includes(note.duration);
+      ['8','16','32'].includes(previousNote.duration) && ['8','16','32'].includes(note.duration);
     const parent: number[] = [];
     const next = states.map((state,current) => {
       const alternatives = states.map((previous,from) => {

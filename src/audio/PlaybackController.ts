@@ -5,6 +5,7 @@ import {dynamicVelocity, noteExpression} from '../music/performanceMarks';
 import {notePitches} from '../music/notePitches';
 import {addRhythmUnits} from '../music/rhythmTiming';
 import {metricPosition} from '../music/meterFeel';
+import {pipaExpression} from './pipaExpression';
 
 export type PlaybackStatus = 'idle' | 'starting' | 'playing' | 'paused';
 export type PlaybackMode = 'score' | 'metronome';
@@ -19,7 +20,7 @@ function triggerNote(synth:Synth|null, note:string, duration:number, time:number
 }
 export interface AudioAdapter {
   unlock(): Promise<unknown>;
-  createSynth(exercise: ExerciseData): Synth | Promise<Synth>;
+  createSynth(exercise: ExerciseData, signal?: AbortSignal): Synth | Promise<Synth>;
   createClickSynth?(): Synth;
   schedule(callback: (time: number) => void, seconds: number): number;
   scheduleEnd(callback: () => void, seconds: number): number;
@@ -33,7 +34,7 @@ export interface AudioAdapter {
   getSeconds?(): number;
 }
 
-export function createPlaybackEvents(exercise: ExerciseData, bpm: number) {
+export function createPlaybackEvents(exercise: ExerciseData, bpm: number, performTechniques = false) {
   if (!Number.isFinite(bpm) || bpm <= 0) throw new Error('請選擇有效的速度。');
   const events: Array<{ note: string; duration: number; time: number; velocity?:number }> = [];
   let duration = 0;
@@ -46,14 +47,14 @@ export function createPlaybackEvents(exercise: ExerciseData, bpm: number) {
         if(note.dynamic)velocity=dynamicVelocity[note.dynamic];
         const length = note.durationUnits * secondsPerUnit;
         if (!note.rest) {
-          const pitches = notePitches(note);
+          const pitches = notePitches(note).slice().sort((a,b) => a.midi-b.midi);
           const expression=noteExpression(note,velocity??0.73);
           const expressive=velocity!==undefined || note.articulation!==undefined;
           const metrical=!!(measure.timeSignature ?? exercise.timeSignature);
           const metricGain=metrical ? metricPosition(measure,units,exercise.timeSignature).gain : 1;
           // Keep chord attacks from becoming disproportionately louder than single notes.
           const gain = 1 / Math.sqrt(pitches.length);
-          for (const chordPitch of pitches) {
+          for (const [pitchIndex,chordPitch] of pitches.entries()) {
             let pitch = chordPitch.key.replace('/', '');
             if (exercise.transposition) {
               const match = chordPitch.key.match(/^([a-g])([#b]*)\/(-?\d+)$/i);
@@ -63,8 +64,10 @@ export function createPlaybackEvents(exercise: ExerciseData, bpm: number) {
               const midi = (Number(match[3])+1)*12+natural+alteration+exercise.transposition;
               pitch = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'][((midi%12)+12)%12]+(Math.floor(midi/12)-1);
             }
-            events.push({note:pitch,duration:length*(expressive?expression.lengthRatio:1),time:bar.start+units*secondsPerUnit,
-              ...(metrical || expressive || pitches.length > 1 ? {velocity:expression.velocity*gain*metricGain} : {})});
+            const event={note:pitch,duration:length*(expressive?expression.lengthRatio:1),time:bar.start+units*secondsPerUnit,
+              ...(metrical || expressive || pitches.length > 1 ? {velocity:expression.velocity*gain*metricGain} : {})};
+            events.push(...(performTechniques && exercise.soundProfile === 'Pipa' ?
+              pipaExpression(event,note.technique,pitchIndex,pitches.length,length) : [event]));
           }
         }
         units = addRhythmUnits(units,note.durationUnits);
@@ -97,6 +100,7 @@ export class PlaybackController {
   private clickSynth: Synth | null = null;
   private events: number[] = [];
   private generation = 0;
+  private loading: AbortController | null = null;
   private disposed = false;
   private metronome = false;
   private position = 0;
@@ -134,6 +138,8 @@ export class PlaybackController {
   private reset(position = 0) {
     this.repeat = null;
     this.generation++;
+    this.loading?.abort();
+    this.loading = null;
     this.audio.stop();
     this.audio.setLoop?.(null);
     for (const id of this.events) this.audio.clear(id);
@@ -163,6 +169,8 @@ export class PlaybackController {
     if (this.status === 'playing') return;
     const resume = this.status === 'paused' && this.events.length > 0;
     const generation = this.generation;
+    const loading = new AbortController();
+    this.loading = loading;
     this.mode = mode;
     this.update('starting');
     try {
@@ -172,7 +180,7 @@ export class PlaybackController {
         // Pause releases sounding notes. Restore only their remaining lengths,
         // keeping the existing schedule for all later notes and rests intact.
         if (!metronomeOnly && this.audio.getSeconds) {
-          for (const event of createPlaybackEvents(exercise, bpm).events) {
+          for (const event of createPlaybackEvents(exercise, bpm, true).events) {
             const remaining = Math.min(event.time + event.duration, this.repeat?.end ?? Infinity) - this.position;
             const duringLead = this.repeat && (this.audio.getSeconds() % this.repeat.cycle) < this.repeat.lead;
             if (!duringLead && event.time < this.position && remaining > 1e-7) {
@@ -190,7 +198,7 @@ export class PlaybackController {
         this.update('playing');
         return;
       }
-      const timeline = createPlaybackEvents(exercise, bpm);
+      const timeline = createPlaybackEvents(exercise, bpm, true);
       if (this.exercise !== exercise || this.bpm !== bpm || this.position >= timeline.duration) {
         this.position = 0;
       }
@@ -203,7 +211,7 @@ export class PlaybackController {
       this.audio.setTempo(bpm);
       this.audio.setLoop?.(metronomeOnly ? timeline.duration : null);
       if (!metronomeOnly) {
-        const created = this.audio.createSynth(exercise);
+        const created = this.audio.createSynth(exercise, loading.signal);
         const synth = 'then' in created ? await created : created;
         if (this.disposed || generation !== this.generation) { synth.dispose(); return; }
         this.synth = synth;
@@ -238,6 +246,8 @@ export class PlaybackController {
       if (generation !== this.generation || this.disposed) return;
       this.stop();
       this.update('idle', error instanceof Error ? error.message : '播放未能啟動，請再試一次。');
+    } finally {
+      if (this.loading === loading) this.loading = null;
     }
   }
 
@@ -256,23 +266,25 @@ export class PlaybackController {
     if (this.disposed) return;
     this.stop();
     const generation = this.generation;
+    const loading = new AbortController();
+    this.loading = loading;
     this.mode = 'score';
     this.update('starting');
     try {
       const window = loopWindow(exercise, bpm, first, last);
       await this.audio.unlock();
       if (generation !== this.generation || this.disposed) return;
-      const synth = await this.audio.createSynth(exercise);
+      const synth = await this.audio.createSynth(exercise, loading.signal);
       if (generation !== this.generation || this.disposed) { synth.dispose(); return; }
       this.synth = synth;
       this.exercise = exercise; this.bpm = bpm;
       this.repeat = window; this.position = window.start;
-      this.duration = createPlaybackEvents(exercise, bpm).duration;
+      this.duration = createPlaybackEvents(exercise, bpm, true).duration;
       this.audio.setTempo(bpm); this.audio.setLoop?.(window.cycle);
       const guarded = (callback: (time: number) => void) => (time: number) => {
         if (generation === this.generation && !this.disposed) callback(time);
       };
-      for (const event of createPlaybackEvents(exercise, bpm).events) {
+      for (const event of createPlaybackEvents(exercise, bpm, true).events) {
         const start = Math.max(window.start, event.time), end = Math.min(window.end, event.time + event.duration);
         if (end <= start) continue;
         this.events.push(this.audio.schedule(guarded(time => triggerNote(synth,event.note,end-start,time,event.velocity)), window.lead + start - window.start));
@@ -293,13 +305,15 @@ export class PlaybackController {
     } catch (error) {
       if (generation !== this.generation || this.disposed) return;
       this.stop(); this.update('idle', error instanceof Error ? error.message : 'Playback failed');
+    } finally {
+      if (this.loading === loading) this.loading = null;
     }
   }
 
   /** Commit a score seek. Idle/paused scrubbing never starts audio by itself. */
   async seek(exercise: ExerciseData, bpm: number, seconds: number) {
     if (this.disposed) return;
-    const timeline = createPlaybackEvents(exercise, bpm);
+    const timeline = createPlaybackEvents(exercise, bpm, true);
     const position = Math.min(timeline.duration, Math.max(0, Number.isFinite(seconds) ? seconds : 0));
     const wasPlaying = (this.status === 'playing' || this.status === 'starting') && this.mode === 'score';
     const wasPaused = this.status === 'paused' && this.mode === 'score';

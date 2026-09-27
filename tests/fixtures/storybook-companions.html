@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Forest companion visual check</title>
+<style>body{margin:0;padding:20px;background:#faf8f2;font-family:system-ui;color:#354939}main{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;max-width:1100px;margin:auto}article{background:#fff;border-radius:18px;text-align:center;padding:8px}h2{font-size:13px;margin:0 0 8px}svg{max-height:195px}</style></head>
+<body><main id="root"></main><script type="module">
+import React from 'react';
+import {createRoot} from 'react-dom/client';
+import {CompanionPortrait} from '/src/components/CompanionPortrait.tsx';
+import {PET_IDS} from '/src/progress/progress.ts';
+createRoot(document.getElementById('root')).render([null,...PET_IDS].map(pet=>React.createElement('article',{key:pet??'original'},React.createElement(CompanionPortrait,{pet,design:'storybook'}),React.createElement('h2',{},pet??'original'))));
+</script></body></html>

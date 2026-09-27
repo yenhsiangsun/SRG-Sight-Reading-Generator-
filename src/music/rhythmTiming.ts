@@ -20,7 +20,7 @@ export function assertMeasureRhythm(measure: MeasureData, meter: TimeSignature) 
         throw new Error('三連音必須完整佔一個四分音符拍。');
       tripletNotes = (tripletNotes + 1) % 3;
     } else if (tripletNotes !== 0) throw new Error('三連音組不完整。');
-    const base = {w:16,h:8,q:4,'8':2,'16':1}[note.duration];
+    const base = {w:16,h:8,q:4,'8':2,'16':1,'32':.5}[note.duration];
     const written = note.measureRest ? total : base * (2 - 2 ** -note.dots) * (note.tuplet ? 2 / 3 : 1);
     if (!validUnits(written) || rhythmTicks(written) !== rhythmTicks(note.durationUnits))
       throw new Error('音符記譜時值與播放時值不一致。');

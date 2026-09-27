@@ -8,6 +8,12 @@ export function rangeNotePosition(midi:number) {
   const degree=naturals.findLastIndex(value=>value<=pc);
   return {degree,octave:Math.floor(midi/12)-1,sharp:pc!==naturals[degree]};
 }
+/** Top staff line is +8; upper ledger lines are +10, +12, +14, +16. */
+export function rangeOctaveShift(midi:number,clef:Clef): -1|0|1 {
+  const note=rangeNotePosition(midi);
+  const distance=note.octave*7+note.degree-rangeStaffBottom[clef];
+  return distance>16?1:distance< -6?-1:0;
+}
 export function rangeMidiAtY(y:number,bottomY:number,clef:Clef,octaveShift:number,min:number,max:number) {
   const position=rangeStaffBottom[clef]+Math.round((bottomY-y)/5)+octaveShift*7;
   const octave=Math.floor(position/7),degree=((position%7)+7)%7;

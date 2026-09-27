@@ -30,6 +30,17 @@ export interface ScoreLayout {
 
 export interface NoteGeometry {measure:number;staff:number;units:number;x:number;y:number}
 
+/** Keep all overlay and hit-test geometry in the SVG's displayed coordinates. */
+export function scaleScoreLayout(layout:ScoreLayout, scale:number):ScoreLayout {
+  if(scale===1)return layout;
+  return {...layout,width:layout.width*scale,height:layout.height*scale,
+    systems:layout.systems?.map(system=>({top:system.top*scale,bottom:system.bottom*scale})),
+    notes:layout.notes?.map(note=>({...note,x:note.x*scale,y:note.y*scale})),
+    measures:layout.measures.map(measure=>({...measure,xStart:measure.xStart*scale,xEnd:measure.xEnd*scale,
+      yTop:measure.yTop*scale,yBottom:measure.yBottom*scale,anchors:measure.anchors.map(anchor=>({...anchor,x:anchor.x*scale}))})),
+  };
+}
+
 export function collectNoteGeometry(notes: readonly StaveNote[], measure:number, staff:number): NoteGeometry[] {
   let units=0;
   return notes.flatMap(note=>{

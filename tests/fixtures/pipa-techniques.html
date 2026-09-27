@@ -1,0 +1,14 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>琵琶演奏法排版檢查</title>
+<style>body{margin:28px;color:#233d38;font-family:system-ui;background:#f6f5ef}main{background:white;padding:24px;border-radius:16px;max-width:1000px}h1{font-size:22px}p{font-size:14px;color:#60716c}#score{color:black;overflow:auto}</style>
+<main><h1>琵琶演奏法 · 記譜檢查</h1><p>輪指（五射線）／掃弦（箭頭）／空弦雙音（0）／琶音（波浪線） · ♩ = 80</p><div id="score"></div></main>
+<script type="module">
+import {drawSingleScore} from '/src/notation/drawSingleScore.ts';
+import {midiFromKey} from '/src/music/notePitches.ts';
+const pitch=key=>({key,midi:midiFromKey(key),octave:+key.split('/')[1]});
+const note=(key,i,technique,chord)=>({...pitch(key),duration:'q',dots:0,startUnits:i*4,durationUnits:4,rest:false,technique,...(chord?{chord:chord.map(pitch)}:{})});
+const bar=events=>({events,totalUnits:16,groups:[4,4,4,4],beamGroups:[4,4,4,4]});
+const ex={instrument:'Sheng',soundProfile:'Pipa',clef:'treble',difficulty:'intermediate',keySignature:'C',timeSignature:'4/4',rhythmLevel:'simple',tempo:80,measures:[
+bar([note('a/4',0,'pipa-roll'),note('e/4',1),note('g/4',2,'pipa-brush',['e/3','g/4']),note('c/4',3,'pipa-open-double',['a/2','c/4'])]),
+bar([note('c/4',0,'pipa-arpeggio',['e/3','g/3','c/4']),note('a/4',1,'pipa-roll'),note('e/5',2),note('a/4',3)])]};
+try {drawSingleScore(document.querySelector('#score'),ex,950);document.body.dataset.result='ok';}catch(error){document.querySelector('#score').textContent=error.message;document.body.dataset.result='error';}
+</script></html>

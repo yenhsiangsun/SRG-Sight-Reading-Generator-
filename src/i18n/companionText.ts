@@ -1,6 +1,7 @@
 // English source text -> es, de, fr, ko, pt-BR, ru, it.
 export const companionText: Record<string, readonly string[]> = Object.fromEntries(`
 Mimo|Mimo|Mimo|Mimo|미모|Mimo|Мимо|Mimo
+Cloud Ragdoll|Ragdoll Nube|Wolken-Ragdoll|Ragdoll Nuage|구름 랙돌|Ragdoll Nuvem|Облачный рэгдолл|Ragdoll Nuvola
 Lark|Alondra|Lerche|Alouette|종달새|Cotovia|Жаворонок|Allodola
 Music Fox|Zorro Musical|Musikfuchs|Renard Musical|음악 여우|Raposa Musical|Музыкальный лис|Volpe Musicale
 Music fox|Zorro Musical|Musikfuchs|Renard Musical|음악 여우|Raposa Musical|Музыкальный лис|Volpe Musicale

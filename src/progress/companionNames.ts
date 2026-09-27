@@ -1,8 +1,10 @@
 import type {PetCompanion} from './progress';
 import type {Locale} from '../i18n/messages';
 import {words} from './words';
+import {companionDesignCopy} from './companionDesignCopy';
 
 const names: Record<PetCompanion | 'original', readonly [string, string, string]> = {
+  'pet-ragdoll': ['雲朵布偶貓', 'Cloud Ragdoll', 'ふわ雲ラグドール'],
   "pet-dragon": ["暮光幼龍","Twilight Dragon","夕暮れのちびドラゴン"],
   "pet-snowbird": ["北海道雪糰","Hokkaido Snowbird","シマエナガ"],
   "pet-kiwi": ["紐西蘭奇異鳥","New Zealand Kiwi","ニュージーランドのキーウィ"],
@@ -21,6 +23,7 @@ const names: Record<PetCompanion | 'original', readonly [string, string, string]
 };
 
 export function companionName(pet: PetCompanion | null, locale: Locale): string {
+  if (pet === 'pet-ragdoll') return companionDesignCopy(locale).ragdoll;
   const [zh, en, ja] = names[pet ?? 'original'];
   return words(locale, zh, en, ja);
 }

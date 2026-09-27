@@ -63,6 +63,18 @@ export function createInstrumentSynth(instrument: string) {
   synth.maxPolyphony = 24;
   synth.volume.value = p.volume;
 
+  // Preserve the soprano sheng's accepted dry sound from before the shared
+  // effects-routing fix. Its oscillator, envelope and voice filter are unchanged;
+  // the newly audible phaser/reverb chain is deliberately not used for this voice.
+  if (id === 'sheng') {
+    synth.connect(Tone.Destination);
+    return {
+      triggerAttackRelease: (note: string, duration: number, time: number, velocity?:number) => synth.triggerAttackRelease(note, duration, time, velocity),
+      releaseAll: () => synth.releaseAll(),
+      dispose: () => synth.dispose(),
+    };
+  }
+
   const shapingFilter = new Tone.Filter({
     frequency: isPlucked ? 6800 : isBowed ? 5400 : isWoodwind ? 6500 : isBrass ? 5200 : 6200,
     type: 'lowpass',
@@ -137,7 +149,10 @@ export function createInstrumentSynth(instrument: string) {
 
   let chainEnd: Tone.ToneAudioNode = synth as Tone.ToneAudioNode;
   for (const effect of effectChain) {
-    chainEnd = chainEnd.connect(effect) as Tone.ToneAudioNode;
+    // Tone.connect returns the source node, not its destination. Advance the
+    // chain explicitly or the dry synth bypasses every timbre-shaping effect.
+    chainEnd.connect(effect);
+    chainEnd = effect;
   }
   chainEnd.connect(Tone.Destination);
 

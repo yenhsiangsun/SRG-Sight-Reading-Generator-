@@ -43,7 +43,7 @@ test('pitch grades increase melodic leaps and optional chromatic density without
     }
     return {chromatic:chromatic/count,meanLeap:distance/leaps,steps:steps/leaps};
   });
-  const bands=[[.02,.06],[.07,.13],[.14,.21]];
+  const bands=[[.01,.035],[.07,.13],[.14,.21]];
   stats.forEach((s,i)=>assert.ok(s.chromatic>bands[i][0]&&s.chromatic<bands[i][1],JSON.stringify(stats)));
   assert.ok(stats[0].steps>.5);
   assert.ok(stats[1].meanLeap>stats[0].meanLeap+.5&&stats[2].meanLeap>stats[1].meanLeap+.5,JSON.stringify(stats));

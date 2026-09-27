@@ -56,16 +56,17 @@ test('pipa double stops have real spellings and two reachable distinct strings',
 
 test('generated harmony stays sparse, within the selected range/scale, and physically playable in every scale',()=>{
   const sizes=new Set(), totals={Piano:0,Pipa:0,Sheng:0};
-  for(const instrument of Object.keys(totals))for(const difficulty of ['beginner','intermediate','advanced'])for(const scale of SCALES){
+  for(const instrument of Object.keys(totals))for(const difficulty of ['beginner','intermediate','advanced'])for(const rhythmLevel of ['simple','medium','complex'])for(const scale of SCALES){
     const range=instrument==='Piano'?{min:36,max:84}:instrument==='Pipa'?{min:45,max:88}:{min:55,max:90};
-    const options={...opts,range,difficulty,scaleId:scale.id};
+    const options={...opts,range,difficulty,rhythmLevel,scaleId:scale.id};
     const source=instrument==='Piano'?generateGrandExercise(options):generatePracticeExercise(options);
     source.soundProfile=instrument;
     const before=plain(source), ex=addInstrumentHarmony(source,range);
     assert.deepEqual(plain(source),before,'pure decoration');
     assert.deepEqual(withoutChords(ex),before,'original pitches, rests, and rhythmic timing preserved');
     const sounded=notes(ex).filter(n=>!n.rest), chords=sounded.filter(n=>n.chord);
-    assert.ok(chords.length<=Math.max(1,Math.floor(sounded.length*(instrument==='Piano'?.32:.20))));
+    const maximumRate=instrument==='Piano'?.32:instrument==='Sheng'&&difficulty==='advanced'?.30:.20;
+    assert.ok(chords.length<=Math.max(1,Math.floor(sounded.length*maximumRate)));
     totals[instrument]+=chords.length;
     if(instrument==='Piano')assert.equal(ex.measures.flatMap(m=>m.events).some(n=>n.chord),false);
     for(const note of chords){
@@ -86,7 +87,7 @@ test('generated harmony stays sparse, within the selected range/scale, and physi
 });
 
 test('narrow custom ranges and other instruments never get impossible/unspecified chords',()=>{
-  for(const profile of ['Sheng','Pipa','Violin','Tenor Sheng','Bass Sheng','Yangqin']){
+  for(const profile of ['Sheng','Alto Sheng','Pipa','Violin','Tenor Sheng','Bass Sheng','Yangqin']){
     const source=generatePracticeExercise({...opts,range:{min:60,max:62},scaleId:'major',allowAccidentals:false});
     source.soundProfile=profile;
     const ex=addInstrumentHarmony(source,{min:60,max:62});

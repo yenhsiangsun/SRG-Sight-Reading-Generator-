@@ -1,9 +1,10 @@
-import { Accidental, Annotation, Articulation, Modifier, Beam, ClefNote, NoteSubGroup, Dot, Fraction, StaveNote, Tuplet, Voice, type Stave } from 'vexflow';
+import { Accidental, Annotation, Articulation, Modifier, Beam, ClefNote, NoteSubGroup, Dot, Fraction, StaveNote, Stroke, Tuplet, Voice, type Stave } from 'vexflow';
 import type { Clef, MeasureData, TimeSignature } from '../music';
 import {octaveWrittenKey} from './octaveLines';
 import {notePitches} from '../music/notePitches';
 import {addRhythmUnits, assertMeasureRhythm} from '../music/rhythmTiming';
 import {ScoreTuplet, chooseTupletSide} from './ScoreTuplet';
+import {PipaRollMark} from './PipaRollMark';
 
 export function createMeasureNotation(measure: MeasureData, clef: Clef, key: string, meter: TimeSignature, octaveShifts: number[] = [], eventClefs: Clef[] = [], clefAnnotation?: string) {
   const [numBeats, beatValue] = meter.split('/').map(Number);
@@ -32,6 +33,11 @@ export function createMeasureNotation(measure: MeasureData, clef: Clef, key: str
     }
     previousClef = activeClef;
     for (let dot = 0; dot < note.dots; dot++) Dot.buildAndAttach([result]);
+    if (!note.rest && note.technique) {
+      if (note.technique === 'pipa-roll') result.addModifier(new PipaRollMark(),0);
+      if (note.technique === 'pipa-brush') result.addModifier(new Stroke(Stroke.Type.BRUSH_DOWN,{allVoices:false}),0);
+      if (note.technique === 'pipa-arpeggio') result.addModifier(new Stroke(Stroke.Type.ARPEGGIO_DIRECTIONLESS,{allVoices:false}),0);
+    }
     if(!note.rest && note.articulation) {
       const code={staccato:'a.',tenuto:'a-',accent:'a>'}[note.articulation];
       const articulation=new Articulation(code).setPosition(Modifier.Position.ABOVE);
@@ -74,7 +80,7 @@ export function createMeasureNotation(measure: MeasureData, clef: Clef, key: str
           const event = measure.events[index];
           const next = measure.events[run[beamIndex + 1]];
           const continuousSixteenths = next && !event.rest && !next.rest &&
-            event.durationUnits === 1 && next.durationUnits === 1;
+            event.durationUnits <= 1 && next.durationUnits <= 1;
           return next && !continuousSixteenths && (event.startUnits + event.durationUnits) % 2 === 0 ? [beamIndex] : [];
         });
         beam.breakSecondaryAt(breaks);
@@ -95,7 +101,7 @@ export function createMeasureNotation(measure: MeasureData, clef: Clef, key: str
     }
     // Quarter-note values and notes crossing a primary beat do not join beams.
     const end = addRhythmUnits(event.startUnits, event.durationUnits);
-    if (!['8', '16'].includes(event.duration) || end > groupEnd) {
+    if (!['8', '16', '32'].includes(event.duration) || end > groupEnd) {
       finishRun();
       return;
     }

@@ -14,7 +14,7 @@ export function loadModule(path, seed = 90210, source = fs.readFileSync(path, 'u
     const absolute=pathUtil.resolve(filename);
     if(cache.has(absolute)) return cache.get(absolute).exports;
     const module={exports:{}};cache.set(absolute,module);
-    const context=vm.createContext({...globals,exports:module.exports,module,Math:math,require:(name)=>{
+    const context=vm.createContext({AbortController,...globals,exports:module.exports,module,Math:math,require:(name)=>{
       if(name in modules) return modules[name];
       if(!name.startsWith('.')) throw Error('Unexpected import: '+name);
       const target=pathUtil.resolve(pathUtil.dirname(absolute),name)+'.ts';

@@ -1,9 +1,9 @@
 import type {ExerciseData} from '../music';
-import {beatUnits, openingMeter} from '../audio/tempo';
+import {beatUnits, openingMeter, SUPPORTED_BPM} from '../audio/tempo';
 
 export function tempoInputRange(exercise: ExerciseData) {
   const factor = 4 / beatUnits(openingMeter(exercise));
-  return {min: 48 * factor, max: 400};
+  return {min: 48 * factor, max: SUPPORTED_BPM.max};
 }
 
 /** Conservative sight-reading targets, not an instrument's technical speed limit. */

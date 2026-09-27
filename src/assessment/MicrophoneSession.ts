@@ -1,5 +1,6 @@
 import { detectPitch } from './pitch';
 import type { Observation } from './scoring';
+import {audioRouteKey,type OutputRoute} from './calibration';
 export type ExamStage = 'idle'|'permission'|'reading'|'countin'|'performing'|'result';
 export class MicrophoneSession {
   private context:AudioContext|null=null;
@@ -16,7 +17,8 @@ export class MicrophoneSession {
     if(this.context)void this.context.close().catch(()=>{});
     this.context=null;
   }
-  async start(readingSeconds:number,bpm:number,duration:number,onState:(stage:ExamStage,remaining:number)=>void,onFinish:(frames:Observation[])=>void){
+  async start(readingSeconds:number,bpm:number,duration:number,onState:(stage:ExamStage,remaining:number)=>void,onFinish:(frames:Observation[])=>void,
+    options:{outputRoute?:OutputRoute;onRoute?:(routeKey:string)=>void}={}){
     this.stop();
     const generation=this.generation;
     if(!navigator.mediaDevices?.getUserMedia||!window.AudioWorkletNode)throw new Error('MIC_UNSUPPORTED');
@@ -31,6 +33,9 @@ export class MicrophoneSession {
       if(generation!==this.generation){stream.getTracks().forEach(track=>track.stop());return;}
       this.stream=stream;
       await resume;
+      const settings=stream.getAudioTracks()[0]?.getSettings?.();
+      options.onRoute?.(audioRouteKey(settings?.deviceId??'default',context.sampleRate,options.outputRoute??'speakers',
+        'sinkId' in context?String(context.sinkId):'default'));
       await context.audioWorklet.addModule(import.meta.env.BASE_URL+'capture-worklet.js');
       if(generation!==this.generation)return;
       const capture=new AudioWorkletNode(context,'practice-capture');this.node=capture;
@@ -55,7 +60,9 @@ export class MicrophoneSession {
         const frameTime=time+samples.length/sampleRate/2;
         if(frameTime<start-.2||frameTime>end)return;
         const pitch=detectPitch(samples,sampleRate);
-        if(pitch)frames.push({time:frameTime-start,midi:pitch.midi,confidence:pitch.confidence,rms:pitch.rms});
+        const rms=pitch?.rms??Math.sqrt(samples.reduce((sum,n)=>sum+n*n,0)/samples.length);
+        const clipped=samples.some(sample=>Math.abs(sample)>=.995);
+        frames.push({time:frameTime-start,midi:pitch?.midi??0,confidence:pitch?.confidence??0,rms,clipped});
       };
       const interrupt=()=>{if(generation===this.generation){this.stop();onState('idle',0);}};
       context.onstatechange=()=>{if(context.state==='suspended')interrupt();};

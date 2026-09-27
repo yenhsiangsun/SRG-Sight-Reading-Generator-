@@ -1,5 +1,5 @@
 import { buildPitchMaterial, describeTonality, type Tonic, type Tonality, type PitchMaterial, type ScalePitch } from './music/scales';
-import type { RhythmFocus } from './practice/focus';
+import type { RhythmFocusSelection } from './practice/focus';
 import type {PracticeRhythmNote} from './music/practiceRhythm';
 import {selectPhraseRhythmPlan, type RhythmBarPlan} from './music/phraseRhythm';
 import {PITCH_DIFFICULTY, pitchDistanceWeight} from './music/pitchDifficulty';
@@ -56,7 +56,8 @@ export type VexDuration =
   | "h"
   | "q"
   | "8"
-  | "16";
+  | "16"
+  | "32";
 
 export interface PitchRange {
   readonly min: number;
@@ -78,6 +79,7 @@ export interface NotePitch {
 }
 
 export interface GeneratedNote {
+  technique?: 'pipa-roll' | 'pipa-brush' | 'pipa-arpeggio' | 'pipa-open-double';
   /** Three written eighths occupy one quarter beat; actual units are 4/3 each. */
   tuplet?: 3;
   /** All simultaneous pitches, including the original melody/bass pitch. One rhythmic event. */
@@ -124,6 +126,7 @@ export interface MeasureData {
 export type GeneratedMeasure = MeasureData;
 
 export interface ExerciseData {
+  harmonyPlan?: import('./music/phraseHarmony').HarmonyBar[];
   /** A single staff with either a fixed clef or automatic treble/bass changes. */
   staffMode?: 'fixed' | 'mixed';
   soundProfile?: string;
@@ -893,7 +896,9 @@ export function getKeyScale(
 }
 
 export interface PracticeOptions {
-  rhythmFocus?: RhythmFocus;
+  pitchFocus?: import('./practice/focus').PitchFocus;
+  instrumentProfile?: string;
+  rhythmFocus?: RhythmFocusSelection;
   tonic?: Tonic;
   scaleId?: string;
   instrument: Instrument;

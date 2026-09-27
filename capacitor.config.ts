@@ -5,6 +5,8 @@ const config: CapacitorConfig = {
   appName: 'Sight Reading Generator',
   webDir: 'dist',
   ios: {
+    // CSS owns the safe area for the page, sticky controls and dialogs.
+    contentInset: 'never',
     backgroundColor: '#f7f2e8',
     preferredContentMode: 'mobile',
     scrollEnabled: true,

@@ -2,7 +2,7 @@ import { createPlaybackInstrument as createInstrumentSynth } from '../audio/crea
 import { useCallback, useEffect, useRef, useState } from 'react';
 import * as Tone from 'tone';
 import type { ExerciseData } from '../music';
-import { PlaybackController, type PlaybackStatus, type PlaybackMode } from '../audio/PlaybackController';
+import { PlaybackController, createPlaybackEvents, type PlaybackStatus, type PlaybackMode } from '../audio/PlaybackController';
 
 export function usePlayback() {
   const [status, setStatus] = useState<PlaybackStatus>('idle');
@@ -16,7 +16,7 @@ export function usePlayback() {
     let scheduledStartTime = 0;
     const controller = new PlaybackController({
       unlock: () => Tone.start(),
-      createSynth: exercise => createInstrumentSynth(exercise.soundProfile ?? exercise.instrument),
+      createSynth: (exercise, signal) => createInstrumentSynth(exercise.soundProfile ?? exercise.instrument, createPlaybackEvents(exercise, 120).events.map(event => event.note), signal),
       createClickSynth: () => {
         const click = new Tone.PolySynth(Tone.Synth, {
           oscillator: { type: 'sine' }, envelope: { attack: 0.001, decay: 0.015, sustain: 0, release: 0.015 },

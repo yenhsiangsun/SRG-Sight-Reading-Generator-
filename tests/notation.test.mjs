@@ -123,7 +123,7 @@ test('readable open-scale transpositions remove avoidable accidentals in actual 
 });
 
 test('focused studies retain strict VexFlow durations and bounded beams in every meter',()=>{
-  for(const meter of Object.keys(engine.TIME_SIGNATURES))for(const focus of ['sixteenths','dotted']){
+  for(const meter of Object.keys(engine.TIME_SIGNATURES))for(const focus of ['sixteenths','dotted','triplets','offbeats',['sixteenths','dotted'],['sixteenths','dotted','triplets','offbeats']]){
     const exercise=engine.generatePracticeExercise({...options,mixedMeters:false,timeSignature:meter,rhythmFocus:focus});
     for(const measure of exercise.measures){
       const notation=createMeasureNotation(measure,'treble','C',meter);
@@ -320,4 +320,27 @@ test('inactive staff rests consolidate by beat and whole silent bars use centere
   }
   const compound={events:[make(2,false),make(2,true,2),make(2,true,4),make(2,true,6),make(2,true,8),make(2,true,10)],totalUnits:12,beamGroups:[6,6],groups:[6,6]};
   assert.deepEqual(Array.from(simplifyStaffRests(compound,'6/8').events,n=>n.durationUnits),[2,2,2,6]);
+});
+
+
+test('four 32nds share a three-level beam and half-unit staff rests preserve exact timing',()=>{
+  const {simplifyStaffRests}=loadModule('src/notation/simplifyStaffRests.ts');
+  for(const meter of ['4/4','6/8','7/8']) {
+    const total=meter==='4/4'?16:meter==='6/8'?12:14;
+    const measure=bar(Array(total).fill('c/4'),1);
+    measure.events.forEach(n=>n.duration='16');
+    measure.totalUnits=total;measure.timeSignature=meter;
+    measure.groups=measure.beamGroups=meter==='4/4'?[4,4,4,4]:meter==='6/8'?[6,6]:[4,4,6];
+    const original=measure.events[0];
+    measure.events.splice(0,2,...Array.from({length:4},(_,i)=>({...original,duration:'32',durationUnits:.5,startUnits:i*.5})));
+    const notation=createMeasureNotation(measure,'treble','C',meter);
+    assert.ok(notation.voice.isComplete());
+    assert.equal(notation.notes[0].getBeamCount(),3);
+    assert.equal(notation.notes[0].getTicks().value(),VF.VexFlow.RESOLUTION/32);
+    assert.ok(notation.beams.some(beam=>notation.notes.slice(0,4).every(note=>beam.getNotes().includes(note))));
+    measure.events[1].rest=true;
+    const simplified=simplifyStaffRests(measure,meter);
+    assert.ok(createMeasureNotation(simplified,'treble','C',meter).voice.isComplete());
+    assert.equal(simplified.events[1].duration,'32');
+  }
 });

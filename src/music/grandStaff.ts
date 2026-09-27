@@ -16,7 +16,7 @@ export function generateGrandExercise(options: PracticeOptions, mode: 'mono' | '
     throw new Error('大譜表需要中央 C 兩側的音域：最低音請不高於 B♭3，最高音請不低於 C♯4。');
   }
   const upper = generatePracticeExercise({...options, clef:'treble', range:{min:60,max:options.range.max}},rhythmPlan);
-  const accompaniment = lowerPlan ?? selectPhraseRhythmPlan(rhythmPlan.map(bar=>bar.meter),options.rhythmLevel);
+  const accompaniment = lowerPlan ?? selectPhraseRhythmPlan(rhythmPlan.map(bar=>bar.meter),options.rhythmLevel,'balanced',options.rhythmLevel==='simple'?0:undefined);
   const lowerMeasures = generatePracticeExercise({...options,clef:'bass',range:{min:options.range.min,max:59},
     rhythmFocus:'balanced',allowAccidentals:false},accompaniment).measures;
   return {...upper, lowerMeasures, grandMode:'two-hand'};
