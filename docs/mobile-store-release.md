@@ -4,7 +4,9 @@ Reviewed: 2026-09-28. This file prepares Google Play and iPhone/iPad listing con
 
 ## Current delivery route
 
-The publisher confirmed joining the free Google Developers membership, not the paid Google Play Console program. The live Play Console still shows account creation. Play Console registration and identity verification are still required. The immediate Android deliverable is an installable testing APK; that does not require publishing on Google Play. The repository includes Android native packaging and build workflows, and the iOS project targets both iPhone and iPad. Those source settings do not establish successful native builds or device verification.
+Paid Google Play Console registration is complete for a personal account, and access to the main app list has been verified in the live interface. Identity documents have been submitted and are under Google review; the interface says this may take days. Physical Android-device verification can be completed now. Phone-contact verification must wait until identity approval. App creation is currently disabled until account verification is complete. The immediate Android deliverable is an installable testing APK; that does not require publishing on Google Play. The repository includes Android native packaging and build workflows, and the iOS project targets both iPhone and iPad.
+
+Verified mobile release evidence: TestFlight version **1.0 (4)** was uploaded from commit `9772833`. Apple's processed binary lists support for both iPhone and iPad, and the build is assigned to the existing internal testing group with one tester. This confirms binary processing and internal distribution setup, not a completed physical-device test or public App Store release. Android preview build #1 from the same commit completed successfully: 361 regression tests passed, `assembleDebug`, `bundleRelease`, and `lintRelease` passed. The downloaded 180.06 MiB APK contains 354 web assets, including 339 sample/credit files, and has no remote development-server override. APK SHA-256: `F159AFB3026A6EF6EE6BC5CB3C1203D980DEE59EF372B9F23FF50CCE08D77C5F`. It has not yet been tested on physical Android hardware. The AAB remains unsigned and is not ready for Play submission.
 
 The release workflow separates two outputs:
 
@@ -17,7 +19,7 @@ The first Play submission still requires an enrolled/verified developer account,
 
 | Required item | Why it is needed | Current status |
 | --- | --- | --- |
-| Google Play Console account access; personal/organization account type; account creation date and verification status | Determines who may publish and whether production-access testing applies | User reports joining; active account access and verification await live confirmation |
+| Google Play Console account access; personal/organization account type; account creation date and verification status | Determines who may publish and whether production-access testing applies | Paid registration and access verified; personal account. Submitted identity documents are under Google review, which may take days. Physical Android-device verification is available now; phone-contact verification waits for identity approval. App creation is disabled until account verification is complete. Account creation date still needs confirmation |
 | Public developer/publisher name | Must identify the party responsible for the app and privacy inquiries | Publisher must supply |
 | Working public support/privacy email or privacy inquiry mechanism | Required store support contact and usable privacy contact | Publisher must supply; do not substitute a Git commit email |
 | Public HTTPS privacy-policy URL and hosting owner | Must resolve without sign-in or geographic restrictions | Not deployed; the draft below is not a published policy |
