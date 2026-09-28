@@ -4,6 +4,7 @@ import {tempoMark} from '../audio/tempo';
 import {drawGrandScore} from '../notation/drawGrandScore';
 import {drawSingleScore} from '../notation/drawSingleScore';
 import {PDF_PAGE, paginateScore, scorePixelRatio} from './pdfPagination';
+import {savePdfBlob} from './savePdfBlob';
 
 export interface ScorePdfOptions {exercise: ExerciseData; bpm: number; title: string; subtitle: string; studyNumber: number}
 
@@ -66,11 +67,6 @@ export async function createScorePdf(options: ScorePdfOptions): Promise<Blob> {
 
 export async function downloadScorePdf(options: ScorePdfOptions) {
   const blob = await createScorePdf(options);
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = `Sight-Reading-${String(options.studyNumber).padStart(2, '0')}-${options.title.replace(/[\\/:*?"<>|]/g, '-')}.pdf`;
-  document.body.append(link); link.click(); link.remove();
-  // Give Safari time to finish opening/saving the generated document.
-  setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  const filename=`Sight-Reading-${String(options.studyNumber).padStart(2, '0')}-${options.title.replace(/[\\/:*?"<>|]/g, '-')}.pdf`;
+  return savePdfBlob(blob,filename,options.title);
 }

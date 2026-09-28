@@ -1,6 +1,6 @@
 workflows:
   ipad-testflight:
-    name: iPad TestFlight
+    name: iPhone and iPad TestFlight
     instance_type: mac_mini_m2
     max_build_duration: 60
     integrations:
@@ -50,3 +50,75 @@ workflows:
         auth: integration
         # Internal testing receives uploads automatically; beta review is for external testers.
         submit_to_testflight: false
+
+  android-preview:
+    name: Android installable preview
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    environment:
+      node: 24
+      java: 21
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: codex/ipad-app-development
+          include: true
+          source: true
+      cancel_previous_builds: true
+    scripts:
+      - name: Install dependencies
+        script: npm ci
+      - name: Run regression tests
+        script: npm test
+      - name: Build and sync Android assets
+        script: |
+          npm run build
+          npx cap sync android
+      - name: Build preview APK and validate release bundle
+        script: |
+          export ANDROID_VERSION_CODE="$BUILD_NUMBER"
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug bundleRelease lintRelease
+          # The preview APK is installable; this AAB has no upload key yet.
+          mv app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/sight-reading-UNSIGNED.aab
+    artifacts:
+      - android/app/build/outputs/apk/debug/*.apk
+      - android/app/build/outputs/bundle/release/*UNSIGNED.aab
+      - android/app/build/reports/lint-results-release.html
+
+  android-play-release:
+    name: Android signed Google Play bundle
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    # Manual only, after adding this upload key in Codemagic code signing.
+    environment:
+      node: 24
+      java: 21
+      android_signing:
+        - sight-reading-upload
+    scripts:
+      - name: Install dependencies and run tests
+        script: |
+          npm ci
+          npm test
+      - name: Build and sync Android assets
+        script: |
+          npm run build
+          npx cap sync android
+      - name: Build signed release bundle
+        script: |
+          : "${CM_KEYSTORE_PATH:?Add sight-reading-upload in Code signing identities}"
+          : "${CM_KEYSTORE_PASSWORD:?Missing signing password}"
+          : "${CM_KEY_ALIAS:?Missing signing alias}"
+          : "${CM_KEY_PASSWORD:?Missing signing key password}"
+          export ANDROID_VERSION_CODE="$BUILD_NUMBER"
+          cd android
+          chmod +x gradlew
+          ./gradlew bundleRelease lintRelease
+          jarsigner -verify app/build/outputs/bundle/release/app-release.aab
+          keytool -printcert -jarfile app/build/outputs/bundle/release/app-release.aab
+    artifacts:
+      - android/app/build/outputs/bundle/release/*.aab
+      - android/app/build/reports/lint-results-release.html

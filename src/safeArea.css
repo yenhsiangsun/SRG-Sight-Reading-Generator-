@@ -1,10 +1,10 @@
 /* The same safe-area policy covers Capacitor, installed PWAs and Safari.
    Keep insets outside density-dependent header padding and score coordinates. */
 :root {
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-right: env(safe-area-inset-right, 0px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-top: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
+  --safe-right: var(--safe-area-inset-right, env(safe-area-inset-right, 0px));
+  --safe-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px));
+  --safe-left: var(--safe-area-inset-left, env(safe-area-inset-left, 0px));
 }
 
 .studio-app {
@@ -39,6 +39,27 @@
   width: min(760px, calc(100% - var(--safe-left) - var(--safe-right) - 32px));
   max-height: min(88vh, calc(100vh - var(--safe-top) - var(--safe-bottom) - 32px));
   max-height: min(88dvh, calc(100dvh - var(--safe-top) - var(--safe-bottom) - 32px));
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+/* Keep the full set of controls available when a phone has little width. */
+@media (max-width: 600px) {
+  .studio-app .studio-nav { flex-wrap: wrap; gap: 8px 16px; }
+  .studio-app .score-focus-controls label { flex-wrap: wrap; }
+  .studio-app .library-list article { flex-wrap: wrap; }
+  .studio-app .library-list article > div:first-child { min-width: 0; overflow-wrap: anywhere; }
+  .studio-app .library-actions { grid-auto-flow: column; }
+}
+
+/* A landscape phone has enough width for tablet breakpoints, but not enough
+   height for a sticky multi-row player. Let the complete page scroll normally. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .studio-app .setup-intro,
+  .studio-app .practice-toolbar,
+  .studio-app.is-score-focused .practice-toolbar,
+  .studio-app .assessment-panel.is-active { position: static; }
+  .studio-app .studio-dialog { max-height: calc(100dvh - var(--safe-top) - var(--safe-bottom) - 16px); }
 }
 
 @media (max-width: 899px) {

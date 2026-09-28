@@ -13,11 +13,13 @@ import SetupPage from './components/SetupPage';
 import AssessmentPanel from './components/AssessmentPanel';
 import {useExercise} from './hooks/useExercise';
 import {usePracticeResume} from './hooks/usePracticeResume';
+import {useNativeBack} from './hooks/useNativeBack';
+import {loadSoundCredits} from './native/loadSoundCredits';
 import {resumeCopy} from './i18n/resumeCopy';
 import {usePlayback} from './hooks/usePlayback';
 import {midiToNoteLabel} from './exerciseConfig';
 import StudioHome from './components/StudioHome';
-import {RewardsDialog,PlansDialog} from './components/StudioDialogs';
+import {RewardsDialog,PlansDialog,StudioDialog} from './components/StudioDialogs';
 import {useProgress,usePracticeClock} from './progress/useProgress';
 import {words} from './progress/words';
 import './App.css';
@@ -53,7 +55,16 @@ function Studio(){
   const {locale,t}=useI18n();const practice=useExercise(previewScale),playback=usePlayback();
   const [bpm,setBpm]=useState(72),[page,setPage]=useState<'home'|'setup'|'practice'>(previewScale?'setup':'home'),[mode,setMode]=useState<'practice'|'test'>('practice'),[examActive,setExamActive]=useState(false);
   const growth=useProgress(import.meta.env.DEV);const w=(zh:string,en:string,ja:string)=>words(locale,zh,en,ja);
-  const [dialog,setDialog]=useState<'rewards'|'plans'|'theme'|'library'|'layout'|null>(null);
+  const [dialog,setDialog]=useState<'rewards'|'plans'|'theme'|'library'|'layout'|'credits'|null>(null);
+  const [soundCredits,setSoundCredits]=useState<string|null>(null),[creditsFailed,setCreditsFailed]=useState(false);
+  useEffect(()=>{
+    if(dialog!=='credits')return;
+    const controller=new AbortController();let closed=false;
+    void loadSoundCredits(document.baseURI,import.meta.env.BASE_URL,controller.signal)
+      .then(text=>{if(!closed)setSoundCredits(text);})
+      .catch(()=>{if(!closed)setCreditsFailed(true);});
+    return()=>{closed=true;controller.abort();};
+  },[dialog]);
   const appearance=useTheme();
   const layoutSize=useLayoutSize();
   const collection=useLibrary();
@@ -130,6 +141,7 @@ function Studio(){
   const start=()=>{collection.clearMessage();playback.stop();if(generateNew()){setPage('practice');window.scrollTo(0,0);}};
   const settings=()=>{resume.capture();playback.stop();setPage('setup');window.scrollTo(0,0);};
   const home=()=>{resume.capture();playback.stop();setPage('home');window.scrollTo(0,0);};
+  useNativeBack({dialogOpen:dialog!==null,examActive,page,closeDialog:()=>setDialog(null),goHome:home});
   const status=t(playback.status==='starting'?'loadingAudio':playback.status==='playing'?(playback.mode==='metronome'?'clicking':'playing'):playback.status==='paused'?'paused':'ready');
   return <div className={'app studio-app '+(page==='practice'?'practice-app':'setup-app')+(scoreFocus.focus?' is-score-focused':'')} style={themeStyle} data-layout={layoutSize.size}><header className="header"><div className="header-content"><button className="brand" onClick={home}><span className="brand-mark" aria-hidden="true">𝄞</span><span>Sight Reading<span className="brand-subtitle">{w('音樂練習室','PRACTICE STUDIO','練習スタジオ')}</span></span></button><nav className="studio-nav" aria-label={w('主要導覽','Main navigation','メインナビゲーション')}><button aria-current={page==='home'?'page':undefined} onClick={home}>{w('我的練習室','My studio','練習室')}</button><button disabled={examActive} onClick={()=>setDialog('library')}>☆ {t('library')}</button><button onClick={()=>setDialog('rewards')}>✦ {growth.state.points} <span>{w('星點','stars','スター')}</span></button></nav><div className="header-tools"><button className="layout-trigger" aria-haspopup="dialog" onClick={()=>setDialog('layout')}>{t('layoutSize')}</button><button className="theme-trigger" aria-label={t('theme')} title={t('theme')} aria-haspopup="dialog" onClick={()=>setDialog('theme')}><span className="theme-trigger-swatch" aria-hidden="true"/><span className="theme-trigger-label">{t('theme')}</span></button><LanguageSwitcher/>{MEMBERSHIP_ENABLED&&<button className="plus-button" onClick={()=>setDialog('plans')}>Plus <span>↗</span></button>}</div></div></header>
     <MobileInstallPrompt />
@@ -149,6 +161,7 @@ function Studio(){
       <div className="score-focus-controls">{!scoreFocus.focus&&<button className="secondary-button" aria-pressed={false} onClick={scoreFocus.toggle}>{t('focusScore')}</button>}<label>{t('scoreSize')}<input type="range" min="0.8" max="1.5" step="0.05" value={scoreFocus.size} onChange={e=>scoreFocus.changeSize(+e.target.value)}/><output>{Math.round(scoreFocus.size*100)}%</output></label></div><section className="score-card" aria-labelledby="score-heading"><div className="score-top"><div><span className="score-kicker">{w('視譜練習','SIGHT-READING STUDY','初見演奏の練習')} / {String(current.number).padStart(2,'0')}</span><h2 id="score-heading">{instrumentLabel(current.settings.instrument,locale)}</h2><p>{current.settings.mixedMeters?t('mixed'):current.exercise.timeSignature} <span>·</span> {current.exercise.measures.length} {t('length')}</p></div><div className="score-info"><strong>{tempoMark(current.exercise,bpm)}</strong><span>{staffLabel}</span><span>{midiToNoteLabel(current.settings.rangeMinMidi)} — {midiToNoteLabel(current.settings.rangeMaxMidi)}</span></div></div><div className="score-scroll" tabIndex={0} role="region" aria-label={t('score')}><ScoreDisplay key={current.number} size={scoreFocus.size} exercise={mode==='test'?testExercise!:current.exercise} bpm={bpm} assessment={assessment} playback={mode==='practice'?{status:playback.status,mode:playback.mode,getPosition:playback.getPosition,onSeek:seconds=>{void playback.seek(current.exercise,bpm,seconds);}}:undefined}/></div><div className="score-bottom"><span>{t(({Beginner:'beginner',Intermediate:'intermediate',Advanced:'advanced'} as const)[current.settings.difficulty])}</span><span>{t('transpose')}: {current.exercise.transposition??0}</span></div></section>{mode==='practice'&&<section className="practice-checkout"><div className="checkout-icon" aria-hidden="true">✦</div><div><strong>{completed?w('這次練習，已經收進成長紀錄。','A little progress, recorded.','今回の練習を記録しました。'):w('給這段練習，一個小小的肯定。','Give your practice a little recognition.','練習した自分に、小さなごほうび。')}</strong><p>{completed?w('同一份譜可繼續練習，不會重複計點。','Keep revisiting this study; rewards are counted once.','この譜例は何度でも練習できます。ポイントは1回分です。'):w('前景練習滿 60 秒後，自行確認完成。每日前 3 次獲得星點。','After 60 seconds in the foreground, confirm your practice. Earn stars for the first 3 each day.','画面を開いて60秒練習後、完了を記録。毎日最初の3回でスター獲得。')}</p></div><button className="secondary-button" disabled={completed||practiceSeconds<60||busy} onClick={()=>{if(sessionId && practiceSeconds>=60 && !busy && !completed)growth.complete(sessionId);}}>{completed?'✓ '+w('已完成','Completed','完了'):practiceSeconds<60?practiceSeconds+' / 60 '+w('秒','sec','秒'):w('完成練習','Complete practice','練習を完了')}</button></section>}<p className="practice-footnote">{t('tempoHelp')}</p></main>}
     {dialog==='layout'&&<LayoutSettings {...layoutSize} onClose={()=>setDialog(null)}/>}
     {dialog==='library'&&<LibraryDialog library={collection.library} onOpen={openStudy} onRemove={collection.remove} onClose={()=>setDialog(null)}/>}
+    {dialog==='credits'&&<StudioDialog title={t('soundCredits')} onClose={()=>setDialog(null)}>{creditsFailed?<p className="error-message" role="alert">{t('error')}</p>:<pre aria-busy={soundCredits===null} style={{whiteSpace:'pre-wrap',overflowWrap:'anywhere',font:'inherit'}}>{soundCredits??'…'}</pre>}</StudioDialog>}
     {resume.storageWarning&&<p className="storage-note" role="status">{resumeCopy(locale).error}</p>}
-    {(growth.storageWarning||training.storageWarning)&&<p className="storage-note" role="status">{w('此瀏覽器無法保存成長紀錄，關閉後可能遺失。','This browser cannot save progress; it may be lost when closed.','このブラウザでは記録を保存できません。')}</p>}{dialog==='theme'&&<ThemeSettings {...appearance} onClose={()=>setDialog(null)}/>} {dialog==='rewards'&&<RewardsDialog progress={growth.state} onRedeem={growth.redeem} onResetPet={growth.resetPet} onGrantPreviewPoints={growth.grantPreviewPoints} onClose={()=>setDialog(null)}/>} {MEMBERSHIP_ENABLED&&dialog==='plans'&&<PlansDialog onClose={()=>setDialog(null)}/>}<footer><a href="/samples/CREDITS.txt" target="_blank" rel="noreferrer">{t('soundCredits')}</a><span>Sight Reading / {w('音樂練習室','PRACTICE STUDIO','練習スタジオ')}</span><span>{t('intro')}</span></footer></div>;
+    {(growth.storageWarning||training.storageWarning)&&<p className="storage-note" role="status">{w('此瀏覽器無法保存成長紀錄，關閉後可能遺失。','This browser cannot save progress; it may be lost when closed.','このブラウザでは記録を保存できません。')}</p>}{dialog==='theme'&&<ThemeSettings {...appearance} onClose={()=>setDialog(null)}/>} {dialog==='rewards'&&<RewardsDialog progress={growth.state} onRedeem={growth.redeem} onResetPet={growth.resetPet} onGrantPreviewPoints={growth.grantPreviewPoints} onClose={()=>setDialog(null)}/>} {MEMBERSHIP_ENABLED&&dialog==='plans'&&<PlansDialog onClose={()=>setDialog(null)}/>}<footer><a href={`${import.meta.env.BASE_URL}samples/CREDITS.txt`} aria-haspopup="dialog" onClick={event=>{event.preventDefault();setSoundCredits(null);setCreditsFailed(false);setDialog('credits');}}>{t('soundCredits')}</a><span>Sight Reading / {w('音樂練習室','PRACTICE STUDIO','練習スタジオ')}</span><span>{t('intro')}</span></footer></div>;
 }

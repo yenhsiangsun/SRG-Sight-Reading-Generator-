@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {Capacitor} from '@capacitor/core';
 import {useI18n} from '../i18n/context';
 import {words} from '../progress/words';
 
@@ -45,6 +46,7 @@ export default function MobileInstallPrompt() {
   const [isStandalone, setIsStandalone] = useState(false);
 
   useEffect(() => {
+    if (Capacitor.isNativePlatform()) return;
     const hasStandalone = window.matchMedia('(display-mode: standalone)').matches || (navigator as Navigator & {standalone?: boolean}).standalone === true;
     setIsStandalone(hasStandalone);
 
@@ -61,7 +63,7 @@ export default function MobileInstallPrompt() {
   }, []);
 
   const compact = typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches;
-  if (!compact || isStandalone || installed || hide) return null;
+  if (Capacitor.isNativePlatform() || !compact || isStandalone || installed || hide) return null;
   const copy = Object.fromEntries(Object.keys(installText.en).map(key => {
     const field = key as keyof InstallText;
     return [key, words(locale, installText.zh[field] ?? '', installText.en[field] ?? '', installText.ja[field] ?? '')];

@@ -18,13 +18,14 @@
         <option value="tablet">iPad：上 24／下 20</option>
         <option value="landscape">橫放：上 24／左右 24／下 20</option>
         <option value="phone">iPhone：上 59／下 34</option>
+        <option value="phoneLandscape">iPhone 橫放：左右 59／下 21</option>
         <option value="browser">一般網頁：無邊界</option>
       </select>
     </label>
     <div id="root"></div>
     <script type="module">
       import '/src/main.tsx';
-      const profiles={tablet:[24,0,20,0],landscape:[24,24,20,24],phone:[59,0,34,0],browser:[0,0,0,0]};
+      const profiles={tablet:[24,0,20,0],landscape:[24,24,20,24],phone:[59,0,34,0],phoneLandscape:[0,59,21,59],browser:[0,0,0,0]};
       const select=document.getElementById('safe-profile');
       function apply(){['top','right','bottom','left'].forEach((edge,i)=>document.documentElement.style.setProperty('--safe-'+edge,profiles[select.value][i]+'px'));}
       select.addEventListener('change',apply);apply();
