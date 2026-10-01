@@ -79,9 +79,12 @@ Recorded-bank update (2026-10-01; see each folder's provenance.json):
   https://github.com/sfzinstruments/aliexpress-erhu
   Pinned commit 6615047b2fd06126877483e97b8bb4af9d00b080.
   Replaces the early two-anchor BISA playback bank; old files retained.
-  25 recorded chromatic roots D4-D6, downmixed to mono, pitch-centre correction,
-  level balancing and correlation-matched sustain extension to 12 seconds.
-  Top five roots use sul-tasto recordings. The source describes an inexpensive
+  Revision 2: 24 recorded chromatic roots D4-C#6. One original microphone channel
+  per root is retained; the antiphase stereo pair is no longer summed to mono.
+  DC removal, pitch-centre correction, level balancing and correlation-matched
+  sustain extension to 12 seconds. The noisy D6 recording is excluded: playback
+  repitches the C#6 root up one semitone. Top four roots use sul-tasto recordings.
+  The source describes an inexpensive
   erhu played by someone primarily a violinist; it is not a studio pro library.
   License text and per-note provenance are in erhu-multisample/.
 

@@ -359,8 +359,8 @@
         "contributor": "D. Smolken / SFZ Instruments",
         "localAssets": "public/samples/erhu-multisample/",
         "draftMapping": ".tmp-source-bowed/manifest.json",
-        "coverage": "25 separately recorded chromatic notes D4-D6; D4-A5 sustained bow, A#5-D6 sul tasto. One selected round robin per pitch. One dynamic layer.",
-        "caveat": "Source describes an inexpensive erhu played by a musician primarily experienced with violin. Full-range close-mic notes, but not a professional expressive performance library. Top D6 has noticeable bow noise/less periodic waveform; measure is recorded in provenance."
+        "coverage": "Revision 2: 24 recorded chromatic roots D4-C#6; one selected microphone channel per root. D6 is repitched from C#6 by one semitone; original noisy D6 excluded.",
+        "caveat": "Original microphones can be out of phase: do not downmix L+R. Revision 2 selects one original channel, avoiding cancellation and the rough D6 source. Natural bow texture remains; this is not a professional expressive performance library."
       }
     ],
     "otherSourcesReviewed": [

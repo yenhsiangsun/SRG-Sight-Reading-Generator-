@@ -55,7 +55,10 @@ def fetch(relative):
 def decode(path):
     decoded = miniaudio.decode_file(str(path), output_format=miniaudio.SampleFormat.FLOAT32,
                                    nchannels=2, sample_rate=RATE)
-    return np.asarray(decoded.samples, dtype=np.float64).reshape(-1, 2).mean(axis=1)
+    # These close microphones are often out of phase. Adding L+R cancels the
+    # fundamental and changes the tone before normalization can conceal the loss.
+    # Keep channels separate and choose one recorded microphone below.
+    return np.asarray(decoded.samples, dtype=np.float64).reshape(-1, 2)
 
 
 def pitch_frames(audio, target):
@@ -116,30 +119,43 @@ def extend(audio):
 
 def main():
     DEST.mkdir(parents=True, exist_ok=True)
-    sources = [source_path(midi, rr) for midi in range(62, 87) for rr in (1, 2)]
+    # Both D6 takes have irregular/noisy sustain, even before processing. Let the
+    # sampler transpose the independently recorded C#6 by one semitone instead.
+    sources = [source_path(midi, rr) for midi in range(62, 86) for rr in (1, 2)]
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
         list(executor.map(fetch, sources))
     license_path = fetch('LICENSE')
     (DEST / 'LICENSE-CC0.txt').write_bytes(license_path.read_bytes())
     entries, urls = [], {}
-    for midi in range(62, 87):
+    for midi in range(62, 86):
         target = 440 * 2 ** ((midi - 69) / 12)
         candidates = []
         for rr in (1, 2):
             relative = source_path(midi, rr)
             path = fetch(relative)
-            audio = decode(path)
-            measured, spread, correlation = pitch_frames(audio, target)
-            candidates.append((spread + (1 - correlation) * 100, relative, path, audio,
-                               measured, spread, correlation))
-        _, relative, path, audio, measured, spread, correlation = min(candidates, key=lambda item: item[0])
+            stereo = decode(path)
+            for channel in range(2):
+                audio = stereo[:, channel].copy()
+                audio -= np.mean(audio)
+                measured, spread, correlation = pitch_frames(audio, target)
+                # Reject irregular bow/noise sources instead of amplifying them.
+                if correlation < .90:
+                    continue
+                candidates.append((spread + (1 - correlation) * 100, relative, path, audio,
+                                   measured, spread, correlation, channel))
+        if not candidates:
+            raise ValueError(f'No sufficiently periodic recorded channel for {name(midi)}')
+        _, relative, path, audio, measured, spread, correlation, channel = min(candidates, key=lambda item: item[0])
         ratio = target / measured
         tuned = np.interp(np.arange(0, len(audio) - 1, ratio), np.arange(len(audio)), audio)
         output, loop = extend(tuned)
+        if loop['crossfadeCorrelation'] < .80:
+            raise ValueError(f'{name(midi)} sustain join is not sufficiently matched')
         rms = float(np.sqrt(np.mean(output[int(.3 * RATE):-int(.2 * RATE)] ** 2)))
         gain = min(.14 / max(rms, 1e-8), .85 / max(abs(output)))
         output *= gain
-        output_name = name(midi).replace('#', 's') + '-recorded.wav'
+        # New URLs also invalidate already decoded browser sample caches.
+        output_name = name(midi).replace('#', 's') + '-single-channel-v2.wav'
         out_path = DEST / output_name
         with wave.open(str(out_path), 'wb') as file:
             file.setparams((1, 2, RATE, 0, 'NONE', 'not compressed'))
@@ -152,6 +168,7 @@ def main():
         entries.append({'note': name(midi), 'midi': midi, 'source': BASE + relative,
                         'sourceSha256': hashlib.sha256(path.read_bytes()).hexdigest(),
                         'sourceSeconds': round(len(audio) / RATE, 4),
+                        'sourceChannel': 'left' if channel == 0 else 'right',
                         'articulation': 'sustain' if midi <= 81 else 'sul tasto',
                         'sourcePitchHz': round(measured, 5), 'targetHz': round(target, 5),
                         'pitchCorrectionCents': round(1200 * math.log2(ratio), 4),
@@ -169,10 +186,11 @@ def main():
               'commit': COMMIT, 'license': 'CC0-1.0',
               'licenseUrl': REPO + '/blob/' + COMMIT + '/LICENSE',
               'licenseDeed': 'https://creativecommons.org/publicdomain/zero/1.0/',
-              'recordedRange': 'D4-D6', 'recordedAnchors': 25,
-              'limitations': 'One inexpensive erhu, one dynamic layer. Source describes its player as primarily a violinist. Top five notes use sul-tasto recordings. No sampled legato or articulation switching.',
-              'processing': ['Original stereo close-mic recordings downmixed to mono',
-                             'One recorded take selected per chromatic pitch',
+              'revision': 2, 'recordedRange': 'D4-C#6', 'recordedAnchors': 24,
+              'excludedNotes': {'D6': 'All recorded channels have irregular/noisy sustain; nearest C#6 is repitched up one semitone at playback.'},
+              'limitations': 'One inexpensive erhu, one dynamic layer. Source describes its player as primarily a violinist. Top four roots use sul-tasto recordings. D6 uses C#6 repitched by one semitone. No sampled legato or articulation switching. Natural bow texture remains.',
+              'processing': ['A single original microphone channel is retained; never sum antiphase stereo channels',
+                             'One recorded take and channel selected per chromatic pitch; DC removed',
                              'Median pitch-centre correction with retained natural pitch movement',
                              'Recorded sustain crossfaded to 12 seconds; edge fades',
                              'Per-note level balancing; 44.1 kHz PCM16 WAV'],
