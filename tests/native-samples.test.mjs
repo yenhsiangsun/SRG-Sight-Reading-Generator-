@@ -126,7 +126,7 @@ test('playback hook requests sounding pitches from both staves, chords and trans
   assert.deepEqual(requested,[{name:'Piano',notes:['A#3','D4','F4','A#2'],signal}]);
 });
 
-test('soprano sheng retains its original dry voice; other synths keep their effects and all nodes are released',()=>{
+test('all synthetic winds avoid the whistling effects chain, soprano sheng stays unchanged, and other families retain their effects',()=>{
   const {INSTRUMENTS}=loadModule('src/music/instruments.ts');
   const nodes=[],connections=[],attacks=[];
   const destination={name:'destination'};
@@ -134,6 +134,7 @@ test('soprano sheng retains its original dry voice; other synths keep their effe
     volume={value:0};wet={value:0};disposed=0;
     constructor(...args){this.args=args;nodes.push(this);}
     connect(node){connections.push([this,node]);return this;}
+    toDestination(){return this.connect(destination);}
     start(){return this;}
     triggerAttackRelease(...args){attacks.push(args);}
     releaseAll(){this.released=true;}
@@ -143,33 +144,38 @@ test('soprano sheng retains its original dry voice; other synths keep their effe
   tone.Destination=destination;
   const {createInstrumentSynth}=loadModule('src/audio/createInstrumentSynth.ts',1,undefined,{tone});
   const source=fs.readFileSync('src/audio/createPlaybackInstrument.ts','utf8').replace('import.meta.env.BASE_URL',"'/'").replace('import.meta.env.VITE_LOCAL_PIPA','false');
-  const {createPlaybackInstrument}=loadModule('src/audio/createPlaybackInstrument.ts',1,source,{
+  const {createPlaybackInstrument,hasSamples}=loadModule('src/audio/createPlaybackInstrument.ts',1,source,{
     tone,'./sampleManifest.json':bank,'./createInstrumentSynth':{createInstrumentSynth},
     './loadRecordedSamples':{loadRecordedSamples:()=>{throw Error('synthetic instrument must not fetch recordings');}},
   });
-  return Promise.all(Object.keys(INSTRUMENTS).filter(name=>!bank[name]).map(async name=>{
+  const syntheticInstruments=Object.keys(INSTRUMENTS).filter(name=>!hasSamples(name));
+  return Promise.all(syntheticInstruments.map(async name=>{
     const start=nodes.length,wireStart=connections.length;
     // Creation is synchronous until the async factory returns its resolved value.
     const pending=createPlaybackInstrument(name);
     const created=nodes.slice(start),wires=connections.slice(wireStart);
     const voice=await pending;
-    assert.ok(name==='Sheng'?created.length===1:created.length>=6,name);
+    const wind=['木管','銅管','國樂・吹管'].includes(INSTRUMENTS[name].family);
+    assert.ok(wind?created.length===1:created.length>=6,name);
     assert.equal(wires.length,created.length,name);
     assert.equal(wires.at(-1)[1],destination,name);
     for(let i=0;i<wires.length-1;i++)assert.equal(wires[i][1],wires[i+1][0],`${name}: serial effect ${i}`);
+    if(wind) {
+      assert.equal(wires.at(-1)[0],created[0],`${name}: direct voice, no sweeping phaser or delayed notes`);
+      assert.equal(created[0].args[1].filter.Q,.68,`${name}: retain non-resonant voice filter`);
+    } else {
+      assert.notEqual(wires.at(-1)[0],created[0],`${name}: no dry bypass`);
+    }
     if(name==='Sheng') {
-      assert.equal(wires.at(-1)[0],created[0],'restore the original direct output, without the added phaser');
       assert.deepEqual(Array.from(created[0].args[1].oscillator.partials),[1,.52,.33,.17,.11,.04]);
       assert.equal(created[0].volume.value,-18);
       assert.equal(created[0].args[1].envelope.attack,.045);
       assert.equal(created[0].args[1].envelope.release,.12);
       assert.equal(created[0].args[1].filterEnvelope.baseFrequency,1850);
-    } else {
-      assert.notEqual(wires.at(-1)[0],created[0],`${name}: no dry bypass`);
     }
     voice.triggerAttackRelease('C4',.5,0,.7);voice.releaseAll();voice.dispose();
     assert.ok(created[0].released,name);
     assert.ok(created.every(node=>node.disposed===1),name);
     for(const node of created)assert.ok(Number.isFinite(node.volume.value),name);
-  })).then(()=>assert.equal(attacks.length,Object.keys(INSTRUMENTS).filter(name=>!bank[name]).length));
+  })).then(()=>assert.equal(attacks.length,syntheticInstruments.length));
 });

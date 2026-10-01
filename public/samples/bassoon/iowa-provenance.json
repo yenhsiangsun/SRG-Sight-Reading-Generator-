@@ -1,0 +1,62 @@
+{
+  "licenseUrl": "https://theremin.music.uiowa.edu/MIS.html",
+  "changes": "Isolated note excerpts, pitch-centre correction, level adjustment, 12 second crossfaded sustain, PCM16 stereo.",
+  "samples": [
+    {
+      "instrument": "Bassoon",
+      "midi": 34,
+      "note": "A#1",
+      "file": "bassoon/As1-iowa.wav",
+      "seconds": 12.0,
+      "peak": 0.5994527318142772,
+      "rms": 0.17062552484283514,
+      "source": "https://theremin.music.uiowa.edu/sound%20files/MIS/Woodwinds/bassoon/Bassoon.mf.Bb1B1.aiff",
+      "sourcePage": "https://theremin.music.uiowa.edu/MISbassoon.html",
+      "licenseUrl": "https://theremin.music.uiowa.edu/MIS.html",
+      "license": "Iowa MIS unrestricted project use",
+      "sourceSha256": "933e1e3b3bc66c085753f48bf613c563a3c52fbd8e0fcec399c9f1dfe210b193",
+      "sha256": "f5ddb8fdc63a5f8e42280490ebbd703beb0a4203c7d8ffc9418dce794b741db5",
+      "originalCents": 14.839305945044828,
+      "cents": 0.10612190157303382,
+      "sustainExtension": {
+        "startSeconds": 0.7506575963718821,
+        "endSeconds": 1.35,
+        "crossfadeSeconds": 0.05,
+        "correlation": 0.9994933673907576
+      },
+      "trimmedLeadingSeconds": 0.02489795918367347,
+      "excerptSeconds": [
+        0.08,
+        2.05
+      ]
+    },
+    {
+      "instrument": "Bassoon",
+      "midi": 40,
+      "note": "E2",
+      "file": "bassoon/E2-iowa.wav",
+      "seconds": 12.0,
+      "peak": 0.4761047909271496,
+      "rms": 0.156209291492039,
+      "source": "https://theremin.music.uiowa.edu/sound%20files/MIS/Woodwinds/bassoon/Bassoon.mf.C2B2.aiff",
+      "sourcePage": "https://theremin.music.uiowa.edu/MISbassoon.html",
+      "licenseUrl": "https://theremin.music.uiowa.edu/MIS.html",
+      "license": "Iowa MIS unrestricted project use",
+      "sourceSha256": "69e67f93984b9d5d5b945f36733ea66cd85fc8de9b57325f6933d8e095c60f69",
+      "sha256": "0c150667b8c34c264c2c32387ad5313842d09330b5cce85e33becdb10b15fa4b",
+      "originalCents": 9.428812599299581,
+      "cents": 0.017332292681510864,
+      "sustainExtension": {
+        "startSeconds": 0.7812244897959184,
+        "endSeconds": 1.45,
+        "crossfadeSeconds": 0.05,
+        "correlation": 0.9996775501498643
+      },
+      "trimmedLeadingSeconds": 0.014920634920634921,
+      "excerptSeconds": [
+        8.88,
+        11.09
+      ]
+    }
+  ]
+}

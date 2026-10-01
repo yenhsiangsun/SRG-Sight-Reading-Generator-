@@ -1,0 +1,34 @@
+{
+  "licenseUrl": "https://theremin.music.uiowa.edu/MIS.html",
+  "changes": "Isolated note excerpts, pitch-centre correction, level adjustment, 12 second crossfaded sustain, PCM16 stereo.",
+  "samples": [
+    {
+      "instrument": "Trombone",
+      "midi": 72,
+      "note": "C5",
+      "file": "trombone/C5-iowa.wav",
+      "seconds": 12.0,
+      "peak": 0.3869149611656923,
+      "rms": 0.16493860655699452,
+      "source": "https://theremin.music.uiowa.edu/sound%20files/MIS/Brass/tenortrombone/TenorTrombone.mf.C5.aiff",
+      "sourcePage": "https://theremin.music.uiowa.edu/MIStenortrombone.html",
+      "licenseUrl": "https://theremin.music.uiowa.edu/MIS.html",
+      "license": "Iowa MIS unrestricted project use",
+      "sourceSha256": "f7996deeb3725373399fb3b79d0d63f4b275ce029cbb8743afbc128b37557f65",
+      "sha256": "b9101d197face8bf3d3b72d31fcdb034236b29502f338b69bde8625dc946765f",
+      "originalCents": 10.013305517420806,
+      "cents": 0.1317188690986031,
+      "sustainExtension": {
+        "startSeconds": 0.8848979591836734,
+        "endSeconds": 1.35,
+        "crossfadeSeconds": 0.05,
+        "correlation": 0.9985335754083283
+      },
+      "trimmedLeadingSeconds": 0.019909297052154194,
+      "excerptSeconds": [
+        0.04,
+        2.05
+      ]
+    }
+  ]
+}

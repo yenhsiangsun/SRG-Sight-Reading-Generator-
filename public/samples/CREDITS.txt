@@ -63,3 +63,52 @@ This is a recital-recording prototype with room sound and performance articulati
 not a dry isolated-note library. Only A3 and B3 are recorded anchors; other pitches
 are repitched. Samples end naturally; sustained notes can outlast the short recording.
 No endorsement by the author or performers is implied.
+
+Recorded-bank update (2026-10-01; see each folder's provenance.json):
+
+- C-dizi shared by Bangdi/Qudi: Hypnotriod, Freesound pack 21613, CC0 1.0.
+  https://freesound.org/people/Hypnotriod/packs/21613/
+  15 recorded diatonic anchors G4-G6. Public HQ MP3 previews were decoded to
+  mono PCM16, measured pitch centres corrected, levels balanced, edges faded.
+  Creator-pitched chromatic copies were excluded. This is one C-dizi, not
+  separately recorded Bangdi/Qudi models. Xindi retains the Flute substitute.
+  Upper Bangdi registers require repitching beyond the recorded range.
+  Metadata, individual source URLs and hashes: dizi-recorded/provenance.json.
+
+- Erhu: D. Smolken / SFZ Instruments, AliExpress Erhu, CC0 1.0.
+  https://github.com/sfzinstruments/aliexpress-erhu
+  Pinned commit 6615047b2fd06126877483e97b8bb4af9d00b080.
+  Replaces the early two-anchor BISA playback bank; old files retained.
+  25 recorded chromatic roots D4-D6, downmixed to mono, pitch-centre correction,
+  level balancing and correlation-matched sustain extension to 12 seconds.
+  Top five roots use sul-tasto recordings. The source describes an inexpensive
+  erhu played by someone primarily a violinist; it is not a studio pro library.
+  License text and per-note provenance are in erhu-multisample/.
+
+- Guzheng: Pufermufin, "LOVELY CHINESE GUZHENG PLUCKED.wav", CC0 1.0.
+  https://freesound.org/people/Pufermufin/sounds/396868/
+  15 isolated plucks D2-D5 from the public HQ MP3 preview. Cropped, DC removed,
+  pitch-centre corrected, normalized with edge fades; stereo PCM16 44.1 kHz.
+  Natural decay, no sustain loop. D5-D6 uses nearest-root repitching.
+  Full source hash and excerpt times: guzheng-recorded/provenance.json.
+
+- Solo Viola and Cello; added Bassoon A#1/E2, Horn F4/A4, Trombone C5:
+  University of Iowa Musical Instrument Samples, Lawrence Fritts and contributors.
+  https://theremin.music.uiowa.edu/MIS.html
+  The source site permits download/use in any project without restrictions.
+  Strings: https://theremin.music.uiowa.edu/MIS-Pitches-2012/MISViola2012.html
+           https://theremin.music.uiowa.edu/MIS-Pitches-2012/MISCello2012.html
+  Solo recordings replace the previous SECTION banks; old files retained.
+  16 recorded anchors per string instrument. Converted AIFF to stereo PCM16,
+  trimmed quiet lead-in, corrected pitch centre, balanced levels, extended
+  sustain with phase-matched crossfades. Natural pitch variation is retained.
+  One incorrectly pitched cello source was excluded. Wind additions are
+  isolated note excerpts from chromatic scales, not a moving musical phrase.
+  Pinned file hashes, original URLs and processing: western-source-report.json,
+  viola-solo/provenance.json, cello-solo/provenance.json and wind iowa-provenance.json.
+
+CC0 deed: https://creativecommons.org/publicdomain/zero/1.0/
+No endorsement by any performer, author, institution or publisher is implied.
+The complete search record, including unavailable instruments and rejected
+licenses/recordings, is source-audit-2026-10-01.json. The local Pianobook Pipa
+preview is still development-only and is NOT bundled in release builds.

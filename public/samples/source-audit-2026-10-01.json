@@ -1,0 +1,473 @@
+{
+  "winds": {
+    "checkedDate": "2026-10-01",
+    "scope": "Recorded Chinese wind instruments for redistribution inside the sight-reading app",
+    "decision": "Prepare the verified CC0 C-dizi bank for Bangdi/Qudi with an honest shared-source caption. Preserve accepted soprano Sheng. No suitable redistributable sustained multisample bank was verified for lower Sheng, Xindi, Suona or Guan during this research.",
+    "readyBank": {
+      "directory": "public/samples/dizi-recorded",
+      "provenance": "public/samples/dizi-recorded/provenance.json",
+      "candidateManifest": ".tmp-source-winds/manifest.json",
+      "preparer": "scripts/prepare-dizi-samples.py",
+      "source": "https://freesound.org/people/Hypnotriod/packs/21613/",
+      "author": "Hypnotriod",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "instrument": "One C dizi, a Chinese membrane bamboo flute",
+      "files": 15,
+      "wavBytes": 11035920,
+      "format": "Mono 44100 Hz 16-bit PCM WAV",
+      "downloadQuality": "Public HQ MP3 previews embedded in the original Freesound pages. Original WAV download requires login; the production WAVs are decoded from lossy previews.",
+      "scientificPitchRange": "G4-G6",
+      "midiRange": [
+        67,
+        91
+      ],
+      "anchorMidi": [
+        67,
+        69,
+        71,
+        72,
+        74,
+        76,
+        78,
+        79,
+        81,
+        83,
+        84,
+        86,
+        88,
+        90,
+        91
+      ],
+      "durationSeconds": [
+        7.2658,
+        9.8685
+      ],
+      "maximumAbsoluteMedianTuningErrorCentsAfterCorrection": 0.547,
+      "playbackVolumeDb": -12,
+      "preparedFor": [
+        "Bangdi G",
+        "Bangdi F",
+        "Bangdi A",
+        "Bangdi C",
+        "Qudi C",
+        "Qudi Bb",
+        "Qudi D",
+        "Qudi E"
+      ],
+      "notPreparedFor": [
+        "Xindi G",
+        "Xindi F",
+        "Xindi A",
+        "Xindi Bb"
+      ],
+      "qualityChecks": [
+        "Every original page explicitly links CC0; the full raw page, download URL and source hash are retained in the temporary source folder.",
+        "The numeric MIDI in each original filename matches measured waveform fundamental; the written note/octave suffix is one octave too high in scientific pitch notation.",
+        "The pack contains 25 files: 15 diatonic anchors and 10 creator-pitched semitone copies. The prepared bank keeps only the 15 anchors.",
+        "Median pitch centers were measured in four sustained windows, corrected by bandlimited resampling and verified after 16-bit quantization.",
+        "All output WAVs decode with finite samples, no clipping and more than seven seconds of recorded audio.",
+        "Five-millisecond onset and thirty-millisecond final fades avoid file-edge clicks; initial-second level is balanced with peak headroom."
+      ],
+      "limitations": [
+        "These are shared C-dizi recordings, not separate recordings of each Bangdi/Qudi size or key.",
+        "Xindi is membrane-free; this membrane dizi must not be labeled as an authentic Xindi recording.",
+        "Visible Bangdi G reaches E7, nine semitones above the highest recorded G6; hidden Bangdi C reaches A7, fourteen semitones above it. Upper-range formant shifts remain possible.",
+        "Qudi C reaches A6, only two semitones above the top anchor.",
+        "No sustain loop is created. Extremely long notes can outlast the sample; upward repitching also shortens available sustain."
+      ]
+    },
+    "otherCandidates": [
+      {
+        "instruments": [
+          "Soprano Sheng"
+        ],
+        "source": "https://commons.wikimedia.org/wiki/File:Soprano_Sheng_Chromatic_Scale.ogg",
+        "author": "S099001",
+        "license": "CC0-1.0",
+        "material": "Own recording of a 36-reed soprano Sheng chromatic scale; 17-second Vorbis file",
+        "downloaded": ".tmp-source-winds/sheng.ogg",
+        "evidence": ".tmp-source-winds/sheng-source.json; .tmp-source-winds/sheng-analysis.json",
+        "decision": "Not integrated",
+        "reason": "The scale provides only short successive tones, generally a few tenths of a second. It is not a sustained multisample bank and does not represent tenor or bass Sheng. Automatic fundamental estimates have harmonic/octave ambiguities, so no reliable complete pitch map is asserted. Preserve the user's accepted existing soprano Sheng timbre."
+      },
+      {
+        "instruments": [
+          "Suona"
+        ],
+        "source": "https://commons.wikimedia.org/wiki/File:Suona.ogg",
+        "author": "Francesc Fort / NENU Folklorical Orchestra",
+        "license": "CC-BY-SA-4.0",
+        "material": "Own recording, 21.80254-second Vorbis solo phrase",
+        "downloaded": ".tmp-source-winds/suona.ogg",
+        "evidence": ".tmp-source-winds/suona-source.json; .tmp-source-winds/suona-analysis.json",
+        "decision": "Not integrated",
+        "reason": "Short ornamental phrases with pitch scoops; detected stable-note fragments are under one second and often detuned by tens of cents. No isolated long notes or lower keyed-Suona variants. Not suitable for an unlooped sustained-note bank."
+      },
+      {
+        "instruments": [
+          "Suona"
+        ],
+        "source": "https://freesound.org/people/jiemojiemo/sounds/514114/",
+        "license": "Page marks CC0",
+        "material": "3.692-second suona.wav; page says extracted from A Hundred Birds Paying Homage to the Phoenix",
+        "decision": "Not integrated",
+        "reason": "Short recital crop rather than an isolated sustained sample; original performance provenance is not identified sufficiently for a strong source chain."
+      },
+      {
+        "instruments": [
+          "Sheng",
+          "Guan",
+          "Suona",
+          "Chinese flutes"
+        ],
+        "source": "https://huggingface.co/datasets/ccmusic-database/CTIS/blob/main/README.md",
+        "additionalSource": "https://ccmusic-database.github.io/download.html",
+        "license": "CC-BY-NC-ND-4.0",
+        "material": "Chinese Traditional Instrument Sound dataset, 4956 recordings, 219 labels and 32.63 hours",
+        "decision": "Not integrated",
+        "reason": "Noncommercial and no-derivatives dataset terms do not authorize producing and shipping edited app sample banks. Repository code licenses and open-access paper licenses are separate from audio data rights."
+      },
+      {
+        "instruments": [
+          "Chinese instruments"
+        ],
+        "source": "https://huggingface.co/datasets/ccmusic-database/instrument_timbre/blob/main/README.md",
+        "license": "CC-BY-NC-ND-4.0",
+        "decision": "Not integrated",
+        "reason": "Same redistribution/editing limitation as the CTIS dataset."
+      },
+      {
+        "instruments": [
+          "Sheng",
+          "Suona",
+          "Chinese flutes"
+        ],
+        "source": "https://zenodo.org/records/8012071",
+        "license": "No license identified in the record's Rights / License field",
+        "material": "FolkMusic, 5.6 GB of three-second stereo musical excerpts for instrument recognition",
+        "decision": "Not integrated",
+        "reason": "No verified audio redistribution grant and no isolated sustained-note organization."
+      },
+      {
+        "instruments": [
+          "Chinese instruments"
+        ],
+        "source": "https://github.com/HaoranWeiUTD/ChMusic",
+        "license": "Repository MIT license does not clearly identify audio redistribution rights",
+        "material": "55 performance recordings of 11 instruments, external dataset download",
+        "decision": "Not integrated",
+        "reason": "Performance repertoire, not sustained samples; no clear separate license grant for the recorded performances."
+      },
+      {
+        "instruments": [
+          "Guanzi"
+        ],
+        "source": "https://journal.iftawm.org/previous/vol4no1/szczepanski/",
+        "title": "Impossible Melodies: Octave Cycles and Illusory Pitch Shifts in a North Chinese Wind Repertoire",
+        "author": "Beth Szczepanski",
+        "material": "Scholarly analysis includes a recorded Guanzi D4 audio example",
+        "license": "Custom noncommercial article/media terms explicitly prohibit sampling, modification, remixing and separating media from the article",
+        "decision": "Not integrated",
+        "reason": "The specific media terms forbid the exact required use, despite permitting article download and distribution."
+      },
+      {
+        "instruments": [
+          "Guanzi"
+        ],
+        "source": "https://www.exound.com/articles/f461d40f-52cb-4f20-9afc-5cde0440355b",
+        "audio": "http://www.exound.com/audio/jzdemo/guanzi.wav",
+        "material": "2012 JZ Vintage 67 microphone-review recording, downloadable 16-bit 44.1 kHz WAV",
+        "license": "No redistribution license provided on the source article",
+        "decision": "Not integrated",
+        "reason": "Permission to audition/download a microphone demo does not grant permission to distribute it in a sampled instrument."
+      },
+      {
+        "instruments": [
+          "Sheng",
+          "Suona",
+          "Guanzi",
+          "Dizi"
+        ],
+        "source": "https://chineekong.com/en/chinese-orchestra-individuals/",
+        "additionalSource": "https://www.chineekong.com/chineeguanzi.htm",
+        "material": "Kong Audio commercial virtual instruments with authentic samples",
+        "license": "No verified embedded-app sample redistribution license",
+        "decision": "Not purchased or integrated",
+        "reason": "A virtual-instrument/music-production license cannot be treated as permission to redistribute the underlying samples."
+      },
+      {
+        "instruments": [
+          "Dizi"
+        ],
+        "source": "https://www.suonopuro.net/images/S_NewDizi_Manual_EN.pdf",
+        "material": "Suonopuro New Dizi virtual instrument",
+        "license": "Manual forbids sampled-library redistribution/resampling use",
+        "decision": "Not integrated",
+        "reason": "Does not authorize an embedded sampled instrument."
+      },
+      {
+        "instruments": [
+          "Chinese winds"
+        ],
+        "source": "https://remix.berklee.edu/bisa/",
+        "material": "Berklee instrument sample archive",
+        "decision": "No matching wind bank found",
+        "reason": "Available Chinese source identified is Erhu, handled by the string-sample agent."
+      },
+      {
+        "instruments": [
+          "Chinese winds"
+        ],
+        "source": "https://github.com/sgossner/VCSL",
+        "license": "CC0",
+        "material": "Versilian Community Sample Library",
+        "decision": "No matching wind bank found",
+        "reason": "Repository tree search did not identify Dizi, Sheng, Suona or Guan samples."
+      }
+    ],
+    "integrationBoundary": "Only new public/samples/dizi-recorded files and scripts/prepare-dizi-samples.py were prepared by this agent. Shared application files, manifest, sample credits and tests belong to the parent agent.",
+    "remainingPracticalRoute": "Obtain direct redistribution permission or commission isolated sustained chromatic/multisample recordings for Xindi, lower Sheng, Suona variants and Guan variants. No email, external message or purchase was made."
+  },
+  "plucked": {
+    "date": "2026-10-01",
+    "scope": [
+      "Liuqin",
+      "Pipa",
+      "Zhongruan",
+      "Daruan",
+      "Sanxian",
+      "Guzheng",
+      "Yangqin"
+    ],
+    "selected": [
+      {
+        "instrument": "Guzheng",
+        "author": "Pufermufin",
+        "source": "https://freesound.org/people/Pufermufin/sounds/396868/",
+        "license": "CC0 1.0",
+        "audio": "https://cdn.freesound.org/previews/396/396868_6977826-hq.mp3",
+        "evidence": "Author describes recording a Chinese Guzheng with Blue Spark and Bluebird microphones through a Scarlett 6i6. Source page explicitly licenses the sound CC0 and exposes the public HQ MP3 share URL. The original WAV requires Freesound login. Isolated normal plucks from the public preview are used, not synthetic or GarageBand output."
+      }
+    ],
+    "rejectedOrUnresolved": [
+      {
+        "instruments": [
+          "Liuqin",
+          "Pipa",
+          "Zhongruan",
+          "Sanxian",
+          "Guzheng",
+          "Yangqin"
+        ],
+        "source": "https://github.com/HaoranWeiUTD/ChMusic",
+        "status": "License scope unresolved",
+        "reason": "The code repository has an MIT software license and links a separate 530 MB recording archive. It does not explicitly confirm that the MIT grant covers the external performance recordings. Do not infer audio-redistribution permission from the software license."
+      },
+      {
+        "instruments": [
+          "Liuqin",
+          "Pipa",
+          "Zhongruan",
+          "Daruan",
+          "Sanxian",
+          "Guzheng",
+          "Yangqin"
+        ],
+        "source": "https://huggingface.co/datasets/ccmusic-database/CTIS/blob/main/README.md",
+        "status": "Excluded",
+        "reason": "Dataset is explicitly CC BY-NC-ND 4.0, unsuitable for modified samples distributed in a paid application."
+      },
+      {
+        "instrument": "Pipa",
+        "source": "https://freesound.org/people/tarane468/sounds/409277/",
+        "status": "Excluded",
+        "reason": "An authentic isolated A4 exists, but the source license is CC BY-NC 4.0."
+      },
+      {
+        "instrument": "Pipa",
+        "source": "https://commons.wikimedia.org/wiki/File:Pipa_-_sound.ogg",
+        "license": "CC BY-SA 4.0",
+        "status": "Downloaded; unsuitable as replacement bank",
+        "local": "Pipa - sound.ogg",
+        "reason": "11-second demonstration contains changing notes, resonating multiple strings and short attacks. No clean multisample range; do not replace the existing Pipa with this poorer source."
+      },
+      {
+        "instrument": "Zhongruan",
+        "source": "https://commons.wikimedia.org/wiki/File:Zhongruan.ogg",
+        "author": "Francesc Fort / NENU Folklorical Orchestra",
+        "license": "CC BY-SA 4.0",
+        "status": "Downloaded; unsuitable as isolated-note bank",
+        "local": "Zhongruan.ogg",
+        "reason": "32-second performance has short notes, overlapping/sympathetic strings and background sound. Pitch analysis varies within candidate decays. A clean full-range bank could not be derived without inventing sustained notes or substantial artifacts."
+      },
+      {
+        "instruments": [
+          "Zhongruan",
+          "Daruan"
+        ],
+        "source": "https://freesound.org/people/xserra/sounds/162082/",
+        "license": "CC BY 4.0",
+        "status": "Excluded for quality",
+        "reason": "Tagged with Ruan instruments but source is opera singing accompanied by an orchestra, not isolated Ruan."
+      },
+      {
+        "instrument": "Guzheng",
+        "source": "https://freesound.org/people/neolein/sounds/472707/",
+        "license": "CC0 1.0 as uploaded",
+        "status": "Excluded",
+        "reason": "Description explicitly says iPad GarageBand output; uploader's CC0 does not establish permission to redistribute underlying Apple instrument samples as a playable sample bank. Also not a fresh acoustic recording."
+      },
+      {
+        "instruments": [
+          "Liuqin",
+          "Zhongruan"
+        ],
+        "source": "https://splice.com/sounds/packs/rare-percussion/global-strings-ruan-and-liuqin/samples",
+        "status": "Not purchased or redistributed",
+        "reason": "Commercial music-production sample pack. No verified raw-sample redistribution grant for an instrument app."
+      },
+      {
+        "instruments": [
+          "Liuqin",
+          "Daruan",
+          "Sanxian",
+          "Yangqin"
+        ],
+        "status": "No acceptable free isolated sample source found in this pass",
+        "reason": "Primary-source searches covered Freesound, Wikimedia Commons, Chinese datasets, GitHub, BISA and commercial vendor leads. No files are relabeled from related instruments."
+      }
+    ]
+  },
+  "bowed": {
+    "checkedOn": "2026-10-01",
+    "scope": [
+      "Gaohu",
+      "Erhu",
+      "Zhonghu",
+      "Gehu",
+      "Bass Gehu",
+      "Yunluo"
+    ],
+    "accepted": [
+      {
+        "instrument": "Erhu",
+        "source": "https://github.com/sfzinstruments/aliexpress-erhu",
+        "license": "CC0-1.0",
+        "licenseUrl": "https://github.com/sfzinstruments/aliexpress-erhu/blob/6615047b2fd06126877483e97b8bb4af9d00b080/LICENSE",
+        "commit": "6615047b2fd06126877483e97b8bb4af9d00b080",
+        "contributor": "D. Smolken / SFZ Instruments",
+        "localAssets": "public/samples/erhu-multisample/",
+        "draftMapping": ".tmp-source-bowed/manifest.json",
+        "coverage": "25 separately recorded chromatic notes D4-D6; D4-A5 sustained bow, A#5-D6 sul tasto. One selected round robin per pitch. One dynamic layer.",
+        "caveat": "Source describes an inexpensive erhu played by a musician primarily experienced with violin. Full-range close-mic notes, but not a professional expressive performance library. Top D6 has noticeable bow noise/less periodic waveform; measure is recorded in provenance."
+      }
+    ],
+    "otherSourcesReviewed": [
+      {
+        "source": "https://remix.berklee.edu/bisa-chinese-erhu/",
+        "instruments": [
+          "Erhu"
+        ],
+        "license": "CC BY, version unspecified on source collection page",
+        "result": "Existing regular vibrato A4/E5 confirmed. Collection also has accented notes D4, F4, Ab4, A4, C5, Eb5, Gb5, A5, about 1 second each. These do not add a consistent full range sustain set. Existing assets retained for rollback.",
+        "detailUrls": [
+          "https://remix.berklee.edu/bisa-chinese-erhu-oneshots-vibrato/",
+          "https://remix.berklee.edu/bisa-chinese-erhu-oneshots-accented/"
+        ]
+      },
+      {
+        "source": "https://zenodo.org/records/11387046",
+        "title": "CCOM-HuQin v2.0.1",
+        "instruments": [
+          "Erhu",
+          "Gaohu",
+          "Zhonghu"
+        ],
+        "license": "CC BY-NC-SA 4.0",
+        "result": "Real isolated playing-technique clips and musical excerpts exist, but noncommercial limitation prevents using this as a commercial-app redistributable sample bank. Not downloaded or included.",
+        "detailUrls": [
+          "https://github.com/zhangyubella/CCOM-HuQin"
+        ]
+      },
+      {
+        "source": "https://huggingface.co/datasets/ccmusic-database/instrument_timbre/blob/main/README.md",
+        "title": "CCMUSIC Musical Instruments Timbre Evaluation Database",
+        "instruments": [
+          "Gaohu",
+          "Erhu",
+          "Zhonghu",
+          "Gehu",
+          "Bass Gehu",
+          "Yunluo"
+        ],
+        "license": "CC BY-NC-ND 4.0",
+        "result": "Contains correctly named original acoustic instruments, but restrictions prevent a modified, commercially distributed playback bank. Not downloaded or included.",
+        "detailUrls": [
+          "https://ccmusic-database.github.io/en/database/ctis.html"
+        ]
+      },
+      {
+        "source": "https://www.globalsoundmovement.com/",
+        "title": "Global Sound Movement",
+        "instruments": [
+          "Yunluo"
+        ],
+        "license": "Proprietary, purchased license for compositions; distribution of source or modified samples forbidden",
+        "licenseUrl": "https://shop.globalsoundmovement.com/copyright-and-licencing",
+        "result": "Professional individual-note Yunluo field sampling documented, but current shop license expressly excludes raw/modified sample redistribution. No purchase or download performed.",
+        "detailUrls": [
+          "https://www.ams-neve.com/uclans-genesys-black-console-plays-a-key-role-in-mixing-projects-for-the-global-sound-movement/"
+        ]
+      },
+      {
+        "source": "https://chineekong.com/en/chinese-orchestra-individuals/",
+        "title": "Kong Audio Chinese Orchestra Individuals",
+        "instruments": [
+          "Gaohu",
+          "Erhu",
+          "Zhonghu"
+        ],
+        "license": "Commercial product; no app sample-redistribution permission established",
+        "result": "Authentic sampled products found, but no budget or sample-bundling rights. No purchase or download performed."
+      },
+      {
+        "source": "https://neovst.com/product/legendary-hu/",
+        "title": "Sound Magic Legendary Hu",
+        "instruments": [
+          "Erhu",
+          "Zhonghu",
+          "Gehu"
+        ],
+        "license": "Commercial product; no app sample-redistribution permission established",
+        "result": "Traditional recordings and hybrid/modelled products found. No purchase or download performed."
+      },
+      {
+        "source": "https://cataudio.cn/html/CACD.html",
+        "title": "Cat Audio Chinese Percussion",
+        "instruments": [
+          "Yunluo"
+        ],
+        "license": "Commercial product; no app sample-redistribution permission established",
+        "result": "Yunluo included in commercial instrument list, but no redistribution grant established."
+      }
+    ],
+    "notFoundForRedistribution": [
+      "Gaohu",
+      "Zhonghu",
+      "Gehu",
+      "Bass Gehu",
+      "Yunluo"
+    ],
+    "searchCoverage": "Primary Berklee BISA, Freesound exact instrument searches, SFZ Instruments GitHub catalog, CC0/Creative Commons queries, Chinese-language instrument/sample queries, CCOM-HuQin and CCMUSIC datasets, professional developer sites. Unlicensed hardware ROM extractions, mixed concert excerpts, photographs marked CC0 and unrelated instruments were excluded. This is a documented search result, not proof that no sample exists anywhere."
+  },
+  "checkedDate": "2026-10-01",
+  "playbackLimits": {
+    "Pipa": "Local preview uses the user-supplied Pianobook bank, which is not bundled for redistribution. Production retains the older two recital extracts. No suitable replacement verified this search.",
+    "Voice": "One recorded sung-vowel anchor remains; not a full-range choir or solfege library.",
+    "Western": "All 17 already have recorded banks. New solo Viola/Cello replace sections; new Bassoon/Horn/Trombone anchors reduce sparse gaps. Other banks retained.",
+    "Dizi": "Bangdi/Qudi share one C-dizi bank; Xindi keeps clearly named western flute substitute. Not separate recordings of every size/key.",
+    "Guzheng": "15 recorded roots D2-D5; notes above D5 are shifted from the nearest root.",
+    "ExpressivePlayback": "Recorded attacks and timbre, with repitching where needed. Articulated legato, velocity layers and round-robin variations are not yet sampled."
+  }
+}

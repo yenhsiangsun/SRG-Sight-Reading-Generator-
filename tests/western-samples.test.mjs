@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import {createHash} from 'node:crypto';
 import {loadModule} from './helpers.mjs';
 
 const manifest=JSON.parse(fs.readFileSync('src/audio/sampleManifest.json','utf8'));
@@ -22,14 +23,19 @@ test('all 17 Western instruments have distinct recorded banks covering their sou
  }
 });
 
-test('each Western asset has decode, level, tuning and pinned source evidence',()=>{
+test('each Western asset has decode, level, tuning and pinned or hashed primary source evidence',()=>{
  for(const [name] of western)for(const [note,file] of Object.entries(manifest[name].urls)){
   const row=report.find(r=>r.instrument===name&&r.midi===midi(note));
   assert.ok(row,`${name} ${note}`);
   assert.equal(row.file,`${manifest[name].folder}/${file}`);
   assert.ok(row.seconds>1&&row.peak>.001&&row.peak<=1&&row.rms>0);
   assert.ok(row.cents!==null&&Math.abs(row.cents)<=45,`${name} ${note} tuning`);
-  assert.match(row.source,/github.com\/[^/]+\/[^/]+\/blob\/[a-f0-9]{40}\//);
+  if(row.licenseUrl==='https://theremin.music.uiowa.edu/MIS.html'){
+   assert.match(row.source,/^https:\/\/theremin\.music\.uiowa\.edu\/sound%20files\//);
+   assert.match(row.sourceSha256,/^[a-f0-9]{64}$/);
+   assert.equal(createHash('sha256').update(fs.readFileSync(`public/samples/${row.file}`)).digest('hex'),row.sha256);
+   assert.ok(row.sustainExtension.correlation>=.5);
+  }else assert.match(row.source,/github.com\/[^/]+\/[^/]+\/blob\/[a-f0-9]{40}\//);
   assert.ok(fs.statSync(`public/samples/${row.file}`).size>1000);
  }
  assert.equal(manifest.Clarinet.urls['F#6'],undefined,'excluded mistuned source');

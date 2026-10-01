@@ -1,0 +1,62 @@
+{
+  "licenseUrl": "https://theremin.music.uiowa.edu/MIS.html",
+  "changes": "Isolated note excerpts, pitch-centre correction, level adjustment, 12 second crossfaded sustain, PCM16 stereo.",
+  "samples": [
+    {
+      "instrument": "French Horn",
+      "midi": 65,
+      "note": "F4",
+      "file": "french-horn/F4-iowa.wav",
+      "seconds": 12.0,
+      "peak": 0.36863644555163977,
+      "rms": 0.15843423668830686,
+      "source": "https://theremin.music.uiowa.edu/sound%20files/MIS/Brass/frenchhorn/Horn.mf.C4B4.aiff",
+      "sourcePage": "https://theremin.music.uiowa.edu/MISFrenchhorn.html",
+      "licenseUrl": "https://theremin.music.uiowa.edu/MIS.html",
+      "license": "Iowa MIS unrestricted project use",
+      "sourceSha256": "8fb0230cab13b8b189e6cea559e47104eb64426eec20b0dc258ce8c8d489d4a0",
+      "sha256": "1c781c61b32b045994ecdfb4735172041572f6783b2be386924812e16e46c036",
+      "originalCents": 20.23124907848593,
+      "cents": 0.07690371864974639,
+      "sustainExtension": {
+        "startSeconds": 0.5401360544217687,
+        "endSeconds": 1.7,
+        "crossfadeSeconds": 0.05,
+        "correlation": 0.9996476527497169
+      },
+      "trimmedLeadingSeconds": 0.014920634920634921,
+      "excerptSeconds": [
+        14.74,
+        17.57
+      ]
+    },
+    {
+      "instrument": "French Horn",
+      "midi": 69,
+      "note": "A4",
+      "file": "french-horn/A4-iowa.wav",
+      "seconds": 12.0,
+      "peak": 0.35370588283947413,
+      "rms": 0.16044857511277166,
+      "source": "https://theremin.music.uiowa.edu/sound%20files/MIS/Brass/frenchhorn/Horn.mf.C4B4.aiff",
+      "sourcePage": "https://theremin.music.uiowa.edu/MISFrenchhorn.html",
+      "licenseUrl": "https://theremin.music.uiowa.edu/MIS.html",
+      "license": "Iowa MIS unrestricted project use",
+      "sourceSha256": "8fb0230cab13b8b189e6cea559e47104eb64426eec20b0dc258ce8c8d489d4a0",
+      "sha256": "e710c46e983a259c230ee80a6ae1a7c38c8ddec73fede482f274d36a5f05b073",
+      "originalCents": 1.0544487472670239,
+      "cents": 0.3581519115721933,
+      "sustainExtension": {
+        "startSeconds": 0.6885487528344671,
+        "endSeconds": 1.6,
+        "crossfadeSeconds": 0.05,
+        "correlation": 0.9997422545336622
+      },
+      "trimmedLeadingSeconds": 0.009931972789115647,
+      "excerptSeconds": [
+        25.19,
+        27.65
+      ]
+    }
+  ]
+}

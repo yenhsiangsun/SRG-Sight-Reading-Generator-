@@ -63,11 +63,12 @@ export function createInstrumentSynth(instrument: string) {
   synth.maxPolyphony = 24;
   synth.volume.value = p.volume;
 
-  // Preserve the soprano sheng's accepted dry sound from before the shared
-  // effects-routing fix. Its oscillator, envelope and voice filter are unchanged;
-  // the newly audible phaser/reverb chain is deliberately not used for this voice.
-  if (id === 'sheng') {
-    synth.connect(Tone.Destination);
+  // Winds use their own harmonics/envelopes without the generic effects below.
+  // The full-wet, high-Q phaser smeared their attacks into a whistling sweep,
+  // and the tempo delay repeated that tail between notes. This also preserves
+  // the soprano sheng's already accepted dry voice exactly.
+  if (isWoodwind || isBrass) {
+    synth.toDestination();
     return {
       triggerAttackRelease: (note: string, duration: number, time: number, velocity?:number) => synth.triggerAttackRelease(note, duration, time, velocity),
       releaseAll: () => synth.releaseAll(),
@@ -154,7 +155,7 @@ export function createInstrumentSynth(instrument: string) {
     chainEnd.connect(effect);
     chainEnd = effect;
   }
-  chainEnd.connect(Tone.Destination);
+  chainEnd.toDestination();
 
   return {
     triggerAttackRelease: (note: string, duration: number, time: number, velocity?:number) => synth.triggerAttackRelease(note, duration, time, velocity),

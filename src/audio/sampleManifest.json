@@ -1,7 +1,9 @@
 {
   "Voice": {
     "folder": "voice",
-    "urls": {"C#5": "Cs5-vowel.wav"},
+    "urls": {
+      "C#5": "Cs5-vowel.wav"
+    },
     "volume": -10
   },
   "Pipa": {
@@ -12,11 +14,35 @@
     }
   },
   "Erhu": {
-    "folder": "erhu",
+    "folder": "erhu-multisample",
     "urls": {
-      "A4": "A4-natural.wav",
-      "E5": "E5-natural.wav"
-    }
+      "D4": "D4-recorded.wav",
+      "D#4": "Ds4-recorded.wav",
+      "E4": "E4-recorded.wav",
+      "F4": "F4-recorded.wav",
+      "F#4": "Fs4-recorded.wav",
+      "G4": "G4-recorded.wav",
+      "G#4": "Gs4-recorded.wav",
+      "A4": "A4-recorded.wav",
+      "A#4": "As4-recorded.wav",
+      "B4": "B4-recorded.wav",
+      "C5": "C5-recorded.wav",
+      "C#5": "Cs5-recorded.wav",
+      "D5": "D5-recorded.wav",
+      "D#5": "Ds5-recorded.wav",
+      "E5": "E5-recorded.wav",
+      "F5": "F5-recorded.wav",
+      "F#5": "Fs5-recorded.wav",
+      "G5": "G5-recorded.wav",
+      "G#5": "Gs5-recorded.wav",
+      "A5": "A5-recorded.wav",
+      "A#5": "As5-recorded.wav",
+      "B5": "B5-recorded.wav",
+      "C6": "C6-recorded.wav",
+      "C#6": "Cs6-recorded.wav",
+      "D6": "D6-recorded.wav"
+    },
+    "volume": -6
   },
   "Piano": {
     "folder": "piano",
@@ -158,7 +184,9 @@
       "E4": "E4.mp3",
       "G2": "G2.mp3",
       "G3": "G3.mp3",
-      "G4": "G4.mp3"
+      "G4": "G4.mp3",
+      "A#1": "As1-iowa.wav",
+      "E2": "E2-iowa.wav"
     },
     "volume": -9.9
   },
@@ -193,7 +221,9 @@
       "D#2": "Ds2.mp3",
       "F3": "F3.mp3",
       "F5": "F5.mp3",
-      "G2": "G2.mp3"
+      "G2": "G2.mp3",
+      "F4": "F4-iowa.wav",
+      "A4": "A4-iowa.wav"
     },
     "volume": -11.7
   },
@@ -215,7 +245,8 @@
       "F3": "F3.mp3",
       "F4": "F4.mp3",
       "G#2": "Gs2.mp3",
-      "G#3": "Gs3.mp3"
+      "G#3": "Gs3.mp3",
+      "C5": "C5-iowa.wav"
     },
     "volume": -7.1
   },
@@ -355,42 +386,48 @@
     "volume": -12.0
   },
   "Viola": {
-    "folder": "viola",
+    "folder": "viola-solo",
     "urls": {
-      "A4": "A4.wav",
-      "B3": "B3.wav",
-      "B5": "B5.wav",
       "C3": "C3.wav",
+      "D#3": "Ds3.wav",
+      "F#3": "Fs3.wav",
+      "A3": "A3.wav",
+      "C4": "C4.wav",
+      "D#4": "Ds4.wav",
+      "F#4": "Fs4.wav",
+      "A4": "A4.wav",
       "C5": "C5.wav",
-      "D3": "D3.wav",
-      "D4": "D4.wav",
-      "D6": "D6.wav",
-      "E3": "E3.wav",
-      "E5": "E5.wav",
-      "F4": "F4.wav",
-      "G3": "G3.wav",
-      "G5": "G5.wav"
+      "D#5": "Ds5.wav",
+      "F#5": "Fs5.wav",
+      "A5": "A5.wav",
+      "C6": "C6.wav",
+      "D#6": "Ds6.wav",
+      "F#6": "Fs6.wav",
+      "A6": "A6.wav"
     },
-    "volume": -2.3
+    "volume": -8
   },
   "Cello": {
-    "folder": "cello",
+    "folder": "cello-solo",
     "urls": {
-      "A3": "A3.wav",
-      "B2": "B2.wav",
-      "B4": "B4.wav",
       "C2": "C2.wav",
+      "D#2": "Ds2.wav",
+      "F#2": "Fs2.wav",
+      "A2": "A2.wav",
+      "C3": "C3.wav",
+      "D#3": "Ds3.wav",
+      "F#3": "Fs3.wav",
+      "A3": "A3.wav",
       "C4": "C4.wav",
-      "D3": "D3.wav",
-      "D5": "D5.wav",
-      "E2": "E2.wav",
-      "E4": "E4.wav",
-      "F3": "F3.wav",
+      "D#4": "Ds4.wav",
+      "F#4": "Fs4.wav",
+      "A4": "A4.wav",
+      "C5": "C5.wav",
+      "D#5": "Ds5.wav",
       "F5": "F5.wav",
-      "G2": "G2.wav",
-      "G4": "G4.wav"
+      "A5": "A5.wav"
     },
-    "volume": -5.6
+    "volume": -8
   },
   "Clarinet": {
     "folder": "clarinet",
@@ -445,5 +482,47 @@
       "G#4": "Gs4.wav"
     },
     "volume": 6
+  },
+  "Guzheng": {
+    "folder": "guzheng-recorded",
+    "urls": {
+      "D2": "D2-pluck.wav",
+      "F2": "F2-pluck.wav",
+      "G2": "G2-pluck.wav",
+      "A2": "A2-pluck.wav",
+      "C3": "C3-pluck.wav",
+      "D3": "D3-pluck.wav",
+      "F3": "F3-pluck.wav",
+      "G3": "G3-pluck.wav",
+      "A3": "A3-pluck.wav",
+      "C4": "C4-pluck.wav",
+      "D4": "D4-pluck.wav",
+      "F4": "F4-pluck.wav",
+      "G4": "G4-pluck.wav",
+      "C5": "C5-pluck.wav",
+      "D5": "D5-pluck.wav"
+    },
+    "volume": -13
+  },
+  "Qudi C": {
+    "folder": "dizi-recorded",
+    "urls": {
+      "G4": "G4.wav",
+      "A4": "A4.wav",
+      "B4": "B4.wav",
+      "C5": "C5.wav",
+      "D5": "D5.wav",
+      "E5": "E5.wav",
+      "F#5": "Fs5.wav",
+      "G5": "G5.wav",
+      "A5": "A5.wav",
+      "B5": "B5.wav",
+      "C6": "C6.wav",
+      "D6": "D6.wav",
+      "E6": "E6.wav",
+      "F#6": "Fs6.wav",
+      "G6": "G6.wav"
+    },
+    "volume": -12
   }
 }

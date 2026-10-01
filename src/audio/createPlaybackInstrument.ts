@@ -4,11 +4,18 @@ import {createInstrumentSynth} from './createInstrumentSynth';
 import {loadRecordedSamples, samplesForNotes} from './loadRecordedSamples';
 interface SampleSet { folder: string; urls: Record<string,string>; volume?: number }
 const samples:Record<string,SampleSet>=manifest;
-export const hasSamples=(instrument:string)=>Object.hasOwn(samples,instrument);
+/** Share the recorded C-dizi bank across membrane dizi variants. Membrane-free
+ * Xindi keeps its explicitly labelled flute substitute. Score pitch/range and
+ * transposition remain properties of the selected instrument, not this bank. */
+export function getPlaybackSoundProfile<I extends string>(instrument:I):I|'Flute'|'Qudi C' {
+  if (/^(?:Bangdi|Qudi) /.test(instrument)) return 'Qudi C';
+  return /^Xindi /.test(instrument) ? 'Flute' : instrument;
+}
+export const hasSamples=(instrument:string)=>Object.hasOwn(samples,getPlaybackSoundProfile(instrument));
 export async function createPlaybackInstrument(instrument:string, notes?: readonly string[], signal?: AbortSignal) {
   if (signal?.aborted) { const error = new Error('Sample loading canceled'); error.name = 'AbortError'; throw error; }
   const localPipa = import.meta.env.VITE_LOCAL_PIPA && instrument === 'Pipa';
-  const selected: SampleSet | undefined=localPipa ? {folder:'', urls:{A2:'45.wav','C#3':'49.wav',F3:'53.wav',A3:'57.wav',D4:'62.wav','F#4':'66.wav',C5:'72.wav',E5:'76.wav',G5:'79.wav'}} : samples[instrument];
+  const selected: SampleSet | undefined=localPipa ? {folder:'', urls:{A2:'45.wav','C#3':'49.wav',F3:'53.wav',A3:'57.wav',D4:'62.wav','F#4':'66.wav',C5:'72.wav',E5:'76.wav',G5:'79.wav'}} : samples[getPlaybackSoundProfile(instrument)];
   if(!selected)return createInstrumentSynth(instrument);
   const urls = samplesForNotes(selected.urls, notes);
   let sampler: Tone.Sampler | undefined;

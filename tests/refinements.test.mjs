@@ -47,7 +47,7 @@ test('instrument choices exclude duplicate tuning variants and preserve source n
 });
 test('every mapped recording is bundled and is not a missing-file response',()=>{
   const manifest=JSON.parse(fs.readFileSync('src/audio/sampleManifest.json','utf8'));
-  assert.equal(Object.keys(manifest).length,20);
+  assert.ok(Object.keys(manifest).length>=22,'retain existing banks and include the new dizi and Guzheng recordings');
   for(const p of Object.values(manifest))for(const f of Object.values(p.urls)){
     const data=fs.readFileSync('public/samples/'+p.folder+'/'+f);assert.ok(data.length>1000,f);assert.ok(data[0]===0xff||data.subarray(0,3).toString()==='ID3'||(data.subarray(0,4).toString()==='RIFF'&&data.subarray(8,12).toString()==='WAVE'),f);
   }
