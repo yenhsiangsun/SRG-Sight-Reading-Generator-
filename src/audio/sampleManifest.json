@@ -14,32 +14,10 @@
     }
   },
   "Erhu": {
-    "folder": "erhu-multisample",
+    "folder": "erhu-bisa",
     "urls": {
-      "D4": "D4-single-channel-v2.wav",
-      "D#4": "Ds4-single-channel-v2.wav",
-      "E4": "E4-single-channel-v2.wav",
-      "F4": "F4-single-channel-v2.wav",
-      "F#4": "Fs4-single-channel-v2.wav",
-      "G4": "G4-single-channel-v2.wav",
-      "G#4": "Gs4-single-channel-v2.wav",
-      "A4": "A4-single-channel-v2.wav",
-      "A#4": "As4-single-channel-v2.wav",
-      "B4": "B4-single-channel-v2.wav",
-      "C5": "C5-single-channel-v2.wav",
-      "C#5": "Cs5-single-channel-v2.wav",
-      "D5": "D5-single-channel-v2.wav",
-      "D#5": "Ds5-single-channel-v2.wav",
-      "E5": "E5-single-channel-v2.wav",
-      "F5": "F5-single-channel-v2.wav",
-      "F#5": "Fs5-single-channel-v2.wav",
-      "G5": "G5-single-channel-v2.wav",
-      "G#5": "Gs5-single-channel-v2.wav",
-      "A5": "A5-single-channel-v2.wav",
-      "A#5": "As5-single-channel-v2.wav",
-      "B5": "B5-single-channel-v2.wav",
-      "C6": "C6-single-channel-v2.wav",
-      "C#6": "Cs6-single-channel-v2.wav"
+      "A4": "A4-bisa-v1.wav",
+      "E5": "E5-bisa-v1.wav"
     },
     "volume": -6
   },

@@ -1,4 +1,8 @@
-"""Prepare the CC0 AliExpress Erhu recordings for the browser sampler.
+"""Historical preparer for the retired CC0 AliExpress Erhu recordings.
+
+This source was rejected on 2026-10-02 and is not used by the app. The active
+replacement is prepared by prepare-erhu-bisa.py. Do not restore this bank as a
+playback fallback; this script is retained only to reproduce historical assets.
 
 Requires numpy and miniaudio. Usage:
   python scripts/prepare-erhu-multisample.py .tmp-source-bowed

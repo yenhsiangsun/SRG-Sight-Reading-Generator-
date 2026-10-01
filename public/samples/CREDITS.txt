@@ -7,18 +7,6 @@ Distribution sample license: Creative Commons Attribution 3.0 Unported.
 https://creativecommons.org/licenses/by/3.0/
 Provenance: https://github.com/nbrosowsky/tonejs-instruments/blob/master/sample-source-info.txt
 Files selected from the distribution without audio modification; pitches between samples are repitched during playback. No endorsement implied.
-Erhu preview: Berklee Intersectional Soundbox Archive (BISA), Chinese Erhu Sample Pack (2025).
-Instrumentalist: Yu Chun Chan. Recording engineer: Josefina Ugarte. Editor: Asher Deverna.
-Sources: "Regular (A4)" and "Regular (E5)":
-https://remix.berklee.edu/bisa-chinese-erhu-oneshots-vibrato/7/
-https://remix.berklee.edu/bisa-chinese-erhu-oneshots-vibrato/8/
-Collection declares Creative Commons Attribution (CC BY):
-https://remix.berklee.edu/bisa-chinese-erhu/
-The collection does not specify a license version on its public overview.
-Changes: pitch-centre correction, crossfaded sustain extension after 1.8 seconds, and final fade. Original stereo attack and dynamics are retained.
-Only A4 and E5 are recorded anchors; other notes are repitched. This is a prototype, not full-range multisampling.
-No endorsement by Berklee or the contributors is implied.
-
 Other instruments without sample mappings use project-authored synthesized approximations.
 
 Voice: "vocal C sharp long.wav" sung and recorded by owstu, Freesound 555984.
@@ -75,18 +63,22 @@ Recorded-bank update (2026-10-01; see each folder's provenance.json):
   Upper Bangdi registers require repitching beyond the recorded range.
   Metadata, individual source URLs and hashes: dizi-recorded/provenance.json.
 
-- Erhu: D. Smolken / SFZ Instruments, AliExpress Erhu, CC0 1.0.
-  https://github.com/sfzinstruments/aliexpress-erhu
-  Pinned commit 6615047b2fd06126877483e97b8bb4af9d00b080.
-  Replaces the early two-anchor BISA playback bank; old files retained.
-  Revision 2: 24 recorded chromatic roots D4-C#6. One original microphone channel
-  per root is retained; the antiphase stereo pair is no longer summed to mono.
-  DC removal, pitch-centre correction, level balancing and correlation-matched
-  sustain extension to 12 seconds. The noisy D6 recording is excluded: playback
-  repitches the C#6 root up one semitone. Top four roots use sul-tasto recordings.
-  The source describes an inexpensive
-  erhu played by someone primarily a violinist; it is not a studio pro library.
-  License text and per-note provenance are in erhu-multisample/.
+- Erhu replacement (2026-10-02): Berklee Intersectional Soundbox Archive (BISA),
+  Chinese Erhu Sample Pack (2025). Instrumentalist: Yu Chun Chan.
+  Recording engineer: Josefina Ugarte. Editor: Asher Deverna.
+  Sources: "Regular (A4)" and "Regular (E5)":
+  https://remix.berklee.edu/bisa-chinese-erhu-oneshots-vibrato/7/
+  https://remix.berklee.edu/bisa-chinese-erhu-oneshots-vibrato/8/
+  Collection declares Creative Commons Attribution (CC BY); its public overview
+  does not specify a license version: https://remix.berklee.edu/bisa-chinese-erhu/
+  Original takes are retained for audition. Playback copies are tuned,
+  level balanced and crossfaded to 24 seconds using the recorded sustain.
+  Two recorded anchors only; other pitches are repitched. High/low registers,
+  expressive legato and alternative articulations remain limited.
+  This returns to the BISA source family with newly prepared playback assets;
+  the rejected AliExpress Erhu bank is removed, with no fallback to that source.
+  Per-file source URLs, processing details and hashes: erhu-bisa/provenance.json.
+  No endorsement by Berklee or the contributors is implied.
 
 - Guzheng: Pufermufin, "LOVELY CHINESE GUZHENG PLUCKED.wav", CC0 1.0.
   https://freesound.org/people/Pufermufin/sounds/396868/

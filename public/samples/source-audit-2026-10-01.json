@@ -340,7 +340,7 @@
     ]
   },
   "bowed": {
-    "checkedOn": "2026-10-01",
+    "checkedOn": "2026-10-02",
     "scope": [
       "Gaohu",
       "Erhu",
@@ -352,6 +352,17 @@
     "accepted": [
       {
         "instrument": "Erhu",
+        "source": "https://remix.berklee.edu/bisa-chinese-erhu/",
+        "license": "CC BY, version unspecified on collection overview",
+        "contributor": "Yu Chun Chan; Josefina Ugarte; Asher Deverna / Berklee BISA",
+        "localAssets": "public/samples/erhu-bisa/",
+        "coverage": "Two real recorded roots A4 and E5 (Regular vibrato), original stereo WAV downloaded from official archive. Playback copies have 24-second crossfaded recorded sustain.",
+        "caveat": "This returns to the earlier BISA source family with newly prepared assets. Other pitches require repitching; extreme registers are limited. No new hardware listening acceptance has been claimed."
+      }
+    ],
+    "otherSourcesReviewed": [
+      {
+        "instrument": "Erhu",
         "source": "https://github.com/sfzinstruments/aliexpress-erhu",
         "license": "CC0-1.0",
         "licenseUrl": "https://github.com/sfzinstruments/aliexpress-erhu/blob/6615047b2fd06126877483e97b8bb4af9d00b080/LICENSE",
@@ -360,17 +371,16 @@
         "localAssets": "public/samples/erhu-multisample/",
         "draftMapping": ".tmp-source-bowed/manifest.json",
         "coverage": "Revision 2: 24 recorded chromatic roots D4-C#6; one selected microphone channel per root. D6 is repitched from C#6 by one semitone; original noisy D6 excluded.",
-        "caveat": "Original microphones can be out of phase: do not downmix L+R. Revision 2 selects one original channel, avoiding cancellation and the rough D6 source. Natural bow texture remains; this is not a professional expressive performance library."
-      }
-    ],
-    "otherSourcesReviewed": [
+        "caveat": "Original microphones can be out of phase: do not downmix L+R. Revision 2 selects one original channel, avoiding cancellation and the rough D6 source. Natural bow texture remains; this is not a professional expressive performance library.",
+        "result": "Removed from playback and bundled assets on 2026-10-02: user rejects the source timbre itself on iPad, including the single-channel revision. Do not use as a fallback."
+      },
       {
         "source": "https://remix.berklee.edu/bisa-chinese-erhu/",
         "instruments": [
           "Erhu"
         ],
         "license": "CC BY, version unspecified on source collection page",
-        "result": "Existing regular vibrato A4/E5 confirmed. Collection also has accented notes D4, F4, Ab4, A4, C5, Eb5, Gb5, A5, about 1 second each. These do not add a consistent full range sustain set. Existing assets retained for rollback.",
+        "result": "Promoted back to active playback on 2026-10-02 after AliExpress bank was rejected. Newly downloaded Regular and Delayed takes compared; Regular pair selected for more consistent attacks. Accent recordings are not used as a substitute sustain bank.",
         "detailUrls": [
           "https://remix.berklee.edu/bisa-chinese-erhu-oneshots-vibrato/",
           "https://remix.berklee.edu/bisa-chinese-erhu-oneshots-accented/"
@@ -468,6 +478,7 @@
     "Western": "All 17 already have recorded banks. New solo Viola/Cello replace sections; new Bassoon/Horn/Trombone anchors reduce sparse gaps. Other banks retained.",
     "Dizi": "Bangdi/Qudi share one C-dizi bank; Xindi keeps clearly named western flute substitute. Not separate recordings of every size/key.",
     "Guzheng": "15 recorded roots D2-D5; notes above D5 are shifted from the nearest root.",
-    "ExpressivePlayback": "Recorded attacks and timbre, with repitching where needed. Articulated legato, velocity layers and round-robin variations are not yet sampled."
+    "ExpressivePlayback": "Recorded attacks and timbre, with repitching where needed. Articulated legato, velocity layers and round-robin variations are not yet sampled.",
+    "Erhu": "Berklee BISA Regular A4/E5 real recordings, replacing the rejected AliExpress source. Two anchors require up to 10 semitones of repitching at D6; 24-second buffers retain enough sustain after repitching. Physical iPad timbre acceptance remains with the listener."
   }
 }
