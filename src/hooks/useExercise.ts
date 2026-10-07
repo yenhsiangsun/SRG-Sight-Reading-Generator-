@@ -5,8 +5,10 @@ import {addPipaTechniques} from '../music/pipaTechniques';
 import { selectPracticeTempo } from '../practice/tempo';
 import {validBpm} from '../audio/tempo';
 import type { RhythmFocusSelection, PitchFocus } from '../practice/focus';
-import type { Tonic } from '../music/scales';
+import {describeTonality, type Tonic} from '../music/scales';
 import { selectRandomTonality, type RandomTonality } from '../music/randomTonality';
+import {normalizeKeySignatureChoices, type KeySignatureChoice} from '../music/keySignatureChoices';
+import {loadPreferredInstrument, rememberInstrument} from '../practice/instrumentPreference';
 import { useState } from 'react';
 import {type ExerciseData, type KeySignature, type TimeSignature } from '../music';
 import { INSTRUMENTS, mapDifficulty, mapRhythmLevel, type Instrument, type Clef, type Difficulty, type RhythmLevel } from '../exerciseConfig';
@@ -19,6 +21,7 @@ export interface ExerciseSettings {
   clef: Clef;
   difficulty: Difficulty;
   keySignature: KeySignature;
+  allowedKeySignatures?: KeySignatureChoice[];
   tonic: Tonic;
   scaleId: string;
   timeSignature: TimeSignature;
@@ -32,15 +35,19 @@ export interface ExerciseSettings {
 }
 export const DEFAULT_SETTINGS: ExerciseSettings = {
   performanceMarks:true,
-  instrument: 'Sheng', clef: 'treble', difficulty: 'Beginner', keySignature: 'C', tonic: 'C', scaleId: 'major',
+  instrument: 'Piano', clef: INSTRUMENTS.Piano.clef, difficulty: 'Beginner', keySignature: 'C', tonic: 'C', scaleId: 'major',
   timeSignature: '4/4', rhythmLevel: 'Simple', measureCount: 8,
-  rangeMinMidi: INSTRUMENTS.Sheng.min, rangeMaxMidi: INSTRUMENTS.Sheng.max, allowAccidentals: false,
+  rangeMinMidi: INSTRUMENTS.Piano.min, rangeMaxMidi: INSTRUMENTS.Piano.max, allowAccidentals: false,
   mixedMeters: false, meters: ['3/4', '4/4', '6/8'],
 };
 interface CurrentExercise { exercise: ExerciseData; settings: ExerciseSettings; number: number; isPreview?: boolean }
 
 export function useExercise(previewTonality?: RandomTonality) {
-  const [savedSettings, setSettings] = useState<ExerciseSettings>(DEFAULT_SETTINGS);
+  const [savedSettings, setSettings] = useState<ExerciseSettings>(() => {
+    const instrument = loadPreferredInstrument();
+    const profile = INSTRUMENTS[instrument];
+    return {...DEFAULT_SETTINGS, instrument, clef: profile.clef, rangeMinMidi: profile.min, rangeMaxMidi: profile.max};
+  });
   const settings = { ...DEFAULT_SETTINGS, ...savedSettings };
   const [current, setCurrent] = useState<CurrentExercise | null>(null);
   const [error, setError] = useState('');
@@ -48,6 +55,8 @@ export function useExercise(previewTonality?: RandomTonality) {
   const pendingPreview = previewConsumed ? undefined : previewTonality;
 
   function change<K extends keyof ExerciseSettings>(key: K, value: ExerciseSettings[K]) {
+    if (key === 'instrument') rememberInstrument(value as Instrument);
+    if(key === 'allowedKeySignatures')setPreviewConsumed(true);
     setSettings((previous) => ({ ...previous, [key]: value,
       ...(['timeSignature','mixedMeters','meters'].includes(key) ? {rhythmFocus:'balanced' as const} : {}),
       ...(key === 'instrument' ? {
@@ -66,17 +75,19 @@ export function useExercise(previewTonality?: RandomTonality) {
 
   function generateFrom(settings: ExerciseSettings, bpm: number,tempoOverride?:number) {
     try {
+      settings = {...settings,allowedKeySignatures:normalizeKeySignatureChoices(settings.allowedKeySignatures)};
       const measureCount=window.matchMedia('(max-width: 600px)').matches?Math.min(settings.measureCount,8):settings.measureCount;
       const twoHand = settings.clef === 'grand' && (settings.instrument === 'Piano' || settings.instrument === 'Yangqin');
       const range = {min: settings.rangeMinMidi, max: settings.rangeMaxMidi};
       const tonality = pendingPreview ?? selectRandomTonality(twoHand && range.min <= 58 && range.max >= 61
         ? [range, {min: range.min, max: 59}, {min: 60, max: range.max}]
-        : [range], Math.random, {allowAccidentals:settings.allowAccidentals, difficulty:mapDifficulty(settings.difficulty)});
+        : [range], Math.random, {allowAccidentals:settings.allowAccidentals, difficulty:mapDifficulty(settings.difficulty),allowedKeySignatures:settings.allowedKeySignatures});
+      const signature = describeTonality(tonality.tonic,tonality.scaleId).signature as KeySignature | null;
       let exercise = composeExercise({
         instrument: INSTRUMENTS[settings.instrument].engineInstrument,
         instrumentProfile: settings.instrument,
         clef: settings.clef === 'grand' || settings.clef === 'mixedStaff' ? 'treble' : settings.clef, difficulty: mapDifficulty(settings.difficulty),
-        keySignature: settings.keySignature, timeSignature: settings.timeSignature,
+        keySignature: signature ?? 'C', timeSignature: settings.timeSignature,
         rhythmLevel: mapRhythmLevel(settings.rhythmLevel), rhythmFocus: settings.rhythmFocus, pitchFocus:settings.pitchFocus, measures: measureCount,
         tempo: bpm, range,
         allowAccidentals: pendingPreview ? false : settings.allowAccidentals, mixedMeters: settings.mixedMeters,
@@ -92,7 +103,8 @@ export function useExercise(previewTonality?: RandomTonality) {
         if(settings.pitchFocus!=='scales')exercise=addPipaTechniques(exercise,range);
       }
       setSettings(settings);
-      setCurrent((previous) => ({ exercise, settings: { ...settings, ...tonality, allowAccidentals: pendingPreview ? false : settings.allowAccidentals, measureCount, meters: [...settings.meters] }, number: (previous?.number ?? 0) + 1, isPreview: !!pendingPreview }));
+      rememberInstrument(settings.instrument);
+      setCurrent((previous) => ({ exercise, settings: { ...settings, ...tonality, keySignature:signature ?? 'C', allowAccidentals: pendingPreview ? false : settings.allowAccidentals, measureCount, meters: [...settings.meters] }, number: (previous?.number ?? 0) + 1, isPreview: !!pendingPreview }));
       setPreviewConsumed(true);
       setError('');
       return exercise.tempo;
@@ -104,6 +116,7 @@ export function useExercise(previewTonality?: RandomTonality) {
   function restore(exercise: ExerciseData, settings: ExerciseSettings) {
     setPreviewConsumed(true);
     setSettings(settings);
+    rememberInstrument(settings.instrument);
     setCurrent(previous => ({exercise, settings, number: (previous?.number ?? 0) + 1}));
     setError('');
   }

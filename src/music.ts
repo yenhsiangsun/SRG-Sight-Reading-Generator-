@@ -34,11 +34,14 @@ export type KeySignature =
   | "E"
   | "B"
   | "F#"
+  | "C#"
   | "F"
   | "Bb"
   | "Eb"
   | "Ab"
-  | "Db";
+  | "Db"
+  | "Gb"
+  | "Cb";
 
 export type TimeSignature =
   | "2/4"
@@ -318,6 +321,7 @@ const KEY_SCALES: Record<KeySignature, string[]> = {
   B: ["B", "C#", "D#", "E", "F#", "G#", "A#"],
 
   "F#": ["F#", "G#", "A#", "B", "C#", "D#", "E#"],
+  "C#": ["C#", "D#", "E#", "F#", "G#", "A#", "B#"],
 
   F: ["F", "G", "A", "Bb", "C", "D", "E"],
 
@@ -328,10 +332,13 @@ const KEY_SCALES: Record<KeySignature, string[]> = {
   Ab: ["Ab", "Bb", "C", "Db", "Eb", "F", "G"],
 
   Db: ["Db", "Eb", "F", "Gb", "Ab", "Bb", "C"],
+  Gb: ["Gb", "Ab", "Bb", "Cb", "Db", "Eb", "F"],
+  Cb: ["Cb", "Db", "Eb", "Fb", "Gb", "Ab", "Bb"],
 };
 
 const NOTE_TO_PITCH_CLASS: Record<string, number> = {
   C: 0,
+  "B#": 0,
   "C#": 1,
   Db: 1,
 
@@ -340,6 +347,7 @@ const NOTE_TO_PITCH_CLASS: Record<string, number> = {
   Eb: 3,
 
   E: 4,
+  Fb: 4,
   "E#": 5,
   F: 5,
 
@@ -613,8 +621,7 @@ function buildScalePitches(
       continue;
     }
 
-    const octave =
-      Math.floor(midi / 12) - 1;
+    const octave = Math.floor(midi / 12) - 1 + (matchingName === 'Cb' ? 1 : matchingName === 'B#' ? -1 : 0);
 
     result.push({
       midi,

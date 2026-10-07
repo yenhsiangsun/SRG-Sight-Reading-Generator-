@@ -8,6 +8,7 @@ import {assertMeasureRhythm} from '../music/rhythmTiming';
 import {validBpm} from '../audio/tempo';
 import {validRhythmFocus} from './focus';
 import {validPipaTechnique} from '../music/pipaTechniques';
+import {validKeySignatureChoices} from '../music/keySignatureChoices';
 
 export const LIBRARY_KEY = 'sight-reading-library-v1';
 export interface SavedStudy {id: string; created: number; bpm: number; settings: ExerciseSettings; exercise?: ExerciseData}
@@ -22,6 +23,7 @@ export function validSettings(value: unknown): value is ExerciseSettings {
   return typeof value.instrument === 'string' && Object.hasOwn(INSTRUMENTS, value.instrument) && member(value.clef, CLEFS)
     && member(value.difficulty, ['Beginner','Intermediate','Advanced']) && member(value.rhythmLevel, ['Simple','Moderate','Complex'])
     && validRhythmFocus(value.rhythmFocus) && member(value.pitchFocus,[undefined,'balanced','leaps','scales']) && member(value.keySignature, KEY_SIGNATURES)
+    && validKeySignatureChoices(value.allowedKeySignatures)
     && member(value.tonic, TONICS) && SCALES.some(scale => scale.id === value.scaleId)
     && member(value.timeSignature, TIME_SIGNATURES) && integer(value.measureCount,1,32)
     && integer(value.rangeMinMidi,0,126) && integer(value.rangeMaxMidi,1,127) && Number(value.rangeMinMidi) < Number(value.rangeMaxMidi)

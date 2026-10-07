@@ -471,9 +471,6 @@ export const thai: LocaleCatalog = {
     Gaohu: 'เกาหู',
     Erhu: 'เอ้อร์หู',
     Zhonghu: 'จงหู',
-    Gehu: 'เก๋อหู',
-    'Bass Gehu': 'เก๋อหูเบส',
-    Yunluo: 'อวิ๋นหลัว (ฆ้อง 37 ใบ)',
   },
   scales: {
     major: 'เมเจอร์ / ไอโอเนียน',

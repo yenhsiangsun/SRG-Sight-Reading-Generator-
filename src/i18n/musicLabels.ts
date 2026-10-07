@@ -8,7 +8,7 @@ export function instrumentLabel(id:Instrument,locale:Locale) {
   if(locale==='zh-TW')return INSTRUMENTS[id].zh;
   const index = ['ja','es','de','fr','ko','pt-BR','ru','it'].indexOf(locale);
   if (index >= 0 && instrumentTranslations[id]?.[index]) return instrumentTranslations[id][index];
-  const names:Partial<Record<Instrument,string>>={Piano:'Piano · 88 keys',Flute:'Flute · B footjoint',Clarinet:'Clarinet in B♭',Trumpet:'Trumpet in C','French Horn':'Horn in F',Tuba:'Bass tuba in F',Guitar:'Guitar · 6 strings / 20 frets','Bass Guitar':'Bass guitar · 4 strings / 24 frets','Double Bass':'Double bass · 4 strings',Sheng:'Soprano keyed sheng','Bangdi G':'Bangdi','Qudi C':'Qudi','Xindi G':'Xindi / Dadi','Suona C':'Traditional soprano suona','Suona G':'Traditional alto suona','Guan G':'Soprano guan',Guzheng:'Guzheng · 21 strings',Yangqin:'Yangqin · orchestral model',Yunluo:'Yunluo · 37 gongs',Voice:locale==='ja'?'声（音域を設定）':'Voice · custom range'};
+  const names:Partial<Record<Instrument,string>>={Piano:'Piano · 88 keys',Flute:'Flute · B footjoint',Clarinet:'Clarinet in B♭',Trumpet:'Trumpet in C','French Horn':'Horn in F',Tuba:'Bass tuba in F',Guitar:'Guitar · 6 strings / 20 frets','Bass Guitar':'Bass guitar · 4 strings / 24 frets','Double Bass':'Double bass · 4 strings',Sheng:'Soprano keyed sheng','Bangdi G':'Bangdi','Qudi C':'Qudi','Xindi G':'Xindi / Dadi','Suona C':'Traditional soprano suona','Suona G':'Traditional alto suona','Guan G':'Soprano guan',Guzheng:'Guzheng · 21 strings',Yangqin:'Yangqin · orchestral model',Voice:locale==='ja'?'声（音域を設定）':'Voice · custom range'};
   return names[id]??id;
 }
 const scaleNames:Record<string,[string,string]>={

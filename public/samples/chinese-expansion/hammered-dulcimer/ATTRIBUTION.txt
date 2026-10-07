@@ -1,0 +1,5 @@
+Multi-sampled Hammered Dulcimer by iternetcone (2016), Freesound pack 19445.
+https://freesound.org/people/iternetcone/packs/19445/
+CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+Changes: MP3 preview decoded, leading silence trimmed, endpoint fades, pitch centre corrected, level balanced.
+Individual source pages and hashes are listed in provenance.json.

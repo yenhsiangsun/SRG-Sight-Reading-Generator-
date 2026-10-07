@@ -44,7 +44,4 @@ Yangqin|揚琴 · 管弦楽モデル|Yangqin · modelo orquestal|Yangqin · Orch
 Gaohu|高胡|Gaohu|Gaohu|Gaohu|가오후|Gaohu|Гаоху|Gaohu
 Erhu|二胡|Erhu|Erhu|Erhu|얼후|Erhu|Эрху|Erhu
 Zhonghu|中胡|Zhonghu|Zhonghu|Zhonghu|중후|Zhonghu|Чжунху|Zhonghu
-Gehu|革胡|Gehu|Gehu|Gehu|거후|Gehu|Гэху|Gehu
-Bass Gehu|低音革胡|Gehu bajo|Bass-Gehu|Gehu basse|베이스 거후|Gehu baixo|Басовый гэху|Gehu basso
-Yunluo|雲鑼 · 37音|Yunluo · 37 gongs|Yunluo · 37 Gongs|Yunluo · 37 gongs|윈뤄 · 공 37개|Yunluo · 37 gongos|Юньло · 37 гонгов|Yunluo · 37 gong
 `.trim().split('\n').map(row => { const [key, ...values] = row.split('|'); return [key, values]; }));

@@ -3,6 +3,7 @@ import type {ExerciseSettings} from '../hooks/useExercise';
 import {CLEFS,INSTRUMENTS,midiToNoteLabel,RANGE_OPTIONS} from '../exerciseConfig';
 import {useI18n} from '../i18n/context';
 import {StaffRangePicker} from './StaffRangePicker';
+import {KeySignaturePicker} from './KeySignaturePicker';
 import './PracticeSettings.css';
 
 /** Draft edits stay local until generation succeeds; the visible score and its
@@ -30,6 +31,7 @@ export default function PracticeSettings({settings,busy,onApply}:{
           <label>{t('pitchDifficulty')}<select value={draft.difficulty} onChange={e=>change('difficulty',e.target.value as ExerciseSettings['difficulty'])}>{(['Beginner','Intermediate','Advanced'] as const).map(level=><option key={level} value={level}>{t(levels[level])}</option>)}</select></label>
           <label>{t('rhythm')}<select value={draft.rhythmLevel} onChange={e=>change('rhythmLevel',e.target.value as ExerciseSettings['rhythmLevel'])}>{(['Simple','Moderate','Complex'] as const).map(level=><option key={level} value={level}>{t(({Simple:'simple',Moderate:'moderate',Complex:'complex'} as const)[level])}</option>)}</select></label>
         </div>
+        <KeySignaturePicker value={draft.allowedKeySignatures} onChange={value=>change('allowedKeySignatures',value)} disabled={busy}/>
         <StaffRangePicker settings={draft} disabled={busy} onMin={value=>change('rangeMinMidi',value)} onMax={value=>change('rangeMaxMidi',value)}/>
         <div className="practice-setting-fields">
           <label>{t('minimum')}<select value={draft.rangeMinMidi} onChange={e=>change('rangeMinMidi',+e.target.value)}>{RANGE_OPTIONS.filter(midi=>midi<draft.rangeMaxMidi).map(midi=><option key={midi} value={midi}>{midiToNoteLabel(midi)}</option>)}</select></label>

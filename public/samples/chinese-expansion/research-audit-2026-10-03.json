@@ -1,0 +1,82 @@
+{
+  "checkedOn": "2026-10-03",
+  "scope": "Additional freely redistributable recorded Chinese instruments and explicitly named recorded substitutes. Erhu is handled separately.",
+  "acceptedSubstitutes": [
+    {
+      "instrument": "Harmonica",
+      "suggestedFor": ["Alto Sheng", "Tenor Sheng", "Bass Sheng"],
+      "source": "https://github.com/sgossner/VCSL",
+      "license": "CC0-1.0",
+      "evidence": "VCSL's own README explicitly permits software use, including commercial software, under CC0. Byte-identical Hohner Super64 normal-sustain WAVs were downloaded from the pinned source revision. Their scientific pitches were measured instead of trusting the source octave names.",
+      "limitations": "These are chromatic harmonica recordings. The lowest actual recorded C3 is repitched downward for Bass Sheng C2. They must not be described as authentic Sheng recordings."
+    },
+    {
+      "instrument": "Hammered Dulcimer",
+      "suggestedFor": ["Yangqin"],
+      "source": "https://freesound.org/people/iternetcone/packs/19445/",
+      "license": "CC BY 4.0",
+      "evidence": "Every selected original sound page states 'I Sampled my Dulcimer.' and links CC BY 4.0. Seven isolated-note public HQ MP3 previews were downloaded. The selected roots are independently measured D4, E4, F#4, G4, A4, C5 and D5.",
+      "limitations": "A related struck-string instrument, not a Yangqin recording. Short natural decays, a single velocity, lossy previews and sympathetic strings remain audible characteristics."
+    },
+    {
+      "instrument": "Vibraphone",
+      "suggestedFor": ["Yunluo"],
+      "source": "https://github.com/sgossner/VCSL",
+      "license": "CC0-1.0",
+      "evidence": "Six byte-identical hard-mallet v2 WAV recordings from the same pinned CC0 library. Scientific pitch roots A3, C4, G4, D5, A5 and E6 were checked against recorded fundamentals.",
+      "limitations": "A struck metal-bar instrument, not a small-gong/Yunluo recording. Lower bars have strong natural upper modes; overall resonance differs from a gong."
+    }
+  ],
+  "additionalSourcesReviewed": [
+    {
+      "instrument": "Accordion",
+      "source": "https://freepats.zenvoid.org/Organ/accordion.html",
+      "license": "CC0-1.0",
+      "decision": "Valid freely redistributable recorded source; not prepared",
+      "reason": "Primary page documents Jeff Stauffer recording a Hohner accordion in November 2023. The repository has 17 root recordings. Harmonica was selected as the current free-reed proxy with lower verified roots. No claim about Accordion waveform tuning or listening quality is made."
+    },
+    {
+      "instrument": "Mandolin",
+      "source": "https://freesound.org/people/Taku19810729/sounds/255837/",
+      "license": "CC0-1.0",
+      "decision": "Downloaded for analysis; not prepared",
+      "reason": "Five-second CDEFGABC scale has strong low-frequency rumble, quiet short notes and a much louder final handling transient. This was not selected as a replacement for a cleaner recorded guitar proxy."
+    },
+    {
+      "instrument": "Mandolin",
+      "source": "https://freesound.org/people/gollybob/sounds/413502/",
+      "license": "CC0-1.0",
+      "decision": "Downloaded for analysis; not prepared",
+      "reason": "Uploader describes tuning a Weber mandolin through auto tune. Analysis shows shifting pitches through the note decays; not a stable isolated-note bank."
+    },
+    {
+      "instrument": "Mandolin",
+      "source": "https://freesound.org/people/Department64/packs/29695/",
+      "decision": "Not prepared",
+      "reason": "Primary pack descriptions identify tailpiece strums and strings tapped or strummed with a smooth stone. These are experimental effects rather than a normal plucked multisample bank."
+    },
+    {
+      "instrument": "Sho",
+      "source": "https://freesound.org/people/Vrymaa/sounds/792664/",
+      "license": "CC0-1.0 as uploaded",
+      "decision": "Not prepared; recording origin remains unverified",
+      "reason": "Uploader describes sustained Sho notes and a stretched sound, but the description provides no recording-method/source chain. No claim is made that this is a verified acoustic recording or a complete isolated-note bank."
+    },
+    {
+      "instrument": "Pipa",
+      "source": "https://freesound.org/people/selfdestructbutton/sounds/569572/",
+      "license": "CC0-1.0 as uploaded",
+      "decision": "Excluded",
+      "reason": "Description explicitly identifies GarageBand output. This does not establish authorization to redistribute Apple's underlying instrument samples as a playable bank, and it is not a fresh acoustic recording."
+    },
+    {
+      "instrument": "Pipa",
+      "source": "https://freesound.org/people/hatchetgirl/sounds/204746/",
+      "license": "CC0-1.0 as uploaded",
+      "decision": "Not prepared",
+      "reason": "Primary description says a traditional Pipa is distorted and slowed to create a loop. This is processed rhythmic material rather than a clean isolated-note bank."
+    }
+  ],
+  "priorAudit": "../source-audit-2026-10-01.json",
+  "result": "No additional authentic isolated Chinese bank with clearly suitable redistribution rights was verified in this pass. Three actual recorded substitutes were prepared with their own names, sources and limitations. Existing approved Dizi/Guzheng recordings and the separately handled user-owned local Pipa were not replaced by this agent."
+}

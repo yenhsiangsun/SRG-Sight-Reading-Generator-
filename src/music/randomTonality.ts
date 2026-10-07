@@ -1,9 +1,10 @@
 import {buildPitchMaterial, describeTonality, getScale, SCALES, TONICS, type Tonic, type Tonality} from './scales';
 import type {Difficulty} from '../music';
+import {normalizeKeySignatureChoices, type KeySignatureChoice} from './keySignatureChoices';
 
 interface PitchRange {min: number; max: number}
 export interface RandomTonality {tonic: Tonic; scaleId: string}
-export interface TonalitySelectionOptions {allowAccidentals?: boolean; difficulty?: Difficulty}
+export interface TonalitySelectionOptions {allowAccidentals?: boolean; difficulty?: Difficulty; allowedKeySignatures?: readonly KeySignatureChoice[]}
 export type SignatureGroup = 'sharp' | 'flat' | 'natural' | 'open';
 // Practice both kinds of key signatures regularly without inventing signatures
 // for chromatic, symmetric or traditional-scale adaptations.
@@ -43,13 +44,23 @@ export function getTonalityChoices(ranges: readonly PitchRange[], options: Tonal
     throw new Error('請選擇有效的音域，最低音不能高於最高音。');
   }
 
+  const allowed = normalizeKeySignatureChoices(options.allowedKeySignatures);
   return SCALES.map(scale => {
     const candidates = (scale.id === 'atonal' ? ['C'] as const : TONICS)
       .map(tonic => ({tonic, tonality: describeTonality(tonic, scale.id)}))
+      .filter(candidate => !allowed || (allowed.includes((candidate.tonality.signature ?? 'open') as KeySignatureChoice)
+        // A missing theoretical parent signature is not an open-key scale.
+        && (candidate.tonality.signature !== null || !getScale(scale.id).parent)))
       .filter(candidate => ranges.every(range => buildPitchMaterial(candidate.tonality, range).pitches.length > 0));
     const cost = Math.min(...candidates.map(candidate => spellingCost(candidate.tonality,options)));
-    return {scaleId: scale.id, candidates: candidates.filter(candidate => spellingCost(candidate.tonality,options) === cost)
-      .map(candidate => ({tonic: candidate.tonic, group: signatureGroup(candidate.tonality.signature), alterations:requiredAccidentalCount(candidate.tonality)}))};
+    return {scaleId: scale.id, candidates: candidates.filter(candidate => {
+      // Explicit choices are equally eligible even when the default difficulty
+      // heuristic would prefer a simpler signature. Optimize spelling within it.
+      const minimum = allowed ? Math.min(...candidates.filter(other => other.tonality.signature === candidate.tonality.signature)
+        .map(other => spellingCost(other.tonality,options))) : cost;
+      return spellingCost(candidate.tonality,options) === minimum;
+    }).map(candidate => ({tonic: candidate.tonic, signature: candidate.tonality.signature,
+      group: signatureGroup(candidate.tonality.signature), alterations:requiredAccidentalCount(candidate.tonality)}))};
   }).filter(scale => scale.candidates.length > 0);
 }
 
@@ -57,6 +68,22 @@ export function getTonalityChoices(ranges: readonly PitchRange[], options: Tonal
 export function selectRandomTonality(ranges: readonly PitchRange[], random: () => number = Math.random, options: TonalitySelectionOptions = {}): RandomTonality {
   const choices = getTonalityChoices(ranges,options);
   const quiet = options.allowAccidentals === false;
+  const allowed = normalizeKeySignatureChoices(options.allowedKeySignatures);
+  const pick = <T,>(items: readonly T[]): T => items[Math.min(items.length - 1, Math.max(0, Math.floor(random() * items.length)))];
+  if (allowed) {
+    const eligible = allowed.filter(signature => choices.some(scale => scale.candidates.some(candidate =>
+      (candidate.signature ?? 'open') === signature)));
+    if (!eligible.length) throw new Error('所選調號在目前音域沒有可用音高，請擴大音域或選擇其他調號。');
+    const signature = pick(eligible);
+    const scales = choices.map(scale => {
+      const candidates = scale.candidates.filter(candidate => (candidate.signature ?? 'open') === signature);
+      const alterations = Math.min(...candidates.map(candidate => candidate.alterations));
+      return {...scale,candidates,weight:quiet ? 1 / (1 + alterations * alterations) : 1};
+    }).filter(scale => scale.candidates.length);
+    let position = Math.min(1 - Number.EPSILON, Math.max(0, random())) * scales.reduce((sum,scale) => sum + scale.weight,0);
+    const scale = scales.find(scale => (position -= scale.weight) < 0) ?? scales.at(-1)!;
+    return {scaleId:scale.scaleId,tonic:pick(scale.candidates).tonic};
+  }
   const weights = quiet ? QUIET_SIGNATURE_WEIGHTS : SIGNATURE_WEIGHTS;
   const groups = (Object.keys(weights) as SignatureGroup[]).map(group => ({
     group, weight: weights[group], scales: choices.map(scale => {
@@ -71,7 +98,6 @@ export function selectRandomTonality(ranges: readonly PitchRange[], random: () =
   const total = groups.reduce((sum, group) => sum + group.weight, 0);
   let position = Math.min(1 - Number.EPSILON, Math.max(0, random())) * total;
   const selectedGroup = groups.find(group => (position -= group.weight) < 0) ?? groups[groups.length - 1];
-  const pick = <T,>(items: readonly T[]): T => items[Math.min(items.length - 1, Math.max(0, Math.floor(random() * items.length)))];
   const scaleWeight = selectedGroup.scales.reduce((sum,scale) => sum + scale.weight,0);
   let scalePosition = Math.min(1-Number.EPSILON,Math.max(0,random())) * scaleWeight;
   const selected = selectedGroup.scales.find(scale => (scalePosition -= scale.weight) < 0) ?? selectedGroup.scales.at(-1)!;

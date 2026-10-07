@@ -3,7 +3,7 @@ import type {Observation} from './scoring';
 
 // These instruments can become too quiet for pitch tracking while a correctly
 // played note is still ringing. Do not infer finger release from that decay.
-const decayingInstruments=new Set(['Piano','Guitar','Bass Guitar','Liuqin','Pipa','Zhongruan','Daruan','Sanxian','Guzheng','Yangqin','Yunluo']);
+const decayingInstruments=new Set(['Piano','Guitar','Bass Guitar','Liuqin','Pipa','Zhongruan','Daruan','Sanxian','Guzheng','Yangqin']);
 export function allowsNaturalDecay(exercise:ExerciseData) {
   return decayingInstruments.has(exercise.soundProfile??exercise.instrument);
 }

@@ -471,9 +471,6 @@ export const simplifiedChinese: LocaleCatalog = {
     "Gaohu": "高胡",
     "Erhu": "二胡",
     "Zhonghu": "中胡",
-    "Gehu": "革胡",
-    "Bass Gehu": "低音革胡",
-    "Yunluo": "云锣（37 面）"
   },
   "scales": {
     "major": "大音阶／伊奥尼安",

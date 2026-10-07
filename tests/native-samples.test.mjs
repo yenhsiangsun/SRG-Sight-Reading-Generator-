@@ -82,7 +82,8 @@ test('score-specific sample selection preserves Tone nearest roots for enharmoni
   const {samplesForNotes}=moduleWith(()=>{throw Error('no requests');});
   const selected=samplesForNotes(bank.Piano.urls,['C4','D4','E4','G4','c/4','b#3']);
   assert.deepEqual(Object.keys(selected),['C4','D4','E4','G4']);
-  assert.equal(Object.keys(bank.Piano.urls).length,85,'catalog remains complete');
+  assert.equal(Object.keys(bank.Piano.urls).length,86,'existing piano roots and a genuine A0 recording');
+  assert.ok(bank.Piano.urls.A0,'lowest 88-key piano pitch has an actual recording');
   const sparse={C3:'C3.wav',E3:'E3.wav',C4:'C4.wav'};
   assert.deepEqual(Object.keys(samplesForNotes(sparse,['D3'])),['E3'],'upper root wins a tie, matching Tone');
   assert.deepEqual(Object.keys(samplesForNotes(sparse,['Cb3','B3'])),['C3','C4']);
@@ -100,7 +101,7 @@ test('every recorded instrument has complete native-accessible assets and uses t
     return response({status:0,ok:false,arrayBuffer:async()=>file.buffer.slice(file.byteOffset,file.byteOffset+file.byteLength)});
   });
   for(const [name,samples] of Object.entries(bank)) {
-    assert.ok(INSTRUMENTS[name],name);
+    assert.ok(INSTRUMENTS[name] || ['Harmonica','Hammered Dulcimer','Vibraphone'].includes(name),name);
     const loaded=await loadRecordedSamples({...options,urls:samples.urls,baseUrl:`/samples/${samples.folder}/`});
     assert.equal(Object.keys(loaded).length,Object.keys(samples.urls).length,name);
   }
@@ -126,7 +127,7 @@ test('playback hook requests sounding pitches from both staves, chords and trans
   assert.deepEqual(requested,[{name:'Piano',notes:['A#3','D4','F4','A#2'],signal}]);
 });
 
-test('all synthetic winds avoid the whistling effects chain, soprano sheng stays unchanged, and other families retain their effects',()=>{
+test('remaining synthetic fallback voices retain their effects',()=>{
   const {INSTRUMENTS}=loadModule('src/music/instruments.ts');
   const nodes=[],connections=[],attacks=[];
   const destination={name:'destination'};

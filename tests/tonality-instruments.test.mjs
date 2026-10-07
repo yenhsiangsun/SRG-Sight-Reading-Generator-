@@ -11,7 +11,7 @@ test('every instrument can generate sharp, flat, natural and open-key scores thr
   let state = [], cursor = 0, groupDraw = 0;
   const react = {useState(initial) {
     const index = cursor++;
-    if (!(index in state)) state[index] = initial;
+    if (!(index in state)) state[index] = typeof initial === 'function' ? initial() : initial;
     return [state[index], next => {state[index] = typeof next === 'function' ? next(state[index]) : next;}];
   }};
   const hook = loadModule('src/hooks/useExercise.ts', 782, undefined, {
@@ -74,7 +74,7 @@ test('failed preview generation can be retried and restoring a saved score exits
   const state = [];
   const react = {useState(initial) {
     const index = cursor++;
-    if (!(index in state)) state[index] = initial;
+    if (!(index in state)) state[index] = typeof initial === 'function' ? initial() : initial;
     return [state[index], next => {state[index] = typeof next === 'function' ? next(state[index]) : next;}];
   }};
   const hook = loadModule('src/hooks/useExercise.ts', 782, undefined, {react}, {window: {matchMedia: () => ({matches: false})}});

@@ -1,13 +1,17 @@
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import {useSetupStepMotion} from '../hooks/useStudioMotion';
 import {StaffRangePicker} from './StaffRangePicker';
 import { useI18n } from '../i18n/context';
 import { words } from '../progress/words';
 import { instrumentLabel } from '../i18n/musicLabels';
 import type { MessageKey } from '../i18n/messages';
-import { INSTRUMENT_LIST } from '../music/instruments';
+import { INSTRUMENT_LIST, INSTRUMENTS } from '../music/instruments';
 import { useCompactScreen } from '../hooks/useCompactScreen';
 import { CLEFS, TIME_SIGNATURES, RANGE_OPTIONS, midiToNoteLabel } from '../exerciseConfig';
 import type { ExerciseSettings } from '../hooks/useExercise';
+import { InstrumentArtwork } from './InstrumentArtwork';
+import {KeySignaturePicker} from './KeySignaturePicker';
+import './InstrumentSelection.css';
 
 type Change = <K extends keyof ExerciseSettings>(key: K, value: ExerciseSettings[K]) => void;
 
@@ -20,7 +24,6 @@ const families: Record<string, MessageKey> = {
   國樂・吹管: 'cnWind',
   國樂・彈撥: 'cnPlucked',
   國樂・拉弦: 'cnBowed',
-  國樂・打擊: 'cnPercussion',
 };
 
 function Field<T extends string | number>({
@@ -98,21 +101,28 @@ export default function SetupPage({
   settings,
   change,
   onStart,
+  onStepChange,
+  initialStep = 0,
   error,
 }: {
   settings: ExerciseSettings;
   change: Change;
   onStart: () => void;
+  onStepChange?: (step: number) => void;
+  initialStep?: number;
   error: string;
 }) {
   const { locale, t } = useI18n();
   const w = (zh: string, en: string, ja: string) => words(locale, zh, en, ja);
   const compact = useCompactScreen();
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(initialStep);
+  const panel = useRef<HTMLElement>(null);
+  useSetupStepMotion(panel, step);
+  useEffect(() => { onStepChange?.(step); }, [step, onStepChange]);
   const [family, setFamily] = useState('all');
   const [search, setSearch] = useState('');
 
-  const chosen = INSTRUMENT_LIST.find(item => item.name === settings.instrument)!;
+  const chosen = {name: settings.instrument, ...INSTRUMENTS[settings.instrument]};
   const visible = INSTRUMENT_LIST.filter(
     item =>
       (family === 'all' || item.family === family) &&
@@ -123,11 +133,12 @@ export default function SetupPage({
   const levels = { Beginner: 'beginner', Intermediate: 'intermediate', Advanced: 'advanced' } as const;
 
   return (
-    <main className="setup-layout" id="main">
+    <main className={`setup-layout${step === 0 ? ' setup-layout--instruments' : ''}`} id="main">
       <aside className="setup-intro">
         <span className="eyebrow">{w('音樂練習室', 'PRACTICE STUDIO', '音楽練習室')}</span>
         <h1>{t('intro')}</h1>
         <p>{t('setupHelp')}</p>
+        <div className="instrument-intro-art"><InstrumentArtwork instrument={settings.instrument} /></div>
         <nav className="steps" aria-label={t('setup')}>
           {(['instruments', 'rangeStaff', 'challenge'] as const).map((key, index) => (
             <button
@@ -149,14 +160,28 @@ export default function SetupPage({
           </p>
         </div>
       </aside>
-      <section className="setup-panel" aria-labelledby="setup-title">
+      <section ref={panel} className="setup-panel" aria-labelledby="setup-title">
         <div className="panel-heading">
           <span className="step-caption">{w('步驟', 'STEP', 'ステップ')} 0{step + 1} / 03</span>
-          <h2 id="setup-title">{titles[step]}</h2>
+          <h2 id="setup-title" tabIndex={-1}>{titles[step]}</h2>
+          <div className="setup-progress" aria-hidden="true">
+            {[0, 1, 2].map(index => <span key={index} data-reached={index <= step} />)}
+          </div>
         </div>
         <div className="setup-content">
           {step === 0 && (
             <>
+              <div className="instrument-feature" aria-live="polite" aria-atomic="true">
+                <div className="instrument-feature-copy">
+                  <span className="eyebrow">{t(families[chosen.family])}</span>
+                  <h3>{instrumentLabel(chosen.name, locale)}</h3>
+                  <dl>
+                    <div><dt>{t('written')}</dt><dd>{midiToNoteLabel(chosen.min)} — {midiToNoteLabel(chosen.max)}</dd></div>
+                    <div><dt>{t('rangeStaff')}</dt><dd>{t(chosen.clef)}</dd></div>
+                  </dl>
+                </div>
+                <InstrumentArtwork instrument={settings.instrument} className="instrument-feature-art" />
+              </div>
               <div className="family-tabs" role="group" aria-label={t('instruments')}>
                 {['all', ...new Set(INSTRUMENT_LIST.map(item => item.family))].map(value => (
                   <button key={value} aria-pressed={family === value} onClick={() => setFamily(value)}>
@@ -166,12 +191,16 @@ export default function SetupPage({
               </div>
               <div className="instrument-search">
                 <label htmlFor="instrument-search">{t('search')}</label>
+                <div className="instrument-search-field">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m15.5 15.5 5 5" /></svg>
                 <input
                   type="search"
                   id="instrument-search"
                   value={search}
+                  placeholder={t('search')}
                   onChange={(e) => setSearch(e.target.value)}
                 />
+                </div>
               </div>
               <div className="instrument-grid">
                 {visible.map(item => (
@@ -181,6 +210,7 @@ export default function SetupPage({
                     aria-pressed={settings.instrument === item.name}
                     onClick={() => change('instrument', item.name)}
                   >
+                    <InstrumentArtwork instrument={item.name} className="instrument-card-art" />
                     <span className="instrument-family">
                       {t(families[item.family])}
                       <span className="selection-dot">{settings.instrument === item.name ? '✓' : ''}</span>
@@ -329,6 +359,7 @@ export default function SetupPage({
                 />
               </div>
               <p className="field-note">{t('rhythmDifficultyHelp')}</p>
+              <KeySignaturePicker value={settings.allowedKeySignatures} onChange={value=>change('allowedKeySignatures',value)}/>
               <div className="advanced-options">
                 <Toggle
                   title={words(locale,'演奏記號練習','Expression practice','演奏記号の練習')}

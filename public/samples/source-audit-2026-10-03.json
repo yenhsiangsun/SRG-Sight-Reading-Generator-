@@ -1,0 +1,169 @@
+{
+  "date": "2026-10-03",
+  "localOnly": true,
+  "testFlightUploaded": false,
+  "erhu": {
+    "verifiedAt": "2026-10-03",
+    "productionEligibleNewErhuBankFound": false,
+    "rejectedByUser": [
+      "AliExpress erhu",
+      "BISA Regular A4/E5",
+      "Freesound irzirgpznj 477169 practice recording"
+    ],
+    "nimeGestureDrivenErhu": {
+      "status": "audition only; audio reuse license unspecified",
+      "paper": "https://nime.org/proceedings/2025/nime2025_73.pdf",
+      "repository": "https://github.com/MINNE-WU/Gesture-Driven-Erhu",
+      "audioFolder": "https://drive.google.com/drive/folders/1nfLJV7vZKrvLfgblbxb4tgdb7sxVT08l?usp=sharing",
+      "creatorContactInPaper": [
+        "wwu252@connect.hkust-gz.edu.cn",
+        "hqu817@connect.hkust-gz.edu.cn"
+      ],
+      "licenseEvidence": "Paper CC BY 4.0. GitHub tree contains README.md and two .maxpat files only, with no LICENSE. README links to Drive dataset without license text. Drive contains two raw WAV files only, with no license file. Paper license cannot be presumed to cover these separate audio files.",
+      "recordingEvidence": "Paper section 3.1 describes original acoustic erhu improvisation in controlled environment; AT2020 and TOPPING CL101 microphones; range D4-D7. Source WAV actual header: IEEE float32 stereo 48000 Hz; both channels identical in first 54.61 seconds.",
+      "audioFiles": [
+        {
+          "name": "AT2020_48000_32bit_mono.wav",
+          "id": "1bHZHaext96Cp9T0bC_3LN-zUYEPHaGsS",
+          "size": 482728320
+        },
+        {
+          "name": "TOPPING_CL101_48000_32bit_mono.wav",
+          "id": "1WcK91x3_QR7QnXX-v_DZHrGSpQeY3Ft0",
+          "size": 482728320
+        }
+      ],
+      "localAuditions": [
+        {
+          "file": "gesture-erhu-AT2020-B4-original-note.wav",
+          "sourceStart": 12.85,
+          "sourceEnd": 17.1,
+          "processing": "crop and PCM16 mono conversion only; no tuning, loop, denoise or EQ"
+        },
+        {
+          "file": "gesture-erhu-AT2020-D4-original-note.wav",
+          "sourceStart": 28.775,
+          "sourceEnd": 29.8,
+          "processing": "crop and PCM16 mono conversion only; no tuning, loop, denoise or EQ"
+        }
+      ]
+    },
+    "ampleChinaErhu": {
+      "product": "https://www.amplesound.net/en/pro-pd.asp?id=41",
+      "terms": "https://amplesound.net/en/EULA-Ample.pdf",
+      "status": "normal retail license cannot embed individual sounds in app; prior express written permission required under section 6",
+      "contact": "service@amplesound.net",
+      "oemAvailability": "No public OEM pricing or offer verified; contact is only an option to request permission, not an existing grant."
+    },
+    "thaLoopsErhuShots": {
+      "product": "https://www.thaloops.com/erhu-shots/",
+      "status": "live-recorded one-shots in Shanghai, but official product FAQ explicitly forbids redistribution and repackaging",
+      "contact": "support@thaloops.com",
+      "oemAvailability": "No public OEM pricing or offer verified."
+    },
+    "excludedResearchSources": {
+      "CTIS": "https://huggingface.co/datasets/ccmusic-database/CTIS/blob/main/README.md - current official metadata CC BY-NC-ND 4.0; old MIT search listings are stale",
+      "ErhuPT": "https://huggingface.co/datasets/ccmusic-database/erhu_playing_tech - CC BY-NC-ND 4.0",
+      "ricemutt": "Freesound originals still Sampling+, despite aggregators incorrectly claiming CC0"
+    }
+  },
+  "chineseExpansion": {
+    "checkedOn": "2026-10-03",
+    "scope": "Additional freely redistributable recorded Chinese instruments and explicitly named recorded substitutes. Erhu is handled separately.",
+    "acceptedSubstitutes": [
+      {
+        "instrument": "Harmonica",
+        "suggestedFor": [
+          "Alto Sheng",
+          "Tenor Sheng",
+          "Bass Sheng"
+        ],
+        "source": "https://github.com/sgossner/VCSL",
+        "license": "CC0-1.0",
+        "evidence": "VCSL's own README explicitly permits software use, including commercial software, under CC0. Byte-identical Hohner Super64 normal-sustain WAVs were downloaded from the pinned source revision. Their scientific pitches were measured instead of trusting the source octave names.",
+        "limitations": "These are chromatic harmonica recordings. The lowest actual recorded C3 is repitched downward for Bass Sheng C2. They must not be described as authentic Sheng recordings."
+      },
+      {
+        "instrument": "Hammered Dulcimer",
+        "suggestedFor": [
+          "Yangqin"
+        ],
+        "source": "https://freesound.org/people/iternetcone/packs/19445/",
+        "license": "CC BY 4.0",
+        "evidence": "Every selected original sound page states 'I Sampled my Dulcimer.' and links CC BY 4.0. Seven isolated-note public HQ MP3 previews were downloaded. The selected roots are independently measured D4, E4, F#4, G4, A4, C5 and D5.",
+        "limitations": "A related struck-string instrument, not a Yangqin recording. Short natural decays, a single velocity, lossy previews and sympathetic strings remain audible characteristics."
+      },
+      {
+        "instrument": "Vibraphone",
+        "suggestedFor": [
+          "Yunluo"
+        ],
+        "source": "https://github.com/sgossner/VCSL",
+        "license": "CC0-1.0",
+        "evidence": "Six byte-identical hard-mallet v2 WAV recordings from the same pinned CC0 library. Scientific pitch roots A3, C4, G4, D5, A5 and E6 were checked against recorded fundamentals.",
+        "limitations": "A struck metal-bar instrument, not a small-gong/Yunluo recording. Lower bars have strong natural upper modes; overall resonance differs from a gong."
+      }
+    ],
+    "additionalSourcesReviewed": [
+      {
+        "instrument": "Accordion",
+        "source": "https://freepats.zenvoid.org/Organ/accordion.html",
+        "license": "CC0-1.0",
+        "decision": "Valid freely redistributable recorded source; not prepared",
+        "reason": "Primary page documents Jeff Stauffer recording a Hohner accordion in November 2023. The repository has 17 root recordings. Harmonica was selected as the current free-reed proxy with lower verified roots. No claim about Accordion waveform tuning or listening quality is made."
+      },
+      {
+        "instrument": "Mandolin",
+        "source": "https://freesound.org/people/Taku19810729/sounds/255837/",
+        "license": "CC0-1.0",
+        "decision": "Downloaded for analysis; not prepared",
+        "reason": "Five-second CDEFGABC scale has strong low-frequency rumble, quiet short notes and a much louder final handling transient. This was not selected as a replacement for a cleaner recorded guitar proxy."
+      },
+      {
+        "instrument": "Mandolin",
+        "source": "https://freesound.org/people/gollybob/sounds/413502/",
+        "license": "CC0-1.0",
+        "decision": "Downloaded for analysis; not prepared",
+        "reason": "Uploader describes tuning a Weber mandolin through auto tune. Analysis shows shifting pitches through the note decays; not a stable isolated-note bank."
+      },
+      {
+        "instrument": "Mandolin",
+        "source": "https://freesound.org/people/Department64/packs/29695/",
+        "decision": "Not prepared",
+        "reason": "Primary pack descriptions identify tailpiece strums and strings tapped or strummed with a smooth stone. These are experimental effects rather than a normal plucked multisample bank."
+      },
+      {
+        "instrument": "Sho",
+        "source": "https://freesound.org/people/Vrymaa/sounds/792664/",
+        "license": "CC0-1.0 as uploaded",
+        "decision": "Not prepared; recording origin remains unverified",
+        "reason": "Uploader describes sustained Sho notes and a stretched sound, but the description provides no recording-method/source chain. No claim is made that this is a verified acoustic recording or a complete isolated-note bank."
+      },
+      {
+        "instrument": "Pipa",
+        "source": "https://freesound.org/people/selfdestructbutton/sounds/569572/",
+        "license": "CC0-1.0 as uploaded",
+        "decision": "Excluded",
+        "reason": "Description explicitly identifies GarageBand output. This does not establish authorization to redistribute Apple's underlying instrument samples as a playable bank, and it is not a fresh acoustic recording."
+      },
+      {
+        "instrument": "Pipa",
+        "source": "https://freesound.org/people/hatchetgirl/sounds/204746/",
+        "license": "CC0-1.0 as uploaded",
+        "decision": "Not prepared",
+        "reason": "Primary description says a traditional Pipa is distorted and slowed to create a loop. This is processed rhythmic material rather than a clean isolated-note bank."
+      }
+    ],
+    "priorAudit": "../source-audit-2026-10-01.json",
+    "result": "No additional authentic isolated Chinese bank with clearly suitable redistribution rights was verified in this pass. Three actual recorded substitutes were prepared with their own names, sources and limitations. Existing approved Dizi/Guzheng recordings and the separately handled user-owned local Pipa were not replaced by this agent."
+  },
+  "recordedProxyReport": "chinese-expansion/source-report.json",
+  "westernCompletionReport": "western-completion/provenance.json",
+  "approvedSopranoShengPreserved": false,
+  "sopranoShengPlayback": {
+    "source": "Harmonica",
+    "kind": "recorded substitute",
+    "reason": "User requested the soprano Sheng also try the harmonica recording.",
+    "previousSynthesisRetainedInCode": true
+  }
+}

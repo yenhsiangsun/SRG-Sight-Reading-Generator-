@@ -34,3 +34,5 @@ key.properties
 *.aab
 *.ipa
 .tmp-*
+__pycache__/
+*.pyc

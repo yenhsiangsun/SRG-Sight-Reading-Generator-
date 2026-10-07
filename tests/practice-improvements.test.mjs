@@ -144,7 +144,7 @@ test('adaptive suggestions require three distinct reliable comparable scores and
 });
 
 test('saved preset and accepted suggestions preserve explicit BPM through the actual generation hook',()=>{
-  let state=[],cursor=0;const react={useState(initial){const i=cursor++;if(!(i in state))state[i]=initial;return [state[i],next=>{state[i]=typeof next==='function'?next(state[i]):next;}];}};
+  let state=[],cursor=0;const react={useState(initial){const i=cursor++;if(!(i in state))state[i]=typeof initial==='function'?initial():initial;return [state[i],next=>{state[i]=typeof next==='function'?next(state[i]):next;}];}};
   const hook=loadModule('src/hooks/useExercise.ts',71,undefined,{react},{window:{matchMedia:()=>({matches:false})}});
   const render=()=>{cursor=0;return hook.useExercise();};
   for(const bpm of [240,320,400]){

@@ -76,7 +76,7 @@ test('explicit fixed staves override automatic pipa behavior; legacy scores and 
 test('selecting pipa defaults to mixed staff, generates one staff with harmony, and saves/restores the choice',()=>{
   assert.ok(CLEFS.includes('mixedStaff'));assert.equal(INSTRUMENTS.Pipa.clef,'mixedStaff');
   const state=[];let cursor=0;
-  const react={useState(initial){const index=cursor++;if(!(index in state))state[index]=initial;return [state[index],next=>{state[index]=typeof next==='function'?next(state[index]):next;}];}};
+  const react={useState(initial){const index=cursor++;if(!(index in state))state[index]=typeof initial==='function'?initial():initial;return [state[index],next=>{state[index]=typeof next==='function'?next(state[index]):next;}];}};
   const hook=loadModule('src/hooks/useExercise.ts',829,undefined,{react},{window:{matchMedia:()=>({matches:false})}});
   const render=()=>{cursor=0;return hook.useExercise({tonic:'C',scaleId:'major'});};
   render().change('instrument','Pipa');render().change('difficulty','Advanced');

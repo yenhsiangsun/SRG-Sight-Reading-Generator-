@@ -1,0 +1,113 @@
+/* Instrument gallery: warm paper, gentle illustrated portraits and clear selection. */
+.instrument-artwork {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  mix-blend-mode: multiply;
+}
+.studio-app[data-layout] .setup-layout.setup-layout--instruments { grid-template-columns: minmax(250px, .68fr) minmax(0, 1.65fr); gap: 36px; padding-top: 38px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-intro {
+  background: var(--theme-background);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 22px 4px;
+  color: var(--theme-page-text);
+}
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-intro > .eyebrow,
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-summary .eyebrow { color: var(--theme-primary-ink); letter-spacing: .17em; font-size: 10px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-intro h1 { color: var(--theme-page-text); font-size: clamp(27px, 2.5vw, 36px); line-height: 1.7; margin: 20px 0 15px; letter-spacing: .04em; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-intro > p { color: var(--theme-muted); font-size: 13px; line-height: 1.9; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-intro-art { width: 175px; margin: 14px auto 6px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .steps { gap: 11px; margin: 25px 0; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .steps button { color: var(--theme-muted); min-height: 44px; font-size: 13px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .steps button.current { color: var(--theme-primary-ink); }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .steps button > span { border-color: var(--theme-line); color: var(--theme-muted); border-radius: 50%; width: 32px; height: 32px; font-size: 11px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .steps button.current > span { background: var(--theme-primary); color: var(--theme-primary-text); border-color: var(--theme-primary); }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-summary { border-color: var(--theme-line); padding-top: 22px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-summary strong { color: var(--theme-page-text); font-family: 'Noto Serif TC', 'PMingLiU', Georgia, serif; font-size: 19px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-summary p { color: var(--theme-muted); line-height: 1.8; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-panel { border-radius: 5px; box-shadow: 0 12px 40px -26px color-mix(in srgb, var(--theme-primary) 30%, transparent); }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .panel-heading { padding: 30px 30px 24px; border-bottom: 1px solid var(--theme-line); }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .step-caption { color: var(--theme-muted); font-size: 10px; letter-spacing: .15em; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .panel-heading h2 { font-family: 'Noto Serif TC', 'PMingLiU', Georgia, serif; font-weight: 500; font-size: clamp(23px, 2vw, 28px); letter-spacing: .045em; margin-top: 9px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-content { padding: 24px 30px 22px; }
+.setup-layout--instruments .instrument-feature { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 25px; margin-bottom: 24px; background: var(--theme-soft); border: 1px solid var(--theme-line); border-radius: 3px; min-height: 151px; }
+.setup-layout--instruments .instrument-feature-copy { min-width: 0; }
+.setup-layout--instruments .instrument-feature .eyebrow { color: var(--theme-muted); font-size: 10px; letter-spacing: .1em; }
+.setup-layout--instruments .instrument-feature h3 { font-family: 'Noto Serif TC', 'PMingLiU', Georgia, serif; color: var(--theme-text); font-size: 23px; font-weight: 500; margin: 9px 0 14px; overflow-wrap: anywhere; }
+.setup-layout--instruments .instrument-feature dl { display: flex; gap: 24px; flex-wrap: wrap; margin: 0; }
+.setup-layout--instruments .instrument-feature dl > div { display: grid; gap: 5px; }
+.setup-layout--instruments .instrument-feature dt { color: var(--theme-muted); font-size: 10px; }
+.setup-layout--instruments .instrument-feature dd { color: var(--theme-text); font-size: 12px; margin: 0; }
+.setup-layout--instruments .instrument-feature-art { flex: 0 0 112px; width: 112px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .family-tabs { gap: 4px; border: 0; margin-bottom: 18px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .family-tabs button { min-height: 44px; padding: 9px 12px; margin: 0; border: 1px solid transparent; border-radius: 3px; font-size: 12px; background: transparent; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .family-tabs button[aria-pressed=true] { background: var(--theme-primary); color: var(--theme-primary-text); border-color: var(--theme-primary); }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .family-tabs button:hover:not([aria-pressed=true]) { background: var(--theme-soft); }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-search { margin: 18px 0 20px; }
+.setup-layout--instruments .instrument-search-field { position: relative; min-width: 0; }
+.setup-layout--instruments .instrument-search-field > svg { position: absolute; top: 15px; left: 15px; width: 19px; height: 19px; fill: none; stroke: var(--theme-muted); stroke-width: 1.5; pointer-events: none; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-search label { color: var(--theme-muted); font-size: 11px; font-weight: 400; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-search input { min-height: 48px; border-radius: 3px; padding: 12px 16px 12px 44px; font-size: 13px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-search input::placeholder { color: var(--theme-muted); opacity: .75; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-height: 495px; padding: 3px; scrollbar-width: thin; scrollbar-color: var(--theme-line) transparent; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card { position: relative; display: flex; flex-direction: column; align-items: stretch; min-height: 190px; padding: 15px; border-radius: 3px; box-shadow: none; background: var(--theme-surface); transition: background .18s ease, border-color .18s ease, transform .18s ease; }
+.setup-layout--instruments .instrument-card-art { height: 116px; width: 132px; align-self: center; margin: 0 0 9px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card .instrument-family { font-size: 9px; letter-spacing: .045em; margin-bottom: 6px; line-height: 1.4; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card strong { font-family: 'Noto Serif TC', 'PMingLiU', Georgia, serif; font-size: 14px; font-weight: 500; margin-bottom: 5px; line-height: 1.65; overflow-wrap: anywhere; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card .instrument-range { font-size: 10px; letter-spacing: .03em; margin-top: auto; }
+.setup-layout--instruments .selection-dot { position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 19px; height: 19px; border-color: var(--theme-line); font-size: 10px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card.selected { border-color: var(--theme-primary-ink); background: var(--theme-soft); box-shadow: inset 0 0 0 1px var(--theme-primary-ink); }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card.selected .selection-dot { color: var(--theme-primary-text); border-color: var(--theme-primary); background: var(--theme-primary); }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card:hover { background: var(--theme-soft); border-color: var(--theme-primary-ink); box-shadow: none; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .field-note { font-size: 11px; line-height: 1.85; margin-top: 19px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-actions { padding: 18px 30px; background: var(--theme-surface); }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-actions button { min-height: 44px; border-radius: 3px; }
+.setup-layout--instruments button:focus-visible { outline: 2px solid var(--theme-primary-ink); outline-offset: 3px; }
+@media (max-width: 1000px) {
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments { grid-template-columns: minmax(210px, .62fr) minmax(0, 1.5fr); gap: 22px; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .panel-heading { padding-inline: 23px; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-content { padding-inline: 23px; }
+  .setup-layout--instruments .instrument-feature { padding: 19px; }
+}
+@media (max-width: 760px) {
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments { display: grid; grid-template-columns: 1fr; gap: 15px; padding: 20px 20px 32px; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-intro { position: static; padding: 6px 1px; margin: 0; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-intro h1 { font-size: 25px; margin: 9px 0; line-height: 1.6; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-intro-art { display: none; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .steps { display: flex; flex-direction: row; gap: 8px; margin: 14px 0 0; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .steps button { min-height: 44px; gap: 7px; font-size: 11px; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .steps button > span { width: 27px; height: 27px; flex-shrink: 0; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-summary { display: none; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); max-height: 495px; }
+  .setup-layout--instruments .instrument-feature { min-height: 132px; }
+  .setup-layout--instruments .instrument-feature-art { width: 96px; flex-basis: 96px; }
+}
+@media (max-width: 540px) {
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments { padding: 18px 14px 28px; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .panel-heading { padding: 22px 18px 19px; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-content { padding: 19px 15px; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; max-height: 52vh; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card { min-height: 186px; padding: 13px 11px; }
+  .setup-layout--instruments .instrument-card-art { width: 116px; height: 105px; max-width: 100%; }
+  .setup-layout--instruments .instrument-feature { padding: 16px; gap: 10px; }
+  .setup-layout--instruments .instrument-feature h3 { font-size: 20px; }
+  .setup-layout--instruments .instrument-feature dl { gap: 12px; }
+  .setup-layout--instruments .instrument-feature-art { width: 77px; flex-basis: 77px; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .family-tabs { gap: 1px; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .family-tabs button { padding-inline: 9px; font-size: 11px; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-actions { padding: 15px 18px; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-intro h1 { font-size: 22px; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .family-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 3px 0 7px;
+    scrollbar-width: thin;
+  }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .family-tabs button { flex: 0 0 auto; }
+}
+@media (prefers-reduced-motion: reduce) { .studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card { transition: none; } }
+

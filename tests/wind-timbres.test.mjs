@@ -191,9 +191,9 @@ test('membrane dizi use actual C-dizi recordings, Xindi retains flute substituti
   assert.equal(f.loads.length, 12);
 });
 
-test('dizi bank routing leaves every other instrument playback profile and recording status unchanged', () => {
+test('Western banks stay independent of substitute routing', () => {
   const f = fixture(), dizi = new Set(diziRanges.map(([name]) => name));
-  for (const name of Object.keys(INSTRUMENTS).filter(name => !dizi.has(name))) {
+  for (const name of Object.keys(INSTRUMENTS).filter(name => !dizi.has(name) && !INSTRUMENTS[name].family.startsWith('國樂'))) {
     assert.equal(f.getPlaybackSoundProfile(name), name, name);
     assert.equal(f.hasSamples(name), Object.hasOwn(manifest, name), name);
   }

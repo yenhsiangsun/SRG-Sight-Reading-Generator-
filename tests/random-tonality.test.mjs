@@ -79,7 +79,7 @@ for (const [scaleId, pitchClasses] of [
   let cursor = 0;
   const react = {useState(initial) {
     const index = cursor++;
-    if (!(index in state)) state[index] = initial;
+    if (!(index in state)) state[index] = typeof initial === 'function' ? initial() : initial;
     return [state[index], next => {state[index] = typeof next === 'function' ? next(state[index]) : next;}];
   }};
   const hook = loadModule('src/hooks/useExercise.ts', 829, undefined, {react}, {window: {matchMedia: () => ({matches: false})}});
@@ -133,7 +133,7 @@ test('new exercises choose afresh, preserve snapshot tonality and leave instrume
   let cursor = 0;
   const react = {useState(initial) {
     const index = cursor++;
-    if (!(index in state)) state[index] = initial;
+    if (!(index in state)) state[index] = typeof initial === 'function' ? initial() : initial;
     return [state[index], next => {state[index] = typeof next === 'function' ? next(state[index]) : next;}];
   }};
   const hook = loadModule('src/hooks/useExercise.ts', 829, undefined, {react}, {window: {matchMedia: () => ({matches: false})}});

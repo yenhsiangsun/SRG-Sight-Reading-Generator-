@@ -6,40 +6,41 @@
 :root{font:16px/1.7 system-ui,sans-serif;color:#263e36;background:#f6f5f0}*{box-sizing:border-box}body{max-width:1100px;margin:auto;padding:36px 24px 100px}header{display:flex;justify-content:space-between;align-items:center;gap:16px}a{color:#315e4d}h1{font:500 clamp(30px,5vw,46px)/1.25 Georgia,serif;margin:32px 0 12px}h2{font-size:18px;margin:8px 0}p{margin:8px 0;color:#53665d}.kicker{font-size:12px;letter-spacing:.2em;color:#687b6e}button,select{font:inherit;border:1px solid #cbd6cf;border-radius:9px;padding:9px 16px;background:#fff;color:#284b3e;cursor:pointer}button:hover{background:#eef3ed}button:focus-visible,select:focus-visible{outline:3px solid #73967b;outline-offset:3px}.primary{background:#2f5948;color:#fff}.primary:hover{background:#254838}nav{display:flex;gap:10px;flex-wrap:wrap;margin:28px 0 20px}nav button[aria-pressed=true]{background:#2f5948;color:white}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}.card{background:white;border:1px solid #d9dfd7;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:8px}.card.playing{outline:2px solid #6b9378}.meta{font-size:12px;color:#647167}.badge{font-size:12px;color:#325c45;background:#eef4e9;padding:3px 8px;border-radius:6px;align-self:flex-start}.pending{color:#746745;background:#f4f0e5}.card p{font-size:14px;flex:1}.actions{display:flex;gap:8px;margin-top:12px}.player{position:sticky;top:12px;z-index:2;display:flex;align-items:center;gap:16px;background:#e8eee6;border:1px solid #bdcabb;border-radius:12px;padding:14px 18px;margin:24px 0;box-shadow:0 8px 22px #324c3910}.player p{flex:1;margin:0;color:#284936}details{border-top:1px solid #d8ded3;padding-top:18px;margin-top:30px}summary{cursor:pointer}pre{font:12px/1.6 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere}footer{margin-top:28px;font-size:13px;color:#68786d}@media(max-width:600px){body{padding:22px 16px 60px}header{font-size:14px}.player{top:4px}.cards{grid-template-columns:1fr}}
 </style>
 <header><span class="kicker">SIGHT READING / SOUND ROOM</span><a href="/">回到練習室 ↗</a></header>
-<h1>聽見樂器本來的聲音。</h1>
-<p>新版錄音已套用到練習室。這裡可以逐一比較短句與長音，並查看哪些樂器仍待補齊。</p>
+<h1>逐一聽，選出合適的聲音。</h1>
+<p>這次更新已套用到本機練習室。可以比較短句與長音；替代音色會寫出真正的錄音樂器，仍待補齊專屬音源。</p>
 <p id="summary" class="meta"></p>
 <div class="player"><p id="status" role="status" aria-live="polite">選一件樂器，開始試聽。</p><button id="stop">■ 停止</button></div>
 <nav aria-label="篩選音色"><button data-filter="updated" aria-pressed="true">這次更新</button><button data-filter="all" aria-pressed="false">全部樂器</button><button data-filter="pending" aria-pressed="false">尚待補齊</button></nav>
 <main id="cards" class="cards"></main>
-<footer>取樣保留原樂器的錄音特徵；未錄到的音高仍需移調，不等於每個音、每種演奏法都有獨立錄音。<br><a href="/samples/CREDITS.txt">音源作者與來源</a> · <a href="/samples/source-audit-2026-10-01.json">完整搜尋紀錄</a></footer>
-<details><summary>音訊檢查</summary><p>逐一檢查全部 62 個樂器設定的低、中、高音與短音。離線計算，不會同時播放。</p><button id="verify">檢查全部樂器</button><pre id="results"></pre></details>
+<footer>取樣保留原樂器的錄音特徵；未錄到的音高仍需移調，不等於每個音、每種演奏法都有獨立錄音。<br><a href="/samples/CREDITS.txt">音源作者與來源</a> · <a href="/samples/source-audit-2026-10-03.json">完整搜尋紀錄</a></footer>
+<details><summary>音訊檢查</summary><p>逐一檢查全部樂器設定的低、中、高音與短音。離線計算，不會同時播放。</p><button id="verify">檢查全部樂器</button><pre id="results"></pre></details>
 <script type="module">
 import * as Tone from 'tone';
 import {INSTRUMENTS,INSTRUMENT_LIST} from './src/music/instruments.ts';
-import {createPlaybackInstrument,getPlaybackSoundProfile,hasSamples} from './src/audio/createPlaybackInstrument.ts';
-import manifest from './src/audio/sampleManifest.json';
-const updated=new Set(['Erhu','Guzheng','Bangdi G','Qudi C','Viola','Cello','Bassoon','French Horn','Trombone']);
+import {createPlaybackInstrument,getPlaybackSoundProfile,hasSamples,isRecordedSubstitute} from './src/audio/createPlaybackInstrument.ts';
+import {audioSourceLabel} from './src/i18n/audioLabels.ts';
+const updated=new Set(['Erhu','Violin','Piano','Double Bass','Guitar','Flute','Clarinet','Oboe','Bassoon','French Horn','Trombone','Trumpet','Tuba','Alto Saxophone','Tenor Saxophone','Sheng','Alto Sheng','Tenor Sheng','Bass Sheng','Gaohu','Zhonghu','Soprano Suona','Alto Suona','Tenor Suona','Bass Suona','Suona C','Suona G','Guan G','Alto Guan','Bass Guan','Liuqin','Zhongruan','Daruan','Sanxian','Yangqin']);
 const localPipa=Boolean(import.meta.env.VITE_LOCAL_PIPA);
 const descriptions={
  'Bangdi G':'改用真正的竹笛錄音，與曲笛共用 C 調笛音源。極高音仍須較大幅度移調。',
  'Qudi C':'15 個竹笛錄音音高，保留笛膜的自然音色。未錄到的半音以鄰近錄音移調。',
- Erhu:'已換成 Berklee BISA 的二胡實錄，移除 AliExpress 音源。以 A4、E5 兩個錄音音高播放；其他音需移調，高低音區仍有限制。',
+ Erhu:'停用被你否定的二胡錄音，暫借小提琴實錄供練習。這是替代音色，尚未找到品質及 App 散布授權都合適的二胡音庫。',
  Guzheng:'15 個獨立撥弦錄音，保留自然起音與衰減。最高音區仍由鄰近錄音移調。',
  Viola:'16 個中提琴獨奏錄音，取代先前的合奏聲音。長音保留自然弓聲。',
  Cello:'16 個大提琴獨奏錄音，取代先前的合奏聲音。減少跨音域移調。',
  Bassoon:'保留現有錄音，新增最低音與低音區取樣，減少低音變形。',
  'French Horn':'保留現有錄音，補入 F4、A4，讓中高音區的轉換更自然。',
  Trombone:'保留現有錄音，補入高音 C5，改善先前高音必須大幅移調的問題。',
- Pipa:localPipa?'此電腦沿用你已試過的九音錄音。尚無 App 散布授權，因此打包版仍是較舊的兩音取樣。':'仍是舊版兩音錄音，跨音域音色不足；這次未找到品質及授權都合適的替代品。',
+ Pipa:localPipa?'此電腦沿用你已接受的九音琵琶錄音。尚無隨 App 散布授權，打包版暫借木吉他實錄。':'打包版暫借木吉他實錄，停用較舊的兩音琵琶取樣；專屬琵琶音源仍待取得合適授權。',
  Voice:'目前是一個母音錄音再移調，尚非完整音域、多種人聲的錄音庫。',
  'Xindi G':'暫時沿用長笛錄音。尚未找到可直接採用的新笛／大笛音庫。',
- Sheng:'保留你之前接受的音色。本次找到的笙錄音太短，尚不足以替換成可靠的長音取樣。',
+ Sheng:'依你的要求，高音笙也改用口琴實錄試聽，與其他笙類共用口琴音源。高音笙音域 G3–F♯6 完整保留；這是替代音色，並非真正笙錄音。',
 };
-const pending=p=>!hasSamples(p.name)||['Pipa','Xindi G'].includes(p.name);
+const pending=p=>!hasSamples(p.name)||isRecordedSubstitute(p.name);
 const status=document.querySelector('#status'),cards=document.querySelector('#cards'),results=document.querySelector('#results');
-const recorded=INSTRUMENT_LIST.filter(p=>hasSamples(p.name)&&p.name!=='Xindi G').length;
-document.querySelector('#summary').textContent=`本次更新 ${updated.size} 項 · ${recorded} 種樂器已有本身或同類錄音 · ${INSTRUMENT_LIST.length} 種可選樂器`;
+const recorded=INSTRUMENT_LIST.filter(p=>hasSamples(p.name)&&!isRecordedSubstitute(p.name)).length;
+const substitutes=INSTRUMENT_LIST.filter(p=>hasSamples(p.name)&&isRecordedSubstitute(p.name)).length;
+document.querySelector('#summary').textContent=`${recorded} 種本身或同類錄音 · ${substitutes} 種標明的實錄替代 · ${INSTRUMENT_LIST.length} 種可選樂器`;
 let voice=null,timer=null,request=0,controller=null,verifying=false;
 function stop(){request++;controller?.abort();controller=null;clearTimeout(timer);voice?.dispose();voice=null;document.querySelectorAll('.playing').forEach(el=>el.classList.remove('playing'));}
 document.querySelector('#stop').onclick=()=>{stop();status.textContent='已停止';};
@@ -65,10 +66,10 @@ function draw(filter){
  for(const p of choices){
   const card=document.createElement('article');card.className='card';
   const badge=document.createElement('span');badge.className='badge'+(pending(p)?' pending':'');
-  badge.textContent=updated.has(p.name)?'本次更新':p.name==='Xindi G'?'暫借長笛':p.name==='Pipa'?'待改善打包版':hasSamples(p.name)?'錄音音色':'目前仍為合成';
+  badge.textContent=isRecordedSubstitute(p.name)?'實錄替代 · '+audioSourceLabel(getPlaybackSoundProfile(p.name),'zh-TW'):hasSamples(p.name)?'錄音音色':'合成音色';
   const h=document.createElement('h2');h.textContent=p.zh;
   const meta=document.createElement('span');meta.className='meta';meta.textContent=p.family;
-  const description=document.createElement('p');description.textContent=descriptions[p.name]||(hasSamples(p.name)?'沿用已接入的真實樂器錄音，可直接在練習室播放。':'本次尚未找到乾淨、適合逐音播放且允許隨 App 散布的錄音；保留現有音色。');
+  const description=document.createElement('p');description.textContent=descriptions[p.name]||(isRecordedSubstitute(p.name)?'暫用'+audioSourceLabel(getPlaybackSoundProfile(p.name),'zh-TW')+'的真實錄音。演奏音高、樂器音域、譜表與指法仍按原樂器設定；高低音區可能因移調而改變音色。':hasSamples(p.name)?'使用真實樂器錄音，可直接在練習室播放。':'專屬實錄仍待補齊。');
   const actions=document.createElement('div');actions.className='actions';
   for(const [label,long] of [['▶ 短句',false],['♪ 長音',true]]){const button=document.createElement('button');button.textContent=label;button.className=long?'':'primary';button.setAttribute('aria-label',`${p.zh} ${long?'長音':'短句'}`);button.onclick=()=>play(p,long,card);actions.append(button);}
   card.append(badge,meta,h,description,actions);cards.append(card);

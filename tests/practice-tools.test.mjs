@@ -61,6 +61,26 @@ test('corrupt library entries do not hide valid scores; duplicates and capacity 
   assert.equal(library.readLibrary(JSON.stringify({version:1,scores:[],presets:[preset]})).presets.length,1);
 });
 
+test('retired instruments cannot return through saved scores or presets without losing other favorites',()=>{
+  const {INSTRUMENTS,INSTRUMENT_LIST}=loadModule('src/music/instruments.ts');
+  const {readLastPractice}=loadModule('src/practice/resume.ts');
+  const exercise=engine.generatePracticeExercise(opts);exercise.soundProfile='Sheng';
+  const study={id:'retained-score',created:1,bpm:72,settings,exercise};
+  const preset={id:'retained-preset',created:1,bpm:72,settings};
+  const retired=['Gehu','Bass Gehu','Yunluo'];
+  const oldScores=retired.map(instrument=>({...plain(study),id:instrument,
+    settings:{...settings,instrument},exercise:{...plain(exercise),soundProfile:instrument}}));
+  const oldPresets=retired.map(instrument=>({...plain(preset),id:instrument,settings:{...settings,instrument}}));
+  for(const instrument of retired){
+    assert.equal(Object.hasOwn(INSTRUMENTS,instrument),false);
+    assert.equal(INSTRUMENT_LIST.some(profile=>profile.name===instrument),false);
+  }
+  const restored=library.readLibrary(JSON.stringify({version:1,scores:[oldScores[0],study,...oldScores.slice(1)],presets:[...oldPresets,preset]}));
+  assert.deepEqual(plain(restored),{version:1,scores:[plain(study)],presets:[plain(preset)]});
+  for(const old of oldScores)assert.equal(readLastPractice(JSON.stringify({version:1,study:old,position:0})),null);
+  assert.ok(readLastPractice(JSON.stringify({version:1,study,position:0})));
+});
+
 test('loop timing follows eighth-note BPM and mixed-meter bar boundaries',()=>{
   const ex=engine.generatePracticeExercise({...opts,timeSignature:'3/8',mixedMeters:true});
   const window=loopWindow(ex,60,2,3);

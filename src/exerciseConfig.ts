@@ -19,11 +19,14 @@ export const KEY_SIGNATURES = [
   "E",
   "B",
   "F#",
+  "C#",
   "F",
   "Bb",
   "Eb",
   "Ab",
   "Db",
+  "Gb",
+  "Cb",
 ] as const;
 
 export const TIME_SIGNATURES = [

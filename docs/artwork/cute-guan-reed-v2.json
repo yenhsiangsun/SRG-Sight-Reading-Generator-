@@ -1,0 +1,15 @@
+{
+  "generator": "Built-in image_gen",
+  "created": "2026-10-07",
+  "file": "public/artwork/cute-guan-reed-v2.webp",
+  "subjects": [
+    "Guan G",
+    "Guan F",
+    "Guan A",
+    "Alto Guan",
+    "Bass Guan"
+  ],
+  "reference": "Existing cute-instruments-extra-v1.webp, row 3 column 1",
+  "prompt": "Use case: precise-object-edit.\nAsset type: transparent isolated instrument illustration for a music practice app.\nInput image is a 4-by-4 instrument illustration atlas. The edit target is ONLY the straight reddish-brown Guan pipe in row 3 column 1 (not any oboe, suona, flute or other instruments). Extract/recreate just this single cute Guan illustration as a standalone centered portrait on a square transparent background.\nPrimary edit: add a clearly visible traditional Chinese Guan double reed at its top blowing end. Show a broad pale honey tan cane reed, two flattened gently rounded blades meeting at a thin dark slit at the tip, gently widening toward top, narrowing into a dark red thread-wrapped binding at the base inserted into the tube. Reed protrudes prominently above the pipe, roughly 18 percent of total instrument height, and must remain recognisable at thumbnail size. Keep the original straight dark reddish wooden cylindrical tube, gold brass collars, cute small smiling face and blush, visible black fingerholes, subtle painted wood grain, warm hand-painted storybook style. A Guan has no flared bell.\nComposition: one complete vertical instrument from reed tip to lower end, filling about 90 percent canvas height, centered, generous empty transparent sides. No other instruments, no labels, no frame, no text, no background shadow or background rectangle. The tube bottom stays a small cylinder not a trumpet bell. Retain the current warm cute illustration style; change only the missing reed and necessary portrait framing. Actual transparent alpha background.",
+  "refinement": "Use case: precise-object-edit. Edit this transparent Chinese Guan instrument portrait. Fix ONLY the tan cane double reed at the very top. A real double reed has two blades layered FRONT AND BACK, not two side-by-side sticks. In this straight front view show ONE broad continuous flattened tan cane face: smoothly rounded nearly horizontal upper lip, tapering down into the existing red thread binding. Remove the long dark vertical center split completely. The front face is uninterrupted tan cane with subtle vertical grain. A very thin horizontal dark slit along the uppermost lip suggests the back blade behind it. Keep exact existing overall reed size, position, warm colors, red binding. Preserve all other pixels/appearance: wood pipe, proportions, brass collars, fingerholes, cute face, square composition. Actual transparent alpha background. Do not add anything else; no text."
+}

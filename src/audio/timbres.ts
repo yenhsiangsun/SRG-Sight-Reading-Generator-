@@ -43,14 +43,11 @@ export const TIMBRES = {
   gaohu: tone('高胡', [1, .75, .5, .21, .08, .03], .04, .12, .85, .1, -20),
   erhu: tone('二胡', [1, .56, .4, .21, .12, .04], .055, .17, .86, .15, -18),
   zhonghu: tone('中胡', [1, .58, .42, .16, .07, .03], .07, .2, .85, .18, -17),
-  gehu: tone('革胡', [1, .53, .29, .12, .04], .08, .2, .85, .2, -17),
-  bassGehu: tone('低音革胡', [1, .4, .18, .08, .03], .1, .24, .86, .22, -15),
-  yunluo: {...tone('雲鑼',[1],.001,1.7,0,.6,-21),fm:{harmonicity:1.414,modulationIndex:3}},
 } satisfies Record<string,Timbre>;
 export type TimbreId = keyof typeof TIMBRES;
 const direct: Partial<Record<Instrument,TimbreId>> = {
   Piano:'piano',Violin:'violin',Viola:'viola',Cello:'cello','Double Bass':'bass',Flute:'flute',Clarinet:'clarinet',Oboe:'oboe',Bassoon:'bassoon',Trumpet:'trumpet','French Horn':'horn',Trombone:'trombone',Tuba:'tuba','Alto Saxophone':'altoSax','Tenor Saxophone':'tenorSax',Guitar:'guitar','Bass Guitar':'electricBass',Voice:'voice',
-  Sheng:'sheng','Alto Sheng':'tenorSheng','Tenor Sheng':'tenorSheng','Bass Sheng':'bassSheng',Liuqin:'liuqin',Pipa:'pipa',Zhongruan:'zhongruan',Daruan:'daruan',Sanxian:'sanxian',Guzheng:'guzheng',Yangqin:'yangqin',Gaohu:'gaohu',Erhu:'erhu',Zhonghu:'zhonghu',Gehu:'gehu','Bass Gehu':'bassGehu',Yunluo:'yunluo',
+  Sheng:'sheng','Alto Sheng':'tenorSheng','Tenor Sheng':'tenorSheng','Bass Sheng':'bassSheng',Liuqin:'liuqin',Pipa:'pipa',Zhongruan:'zhongruan',Daruan:'daruan',Sanxian:'sanxian',Guzheng:'guzheng',Yangqin:'yangqin',Gaohu:'gaohu',Erhu:'erhu',Zhonghu:'zhonghu',
 };
 export function getTimbreId(instrument:string):TimbreId {
   const selected=direct[instrument as Instrument];

@@ -38,11 +38,10 @@ test('single melody grand staff preserves timing and never schedules simultaneou
     for(let i=1;i<played.length;i++)assert.ok(played[i].time>=played[i-1].time+played[i-1].duration-1e-8);
   }
 });
-test('instrument choices exclude duplicate tuning variants and preserve source name',()=>{
+test('instrument choices exclude duplicate tuning variants',()=>{
   const {INSTRUMENT_LIST}=loadModule('src/music/instruments.ts');
   assert.equal(INSTRUMENT_LIST.filter(p=>p.name.startsWith('Bangdi ')).length,1);
   assert.equal(INSTRUMENT_LIST.filter(p=>p.name.startsWith('Qudi ')).length,1);
-  assert.ok(INSTRUMENT_LIST.some(p=>p.note.includes('香港中樂團')));
   for(const p of INSTRUMENT_LIST)assert.ok(!p.family.includes('中樂'));
 });
 test('every mapped recording is bundled and is not a missing-file response',()=>{

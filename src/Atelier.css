@@ -1,0 +1,180 @@
+/* The accepted warm studio design is shared by every page. */
+.studio-app[data-design="atelier"] {
+  background: var(--theme-background);
+}
+.studio-app[data-design="atelier"] > .header {
+  background: var(--theme-surface);
+  border-bottom: 1px solid var(--theme-line);
+  box-shadow: none;
+}
+.studio-app[data-design="atelier"] .header .brand {
+  font-family: Georgia, 'Noto Serif TC', serif;
+  font-weight: 400;
+  letter-spacing: .025em;
+}
+.studio-app[data-design="atelier"] .header .brand-mark {
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--theme-line);
+  box-shadow: inset 0 0 0 3px var(--theme-surface);
+}
+.studio-app .atelier-home {
+  max-width: 1344px;
+  padding: 31px 36px 0;
+  color: var(--theme-page-text);
+}
+.atelier-home .home-heading { margin-bottom: 25px; }
+.atelier-home .home-heading h1 { font-size: 20px; font-weight: 450; }
+.atelier-home .home-date { font-size: 11px; }
+.studio-app .atelier-home .atelier-hero {
+  min-height: 460px;
+  border-radius: 8px;
+  border: 1px solid #d7c7b3;
+  background: #f9f2e6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  isolation: isolate;
+  box-shadow: 0 12px 32px #79523108;
+}
+.atelier-hero-image {
+  position: absolute;
+  inset: -8% 0 auto auto;
+  width: auto;
+  max-width: none;
+  height: 130%;
+  /* Keep the original close-up warmth while the reframed pipa fits top to base. */
+  object-fit: contain;
+  object-position: right center;
+  mask-image: linear-gradient(to right, transparent, #000 32%);
+  z-index: -1;
+}
+.studio-app .atelier-home .atelier-hero::before {
+  inset: 0;
+  z-index: 0;
+  opacity: 1;
+  background: linear-gradient(90deg, #f9f2e6 0%, #f9f2e6f7 23%, #f9f2e6b8 43%, #f9f2e619 62%, transparent 75%);
+  pointer-events: none;
+}
+.studio-app .atelier-home .hero-content {
+  width: 54%;
+  padding: 42px 48px 35px;
+  color: #392a20;
+}
+.atelier-home .studio-pill {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  font-size: 10px;
+  color: #795231;
+  letter-spacing: .15em;
+}
+.atelier-home .studio-pill i { width: 20px; height: 1px; border-radius: 0; background: #a17b50; }
+.studio-app .atelier-home .hero-content h2 {
+  font-family: 'Noto Serif TC', 'Songti TC', 'PMingLiU', Georgia, serif;
+  font-size: clamp(31px, 3.1vw, 46px);
+  font-weight: 450;
+  line-height: 1.55;
+  letter-spacing: .035em;
+  margin: 23px 0 18px;
+  color: #392a20;
+}
+.atelier-home .hero-content h2 em { color: #795231; }
+.atelier-home .hero-content p { color: #705e4f; max-width: 370px; font-size: 13px; line-height: 1.95; }
+.atelier-home .studio-cta {
+  padding: 14px 23px;
+  min-height: 48px;
+  border-radius: 4px;
+  gap: 38px;
+  background: var(--theme-primary);
+  color: var(--theme-primary-text);
+  box-shadow: 0 5px 15px #60422215;
+}
+.atelier-home .studio-cta:hover { background: var(--theme-primary-hover); }
+.atelier-home .hero-specs { margin-top: 25px; color: #705e4f; font-size: 10px; gap: 25px; flex-wrap: wrap; }
+.atelier-home .hero-specs b { color: #705e4f; font-weight: 450; }
+.atelier-hero-signature {
+  position: absolute;
+  bottom: 24px;
+  right: 30px;
+  display: grid;
+  justify-items: end;
+  gap: 7px;
+  color: #fff8eb;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-shadow: 0 1px 6px #392a2060;
+}
+.atelier-hero-signature i { width: 32px; height: 1px; background: currentColor; margin-bottom: 4px; }
+.atelier-hero-signature span { font-size: 8px; letter-spacing: .25em; }
+.atelier-content-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr); gap: 26px; margin-top: 28px; align-items: start; }
+.atelier-daybook { display: grid; gap: 20px; min-width: 0; }
+.atelier-home .journey-card { border-radius: 8px; box-shadow: none; padding: 27px 30px 23px; background: var(--theme-surface); border-color: var(--theme-line); }
+.atelier-home .section-title h2 { font-family: 'Noto Serif TC', 'Songti TC', Georgia, serif; font-size: 22px; font-weight: 450; }
+.atelier-home .soft-label { color: var(--theme-muted); background: transparent; padding: 0; border: 0; font-size: 9px; }
+.atelier-home .week-days { gap: 12px; margin: 23px 0; }
+.atelier-home .week-days b { background: var(--theme-soft); border-color: var(--theme-line); }
+.atelier-home .week-days .day-complete b { background: var(--theme-primary); color: var(--theme-primary-text); }
+.atelier-home .week-days .day-today b { background: var(--theme-accent-soft); color: var(--theme-primary-ink); }
+.atelier-home .journey-footer { flex-wrap: wrap; gap: 8px; }
+.atelier-home .note-companion { border-radius: 8px; box-shadow: none; padding: 25px 26px 20px; background: var(--theme-surface); border-color: var(--theme-line); }
+.atelier-home .note-companion h2 { font-family: 'Noto Serif TC', 'Songti TC', Georgia, serif; font-size: 21px; font-weight: 450; }
+.atelier-home .companion-portrait { height: 175px; }
+.atelier-home .note-companion__tip { min-height: 60px; border-radius: 6px; background: var(--theme-soft); }
+.atelier-home .note-companion__tip::before { background: var(--theme-soft); }
+.atelier-home .resume-practice { margin: 0; border-radius: 8px; box-shadow: none; background: var(--theme-surface); border-color: var(--theme-line); }
+.atelier-home .home-bottom-note { margin-top: 30px; color: var(--theme-page-muted); }
+.studio-app[data-layout="compact"] .atelier-home { padding: 25px 32px 0; }
+.studio-app[data-layout="compact"] .atelier-home .atelier-hero { min-height: 400px; }
+.studio-app[data-layout="compact"] .atelier-home .hero-content { padding: 34px 38px 30px; }
+.studio-app[data-layout="compact"] .atelier-home .hero-content h2 { font-size: clamp(29px, 3vw, 39px); }
+.studio-app[data-layout="comfortable"] .atelier-home .hero-content { padding: 44px 48px 36px; }
+.studio-app[data-layout="comfortable"] .atelier-home .hero-content h2 { font-size: clamp(34px, 3.2vw, 49px); }
+@media (max-width: 1000px) {
+  .studio-app[data-layout] .atelier-home { padding: 26px 24px 0; }
+  .studio-app[data-layout] .atelier-home .hero-content { width: 58%; padding: 35px 30px; }
+  .atelier-content-grid { grid-template-columns: minmax(0, 1.3fr) minmax(270px, 1fr); gap: 20px; }
+  .atelier-home .journey-card { padding: 24px; }
+}
+@media (max-width: 760px) {
+  .studio-app[data-layout] .atelier-home { padding: 24px 20px 0; }
+  .atelier-content-grid { grid-template-columns: minmax(0, 1fr); }
+  .studio-app[data-layout] .atelier-home .atelier-hero { min-height: 510px; }
+  .studio-app[data-layout] .atelier-home .hero-content { width: 70%; padding: 30px; }
+  .studio-app .atelier-home .atelier-hero::before { background: linear-gradient(90deg, #f9f2e6fa, #f9f2e6e8 36%, #f9f2e6a8 58%, transparent 100%); }
+  .atelier-home .journey-card { padding: 23px; }
+  .atelier-home .home-heading { gap: 20px; }
+}
+@media (max-width: 520px) {
+  .studio-app[data-layout] .atelier-home { padding: 22px 16px 0; }
+  .atelier-home .home-heading h1 { font-size: 17px; }
+  .atelier-home .home-date { display: none; }
+  .studio-app[data-layout] .atelier-home .atelier-hero { min-height: 0; justify-content: flex-start; }
+  .atelier-hero-image {
+    position: relative;
+    inset: auto;
+    order: 2;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 6 / 5;
+    /* Crop only the empty left wall; retain the entire vertical composition. */
+    object-fit: cover;
+    object-position: right center;
+    mask-image: linear-gradient(to bottom, transparent, #000 7%);
+    z-index: 0;
+  }
+  .studio-app .atelier-home .atelier-hero::before { display: none; }
+  .studio-app[data-layout] .atelier-home .hero-content { order: 1; width: 100%; padding: 30px 24px 12px; }
+  .studio-app[data-layout] .atelier-home .hero-content h2 { font-size: 30px; margin: 20px 0 15px; }
+  .atelier-home .hero-content p { font-size: 12px; max-width: 300px; }
+  .atelier-home .studio-cta { margin-top: 20px; }
+  .atelier-home .hero-specs { gap: 17px; margin-top: 20px; }
+  .atelier-hero-signature { right: 20px; bottom: 20px; font-size: 9px; z-index: 1; }
+  .atelier-home .section-title { align-items: start; gap: 16px; }
+  .atelier-home .section-title h2 { font-size: 20px; }
+  .atelier-home .week-days { gap: 6px; }
+  .atelier-home .week-days b { width: 32px; height: 32px; }
+}
+
+

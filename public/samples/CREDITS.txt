@@ -63,7 +63,8 @@ Recorded-bank update (2026-10-01; see each folder's provenance.json):
   Upper Bangdi registers require repitching beyond the recorded range.
   Metadata, individual source URLs and hashes: dizi-recorded/provenance.json.
 
-- Erhu replacement (2026-10-02): Berklee Intersectional Soundbox Archive (BISA),
+- Archived, rejected Erhu source (inactive as of 2026-10-03):
+  Berklee Intersectional Soundbox Archive (BISA),
   Chinese Erhu Sample Pack (2025). Instrumentalist: Yu Chun Chan.
   Recording engineer: Josefina Ugarte. Editor: Asher Deverna.
   Sources: "Regular (A4)" and "Regular (E5)":
@@ -71,7 +72,9 @@ Recorded-bank update (2026-10-01; see each folder's provenance.json):
   https://remix.berklee.edu/bisa-chinese-erhu-oneshots-vibrato/8/
   Collection declares Creative Commons Attribution (CC BY); its public overview
   does not specify a license version: https://remix.berklee.edu/bisa-chinese-erhu/
-  Original takes are retained for audition. Playback copies are tuned,
+  Original takes and processed copies are retained as historical assets only.
+  App playback and the audition UI no longer select this rejected source.
+  Historical copies were tuned,
   level balanced and crossfaded to 24 seconds using the recorded sustain.
   Two recorded anchors only; other pitches are repitched. High/low registers,
   expressive legato and alternative articulations remain limited.
@@ -107,3 +110,47 @@ No endorsement by any performer, author, institution or publisher is implied.
 The complete search record, including unavailable instruments and rejected
 licenses/recordings, is source-audit-2026-10-01.json. The local Pianobook Pipa
 preview is still development-only and is NOT bundled in release builds.
+
+Recorded substitutes added locally on 2026-10-03:
+- Harmonica and Vibraphone: Versilian Studios LLC, VCSL, CC0-1.0.
+  https://github.com/sgossner/VCSL/tree/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e
+  Harmonica: Hohner Super64 Normal, 13 genuinely recorded roots C3-C7.
+  Vibraphone: Hard Mallets v2, 6 genuinely recorded roots A3-E6.
+  Converted to mono PCM16 44.1 kHz; onset/endpoint trimming and fades,
+  pitch-centre/level correction. Harmonica recorded sustain crossfaded to 16s.
+- Hammered Dulcimer: iternetcone, Freesound pack 19445, CC BY 4.0.
+  https://freesound.org/people/iternetcone/packs/19445/
+  https://creativecommons.org/licenses/by/4.0/
+  Seven isolated recorded pitches D4-D5 from public HQ previews, converted
+  to mono PCM16 44.1 kHz, cropped, faded, pitch-centre and level corrected.
+  The problematic F recording was excluded. Natural decay is preserved.
+  No endorsement by the author is implied.
+  Per-root provenance and exact processing: chinese-expansion/source-report.json.
+
+Chinese instrument routing is explicitly labelled as a SUBSTITUTE:
+  Erhu/Gaohu -> Violin; Zhonghu -> Viola.
+  Soprano/Alto/Tenor/Bass Sheng -> Harmonica (local trial requested by user).
+  The previous soprano Sheng synthesis remains in the fallback factory,
+  but is not selected during this recorded-harmonica trial.
+  High Suona/Guan -> Oboe; low Suona/Guan -> Bassoon; Alto Guan -> Clarinet.
+  Liuqin/Ruan/Sanxian -> Guitar; Yangqin -> Hammered Dulcimer.
+  Xindi -> Flute. Pipa keeps the approved, development-only local library;
+  packaged playback now explicitly uses recorded Guitar, not the older two-root
+  recital slices. These substitutes are NOT authentic recordings of those
+  Chinese instruments. Written/sounding ranges and transposition are unchanged.
+
+Western coverage and sustain update (2026-10-03):
+  55 genuine additional roots from University of Iowa MIS and VCSL.
+  https://theremin.music.uiowa.edu/MIS.html (unrestricted music/project use)
+  VCSL: Versilian Studios LLC, CC0-1.0, pinned revision c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e.
+  139 existing wind/sax recordings retain the source attribution above
+  (tonejs-instruments CC BY 3.0, VSCO 2 CE CC0, Iowa MIS).
+  PCM16 mono 44.1 kHz; trim/fade, pitch-centre and level correction;
+  recorded sustain crossfaded to 18 seconds, not a new live performance.
+  Piano A0 uses a real Knight upright (other roots retain the grand piano);
+  new Guitar notes retain natural decay. No newly synthesized roots.
+  Active Western catalog: 392 source pitches across 17 instruments.
+  Unrecorded pitches still use nearest-root repitching (at most five semitones
+  for configured Western ranges). Viola, Cello and Bass Guitar banks retained.
+  Exact sources, hashes, processing, exclusions and limitations:
+  western-completion/provenance.json and western-source-report.json.

@@ -1,0 +1,59 @@
+/* A quiet paper-like entrance; the header and notation geometry stay still. */
+.studio-app[data-design="atelier"] :is(.studio-home, .setup-panel) {
+  animation: none;
+}
+
+.studio-app[data-design="atelier"] .setup-panel {
+  scroll-margin-top: calc(var(--safe-top, 0px) + 20px);
+}
+
+.setup-progress {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  max-width: 156px;
+  margin-top: 18px;
+  height: 2px;
+}
+.setup-progress > span {
+  position: relative;
+  flex: 1;
+  background: var(--theme-line);
+  overflow: hidden;
+}
+.setup-progress > span::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #856445, #bc9665);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 360ms cubic-bezier(.22, 1, .36, 1);
+}
+.setup-progress > span[data-reached="true"]::after { transform: scaleX(1); }
+
+.studio-app[data-design="atelier"] .steps button,
+.studio-app[data-design="atelier"] .steps button > span {
+  transition: color 240ms ease, background-color 240ms ease, border-color 240ms ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .studio-app[data-design="atelier"] .studio-dialog[open] {
+    animation: atelier-dialog-enter 260ms cubic-bezier(.22, 1, .36, 1);
+  }
+  .studio-app[data-design="atelier"] .studio-dialog[open]::backdrop {
+    animation: atelier-backdrop-enter 220ms ease-out;
+  }
+}
+@keyframes atelier-dialog-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes atelier-backdrop-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media print {
+  .setup-progress { display: none; }
+}

@@ -8,7 +8,7 @@ test('recording load failure is reported before creating audio instead of silent
   const source=fs.readFileSync('src/audio/createPlaybackInstrument.ts','utf8').replace('import.meta.env.BASE_URL',"'/'").replace('import.meta.env.VITE_LOCAL_PIPA','false');
   const factory=loadModule('src/audio/createPlaybackInstrument.ts',1,source,{
     tone:{getContext:()=>({}),Sampler:class {constructor(){constructed++;}}},
-    './sampleManifest.json':{Erhu:{folder:'erhu',urls:{A4:'A4-natural.wav'}}},
+    './sampleManifest.json':{Violin:{folder:'violin',urls:{A4:'A4.mp3'}}},
     './createInstrumentSynth':{createInstrumentSynth(){synthetic++;}},
     './loadRecordedSamples':{samplesForNotes:urls=>urls,loadRecordedSamples:async()=>{throw Error('decode failed');}},
   },{document:{baseURI:'capacitor://localhost/'}});
@@ -25,7 +25,7 @@ test('instrument startup passes its context and cancel signal, and never creates
   const source=fs.readFileSync('src/audio/createPlaybackInstrument.ts','utf8').replace('import.meta.env.BASE_URL',"'/'").replace('import.meta.env.VITE_LOCAL_PIPA','false');
   const {createPlaybackInstrument}=loadModule('src/audio/createPlaybackInstrument.ts',1,source,{
     tone:{getContext:()=>context,Sampler:class{constructor(){constructed++;}}},
-    './sampleManifest.json':{Erhu:{folder:'erhu',urls:{A4:'A4-natural.wav'}}},
+    './sampleManifest.json':{Violin:{folder:'violin',urls:{A4:'A4.mp3'}}},
     './createInstrumentSynth':{createInstrumentSynth(){throw Error('Unexpected synthetic voice');}},
     './loadRecordedSamples':{samplesForNotes:urls=>urls,loadRecordedSamples:options=>{
       assert.equal(options.cacheContext,context);assert.equal(options.signal,controller.signal);loaded();

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
+import path from 'node:path';
 import {loadModule} from './helpers.mjs';
 
 const manifest=JSON.parse(fs.readFileSync('src/audio/sampleManifest.json','utf8'));
@@ -18,7 +19,7 @@ test('all 17 Western instruments have distinct recorded banks covering their sou
   assert.ok(Number.isFinite(bank.volume)&&bank.volume>=-20&&bank.volume<=6,name);
   const roots=Object.keys(bank.urls).map(midi);
   for(let pitch=profile.min+profile.transpose;pitch<=profile.max+profile.transpose;pitch++){
-   assert.ok(Math.min(...roots.map(n=>Math.abs(n-pitch)))<=12,`${name}: unsupported sounding MIDI ${pitch}`);
+   assert.ok(Math.min(...roots.map(n=>Math.abs(n-pitch)))<=5,`${name}: excessive repitching at sounding MIDI ${pitch}`);
   }
  }
 });
@@ -27,15 +28,27 @@ test('each Western asset has decode, level, tuning and pinned or hashed primary 
  for(const [name] of western)for(const [note,file] of Object.entries(manifest[name].urls)){
   const row=report.find(r=>r.instrument===name&&r.midi===midi(note));
   assert.ok(row,`${name} ${note}`);
-  assert.equal(row.file,`${manifest[name].folder}/${file}`);
+  assert.equal(row.file,path.posix.join(manifest[name].folder,file));
   assert.ok(row.seconds>1&&row.peak>.001&&row.peak<=1&&row.rms>0);
   assert.ok(row.cents!==null&&Math.abs(row.cents)<=45,`${name} ${note} tuning`);
   if(row.licenseUrl==='https://theremin.music.uiowa.edu/MIS.html'){
    assert.match(row.source,/^https:\/\/theremin\.music\.uiowa\.edu\/sound%20files\//);
    assert.match(row.sourceSha256,/^[a-f0-9]{64}$/);
    assert.equal(createHash('sha256').update(fs.readFileSync(`public/samples/${row.file}`)).digest('hex'),row.sha256);
-   assert.ok(row.sustainExtension.correlation>=.5);
-  }else assert.match(row.source,/github.com\/[^/]+\/[^/]+\/blob\/[a-f0-9]{40}\//);
+   if(row.sustainExtension) assert.ok(row.sustainExtension.correlation>=.5);
+   else {
+    assert.equal(name,'Guitar','only genuine plucked additions retain their natural decay');
+    assert.ok(row.excerptSeconds[1]-row.excerptSeconds[0]>3);
+   }
+  }else assert.match(row.sourcePage??row.source,/github.com\/[^/]+\/[^/]+\/blob\/[a-f0-9]{40}\//);
+  if(row.sampleRate) {
+   const bytes=fs.readFileSync(`public/samples/${row.file}`);
+   assert.equal(createHash('sha256').update(bytes).digest('hex'),row.sha256);
+   assert.equal(bytes.readUInt16LE(20),1);
+   assert.equal(bytes.readUInt16LE(22),1);
+   assert.equal(bytes.readUInt32LE(24),44100);
+   assert.equal(bytes.readUInt16LE(34),16);
+  }
   assert.ok(fs.statSync(`public/samples/${row.file}`).size>1000);
  }
  assert.equal(manifest.Clarinet.urls['F#6'],undefined,'excluded mistuned source');

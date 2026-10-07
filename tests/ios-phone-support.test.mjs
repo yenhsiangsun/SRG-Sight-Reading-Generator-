@@ -29,7 +29,7 @@ test('universal iOS support retains phone rotation, every iPad orientation and m
 
 function harness(phone) {
   let states=[],cursor=0;
-  const react={useState(initial){const index=cursor++;if(!(index in states))states[index]=initial;
+  const react={useState(initial){const index=cursor++;if(!(index in states))states[index]=typeof initial==='function'?initial():initial;
     return [states[index],next=>{states[index]=typeof next==='function'?next(states[index]):next;}];}};
   const hook=loadModule('src/hooks/useExercise.ts',326,undefined,{react},{window:{matchMedia:()=>({matches:phone})}});
   return {settings:hook.DEFAULT_SETTINGS,render:()=>{cursor=0;return hook.useExercise();}};

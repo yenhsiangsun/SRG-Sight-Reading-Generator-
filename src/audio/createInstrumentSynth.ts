@@ -10,7 +10,7 @@ export function createInstrumentSynth(instrument: string) {
   const p: Timbre = TIMBRES[id];
 
   const isPlucked = ['liuqin', 'pipa', 'zhongruan', 'daruan', 'sanxian', 'guzheng', 'guitar', 'electricBass'].includes(id);
-  const isBowed = ['gaohu', 'erhu', 'zhonghu', 'gehu', 'bassGehu', 'violin', 'viola', 'cello', 'bass'].includes(id);
+  const isBowed = ['gaohu', 'erhu', 'zhonghu', 'violin', 'viola', 'cello', 'bass'].includes(id);
   const isWoodwind = ['flute', 'clarinet', 'oboe', 'bassoon', 'altoSax', 'tenorSax', 'sheng', 'tenorSheng', 'bassSheng', 'bangdi', 'qudi', 'xindi', 'suona', 'guan'].includes(id);
   const isBrass = ['trumpet', 'horn', 'trombone', 'tuba'].includes(id);
 

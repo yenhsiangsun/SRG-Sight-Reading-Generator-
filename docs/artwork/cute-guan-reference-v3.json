@@ -1,0 +1,24 @@
+{
+  "generator": "Built-in image_gen",
+  "created": "2026-10-07",
+  "files": [
+    "public/artwork/cute-traditional-guan-v3.webp",
+    "public/artwork/cute-keyed-guan-v3.webp"
+  ],
+  "mapping": {
+    "traditional": [
+      "Guan G",
+      "Guan F",
+      "Guan A"
+    ],
+    "keyed": [
+      "Alto Guan",
+      "Bass Guan"
+    ]
+  },
+  "references": "User supplied photographs: keyed Guan with silver mechanism; traditional soprano Guan with ebony tube and silver rings.",
+  "prompts": {
+    "keyed": "Use case: illustration-story. Asset: one isolated cute instrument portrait for an instrument-selection app. Image 1 is the user's physical-shape reference, NOT a webpage to reproduce. Image 2 is only our old illustration's friendly face and warm hand-painted style reference; its red wood and hardware shape are incorrect and MUST NOT be copied. Color: near-black ebony wood with restrained neutral dark brown grain, pewter and silver metal, pale ivory/tan cane. NO red/orange wood, NO gold collars. Charming delicate painted storybook style, tiny smiling face and gentle cheeks integrated unobtrusively, clearly identifiable realistic instrument shape. Center one complete upright instrument on a square canvas, 88 percent of image height, generous transparent sides, no clipping. Actual alpha transparency, no background panels, pedestal, ground shadow, text, brand or watermark.\nSubject: CHINESE KEYED GUAN (加鍵管) based closely on reference image 1: slender straight dark ebony wood body, intricate SILVER external keywork running down the length, slim connecting rods, several silver ring keys and round key cups, left and right levers. Small subtly flared dark wood foot as shown in photo, NOT a large suona/trumpet bell. Top is straight, no clarinet beak mouthpiece. Add a short pale cane double reed fitted into top, visible but modest, about 7 percent of total height: two front/back layers with one continuous broad pale front face, fine dark horizontal opening at lip, dark brown thread wrapping on narrow base. Keyed mechanism is the defining visual feature and must read clearly even at thumbnail scale. Keep face tiny near the upper body so it does not obscure keywork. Include full body, reed, all keys and foot. This must look distinctly different from a plain Guan with bare finger holes.",
+    "traditional": "Use case: illustration-story. Asset: one isolated cute instrument portrait for an instrument-selection app. Image 1 is the user's physical-shape reference, NOT a webpage to reproduce. Image 2 is only our old illustration's friendly face and warm hand-painted style reference; its red wood and hardware shape are incorrect and MUST NOT be copied. Color: near-black ebony wood with restrained neutral dark brown grain, pewter and silver metal, pale ivory/tan cane. NO red/orange wood, NO gold collars. Charming delicate painted storybook style, tiny smiling face and gentle cheeks integrated unobtrusively, clearly identifiable realistic instrument shape. Center one complete upright instrument on a square canvas, 88 percent of image height, generous transparent sides, no clipping. Actual alpha transparency, no background panels, pedestal, ground shadow, text, brand or watermark.\nSubject: TRADITIONAL SOPRANO CHINESE GUAN (傳統高音管) exactly following reference 1's simple cylindrical black ebony tube, silver twin narrow rings around each end, seven round front finger holes in a straight row. NO keys, NO rods, NO flared bell, NO raised thick cup around the neck. Straight simple flat-ended cylinder. Attach the short detached reed shown in the reference to the top of the tube, assembled for playing: slightly flattened pale ivory cane reed with nearly parallel sides and subtly rounded flat upper lip, burgundy-brown thread around base and a small pale socket. Reed should be about 9 percent of complete height, not the oversized paddle of image 2. The two reed blades lie front/back, do not draw two adjacent sticks or a vertical center split. Neutral ebony charcoal-black wood, a quiet brown highlight only. Tiny friendly eyes, small smile and blush near top third clear of the fingerholes. Tube is fairly compact and slightly wider proportionally than the long keyed Guan. Match photo silhouette; do not retain the old red illustration's bulbous collar or gold rings."
+  }
+}
