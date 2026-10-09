@@ -48,7 +48,13 @@ test('latency belongs to a specific input, sample rate and output route and surv
 
 test('rejecting a changed microphone route stops tracks before any count-in or recording',async()=>{
   let stopped=0,closed=0,finished=0;
-  class Context{sampleRate=48000;resume(){return Promise.resolve();}close(){closed++;return Promise.resolve();}}
+  class Context{
+    sampleRate=48000;
+    resume(){return Promise.resolve();}
+    createBuffer(){return {};}
+    createBufferSource(){return {connect(){},disconnect(){},start(){}};}
+    close(){closed++;return Promise.resolve();}
+  }
   const source=fs.readFileSync('src/assessment/MicrophoneSession.ts','utf8').replace('import.meta.env.BASE_URL',"'/'");
   const track={stop(){stopped++;},getSettings(){return {deviceId:'different-mic'};}};
   const {MicrophoneSession}=loadModule('src/assessment/MicrophoneSession.ts',1,source,{}, {AudioContext:Context,window:{AudioWorkletNode:class{}},navigator:{mediaDevices:{getUserMedia:async()=>({getTracks:()=>[track],getAudioTracks:()=>[track]})}},clearInterval(){}});

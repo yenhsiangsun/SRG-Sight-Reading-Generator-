@@ -227,7 +227,7 @@ footer span:last-child { letter-spacing: .03em; }
 .assessment-panel summary { cursor: pointer; padding: 10px 0; font-size: 13px; }
 @media (max-width: 600px) { .language-switch { flex-direction: column; gap: 4px; } .exam-settings { grid-template-columns: 1fr; } .assessment-panel { padding: 16px; } .exam-scores { gap: 6px; } .exam-scores > div { padding: 10px; } .exam-scores strong { font-size: 25px; } .setup-intro h1 { font-size: 28px; } }
 .assessment-panel.is-active { position: sticky; top: 90px; z-index: 4; padding: 12px 18px; box-shadow: 0 8px 22px #17243b15; }
-.assessment-panel.is-active > p,.assessment-panel.is-active .exam-settings { display: none; }
+.assessment-panel.is-active > p,.assessment-panel.is-active .exam-settings,.assessment-panel.is-active .calibration-card { display: none; }
 .assessment-panel.is-active .exam-live { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 0; background: transparent; }
 .assessment-panel.is-active .exam-live output { font-size: 30px; margin: 0; }
 #exam-title { scroll-margin-top: 100px; }
@@ -236,7 +236,14 @@ footer span:last-child { letter-spacing: .03em; }
 @media (max-width: 600px) { .instrument-grid { max-height: 52vh; } .header-content { gap: 12px; } .brand { min-width: 0; } .brand-subtitle { letter-spacing: .1em; } }
 
 .calibration-card { padding: 1.2rem; margin-block: 1rem; border: 1px solid var(--theme-line); border-radius: 12px; background: var(--theme-soft); color: var(--theme-text); }
-.calibration-pattern { font-size: 1.8rem; letter-spacing: .12em; }
+.assessment-panel.is-active .exam-live.calibration-live { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 10px 12px; text-align: left; }
+.calibration-live .calibration-live-status { grid-column: 1; grid-row: 1; min-width: 0; }
+.calibration-live .calibration-live-status strong { display: block; color: var(--theme-muted); font-size: 12px; }
+.assessment-panel.is-active .calibration-live output { margin-top: 6px; font-size: clamp(18px, 3vw, 24px); line-height: 1.5; overflow-wrap: anywhere; }
+.calibration-live > button { grid-column: 2; grid-row: 1; }
+.calibration-live .calibration-note-guide { grid-column: 1 / -1; margin: 0; color: var(--theme-muted); font-size: 13px; line-height: 1.7; }
+.calibration-live > .calibration-score { grid-column: 1 / -1; margin-top: 2px; }
+@media (max-width: 500px) { .assessment-panel.is-active .exam-live.calibration-live { grid-template-columns: minmax(0, 1fr); }.calibration-live > button { grid-column: 1; grid-row: 4; justify-self: start; } }
 
 .mobile-install-prompt {
   display: grid;

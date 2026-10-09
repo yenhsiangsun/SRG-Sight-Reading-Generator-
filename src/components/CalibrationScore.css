@@ -1,0 +1,90 @@
+.calibration-score {
+  width: 100%;
+  max-width: 760px;
+  min-width: 0;
+  margin: 16px auto 8px;
+}
+
+.calibration-score-counts {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.calibration-score-counts > span {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #d9d0c1;
+  border-radius: 50%;
+  background: #faf8f2;
+  color: #756b5a;
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.calibration-score-counts > .is-current {
+  border-color: #2f7197;
+  background: #2f7197;
+  color: #fff;
+  box-shadow: 0 0 0 4px #2f719714;
+}
+
+.calibration-score-counts > .is-complete {
+  border-color: #abc2ce;
+  color: #2f7197;
+  background: #edf4f7;
+}
+
+.calibration-score-paper {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #e8e1d5;
+  border-radius: 12px;
+  background: #fffefa;
+}
+
+.calibration-score-staff {
+  width: 100%;
+  line-height: 0;
+}
+
+.calibration-score-staff > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.calibration-score-bar {
+  position: absolute;
+  top: 18%;
+  bottom: 15%;
+  width: 2px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  background: #2f7197;
+  opacity: .45;
+  pointer-events: none;
+  box-shadow: 0 0 0 4px #2f71970b;
+}
+
+.calibration-score-bar::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.calibration-score-bar.is-playing {
+  opacity: .9;
+  /* Positions already interpolate the audio clock. Retargeting a CSS transition
+     on every update can keep the visible bar behind (or frozen) in a webview. */
+  transition: none;
+}
