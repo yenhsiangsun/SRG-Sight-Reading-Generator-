@@ -4,11 +4,11 @@ import {loadModule} from './helpers.mjs';
 
 const {INSTRUMENTS} = loadModule('src/music/instruments.ts');
 const {SCALES, buildPitchMaterial, describeTonality} = loadModule('src/music/scales.ts');
-const {getTonalityChoices, selectRandomTonality, signatureGroup} = loadModule('src/music/randomTonality.ts');
+const {getTonalityChoices, getTonalityDistribution, selectRandomTonality, signatureGroup} = loadModule('src/music/randomTonality.ts');
 const {notePitches, midiFromKey} = loadModule('src/music/notePitches.ts');
 
 test('every instrument can generate sharp, flat, natural and open-key scores through the app hook', () => {
-  let state = [], cursor = 0, groupDraw = 0;
+  let state = [], cursor = 0, expectedGroup = 'sharp';
   const react = {useState(initial) {
     const index = cursor++;
     if (!(index in state)) state[index] = typeof initial === 'function' ? initial() : initial;
@@ -17,9 +17,11 @@ test('every instrument can generate sharp, flat, natural and open-key scores thr
   const hook = loadModule('src/hooks/useExercise.ts', 782, undefined, {
     react,
     '../music/randomTonality': {selectRandomTonality(ranges, _random, options) {
-      let call = 0;
       assert.equal(options.allowAccidentals,false);
-      return selectRandomTonality(ranges, () => call++ === 0 ? groupDraw : .47, options);
+      const choices = getTonalityDistribution(ranges, options);
+      const target = choices.find(choice => signatureGroup(describeTonality(choice.tonic, choice.scaleId).signature) === expectedGroup);
+      const start = choices.slice(0, choices.indexOf(target)).reduce((sum, choice) => sum + choice.weight, 0);
+      return selectRandomTonality(ranges, () => start + target.weight / 2, options);
     }},
   }, {window: {matchMedia: () => ({matches: false})}});
   const render = () => {cursor = 0; return hook.useExercise();};
@@ -31,8 +33,8 @@ test('every instrument can generate sharp, flat, natural and open-key scores thr
       ? [range, {min: profile.min, max: 59}, {min: 60, max: profile.max}] : [range];
     const choices = getTonalityChoices(ranges,{allowAccidentals:false,difficulty:'beginner'});
     assert.deepEqual(Array.from(choices, scale => scale.scaleId), Array.from(SCALES, scale => scale.id), instrument);
-    for (const [draw, expected] of [[.175, 'sharp'], [.525, 'flat'], [.8, 'natural'], [.975, 'open']]) {
-      groupDraw = draw;
+    for (const expected of ['sharp', 'flat', 'natural', 'open']) {
+      expectedGroup = expected;
       const result = render().generateNew(80, {measureCount: 4, rhythmLevel: 'Complex', mixedMeters: true, allowAccidentals: false});
       assert.equal(typeof result, 'number', `${instrument}: ${render().error}`);
       const {exercise, settings} = render().current;

@@ -190,14 +190,20 @@ test('all meters, keys and clefs produce complete strict voices with chromatic n
 });
 
 test('mixed meter changes on complete phrase boundaries and uses selected meters only',()=>{
+  const {meterSections}=loadModule('src/music/meterSections.ts');
   const exercise=engine.generatePracticeExercise(options);
   const meters=exercise.measures.map(m=>m.timeSignature);
+  assert.equal(meters.length,options.measures);
+  assert.equal(meters[0],options.timeSignature);
   assert.ok(new Set(meters).size>1);
+  for(const section of meterSections(meters)) {
+    assert.ok(section.endBar-section.startBar>=2&&section.endBar-section.startBar<=4);
+    assert.ok(meters.slice(section.startBar,section.endBar).every(meter=>meter===section.meter));
+  }
   for(let i=0;i<meters.length;i++) {
     assert.ok(options.meters.includes(meters[i]));
-    if(i%2===1) assert.equal(meters[i],meters[i-1]);
-    if(i>0&&i%2===0) assert.notEqual(meters[i],meters[i-1]);
-    createMeasureNotation(exercise.measures[i],'treble','C',meters[i]);
+    const notation=createMeasureNotation(exercise.measures[i],'treble','C',meters[i]);
+    assert.ok(notation.voice.isComplete(),'each meter section retains complete written bars');
   }
   assert.throws(()=>engine.generatePracticeExercise({...options,meters:['4/4']}));
 });

@@ -9,6 +9,7 @@ import {validBpm} from '../audio/tempo';
 import {validRhythmFocus} from './focus';
 import {validPipaTechnique} from '../music/pipaTechniques';
 import {validKeySignatureChoices} from '../music/keySignatureChoices';
+import {validExpressionSpans} from '../music/expressionSpans';
 
 export const LIBRARY_KEY = 'sight-reading-library-v1';
 export interface SavedStudy {id: string; created: number; bpm: number; settings: ExerciseSettings; exercise?: ExerciseData}
@@ -71,8 +72,21 @@ export function validStudy(value: unknown, score: boolean): value is SavedStudy 
   if(ex.harmonyPlan!==undefined && (!Array.isArray(ex.harmonyPlan)||ex.harmonyPlan.length!==ex.measures.length||
     !ex.harmonyPlan.every(bar=>record(bar)&&integer(bar.root,0,11)&&member(bar.role,['home','depart','prepare','arrive'])&&
       Array.isArray(bar.pitches)&&bar.pitches.length>0&&bar.pitches.length<=12&&bar.pitches.every(n=>integer(n,0,11)))))return false;
+  if (ex.phrasePlan!==undefined) {
+    if (!Array.isArray(ex.phrasePlan) || !ex.phrasePlan.length || ex.phrasePlan.length>ex.measures.length) return false;
+    let nextBar=0;
+    for (const phrase of ex.phrasePlan) {
+      if (!record(phrase) || phrase.startBar!==nextBar || !integer(phrase.endBar,nextBar,ex.measures.length-1) ||
+        !member(phrase.role,['opening','development','answer','closing'])) return false;
+      const meter=(ex.measures as MeasureData[])[nextBar].timeSignature??ex.timeSignature;
+      for (let bar=nextBar;bar<=Number(phrase.endBar);bar++) if (((ex.measures as MeasureData[])[bar].timeSignature??ex.timeSignature)!==meter) return false;
+      nextBar=Number(phrase.endBar)+1;
+    }
+    if (nextBar!==ex.measures.length) return false;
+  }
   if (ex.lowerMeasures !== undefined && (!Array.isArray(ex.lowerMeasures) || ex.lowerMeasures.length !== ex.measures.length
     || !member(ex.grandMode,['mono','two-hand']) || !ex.lowerMeasures.every((m,i) => validMeasure(m,String(ex.timeSignature)) && m.totalUnits === (ex.measures as MeasureData[])[i].totalUnits))) return false;
+  if (!validExpressionSpans(ex.expressionSpans,ex as unknown as ExerciseData)) return false;
   const staves = [...ex.measures as MeasureData[], ...(ex.lowerMeasures as MeasureData[] | undefined ?? [])];
   if (staves.some(bar => bar.events.some(note => note.technique !== undefined &&
     (ex.soundProfile !== 'Pipa' || !validPipaTechnique(note))))) return false;

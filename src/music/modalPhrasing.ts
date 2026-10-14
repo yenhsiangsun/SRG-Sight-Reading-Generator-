@@ -5,6 +5,7 @@ import {melodicRandom, planMelodicContours} from './melodicContours';
 import {metricPosition} from './meterFeel';
 import type {HarmonyBar} from './phraseHarmony';
 import {planStudyMelody} from './studyMelody';
+import type {PhraseSpan} from './phrasePlan';
 
 // These are pitch-set practice rules, not reconstructions of traditional performance grammar.
 const colors: Record<string, number[]> = {
@@ -49,14 +50,29 @@ function slotsOf(measures: MeasureData[]): Slot[] {
   });
 }
 
-function phraseTargets(slots: Slot[], measures: MeasureData[], pitches: ScalePitch[], tonality: Tonality, melodicLine: boolean, difficulty: Difficulty, wholeStudy:boolean, instrument?:string) {
+function phraseTargets(slots: Slot[], measures: MeasureData[], pitches: ScalePitch[], tonality: Tonality, melodicLine: boolean, difficulty: Difficulty, wholeStudy:boolean, instrument?:string,phrasePlan?:readonly PhraseSpan[]) {
   const profile = modalProfile(tonality), targets = new Map<number, Target>();
   const barCount=measures.length;
-  const study=wholeStudy&&melodicLine?planStudyMelody(measures,pitches,profile.root,difficulty,instrument):undefined;
+  const study=wholeStudy&&melodicLine?planStudyMelody(measures,pitches,profile.root,difficulty,instrument,phrasePlan):undefined;
+  const character=melodicRandom(slots.map(slot=>slot.note));
+  // Keep real scale-neighbour cadences, but allow both a falling 2–1 and a
+  // rising 7–1 (or their modal equivalents) instead of one ending every time.
+  const intervals=tonality.notes.map(note=>mod(pitchClass(note)-profile.root!)).filter(interval=>interval>0);
+  const neighbours=[Math.min(...intervals),Math.max(...intervals)];
+  const cadences=profile.approaches.filter(interval=>neighbours.includes(interval)&&Math.min(interval,12-interval)<=3);
+  if(wholeStudy&&cadences.length>1&&character()<.5)
+    profile.approaches=[cadences[1],cadences[0],...profile.approaches.filter(interval=>!cadences.includes(interval))];
   if(melodicLine) {
     if(study)for(const {index,...target} of study.targets)targets.set(index,target);
     else for(const plan of planMelodicContours(measures,pitches,profile.root,difficulty))
       for(const {index,...target} of plan.targets) targets.set(index,target);
+  }
+  if(study&&slots.length>3) {
+    const entry=profile.anchors[Math.floor(character()*profile.anchors.length)];
+    const desired=targets.get(0)?.midi??rangeCenter(pitches);
+    const options=pitches.filter(pitch=>mod(pitch.midi-profile.root!)===entry);
+    const first=options.sort((a,b)=>Math.abs(a.midi-desired)-Math.abs(b.midi-desired))[0];
+    if(first)targets.set(0,{midi:first.midi,weight:5});
   }
   // Phrase endings alternate an open/modal resting tone and the tonic.
   const endings=study?study.phrases.slice(0,-1).map(phrase=>phrase.endBar):Array.from({length:Math.floor((barCount-1)/2)},(_,i)=>i*2+1);
@@ -67,11 +83,12 @@ function phraseTargets(slots: Slot[], measures: MeasureData[], pitches: ScalePit
     targets.set(index,wholeStudy?{...targets.get(index),interval,weight:2}: {interval,weight:6});
   }
   // Give each phrase a characteristic pitch, without overriding the melodic line or its ending.
-  for (let bar = 0; bar < barCount; bar += 4) {
-    const candidates = slots.flatMap((slot,i) => slot.bar >= bar && slot.bar < bar+4 && slot.strong && i > 0 && i < slots.length-2 && (wholeStudy || !targets.has(i)) ? [i] : []);
+  const colourPhrases=study?.phrases??Array.from({length:Math.ceil(barCount/4)},(_,index)=>({startBar:index*4,endBar:Math.min(barCount-1,index*4+3)}));
+  for (const [phraseIndex,phrase] of colourPhrases.entries()) {
+    const candidates = slots.flatMap((slot,i) => slot.bar >= phrase.startBar && slot.bar <= phrase.endBar && slot.strong && i > 0 && i < slots.length-2 && (wholeStudy || !targets.has(i)) ? [i] : []);
     if (!candidates.length || !profile.colors.length) continue;
     const index = candidates[Math.floor(candidates.length/2)];
-    targets.set(index,wholeStudy?{...targets.get(index),interval:profile.colors[(bar/4)%profile.colors.length],weight:3}: {interval:profile.colors[(bar/4)%profile.colors.length],weight:9});
+    targets.set(index,wholeStudy?{...targets.get(index),interval:profile.colors[phraseIndex%profile.colors.length],weight:3}: {interval:profile.colors[phraseIndex%profile.colors.length],weight:9});
   }
   if(wholeStudy && melodicLine && slots.length>=3) {
     const last=slots.length-1,desired=targets.get(last)?.midi??slots[last].note.midi??rangeCenter(pitches);
@@ -102,10 +119,10 @@ function withPitch(note: GeneratedNote, pitch: ScalePitch): GeneratedNote {
 }
 
 /** Find an entire legal pitch path rather than changing endpoints after the fact. */
-function shapeStaff(measures: MeasureData[], range: PitchRange, tonality: Tonality, difficulty: Difficulty, upper?: MeasureData[], harmony: readonly HarmonyBar[] = [], wholeStudy=false, instrument?:string) {
+function shapeStaff(measures: MeasureData[], range: PitchRange, tonality: Tonality, difficulty: Difficulty, upper?: MeasureData[], harmony: readonly HarmonyBar[] = [], wholeStudy=false, instrument?:string,phrasePlan?:readonly PhraseSpan[]) {
   const slots = slotsOf(measures), pitches = buildPitchMaterial(tonality,range).pitches;
   if (!slots.length || !pitches.length) return measures;
-  const {targets,profile} = phraseTargets(slots,measures,pitches,tonality,!upper,difficulty,wholeStudy,instrument);
+  const {targets,profile} = phraseTargets(slots,measures,pitches,tonality,!upper,difficulty,wholeStudy,instrument,phrasePlan);
   if (profile.root === null) return measures;
   const random = melodicRandom(slots.map(slot=>slot.note)), count = pitches.length, maxLeap = PITCH_DIFFICULTY[difficulty].maxLeap;
   // Preserve more of the graded source line as difficulty rises; a universal
@@ -143,7 +160,9 @@ function shapeStaff(measures: MeasureData[], range: PitchRange, tonality: Tonali
       note.startUnits < slot.note.startUnits+slot.note.durationUnits && note.startUnits+note.durationUnits > slot.note.startUnits &&
       (note.startUnits <= slot.note.startUnits || note.durationUnits >= 4)) ?? [];
     for (let p = 0; p < count; p++) {
-      if ((index === 0 || index === last) && roots.length && !roots.includes(p)) continue;
+      if (index === last && roots.length && !roots.includes(p)) continue;
+      if (index === 0 && roots.length && !roots.includes(p) &&
+        (!wholeStudy || upper || !profile.anchors.includes(mod(pitches[p].midi-profile.root)))) continue;
       const pitch = pitches[p], interval = mod(pitch.midi-profile.root);
       if (target?.fixed && target.midi !== pitch.midi) continue;
       if (pitch.midi<(target?.minMidi??-Infinity) || pitch.midi>(target?.maxMidi??Infinity)) continue;
@@ -153,7 +172,11 @@ function shapeStaff(measures: MeasureData[], range: PitchRange, tonality: Tonali
       if(harmonyCenter && slot.strong) {
         // Prefer shared harmony at arrivals, while retaining passing tones,
         // modal color, graded leaps and the occasional longer contour.
-        const harmonyWeight=wholeStudy?6:1.8;
+        // Interior pulses may carry a scale tone or suspension-like melodic
+        // colour. Forcing every beat into the triad erased the fourth/seventh
+        // degrees of Western modes and made different melodies sound alike.
+        const arrival=slot.note.startUnits===0||index>=last-2;
+        const harmonyWeight=wholeStudy?(arrival?6:2.5):1.8;
         local += harmonyCenter.pitches.includes(pitch.midi%12)?-harmonyWeight:harmonyWeight;
         if(upper && slot.note.startUnits===0 && pitch.midi%12!==harmonyCenter.root)local+=3;
       }
@@ -166,6 +189,10 @@ function shapeStaff(measures: MeasureData[], range: PitchRange, tonality: Tonali
         const distance = Math.abs(pitch.midi-pitches[previous].midi);
         if(slot.note.duration==='32' && slots[index-1].note.duration==='32' && Math.abs(p-previous)>1)continue;
         let transition = -Math.log(pitchDistanceWeight(distance,difficulty));
+        const previousSlot=slots[index-1];
+        if(wholeStudy&&!upper&&slot.bar!==previousSlot.bar&&
+          measures[slot.bar].timeSignature!==measures[previousSlot.bar].timeSignature)
+          transition+=Math.max(0,distance-3)*({beginner:3,intermediate:2.5,advanced:2}[difficulty]);
         if(target?.preferredStep!==undefined)transition+=Math.abs((p-previous)-target.preferredStep)*(target.stepWeight??1);
         // Give a fast scalar figure one direction instead of random register
         // jumps. Higher grades retain wider thirds/chord figures at arrivals.
@@ -208,12 +235,12 @@ export function addModalPhrasing(exercise: ExerciseData, range: PitchRange, allo
   if (exercise.grandMode === 'mono' && exercise.lowerMeasures) {
     // Reassemble the single sounding line before shaping, then distribute it by pitch again.
     const melody = exercise.measures.map((bar,b) => ({...bar,events:bar.events.map((note,n) => note.rest ? exercise.lowerMeasures![b].events[n] : note)}));
-    const shaped = shapeStaff(melody,range,tonality,exercise.difficulty,undefined,harmony,wholeStudy,instrument);
+    const shaped = shapeStaff(melody,range,tonality,exercise.difficulty,undefined,harmony,wholeStudy,instrument,exercise.phrasePlan);
     const distribute = (upper: boolean) => shaped.map(bar => ({...bar,events:bar.events.map(note => !note.rest && ((note.midi ?? 60)>=60)===upper
       ? note : {...note,rest:true,key:upper?'b/4':'d/3',octave:upper?4:3,midi:undefined})}));
     return {...exercise,...(harmony.length?{harmonyPlan:[...harmony]}:{}),measures:distribute(true),lowerMeasures:distribute(false)};
   }
   const twoHand = exercise.grandMode === 'two-hand' && !!exercise.lowerMeasures;
-  const measures = shapeStaff(exercise.measures,twoHand?{min:60,max:range.max}:range,tonality,exercise.difficulty,undefined,harmony,wholeStudy,instrument);
-  return {...exercise,...(harmony.length?{harmonyPlan:[...harmony]}:{}),measures,...(twoHand ? {lowerMeasures:shapeStaff(exercise.lowerMeasures!,{min:range.min,max:59},tonality,exercise.difficulty,measures,harmony,wholeStudy,instrument)} : {})};
+  const measures = shapeStaff(exercise.measures,twoHand?{min:60,max:range.max}:range,tonality,exercise.difficulty,undefined,harmony,wholeStudy,instrument,exercise.phrasePlan);
+  return {...exercise,...(harmony.length?{harmonyPlan:[...harmony]}:{}),measures,...(twoHand ? {lowerMeasures:shapeStaff(exercise.lowerMeasures!,{min:range.min,max:59},tonality,exercise.difficulty,measures,harmony,wholeStudy,instrument,exercise.phrasePlan)} : {})};
 }

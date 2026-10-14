@@ -6,6 +6,7 @@ import {planOctaveLines, drawOctaveLines, type OctaveBar} from './octaveLines';
 import { collectMeasureAnchors, collectNoteGeometry, type ScoreLayout } from './scoreGeometry';
 import {tupletSpace} from './ScoreTuplet';
 import {scoreContext, type ScoreViewport} from './scoreRenderer';
+import {drawExpressionSpans, expressionOverflow, expressionSpace, type ExpressionBar} from './expressionSpans';
 
 export function prepareGrandMeasure(upper: MeasureData, lower: MeasureData, key: string, meter: TimeSignature, simplifyRests=false, upperShifts: number[] = [], lowerShifts: number[] = []) {
   if (upper.totalUnits !== lower.totalUnits || (lower.timeSignature && lower.timeSignature !== meter)) {
@@ -27,6 +28,11 @@ function extent(notes: ReturnType<typeof createMeasureNotation>['notes']) {
 }
 
 export function drawGrandScore(container: HTMLDivElement | HTMLCanvasElement, exercise: ExerciseData, width: number, viewport?: ScoreViewport): ScoreLayout {
+  return drawGrandPass(container,exercise,width,viewport,{above:0,below:0,between:0},true);
+}
+
+function drawGrandPass(container: HTMLDivElement | HTMLCanvasElement, exercise: ExerciseData, width: number, viewport: ScoreViewport|undefined,
+  padding:{above:number;below:number;between:number},canCorrect:boolean):ScoreLayout {
   const barsPerRow=width<720?1:2;
   const lower=exercise.lowerMeasures;
   if(!lower || lower.length!==exercise.measures.length) throw new Error('大譜表缺少完整的左手聲部。');
@@ -51,6 +57,9 @@ export function drawGrandScore(container: HTMLDivElement | HTMLCanvasElement, ex
   });
   const rightExtent=extent(prepared.flatMap(item=>item.right.notes));
   const leftExtent=extent(prepared.flatMap(item=>item.left.notes));
+  for (const [staff,ext] of [[0,rightExtent],[1,leftExtent]] as const) {
+    const space=expressionSpace(exercise,staff);ext.above+=space.above;ext.below+=space.below;
+  }
   for (const side of ['above','below'] as const) {
     rightExtent[side] += tupletSpace(prepared.flatMap(item=>item.right.tuplets), side);
     leftExtent[side] += tupletSpace(prepared.flatMap(item=>item.left.tuplets), side);
@@ -59,6 +68,9 @@ export function drawGrandScore(container: HTMLDivElement | HTMLCanvasElement, ex
     if(shifts.flat().some(shift=>shift>0))ext.above+=65;
     if(shifts.flat().some(shift=>shift<0))ext.below+=65;
   }
+  rightExtent.above+=padding.above;
+  rightExtent.below+=padding.between;
+  leftExtent.below+=padding.below;
   const staffGap=130+rightExtent.below+leftExtent.above;
   const rowHeight=staffGap+150+rightExtent.above+leftExtent.below;
   const measureWidth=Math.max((width-50)/barsPerRow,...prepared.map(item=>item.neededWidth));
@@ -67,6 +79,7 @@ export function drawGrandScore(container: HTMLDivElement | HTMLCanvasElement, ex
   layout.systems = Array.from({length: rows}, (_, row) => ({top: row * rowHeight, bottom: (row + 1) * rowHeight + (row === rows - 1 ? 30 : 0)}));
   const context=scoreContext(container,layout.width,layout.height,viewport);
   const octaveBars: OctaveBar[][]=[[],[]];
+  const expressionBars: ExpressionBar[]=[];
   prepared.forEach((item,index)=>{
     const x=30+(index%barsPerRow)*measureWidth;
     const y=Math.floor(index/barsPerRow)*rowHeight+25+rightExtent.above;
@@ -93,6 +106,7 @@ export function drawGrandScore(container: HTMLDivElement | HTMLCanvasElement, ex
       hand.beams.forEach(beam=>beam.setContext(context).draw());
       hand.tuplets.forEach(tuplet=>tuplet.setContext(context).draw());
       octaveBars[i].push({notes:hand.notes, shifts:(i===0?upperShifts:lowerShifts)[index], stave:staves[i], row:Math.floor(index/barsPerRow)});
+      expressionBars.push({bar:index,row:Math.floor(index/barsPerRow),staff:i as 0|1,notes:hand.notes,measure:(i===0?upperMeasures:lowerMeasures)[index],stave:staves[i]});
       (layout.notes ??= []).push(...collectNoteGeometry(hand.notes,index,i));
     });
     layout.measures.push({
@@ -105,7 +119,27 @@ export function drawGrandScore(container: HTMLDivElement | HTMLCanvasElement, ex
     context.save();context.setFont('Arial',10);context.setFillStyle('#64748b');
     context.fillText(String(index+1),x,y+5);context.restore();
   });
-  octaveBars.forEach(bars=>drawOctaveLines(context,bars));
+  const expressions=drawExpressionSpans(context,exercise,expressionBars);
+  const octaveBounds:Array<{row:number;bounds:{xStart:number;xEnd:number;yTop:number;yBottom:number}}> = [];
+  octaveBars.forEach((bars,staff)=>{
+    bars.forEach((bar,index)=>{bar.expressionBounds=expressions.filter(span=>span.staff===staff&&span.bars.includes(index)).map(span=>span.bounds);});
+    octaveBounds.push(...drawOctaveLines(context,bars));
+  });
+  const overflow=expressionOverflow([...expressions,...octaveBounds],layout.systems!);
+  let between=0;
+  for (let row=0;row<rows;row++) {
+    const handBounds=([0,1] as const).map(staff=>{
+      const notes=expressionBars.filter(bar=>bar.row===row&&bar.staff===staff).flatMap(bar=>bar.notes);
+      const ink=expressions.filter(span=>span.row===row&&span.staff===staff);
+      return {top:Math.min(...notes.map(note=>note.getBoundingBox().getY()),...ink.map(span=>span.bounds.yTop)),
+        bottom:Math.max(...notes.map(note=>{const box=note.getBoundingBox();return box.getY()+box.getH();}),...ink.map(span=>span.bounds.yBottom))};
+    });
+    between=Math.max(between,handBounds[0].bottom+12-handBounds[1].top);
+  }
+  if (canCorrect&&expressions.length>0&&(overflow.above||overflow.below||between>0)) {
+    if (!viewport) container.replaceChildren();
+    return drawGrandPass(container,exercise,width,viewport,{...overflow,between:Math.ceil(Math.max(0,between))},false);
+  }
   container.querySelector('svg')?.setAttribute('aria-label',`${exercise.measures.length} 小節鋼琴大譜表，上方右手、下方左手`);
   return layout;
 }

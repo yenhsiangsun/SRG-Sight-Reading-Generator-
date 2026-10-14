@@ -1,13 +1,27 @@
 import type {RhythmLevel, RhythmPattern, TimeSignature} from '../music';
 import {focusedComposition, rhythmFocuses, type RhythmFocus, type RhythmFocusSelection} from '../practice/focus';
 import {pulseGroups} from './meterFeel';
-import {createGroupComposition, createPracticeRhythm, type PracticeRhythmNote} from './practiceRhythm';
+import {createGroupComposition, createPracticeRhythm, type EighthPulseRole, type PracticeRhythmNote} from './practiceRhythm';
 
 type Cell = Omit<RhythmPattern, 'weight'>[];
 export interface RhythmBarPlan {meter: TimeSignature; notes: PracticeRhythmNote[]}
 const shape = (cell: readonly {units: number; tuplet?: 3}[]) => cell.map(n=>`${n.units}${n.tuplet?'t':''}`).join(',');
 const plain = (units: number[]): Cell => units.map(units=>({units, dots:units===6?1:0, duration:units===6||units===4?'q':'8'}));
 const dense = (cell: Cell) => cell.filter(n=>n.units===1).length >= cell.reduce((sum,n)=>sum+n.units,0)*.65;
+
+const PULSE_PROFILES:Record<string,readonly (readonly EighthPulseRole[])[]> = {
+  '6/8':[['launch','answer'],['carry','settle'],['launch','carry'],['carry','answer']],
+  '9/8':[['launch','carry','answer'],['carry','launch','settle'],['launch','answer','carry'],['carry','answer','settle']],
+  '12/8':[['launch','carry','launch','answer'],['carry','answer','carry','settle'],['launch','answer','launch','carry'],['carry','launch','carry','answer']],
+};
+
+/** 3/8 develops its strong-weak-weak gesture over bars. Compound meters have
+ * two, three or four related large pulses inside each bar instead. */
+function pulseRoles(meter:TimeSignature,barInSection:number,variant:number):readonly EighthPulseRole[]|undefined {
+  if(meter==='3/8')return [(['launch','carry','answer','carry'] as const)[(barInSection+variant)%4]];
+  const profiles=PULSE_PROFILES[meter];
+  return profiles?.[(variant+Math.floor(barInSection/2))%profiles.length];
+}
 
 /** Time is planned in phrases before pitches, including the landing note.
  * A cell is one actual pulse: 4 units in /4, 6 in compound meter, 4+4+6 in 7/8.
@@ -18,20 +32,30 @@ export function createPhraseRhythmPlan(meters: readonly TimeSignature[], level: 
   const focus=focuses[0];
   const state = {previousRest:false,opening:true};
   let triplets=0;
-  let materials = new Map<number, Cell[]>(), lastCell = '', busy = 0, position = 0;
+  let materials = new Map<string, Cell[]>(), lastCell = '', busy = 0, position = 0;
+  let sectionStart=0,profile=0;
   return meters.map((meter,bar) => {
     const eighth = meter.endsWith('/8'), groups = pulseGroups({timeSignature:meter,groups:[]});
-    // Each four-bar section introduces fresh material; a meter change starts a new rhythmic vocabulary.
-    if (bar%4===0 || meter!==meters[bar-1]) {materials=new Map();lastCell='';busy=0;position=0;}
-    const draw = (units:number):Cell => focus==='balanced' || (focus==='triplets'&&eighth) ? createGroupComposition(units,level,eighth,false) : focusedComposition(units,focus,level);
-    const cells = groups.map(units => {
-      let palette=materials.get(units);
-      if(!palette) {palette=Array.from({length:level==='simple'?2:3},()=>draw(units));materials.set(units,palette);}
+    const changed=bar>0 && meter!==meters[bar-1];
+    // Refresh long sections after four bars counted from the actual meter
+    // entrance, not an unrelated global bar number inside the new phrase.
+    if (bar===0 || changed || bar-sectionStart===4) {
+      materials=new Map();lastCell='';busy=0;position=0;sectionStart=bar;
+      if(eighth)profile=Math.floor(Math.random()*4);
+    }
+    const roles=pulseRoles(meter,bar-sectionStart,profile);
+    const draw = (units:number,role?:EighthPulseRole,entering=false):Cell => focus==='balanced' || (focus==='triplets'&&eighth)
+      ? createGroupComposition(units,level,eighth,false,role,entering) : focusedComposition(units,focus,level);
+    const cells = groups.map((units,index) => {
+      const role=roles?.[index],key=`${units}/${role??''}`;
+      let palette=materials.get(key);
+      if(!palette) {palette=Array.from({length:level==='simple'?2:3},()=>draw(units,role));materials.set(key,palette);}
       // Recall a small vocabulary at changing positions, with fresh connecting material.
       // We never copy a measure or restart a pitch contour at its barline.
       const recalled = palette[(position + Math.floor(position/3))%palette.length];
-      let cell = Math.random()<(level==='simple'?.92:.62) ? recalled : draw(units);
-      if(level!=='simple' && shape(cell)===lastCell && Math.random()<.7) cell=draw(units);
+      let cell = Math.random()<(level==='simple'?.92:.62) ? recalled : draw(units,role);
+      if(level!=='simple' && shape(cell)===lastCell && Math.random()<.7) cell=draw(units,role);
+      if(changed && index===0 && roles && (focus==='balanced'||focus==='triplets'))cell=draw(units,'launch',true);
       // Tuplets are occasional contrasts, never a repeatedly recalled palette cell.
       if(!eighth && focus==='balanced' && triplets<tripletLimit && Math.random() < {simple:.025,medium:.085,complex:.13}[level]) {
         cell=Array.from({length:3},()=>({units:4/3,duration:'8',dots:0,tuplet:3}));
@@ -47,7 +71,7 @@ export function createPhraseRhythmPlan(meters: readonly TimeSignature[], level: 
       // A complete last pulse sounds to the barline. 3/8 retains an approach note
       // then a quarter landing, instead of reducing its entire final bar to one note.
       cells[cells.length-1]=meter==='3/8'?plain([2,4]):plain([groups.at(-1)!]);
-    } else if ((bar+1)%4===0 && groups.length>1 && focus==='balanced') {
+    } else if (((bar-sectionStart+1)%4===0 || meter!==meters[bar+1]) && groups.length>1 && focus==='balanced') {
       // An internal comma keeps moving; only the final cadence gets a full held pulse.
       cells[cells.length-1]=plain(groups.at(-1)===6?[2,4]:[2,2]);
     }

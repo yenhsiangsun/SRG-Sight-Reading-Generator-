@@ -43,21 +43,25 @@ test('whole-piece harmonic plans begin and end at the modal center and never inv
   assert.equal(composeExercise({...opts,scaleId:'atonal'}).harmonyPlan,undefined);
 });
 
-test('shared harmony aligns strong beats without collapsing pitch-grade differences',()=>{
+test('shared harmony anchors arrivals while interior pulses retain melodic colour and graded movement',()=>{
   const {composeExercise}=loadModule('src/music/composeExercise.ts',446);
   const {metricPosition}=loadModule('src/music/meterFeel.ts');const averages=[];
   for(const difficulty of ['beginner','intermediate','advanced']){
-    let leaps=[],aligned=0,total=0;
+    let leaps=[],aligned=0,total=0,arrivals=0,alignedArrivals=0;
     for(let i=0;i<24;i++){
       const ex=composeExercise({...opts,difficulty,range:{min:55,max:90}});
       const notes=ex.measures.flatMap(b=>b.events).filter(n=>!n.rest);
       leaps.push(...notes.slice(1).map((n,j)=>Math.abs(n.midi-notes[j].midi)));
       ex.measures.forEach((bar,index)=>bar.events.filter(n=>!n.rest&&metricPosition(bar,n.startUnits).onPulse).forEach(n=>{
         aligned+=ex.harmonyPlan[index].pitches.includes(n.midi%12);total++;
+        if(n.startUnits===0){arrivals++;alignedArrivals+=ex.harmonyPlan[index].pitches.includes(n.midi%12);}
       }));
     }
     averages.push(leaps.reduce((sum,n)=>sum+n,0)/leaps.length);
-    assert.ok(aligned/total>.7,'most strong-beat notes reinforce the preplanned harmony');
+    assert.ok(alignedArrivals/arrivals>.85,'bar arrivals clearly establish the planned harmony');
+    assert.ok(aligned/total>.6,'a majority of pulses still support the harmony');
+    assert.ok((total-arrivals-aligned+alignedArrivals)/(total-arrivals)>.15,
+      'inner beats may use scale colour instead of being forced into chord tones');
   }
   assert.ok(averages[1]>averages[0]*1.5);assert.ok(averages[2]>averages[1]*1.4,JSON.stringify(averages));
 });

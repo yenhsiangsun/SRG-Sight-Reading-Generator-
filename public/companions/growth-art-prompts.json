@@ -1,0 +1,41 @@
+{
+  "generator": "Built-in imagegen",
+  "assetDirectory": "C:/Users/User/sight-reading-generator/public/companions",
+  "reference": "forest-storybook-v2.png (style, palette and identity reference; retained unchanged)",
+  "assetType": "Transparent forest storybook sprite atlases",
+  "adultOverrides": {"file":"forest-growth-adult-fixes.png","columns":3,"rows":2,"usedCells":"Right column adult forms: moon rabbit and American Shorthair","prompt":"Transparent sprite sheet, exactly2rows x3columns of separated fullbody cute forest-storybook watercolor animalmetronomes. Row1cream lop rabbit baby/young/adult; row2silver AmericanShorthair baby/young/adult. Adult rabbit has long hanging pinklinedears, slimmer matureface and tallerbody; adulttabby fullcheeks, longerbody, curledstripetail andgreeneyes. Babiesoversizedheads tinybodies, juvenilesdevelopingproportions, adultssweetkind. Smallwood/brassbellymetronome. Matchforest-storybook-v2.png watercolorpicturebookstyle, notphotoreal. Allcharacters separate withampletransparentgutters; ears,feet,tailsentirelyvisible. Genuinealpha, no scenes, backdrop, glow, haze, grids, labels or shadows."},
+  "sharedPrompt": "Create a production-ready transparent PNG sprite atlas with exactly three equal columns: BABY, YOUNG, ADULT; one species per row. Separate full-body characters with generous transparent gutters, no overlaps, clipping, borders, labels, text or scenes. Every species visibly matures through body/head proportions, ears, wings, mane, tail, fur, posture and expression. Adults stay adorable and kind. Warm woodland watercolor and colored pencil picturebook style, handdrawn fur/feather/wood texture, soft shading, shining expressive dark eyes and delicate mouth, matching the reference. Small wooden/brass pendulum metronome gently at the belly, secondary to the animal. Real transparent alpha. All ages centered in their cells on a shared baseline, all appendages visible; no costumes or accessories as the sole difference between ages.",
+  "sheets": [
+    {"file":"forest-growth-1.png","columns":3,"rows":6,"requestedSize":"1536x3072","subjects":[
+      "Mimo: baby acorn-bodied wooden metronome spirit with sprout; young wooden pear silhouette with small branches; adult tree-stump metronome with leafy crown and carved kind face.",
+      "Blue lark: fuzzy round hatchling with tiny crest; blue fledgling; gracefully feathered adult with taller crest and layered wings.",
+      "Orange fox: short-muzzled fluffy cub, oversized ears, tiny tail; lively juvenile with fuller tail; friendly adult with longer muzzle and full plume tail.",
+      "Gray masked raccoon: round fluffy pup, tiny ringed tail; playful juvenile; broad friendly adult with long ringed tail.",
+      "Cream moon rabbit: small round bunny with short soft ears; juvenile with floppy pink-lined ears; slender adult with long flowing ears and fluffy cheeks.",
+      "Silver American Shorthair: round kitten with tiny legs; athletic juvenile with dark silver tabby swirls; broader adult with cheek structure and long curled striped tail."
+    ]},
+    {"file":"forest-growth-2.png","columns":3,"rows":6,"requestedSize":"1536x3072","subjects":[
+      "Bamboo panda: tiny cream-white cub, black ears and little limbs; playful juvenile holding bamboo; kind broad adult with full paws and face.",
+      "Little blue penguin: gray-blue downy chick; blue juvenile with some down; sleek navy adult, white belly, long flippers.",
+      "Red dragon: scarlet baby with horn buds and stubby wings; vermilion juvenile with small ivory horns and growing wings; ruby-red friendly majestic adult, swept horns and defined wings, never scary.",
+      "Hokkaido shima-enaga: puffy white hatchling with tiny tail; fluffy white juvenile, black accents, medium tail; round white adult with very long black tail and delicate wing feathers.",
+      "New Zealand kiwi: downy brown chick, short pink bill; fluffy juvenile with medium bill; shaggy-feathered adult with long slender bill and sturdy legs.",
+      "Taiwan black bear: small fluffy black cub with tiny ears and white V chest; juvenile with white V chest; broad cuddly adult with clear V and gentle muzzle."
+    ]},
+    {"file":"forest-growth-3.png","columns":3,"rows":6,"requestedSize":"1536x3072","subjects":[
+      "River otter: small round furry pup; playful juvenile with curled tail; longer-bodied friendly adult, clear whiskers and long curved tail.",
+      "Australian kangaroo: tiny joey with short ears and small paws; upright juvenile with growing ears and medium tail; graceful adult with long ears, strong hindlegs, long tail and small empty pouch.",
+      "Golden lion: cub without mane, little head tuft; young lion with a small fluffy mane; gentle adult with large honeycolored mane and sweet eyes.",
+      "Ragdoll: short-furred cream kitten with brownpoint ears and blue eyes; fluffy brownpoint juvenile; longhair cream adult with full white ruff and plume tail, blue eyes.",
+      "Silver-brown Maine Coon: kitten with modest ear tufts and small paws; young cat with noticeable ear tufts and growing neckruff; gentle adult with lynx ear tufts, rectangular body, full neckruff and thick plume tail.",
+      "Calico: very round white-orange-black patched kitten; playful juvenile; graceful adult with rich distinct patches and long tail."
+    ]},
+    {"file":"forest-growth-4.png","columns":3,"rows":5,"requestedSize":"1536x2560","subjects":[
+      "Orange tabby: round orangecream striped kitten with tiny paws; playful ginger juvenile; warm adult with distinct stripes, full cheeks and long tail.",
+      "Blue British Shorthair: round slateblue kitten with emerging amber eyes; plush bluegray juvenile, amber eyes; round-cheeked dense-coated adult, broad head, copper eyes.",
+      "Siberian husky: fluffy blackgray-white puppy, folded ears, blue eyes; upright-eared juvenile with developing mask and medium tail; athletic friendly graywhite adult, blue eyes and full curled tail.",
+      "Shiba Inu: redcream round-faced puppy, short ears and tiny curled tail; jaunty juvenile, upright triangular ears and growing curled tail; dignified friendly redcream adult with clear cream urajiro and full curled tail.",
+      "Apricot poodle: small curly puppy, short ears, round tiny face; playful juvenile with developing long curly ears; elegant sweet adult, full curls, graceful legs and long drop ears."
+    ]}
+  ]
+}

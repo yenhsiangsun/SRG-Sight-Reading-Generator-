@@ -5,6 +5,7 @@ import {useI18n} from '../i18n/context';
 import {NoteCompanion} from './NoteCompanion';
 import {dayKey, type ProgressState, getLevel} from '../progress/progress';
 import {words} from '../progress/words';
+import {getCompanionGrowth} from '../progress/companionGrowth';
 
 type HomeProps = {
   progress: ProgressState;
@@ -65,7 +66,7 @@ export default function StudioHome({progress, onStart, onRewards, onPlans, lastP
           <div className="journey-footer"><span>{w('今天完成', 'Today', '今日')} <strong>{progress.today.count} / 3</strong></span><span>{w('每天前 3 次練習可獲得星點', 'Earn stars for your first 3 practices each day', '毎日最初の3回でスターを獲得')}</span></div>
         </section>
       </div>
-      <NoteCompanion level={level.level} points={progress.points} todayCount={progress.today.count} dailyGoal={3} pet={progress.activePet} onRewards={onRewards} />
+      <NoteCompanion level={level.level} points={progress.points} todayCount={progress.today.count} dailyGoal={3} pet={progress.activePet} stage={getCompanionGrowth(progress, progress.activePet).displayStage} onRewards={onRewards} />
     </div>
 
     {MEMBERSHIP_ENABLED && <section className="membership-teaser">

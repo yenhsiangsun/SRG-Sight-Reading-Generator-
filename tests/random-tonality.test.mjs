@@ -2,22 +2,15 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {loadModule} from './helpers.mjs';
 
-const {selectRandomTonality, getTonalityChoices, SIGNATURE_WEIGHTS, signatureGroup} = loadModule('src/music/randomTonality.ts');
+const {selectRandomTonality, getTonalityDistribution, tonalityFamily, signatureGroup} = loadModule('src/music/randomTonality.ts');
 const {SCALES, describeTonality, buildPitchMaterial} = loadModule('src/music/scales.ts');
 const {generateGrandExercise} = loadModule('src/music/grandStaff.ts', 971);
 
 function selectScale(index, ranges) {
-  const choices = getTonalityChoices(ranges);
+  const choices = getTonalityDistribution(ranges);
   const target = choices.find(scale => scale.scaleId === SCALES[index].id);
-  const groups = Object.entries(SIGNATURE_WEIGHTS).map(([group, weight]) => ({group, weight,
-    scales: choices.filter(scale => scale.candidates.some(candidate => candidate.group === group)),
-  })).filter(group => group.scales.length);
-  const selected = groups.find(group => group.group === target.candidates[0].group);
-  const total = groups.reduce((sum, group) => sum + group.weight, 0);
-  const start = groups.slice(0, groups.indexOf(selected)).reduce((sum, group) => sum + group.weight, 0);
-  const draws = [(start + selected.weight / 2) / total, (selected.scales.indexOf(target) + .5) / selected.scales.length, .47];
-  let call = 0;
-  return selectRandomTonality(ranges, () => draws[call++]);
+  const start = choices.slice(0, choices.indexOf(target)).reduce((sum, choice) => sum + choice.weight, 0);
+  return selectRandomTonality(ranges, () => start + target.weight / 2);
 }
 
 test('automatic selection keeps all 33 scales reachable and prefers readable spellings', () => {
@@ -109,14 +102,18 @@ for (const [scaleId, pitchClasses] of [
   assert.ok(groups.has('sharp') && groups.has('flat'));
 });
 
-test('weighted random practice covers sharp, flat, natural and open signatures without starving any scale', () => {
-  const counts = {sharp: 0, flat: 0, natural: 0, open: 0};
-  for (let i = 0; i < 100; i++) {
-    let call = 0;
-    const selected = selectRandomTonality([{min: 48, max: 84}], () => call++ === 0 ? (i + .5) / 100 : .47);
-    counts[signatureGroup(describeTonality(selected.tonic, selected.scaleId).signature)]++;
+test('practice gives Western tonal modes a majority without losing world scales or key signatures', () => {
+  for (const allowAccidentals of [false, true]) {
+    const counts = {'major-minor-modes': 0, pentatonic: 0, colour: 0};
+    const signatures = new Set();
+    for (let i = 0; i < 200; i++) {
+      const selected = selectRandomTonality([{min: 48, max: 84}], () => (i + .5) / 200, {allowAccidentals});
+      counts[tonalityFamily(selected.scaleId)]++;
+      signatures.add(signatureGroup(describeTonality(selected.tonic, selected.scaleId).signature));
+    }
+    assert.deepEqual(counts, {'major-minor-modes': 130, pentatonic: 50, colour: 20});
+    assert.equal(signatures.size, 4);
   }
-  assert.deepEqual(counts, {sharp: 35, flat: 35, natural: 10, open: 20});
 });
 
 test('invalid and production preview links are ignored; cleanup preserves unrelated URL parameters', () => {
@@ -145,8 +142,8 @@ test('new exercises choose afresh, preserve snapshot tonality and leave instrume
   render().change('scaleId', 'major');
   render().change('tonic', 'C');
   const chosen = new Set();
-  // Quiet mode intentionally assigns open-key families only 5% of draws. Sample
-  // enough complete generations that a changed rhythm RNG sequence is not mistaken for a missing scale.
+  // Sample enough complete generations that a changed rhythm RNG sequence is
+  // not mistaken for a missing scale in the balanced world-mode distribution.
   for (let n = 0; n < 100; n++) {
     const tempo = render().generateNew(72);
     assert.equal(typeof tempo, 'number');

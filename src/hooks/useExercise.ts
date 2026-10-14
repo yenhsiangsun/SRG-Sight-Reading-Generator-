@@ -1,9 +1,13 @@
 import {composeExercise} from '../music/composeExercise';
 import {addPerformanceMarks} from '../music/performanceMarks';
+import {refreshSlurPhrasing} from '../music/refreshSlurPhrasing';
 import {addInstrumentHarmony} from '../music/instrumentHarmony';
 import {addPipaTechniques} from '../music/pipaTechniques';
 import { selectPracticeTempo } from '../practice/tempo';
 import {validBpm} from '../audio/tempo';
+import {refineFastPassages} from '../music/tempoFlow';
+import {validateGeneratedExercise} from '../music/exerciseQuality';
+import {readRecentExercises, rememberRecentExercise, scoreRecentSimilarity} from '../practice/recentVariety';
 import type { RhythmFocusSelection, PitchFocus } from '../practice/focus';
 import {describeTonality, type Tonic} from '../music/scales';
 import { selectRandomTonality, type RandomTonality } from '../music/randomTonality';
@@ -52,6 +56,7 @@ export function useExercise(previewTonality?: RandomTonality) {
   const [current, setCurrent] = useState<CurrentExercise | null>(null);
   const [error, setError] = useState('');
   const [previewConsumed, setPreviewConsumed] = useState(false);
+  const [recentExercises,setRecentExercises]=useState(()=>readRecentExercises());
   const pendingPreview = previewConsumed ? undefined : previewTonality;
 
   function change<K extends keyof ExerciseSettings>(key: K, value: ExerciseSettings[K]) {
@@ -83,7 +88,7 @@ export function useExercise(previewTonality?: RandomTonality) {
         ? [range, {min: range.min, max: 59}, {min: 60, max: range.max}]
         : [range], Math.random, {allowAccidentals:settings.allowAccidentals, difficulty:mapDifficulty(settings.difficulty),allowedKeySignatures:settings.allowedKeySignatures});
       const signature = describeTonality(tonality.tonic,tonality.scaleId).signature as KeySignature | null;
-      let exercise = composeExercise({
+      const options = {
         instrument: INSTRUMENTS[settings.instrument].engineInstrument,
         instrumentProfile: settings.instrument,
         clef: settings.clef === 'grand' || settings.clef === 'mixedStaff' ? 'treble' : settings.clef, difficulty: mapDifficulty(settings.difficulty),
@@ -92,15 +97,35 @@ export function useExercise(previewTonality?: RandomTonality) {
         tempo: bpm, range,
         allowAccidentals: pendingPreview ? false : settings.allowAccidentals, mixedMeters: settings.mixedMeters,
         meters: settings.meters, ...tonality,
-      },settings.clef==='grand'?(twoHand?'two-hand':'mono'):undefined);
-      exercise.soundProfile = settings.instrument;
-      exercise.staffMode = settings.clef === 'mixedStaff' ? 'mixed' : 'fixed';
-      exercise.transposition = INSTRUMENTS[settings.instrument].transpose;
-      if(settings.pitchFocus!=='scales')exercise = addInstrumentHarmony(exercise, range);
-      exercise.tempo = validBpm(tempoOverride)?tempoOverride:selectPracticeTempo(exercise, bpm);
-      if(settings.performanceMarks ?? true) {
-        exercise=addPerformanceMarks(exercise);
-        if(settings.pitchFocus!=='scales')exercise=addPipaTechniques(exercise,range);
+      } satisfies Parameters<typeof composeExercise>[0];
+      const createStudy=()=>{
+        let candidate=composeExercise(options,settings.clef==='grand'?(twoHand?'two-hand':'mono'):undefined);
+        candidate.soundProfile=settings.instrument;
+        candidate.staffMode=settings.clef==='mixedStaff'?'mixed':'fixed';
+        candidate.transposition=INSTRUMENTS[settings.instrument].transpose;
+        candidate.tempo=validBpm(tempoOverride)?tempoOverride:selectPracticeTempo(candidate,bpm);
+        if(settings.pitchFocus!=='scales'&&settings.pitchFocus!=='leaps')
+          candidate=refineFastPassages(candidate,range,settings.instrument,options.allowAccidentals);
+        validateGeneratedExercise(candidate,range,options.allowAccidentals);
+        if(settings.pitchFocus!=='scales')candidate=addInstrumentHarmony(candidate,range);
+        if(settings.performanceMarks??true) {
+          candidate=addPerformanceMarks(candidate);
+          if(settings.pitchFocus!=='scales')candidate=addPipaTechniques(candidate,range);
+        }
+        return candidate;
+      };
+      let exercise=createStudy();
+      if(!pendingPreview) {
+        let similarity=scoreRecentSimilarity(exercise,recentExercises,settings);
+        // Keep the current composer and musical constraints. Only audition extra
+        // complete studies when the first is too close to recently accepted ones.
+        for(let retry=0;retry<2&&similarity>.68;retry++) {
+          try {
+            const candidate=createStudy(),score=scoreRecentSimilarity(candidate,recentExercises,settings);
+            if(score<similarity){exercise=candidate;similarity=score;}
+          }catch{/* A valid first candidate remains available if a retry cannot fit. */}
+        }
+        setRecentExercises(rememberRecentExercise(exercise,settings,recentExercises));
       }
       setSettings(settings);
       rememberInstrument(settings.instrument);
@@ -114,6 +139,7 @@ export function useExercise(previewTonality?: RandomTonality) {
     }
   }
   function restore(exercise: ExerciseData, settings: ExerciseSettings) {
+    exercise=refreshSlurPhrasing(exercise,settings.performanceMarks??true);
     setPreviewConsumed(true);
     setSettings(settings);
     rememberInstrument(settings.instrument);

@@ -117,7 +117,7 @@ test('advanced sheng studies occasionally contain short voiced passages, includi
   const {composeExercise}=loadModule('src/music/composeExercise.ts',923);
   const {addInstrumentHarmony}=loadModule('src/music/instrumentHarmony.ts',177);
   for(const [instrument,{min,max}] of Object.entries(SHENG_HARMONY_PROFILES)) {
-    const range={min,max};let shortStudies=0,longWithTwo=0;const lengths=new Set();
+    const range={min,max};let shortStudies=0;const lengths=new Set();
     for(let sample=0;sample<60;sample++) {
       const measures=sample<40?8:16;
       const source=composeExercise({...options,instrumentProfile:instrument,range,measures,rhythmLevel:sample%3?'simple':'medium'},sample%2?'mono':undefined);
@@ -126,7 +126,6 @@ test('advanced sheng studies occasionally contain short voiced passages, includi
       assert.deepEqual(plain(source),before);assert.deepEqual(withoutChords(exercise),before);
       assert.ok(runs.length<=(measures===16?2:1));
       if(measures===8&&runs.length)shortStudies++;
-      if(measures===16&&runs.length===2)longWithTwo++;
       const line=melodicVoice(exercise).flatMap((bar,b)=>bar.events.map(note=>({note,bar:b})));
       const sounding=line.filter(item=>!item.note.rest),ending=new Set(sounding.slice(-3).map(item=>item.note));
       assert.ok(sounding.filter(item=>item.note.chord).length<=Math.floor(sounding.length*.3));
@@ -144,8 +143,41 @@ test('advanced sheng studies occasionally contain short voiced passages, includi
       }
     }
     assert.ok(shortStudies>=8&&shortStudies<=35,`${instrument}: passages should be occasional, ${shortStudies}/40`);
-    assert.ok(longWithTwo>0,`${instrument}: a long study can have a second separated passage`);
     assert.deepEqual([...lengths].sort(),[2,3],instrument);
+  }
+});
+
+test('long playable sheng studies can choose two separated passages without relaxing safety or cadence limits',()=>{
+  // Exercise the optional second-passage branch directly. A generated bass
+  // study may legally contain too few adjacent quarter-length notes, so the
+  // occurrence of its random 35% gate in only 20 samples is not path coverage.
+  for(const [instrument,{min,max}] of Object.entries(SHENG_HARMONY_PROFILES)) {
+    const source=fixture(instrument);
+    source.measures=Array.from({length:16},()=>plain(source.measures[0]));
+    const before=plain(source),exercise=addInstrumentHarmony(source,{min,max},()=>0),runs=passages(exercise);
+    assert.deepEqual(plain(source),before);
+    assert.deepEqual(withoutChords(exercise),before);
+    assert.equal(runs.length,2,instrument+' reaches the optional second passage');
+    const line=melodicVoice(exercise).flatMap((bar,index)=>bar.events.map(note=>({note,bar:index})));
+    const sounding=line.filter(item=>!item.note.rest),ending=new Set(sounding.slice(-3).map(item=>item.note));
+    assert.ok(sounding.filter(item=>item.note.chord).length<=Math.floor(sounding.length*.3));
+    const spans=runs.map(run=>run.map(note=>line.find(item=>item.note===note).bar));
+    assert.ok(spans[0].every(bar=>spans[1].every(other=>Math.abs(bar-other)>=3)),'passages remain separated');
+    for(const run of runs) {
+      assert.ok(run.length>=2&&run.length<=3);
+      const first=line.find(item=>item.note===run[0]);
+      assert.ok(metricPosition(exercise.measures[first.bar],run[0].startUnits,exercise.timeSignature).onPulse);
+      for(const note of run) {
+        assert.ok(!ending.has(note));
+        assert.ok(note.chord.length>=2&&note.chord.length<=3);
+        assert.ok(note.durationUnits>=(instrument==='Bass Sheng'?4:2));
+        const pitches=note.chord.map(p=>p.midi);
+        assert.ok(pitches.includes(note.midi));
+        assert.ok(pitches.every(midi=>midi>=min&&midi<=max));
+        assert.ok(Math.max(...pitches)-Math.min(...pitches)<=12);
+        assert.equal(isShengPracticeVoicing(pitches,instrument),true);
+      }
+    }
   }
 });
 

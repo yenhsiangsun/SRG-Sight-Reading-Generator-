@@ -1,6 +1,7 @@
 import type {Clef, MeasureData} from '../music';
 import type {RenderContext, Stave, StaveNote} from 'vexflow';
 import {notePitches} from '../music/notePitches';
+import type {ExpressionBounds} from './expressionSpans';
 
 const letters = 'cdefgab';
 const staffBottom: Record<Clef, number> = {treble: 30, bass: 18, alto: 24, tenor: 22};
@@ -55,7 +56,7 @@ export function octaveWrittenKey(key: string, shift: number) {
   return `${name}/${Number(octave) - shift}`;
 }
 
-export interface OctaveBar {notes: StaveNote[]; shifts: number[]; stave: Stave; row: number; clefs?: Clef[]}
+export interface OctaveBar {notes: StaveNote[]; shifts: number[]; stave: Stave; row: number; clefs?: Clef[]; expressionBounds?: ExpressionBounds[]}
 /** Combine bars, then split only at system breaks, repeating the sign in parentheses. */
 export function drawOctaveLines(context: RenderContext, bars: OctaveBar[]) {
   const entries = bars.flatMap(bar => bar.notes.map((note, index) => ({note, shift: bar.shifts[index] ?? 0, clef:bar.clefs?.[index], bar})));
@@ -76,6 +77,9 @@ export function drawOctaveLines(context: RenderContext, bars: OctaveBar[]) {
     for(const entry of entries.slice(start,end+1)) {
       const tuplet=entry.note.getTuplet();
       if(tuplet)y=top ? Math.min(y,tuplet.getYPosition()-20) : Math.max(y,tuplet.getYPosition()+25);
+      for (const bounds of entry.bar.expressionBounds??[]) {
+        y=top ? Math.min(y,bounds.yTop-14) : Math.max(y,bounds.yBottom+18);
+      }
     }
     const x = first.note.getAbsoluteX() - 4;
     const endX = continues ? last.bar.stave.getNoteEndX() : last.note.getAbsoluteX() + 14;
@@ -99,4 +103,5 @@ export function drawOctaveLines(context: RenderContext, bars: OctaveBar[]) {
     context.restore();
     start = end + 1;
   }
+  return placed.map(item=>({row:item.row,bounds:{xStart:item.x,xEnd:item.end,yTop:item.y-14,yBottom:item.y+4}}));
 }

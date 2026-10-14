@@ -29,5 +29,7 @@ export function forMonophonicAssessment(exercise: ExerciseData): ExerciseData {
     if (!note.chord && !note.technique) return note;
     const single = {...note}; delete single.chord; delete single.technique; return single;
   })}));
+  // Phrasing addresses remain valid: removing chord/technique metadata never
+  // removes rhythmic events, including rests, from either staff.
   return {...exercise,measures:melody(exercise.measures),...(exercise.lowerMeasures ? {lowerMeasures:melody(exercise.lowerMeasures)} : {})};
 }

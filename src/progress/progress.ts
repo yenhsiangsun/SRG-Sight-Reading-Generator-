@@ -1,4 +1,7 @@
-export const PET_IDS = ['pet-celeste', 'pet-musicfox', 'pet-lily', 'pet-moonrabbit', 'pet-nocturne', 'pet-bamboo', 'pet-penguin', "pet-dragon", "pet-snowbird", "pet-kiwi", "pet-blackbear", "pet-otter", "pet-kangaroo", "pet-lion", 'pet-ragdoll'] as const;
+import {normalizeCompanionGrowth, type CompanionGrowthState} from './companionGrowth';
+export {getCompanionGrowth, type CompanionStage} from './companionGrowth';
+
+export const PET_IDS = ['pet-celeste', 'pet-musicfox', 'pet-lily', 'pet-moonrabbit', 'pet-nocturne', 'pet-bamboo', 'pet-penguin', "pet-dragon", "pet-snowbird", "pet-kiwi", "pet-blackbear", "pet-otter", "pet-kangaroo", "pet-lion", 'pet-ragdoll', 'pet-mainecoon', 'pet-calico', 'pet-orange', 'pet-bluecat', 'pet-husky', 'pet-shiba', 'pet-poodle'] as const;
 export type PetCompanion = typeof PET_IDS[number];
 export type RewardId = PetCompanion;
 
@@ -15,6 +18,13 @@ export interface RewardDefinition {
 }
 
 export const REWARDS: RewardDefinition[] = [
+  {id: 'pet-mainecoon', type: 'pet', name: {zh: '小精靈：緬因貓', en: 'Pet: Maine Coon', ja: 'ペット：メインクーン'}, cost: 85, description: {zh: '蓬鬆耳尖的溫柔大貓，陪你慢慢長大。', en: 'A gentle tuft-eared cat that grows with your practice.', ja: 'ふわふわの耳を持つ優しい猫。一緒に成長するよ。'}},
+  {id: 'pet-calico', type: 'pet', name: {zh: '小精靈：三花貓', en: 'Pet: Calico Cat', ja: 'ペット：三毛猫'}, cost: 70, description: {zh: '暖白、橘與黑的三色小夥伴。', en: 'A warm white, orange and black companion.', ja: '白・オレンジ・黒の三色の小さな仲間。'}},
+  {id: 'pet-orange', type: 'pet', name: {zh: '小精靈：橘貓', en: 'Pet: Orange Tabby', ja: 'ペット：茶トラ猫'}, cost: 65, description: {zh: '像午後陽光一樣溫暖的橘色小貓。', en: 'An orange cat as warm as afternoon sunshine.', ja: '午後の日差しのように温かな茶トラ猫。'}},
+  {id: 'pet-bluecat', type: 'pet', name: {zh: '小精靈：藍貓', en: 'Pet: Blue Cat', ja: 'ペット：ブルーキャット'}, cost: 70, description: {zh: '柔和灰藍色的小貓，安靜陪你數拍。', en: 'A soft blue-gray cat that quietly counts beats with you.', ja: '青灰色の猫が静かに拍を数えてくれるよ。'}},
+  {id: 'pet-husky', type: 'pet', name: {zh: '小精靈：哈士奇', en: 'Pet: Husky', ja: 'ペット：ハスキー'}, cost: 80, description: {zh: '精神滿滿的雪地小夥伴。', en: 'A lively snowy companion for every practice.', ja: '元気いっぱいの雪国の仲間。'}},
+  {id: 'pet-shiba', type: 'pet', name: {zh: '小精靈：柴犬', en: 'Pet: Shiba Inu', ja: 'ペット：柴犬'}, cost: 75, description: {zh: '捲捲尾巴的柴犬，帶著笑容陪你練習。', en: 'A smiling Shiba with a curled tail.', ja: 'くるんとした尻尾の柴犬が笑顔で応援するよ。'}},
+  {id: 'pet-poodle', type: 'pet', name: {zh: '小精靈：貴賓犬', en: 'Pet: Poodle', ja: 'ペット：プードル'}, cost: 75, description: {zh: '捲毛小狗，用輕快的步伐陪你前進。', en: 'A curly-coated dog with a spring in its step.', ja: 'くるくる毛の犬が軽やかに寄り添うよ。'}},
   {id: 'pet-ragdoll', type: 'pet', name: {zh: '小精靈：雲朵布偶貓', en: 'Pet: Cloud Ragdoll', ja: 'ペット：ふわ雲ラグドール'}, cost: 75, description: {zh: '每次練習都會陪伴你', en: 'A companion that joins each practice session', ja: '毎回の練習に一緒に寄り添う'}},
   {"id":"pet-dragon","type":"pet","name":{"zh":"小精靈：暮光幼龍","en":"Pet: Twilight Dragon","ja":"ペット：夕暮れのちびドラゴン"},"cost":95,"description":{"zh":"每次練習都會陪伴你","en":"A companion that joins each practice session","ja":"毎回の練習に一緒に寄り添う"}},
   {"id":"pet-snowbird","type":"pet","name":{"zh":"小精靈：北海道雪糰","en":"Pet: Hokkaido Snowbird","ja":"ペット：シマエナガ"},"cost":75,"description":{"zh":"每次練習都會陪伴你","en":"A companion that joins each practice session","ja":"毎回の練習に一緒に寄り添う"}},
@@ -43,6 +53,8 @@ export interface ProgressState {
   cosmetics: RewardId[];
   /** null is the permanently free original Mimo; reward pets keep their own IDs. */
   activePet: PetCompanion | null;
+  /** Foreground practice is tracked independently for each equipped companion. */
+  companionGrowth: CompanionGrowthState;
 }
 
 const SESSION_HISTORY_LIMIT = 512;
@@ -92,6 +104,7 @@ export function createProgress(now: Date = new Date()): ProgressState {
     today: { date: dayKey(now), count: 0 },
     cosmetics: [],
     activePet: null,
+    companionGrowth: {},
   };
 }
 
@@ -129,6 +142,7 @@ export function normalizeProgress(raw: unknown, now: Date = new Date()): Progres
     today: { date: initial.today.date, count: today?.date === initial.today.date ? counter(today.count) : 0 },
     cosmetics: owned,
     activePet,
+    companionGrowth: normalizeCompanionGrowth(saved.companionGrowth, owned),
   };
 }
 

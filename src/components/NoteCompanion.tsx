@@ -7,6 +7,8 @@ import {words} from '../progress/words';
 import type {Locale} from '../i18n/messages';
 import {companionName} from '../progress/companionNames';
 import {generalTips} from '../progress/companionTips';
+import type {CompanionStage} from '../progress/companionGrowth';
+import {companionGrowthCopy} from '../progress/companionGrowthCopy';
 
 export interface NoteCompanionProps {
   level: number;
@@ -15,6 +17,7 @@ export interface NoteCompanionProps {
   dailyGoal: number;
   quiet?: boolean;
   pet?: PetCompanion | null;
+  stage?: CompanionStage;
   onRewards: () => void;
 }
 
@@ -33,7 +36,7 @@ const localizedText = (locale: Locale, value: Readonly<Record<CompanionLocale, s
 
 
 /** A silent companion; its visual rewards never interrupt the score or audio clock. */
-export function NoteCompanion({level, points, todayCount, dailyGoal, quiet = false, pet = null, onRewards}: NoteCompanionProps) {
+export function NoteCompanion({level, points, todayCount, dailyGoal, quiet = false, pet = null, stage = 'baby', onRewards}: NoteCompanionProps) {
   const {locale, t} = useI18n();
   const petId = pet;
   const word = (key: keyof typeof copy) => localizedText(locale, copy[key]);
@@ -58,12 +61,12 @@ export function NoteCompanion({level, points, todayCount, dailyGoal, quiet = fal
 
   return <aside className={className} aria-label={`${petName} · ${word('companion')}`}>
     <div className="note-companion__heading">
-      <div><h2>{petName}</h2></div>
+      <div><h2>{petName}</h2><small className="note-companion__age">{companionGrowthCopy(locale)[stage]}</small></div>
       <span className="note-companion__level">Lv. {Math.max(1, Math.floor(level))}</span>
     </div>
 
     <button type="button" className={`note-companion__pet${greeting ? ' is-greeting' : ''}`} onClick={greet} aria-label={words(locale,'和{name}互動，看看練習小提醒','Tap {name} for a practice tip','{name}をタップして練習のヒントを見る').replace('{name}',petName)}>
-      <CompanionPortrait pet={petId} className="note-companion__illustration" animated={!quiet}/>
+      <CompanionPortrait pet={petId} stage={stage} className="note-companion__illustration" animated={!quiet}/>
       {!quiet && <span className="note-companion__touch">{words(locale,'點點我，讓練習多一點靈感','A little tap. A little inspiration.','タッチして、練習のヒントを。')}<span aria-hidden="true">↗</span></span>}
     </button>
 

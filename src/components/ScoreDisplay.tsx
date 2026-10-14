@@ -54,11 +54,12 @@ export default function ScoreDisplay({exercise,bpm=exercise.tempo,playback,asses
   },[exercise,locale,t,drawScore,size]);
 
   return <>
-    {[...exercise.measures,...(exercise.lowerMeasures??[])].some(measure=>measure.events.some(note=>note.dynamic||note.articulation||note.technique)) && <details className="performance-mark-help">
+    {(exercise.expressionSpans?.length || [...exercise.measures,...(exercise.lowerMeasures??[])].some(measure=>measure.events.some(note=>note.dynamic||note.articulation||note.technique))) ? <details className="performance-mark-help">
       <summary>{words(locale,'演奏記號說明','Expression guide','演奏記号の説明')}</summary>
       <p>{words(locale,'p 弱、mp 中弱、mf 中強、f 強；力度持續到下一個力度記號。音符上的圓點表示斷奏（短促），短橫線表示保持音（奏足音長），> 表示重音。','p = soft, mp = moderately soft, mf = moderately loud, f = loud; dynamics continue until the next marking. A dot means staccato (short), a dash means tenuto (full length), and > means accent.','p は弱く、mp はやや弱く、mf はやや強く、f は強く。次の記号まで有効です。点はスタッカート（短く）、横線はテヌート（音価を十分に）、> はアクセントです。')}</p>
+      {!!exercise.expressionSpans?.length&&<p>{words(locale,'弧線內的不同音連貫演奏；開口漸大的線表示漸強，開口漸小表示漸弱，播放也會輕柔地跟隨。','Play different notes under a slur smoothly. An opening wedge means crescendo; a closing wedge means diminuendo. Playback gently follows these markings.','スラー内の異なる音を滑らかにつなぎます。開くくさびはクレッシェンド、閉じるくさびはデクレッシェンドです。再生にも穏やかに反映されます。')}</p>}
       {exercise.soundProfile==='Pipa'&&[...exercise.measures,...(exercise.lowerMeasures??[])].some(bar=>bar.events.some(n=>n.technique))&&<><p>{t('pipaTechniqueGuide')}</p><p>{t('pipaAuditionHelp')}</p></>}
-    </details>}
+    </details>:null}
     {error&&<p className="error-message" role="alert">{locale==='zh-TW'?error:t('error')}</p>}
     {playback&&!error&&<div className="score-playback-guide"><p>{t('cursorHelp')}</p><label className="score-follow-toggle"><input type="checkbox" checked={follow} onChange={e=>setFollow(e.target.checked)}/>{t('followPlayback')}</label></div>}
     <div className="score-stage"><div ref={containerRef} className="score-container"/>

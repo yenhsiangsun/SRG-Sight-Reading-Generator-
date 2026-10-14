@@ -28,12 +28,13 @@ function component(filename) {
   return module.exports;
 }
 
-test('every companion renders both styles with unique paint IDs and original Mimo remains unchanged', () => {
+test('every companion renders every age with unique paint IDs, while retained classic Mimo remains unchanged', () => {
   const {CompanionPortrait} = component('src/components/CompanionPortrait.tsx');
   const {PET_IDS} = loadModule('src/progress/progress.ts');
-  const arts = [null, ...PET_IDS].flatMap(pet => ['classic', 'storybook'].map(design => ({pet, design})));
-  const markup = renderToStaticMarkup(React.createElement('div', {}, arts.map(({pet, design}) =>
-    React.createElement(CompanionPortrait, {key: `${pet}-${design}`, pet, design}))));
+  const stages = ['baby', 'young', 'adult'];
+  const arts = [null, ...PET_IDS].flatMap(pet => stages.flatMap(stage => ['classic', 'storybook'].map(design => ({pet, design, stage}))));
+  const markup = renderToStaticMarkup(React.createElement('div', {}, arts.map(({pet, design, stage}) =>
+    React.createElement(CompanionPortrait, {key: `${pet}-${design}-${stage}`, pet, design, stage}))));
   assert.equal((markup.match(/<svg\b/g) ?? []).length, arts.length);
   const identifiers = [...markup.matchAll(/ id="([^"]+)"/g)].map(match => match[1]);
   assert.equal(new Set(identifiers).size, identifiers.length, 'paint servers cannot cross-colour another preview');
@@ -44,16 +45,17 @@ test('every companion renders both styles with unique paint IDs and original Mim
   assert.equal(original.includes('soft-companion__pendulum'), false);
   assert.equal(original.includes('forest-storybook-v2.png'), false);
   assert.ok(markup.includes('data-pet="pet-ragdoll" data-design="classic"'));
-  assert.equal((markup.match(/data-storybook-pet=/g) ?? []).length, PET_IDS.length + 1);
+  assert.equal((markup.match(/data-storybook-pet=/g) ?? []).length, (PET_IDS.length + 1 + 7) * stages.length, 'new pets have painted portraits even when requesting retained classic');
+  for (const stage of stages) assert.equal((markup.match(new RegExp(`data-stage="${stage}"`, 'g')) ?? []).length, (PET_IDS.length + 1) * 2);
 });
 
 test('all forest animals map to distinct valid regions in the bundled transparent atlas', () => {
   const {storybookRegions} = loadModule('src/progress/storybookAtlas.ts');
-  const {PET_IDS} = loadModule('src/progress/progress.ts');
   const png = fs.readFileSync('public/companions/forest-storybook-v2.png');
   const width = png.readUInt32BE(16), height = png.readUInt32BE(20);
   assert.equal(png[25], 6, 'the atlas must retain RGBA transparency');
-  const regions = [null, ...PET_IDS].map(pet => storybookRegions[pet ?? 'original']);
+  const regions = Object.values(storybookRegions);
+  assert.equal(regions.length, 16, 'the original sixteen painted portraits remain retained');
   assert.equal(new Set(regions.map(region => JSON.stringify(region))).size, regions.length);
   for (const [x, y, w, h] of regions) {
     assert.ok(x >= 0 && y >= 0 && w > 0 && h > 0 && x + w <= width && y + h <= height);

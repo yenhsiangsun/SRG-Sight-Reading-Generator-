@@ -5,10 +5,55 @@ import {isShengInstrument, isShengPracticeVoicing} from './shengFingering';
 import {pipaDoubleStopFingering} from './pipaFingering';
 import {metricPosition} from './meterFeel';
 import {harmonyMotionCost} from './instrumentPlayability';
+import {beatUnits, openingMeter} from '../audio/tempo';
 
 const consonant = (a: number, b: number) => [0,3,4,5,7,8,9].includes(Math.abs(a-b)%12);
 const ordered = (pitches: NotePitch[]) => [...pitches].sort((a,b) => a.midi-b.midi);
 interface HarmonySlot {note:GeneratedNote;hand:number;bar:number;index:number}
+
+/** Fast chord changes favour nearby valid buttons/positions. This changes
+ * voicing preference only; chord density and all physical rules stay intact. */
+function motionWeight(exercise:ExerciseData,a:HarmonySlot,b:HarmonySlot) {
+  const start=(slot:HarmonySlot)=>exercise.measures.slice(0,slot.bar).reduce((sum,bar)=>sum+bar.totalUnits,0)+slot.note.startUnits;
+  const seconds=Math.abs(start(a)-start(b))*60/exercise.tempo/beatUnits(openingMeter(exercise));
+  return 1+Math.min(2,Math.max(0,(.28-seconds)/.14));
+}
+type ShengColor = 'close'|'sixths'|'open';
+const shengColors:ShengColor[]=['close','sixths','open'];
+const voicingShape=(chord:readonly NotePitch[])=>chord.map(p=>p.midi-chord[0].midi).join(',');
+const voicingKey=(chord:readonly NotePitch[])=>chord.map(p=>p.midi).join(',');
+
+/** Keep a phrase's colour coherent, then change the spacing in the next phrase.
+ * These are soft preferences: the mode, range and real button layout still
+ * determine which voicings are possible, especially on a low bass sheng. */
+function shengColorCost(chord:readonly NotePitch[], anchor:NotePitch, bar:number, colorOffset:number,
+  selected:Map<GeneratedNote,NotePitch[]>) {
+  const span=chord.at(-1)!.midi-chord[0].midi;
+  const color=shengColors[(colorOffset+Math.floor(bar/2))%shengColors.length];
+  const ideal=color==='close'?(chord.length===2?4:7):color==='sixths'?9:12;
+  const shape=voicingShape(chord),key=voicingKey(chord);
+  let sameShape=0,sameChord=0;
+  for(const previous of selected.values()) {
+    if(voicingShape(previous)===shape)sameShape++;
+    if(voicingKey(previous)===key)sameChord++;
+  }
+  // Retain the original melody as the perceptual focus where the fingering
+  // permits accompaniment below it, without excluding useful inversions.
+  const aboveMelody=chord.filter(p=>p.midi>anchor.midi).length*.18;
+  return Math.abs(span-ideal)*.2+Math.min(3,sameShape)*.65+Math.min(3,sameChord)*1.3+aboveMelody;
+}
+
+/** Sample only credible alternatives near the best score. Tiny random noise
+ * followed by a strict minimum otherwise selects the same compact chord on
+ * nearly every attack, even when many equally playable inversions exist. */
+function chooseVoicing<T extends {cost:number}>(ranked:T[],random:()=>number):T {
+  ranked.sort((a,b)=>a.cost-b.cost);
+  const shortlist=ranked.filter(item=>item.cost<=ranked[0].cost+1.5).slice(0,6);
+  const weights=shortlist.map(item=>Math.exp(-(item.cost-ranked[0].cost)/.85));
+  let roll=random()*weights.reduce((sum,weight)=>sum+weight,0);
+  for(let i=0;i<shortlist.length;i++){roll-=weights[i];if(roll<0)return shortlist[i];}
+  return shortlist.at(-1)!;
+}
 
 function candidates(anchor: NotePitch, pool: NotePitch[], size: number, valid: (pitches: NotePitch[]) => boolean) {
   const neighbors = pool.filter(pitch => pitch.midi !== anchor.midi && Math.abs(pitch.midi-anchor.midi) <= 12);
@@ -39,7 +84,8 @@ function harmonyLines(exercise:ExerciseData, notes:HarmonySlot[]):HarmonySlot[][
  * The onset uses the planned harmony. Inner chords can move within the mode,
  * subject to the same physical voicing rules and a whole-passage motion cost. */
 function addShengPassages(exercise:ExerciseData, instrument:string, material:NotePitch[], staffs:MeasureData[][],
-  lines:HarmonySlot[][], selected:Map<GeneratedNote,NotePitch[]>, perBar:Map<number,number>, limit:number, random:()=>number) {
+  lines:HarmonySlot[][], selected:Map<GeneratedNote,NotePitch[]>, perBar:Map<number,number>, limit:number,
+  colorOffset:number,random:()=>number) {
   if(limit<2||random()>=.55)return;
   const minimum=instrument==='Bass Sheng'?4:2;
   const cache=new Map<GeneratedNote,Map<boolean,NotePitch[][]>>();
@@ -81,27 +127,35 @@ function addShengPassages(exercise:ExerciseData, instrument:string, material:Not
     if(after?.note.chord||selected.has(after?.note))continue;
     const choices=group.map((item,i)=>voicings(item,i===0)),parents:number[][]=[];
     const preferredSize=random()<.55?3:2;
+    const contour=Math.floor(random()*3); // stable, opening out, drawing together
     let costs:number[]=[];
     choices.forEach((chords,index)=>{
       const center=exercise.harmonyPlan?.[group[index].bar];
       const next:number[]=[],parent:number[]=[];
       chords.forEach((chord,choice)=>{
         const color=center?chord.filter(p=>!center.pitches.includes(p.midi%12)).length/chord.length:0;
-        const local=color*2+(chord.length===preferredSize?0:.75)+random()*.3;
+        const span=chord.at(-1)!.midi-chord[0].midi;
+        const progress=index/Math.max(1,group.length-1);
+        const contourCost=contour===0?0:Math.abs(span-(contour===1?5+6*progress:11-6*progress))*.18;
+        const local=color*2+(chord.length===preferredSize?0:.75)+contourCost+
+          shengColorCost(chord,notePitches(group[index].note)[0],group[index].bar,colorOffset,selected)*.7;
         if(index===0) {
-          next[choice]=local+(line[start-1]&&!line[start-1].note.rest?harmonyMotionCost(notePitches(line[start-1].note),chord,instrument):0);
+          next[choice]=local+(line[start-1]&&!line[start-1].note.rest?
+            harmonyMotionCost(notePitches(line[start-1].note),chord,instrument)*motionWeight(exercise,line[start-1],group[index]):0);
           parent[choice]=-1;return;
         }
         next[choice]=Infinity;
         choices[index-1].forEach((previous,p)=>{
-          const cost=costs[p]+local+harmonyMotionCost(previous,chord,instrument);
+          const repeated=voicingKey(previous)===voicingKey(chord)?2.5:0;
+          const cost=costs[p]+local+harmonyMotionCost(previous,chord,instrument)*motionWeight(exercise,group[index-1],group[index])+repeated;
           if(cost<next[choice]){next[choice]=cost;parent[choice]=p;}
         });
       });
       costs=next;parents.push(parent);
     });
-    const ranked=costs.map((cost,index)=>({index,cost:cost+(after&&!after.note.rest?harmonyMotionCost(choices.at(-1)![index],notePitches(after.note),instrument):0)}));
-    let chosen=ranked.reduce((best,item)=>item.cost<best.cost?item:best).index;
+    const ranked=costs.map((cost,index)=>({index,cost:cost+(after&&!after.note.rest?
+      harmonyMotionCost(choices.at(-1)![index],notePitches(after.note),instrument)*motionWeight(exercise,group.at(-1)!,after):0)}));
+    let chosen=chooseVoicing(ranked,random).index;
     for(let index=group.length-1;index>=0;index--) {
       const item=group[index];selected.set(item.note,choices[index][chosen]);
       perBar.set(item.bar,(perBar.get(item.bar)??0)+1);usedBars.push(item.bar);
@@ -128,12 +182,13 @@ export function addInstrumentHarmony(exercise: ExerciseData, range: PitchRange, 
   let target = sounded.length >= 4 ? Math.max(1, Math.floor(sounded.length*rate)) : 0;
   const selected = new Map<GeneratedNote, NotePitch[]>();
   const perBar = new Map<number, number>();
+  const shengColorOffset=sheng?Math.floor(random()*shengColors.length):0;
   const advancedSheng=sheng&&exercise.difficulty==='advanced';
   const lines=advancedSheng?harmonyLines(exercise,notes):[];
   const positions=new Map(lines.flatMap(line=>line.map((item,index)=>[item.note,{line,index}] as const)));
   if(advancedSheng) {
     const limit=Math.floor(sounded.length*.3)-sounded.filter(item=>item.note.chord).length;
-    addShengPassages(exercise,instrument!,material,staffs,lines,selected,perBar,limit,random);
+    addShengPassages(exercise,instrument!,material,staffs,lines,selected,perBar,limit,shengColorOffset,random);
     target=Math.min(limit,target+selected.size);
   }
   const eligible = sounded.filter(({note}) => !note.chord && note.durationUnits >= 2 && note.startUnits % 2 === 0)
@@ -180,14 +235,15 @@ export function addInstrumentHarmony(exercise: ExerciseData, range: PitchRange, 
       if (!choices.length) continue;
       const line=sounded.filter(n=>n.hand===hand);
       const position=line.findIndex(n=>n.note===note);
-      const neighbors=[line[position-1],line[position+1]].filter(Boolean).map(n=>selected.get(n.note)??notePitches(n.note));
+      const neighbors=[line[position-1],line[position+1]].filter(Boolean).map(n=>({pitches:selected.get(n.note)??notePitches(n.note),weight:motionWeight(exercise,item,n)}));
       // Include the nearest chosen chord across the barline, not only single
       // melody notes on either side of this attack.
       const chosen=line.filter(n=>selected.has(n.note)&&Math.abs(n.bar-bar)<=1)
         .sort((a,b)=>Math.abs(a.bar-bar)-Math.abs(b.bar-bar))[0];
-      if(chosen)neighbors.push(selected.get(chosen.note)!);
-      const ranked=choices.map(chord=>({chord,cost:neighbors.reduce((sum,pitches)=>sum+harmonyMotionCost(pitches,chord,instrument!),0)+random()*.8})).sort((a,b)=>a.cost-b.cost);
-      selected.set(note,ranked[0].chord);
+      if(chosen)neighbors.push({pitches:selected.get(chosen.note)!,weight:motionWeight(exercise,item,chosen)});
+      const ranked=choices.map(chord=>({chord,cost:neighbors.reduce((sum,neighbor)=>sum+harmonyMotionCost(neighbor.pitches,chord,instrument!)*neighbor.weight,0)+
+        (sheng?shengColorCost(chord,anchor,bar,shengColorOffset,selected):random()*.8)})).sort((a,b)=>a.cost-b.cost);
+      selected.set(note,sheng?chooseVoicing(ranked,random).chord:ranked[0].chord);
       perBar.set(bar,(perBar.get(bar) ?? 0)+1);
       break;
     }

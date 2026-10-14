@@ -1,7 +1,5 @@
-import type {PetCompanion} from './progress';
-
 /** Authored atlas regions, independent of reward ordering. Coordinates are in source pixels. */
-export const storybookRegions: Record<PetCompanion | 'original', readonly [number, number, number, number]> = {
+export const storybookRegions = {
   original: [65, 65, 195, 240],
   'pet-celeste': [361, 65, 200, 242],
   'pet-musicfox': [679, 65, 240, 244],
@@ -18,4 +16,7 @@ export const storybookRegions: Record<PetCompanion | 'original', readonly [numbe
   'pet-kangaroo': [358, 923, 234, 267],
   'pet-lion': [680, 930, 230, 256],
   'pet-ragdoll': [984, 930, 235, 255],
-};
+} as const satisfies Record<string, readonly [number, number, number, number]>;
+
+/** The original forest sheet remains available if its portraits are needed again. */
+export type LegacyForestCompanion = keyof typeof storybookRegions;

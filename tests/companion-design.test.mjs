@@ -6,40 +6,43 @@ const {createCompanionDesignStore, normalizeCompanionDesign, COMPANION_DESIGN_KE
 const {createProgress, normalizeProgress, redeemReward, unequipPet, REWARDS} = loadModule('src/progress/progress.ts');
 const {companionDesignCopy} = loadModule('src/progress/companionDesignCopy.ts');
 
-test('companion design switches every subscriber immediately and persists independently of reward points', () => {
-  const values = new Map();
+test('forest-only preference migrates old art choices independently of reward points', () => {
+  const values = new Map([[COMPANION_DESIGN_KEY, 'classic']]);
   const storage = {getItem: key => values.get(key), setItem: (key, value) => values.set(key, value)};
   const store = createCompanionDesignStore(() => storage);
   let updates = 0;
   const unsubscribe = store.subscribe(() => updates++);
-  assert.equal(store.getSnapshot(), 'classic', 'existing companions must retain their original appearance');
+  assert.equal(store.getSnapshot(), 'storybook', 'public companions use the selected forest artwork');
+  assert.equal(values.get(COMPANION_DESIGN_KEY), 'storybook', 'classic preference is migrated on read');
   store.set('storybook');
-  assert.equal(updates, 1);
+  assert.equal(updates, 0);
   assert.equal(store.getSnapshot(), 'storybook');
   assert.equal(values.get(COMPANION_DESIGN_KEY), 'storybook');
   assert.equal(createCompanionDesignStore(() => storage).getSnapshot(), 'storybook');
   store.set('storybook');
-  assert.equal(updates, 1, 'reselecting the current art must not notify indefinitely');
+  assert.equal(updates, 0, 'reselecting the current art must not notify indefinitely');
   values.set(COMPANION_DESIGN_KEY, 'classic');
   store.refresh();
-  assert.equal(store.getSnapshot(), 'classic', 'a preference changed in another tab can restore the original');
-  assert.equal(updates, 2);
+  assert.equal(store.getSnapshot(), 'storybook', 'a stale tab cannot reveal the hidden original art');
+  assert.equal(values.get(COMPANION_DESIGN_KEY), 'storybook');
+  assert.equal(updates, 0);
   unsubscribe();
   store.set('storybook');
-  assert.equal(updates, 2);
+  assert.equal(updates, 0);
   assert.deepEqual([...values.keys()], [COMPANION_DESIGN_KEY], 'cosmetic style never modifies earned reward storage');
 });
 
-test('blocked storage still permits switching art this session and corrupt preferences restore classic', () => {
+test('blocked storage and corrupt preferences still display forest art', () => {
   const store = createCompanionDesignStore(() => { throw new Error('blocked'); });
-  assert.equal(store.getSnapshot(), 'classic');
+  assert.equal(store.getSnapshot(), 'storybook');
   assert.doesNotThrow(() => store.set('storybook'));
   assert.equal(store.getSnapshot(), 'storybook');
   assert.doesNotThrow(() => store.set('classic'));
-  for (const invalid of [null, undefined, {}, 'unknown', 'SOFT', 'soft']) assert.equal(normalizeCompanionDesign(invalid), 'classic');
+  assert.equal(store.getSnapshot(), 'storybook');
+  for (const invalid of [null, undefined, {}, 'unknown', 'SOFT', 'soft', 'classic']) assert.equal(normalizeCompanionDesign(invalid), 'storybook');
 });
 
-test('forest storybook choice survives reload and can always switch back to classic', () => {
+test('forest storybook choice survives reload and hidden classic cannot be selected through preference state', () => {
   const values = new Map();
   const storage = {getItem: key => values.get(key), setItem: (key, value) => values.set(key, value)};
   const store = createCompanionDesignStore(() => storage);
@@ -48,7 +51,7 @@ test('forest storybook choice survives reload and can always switch back to clas
   assert.equal(reloaded.getSnapshot(), 'storybook');
   reloaded.set('classic');
   store.refresh();
-  assert.equal(store.getSnapshot(), 'classic');
+  assert.equal(store.getSnapshot(), 'storybook');
 });
 
 test('ragdoll redemption survives reload, charges once, and always allows returning to free Mimo', () => {
@@ -76,7 +79,23 @@ test('new style selection and ragdoll naming have all supported language transla
   }
 });
 
-test('retired soft preference restores classic without affecting rewards', () => {
+test('retired soft preference restores forest art without affecting rewards', () => {
   const store = createCompanionDesignStore(() => ({getItem: () => 'soft', setItem() {}}));
-  assert.equal(store.getSnapshot(), 'classic');
+  assert.equal(store.getSnapshot(), 'storybook');
+});
+
+test('growth controls and all seven new companions have localized names in every language', () => {
+  const {companionGrowthCopy} = loadModule('src/progress/companionGrowthCopy.ts');
+  const {companionName} = loadModule('src/progress/companionNames.ts');
+  const ids = ['pet-mainecoon','pet-calico','pet-orange','pet-bluecat','pet-husky','pet-shiba','pet-poodle'];
+  for (const locale of ['zh-TW', 'en', 'ja', 'es', 'de', 'fr', 'ko', 'pt-BR', 'ru', 'it', 'zh-CN', 'th']) {
+    const copy = companionGrowthCopy(locale);
+    for (const [key, value] of Object.entries(copy)) {
+      assert.ok(value.length > 0, `${locale}/${key}`);
+      if (locale !== 'en' && !(locale === 'de' && key === 'baby')) assert.notEqual(value, companionGrowthCopy('en')[key], `${locale}/${key} must not fall back to English`);
+    }
+    const names = ids.map(id => companionName(id, locale));
+    assert.equal(new Set(names).size, ids.length);
+    if (locale !== 'en') ids.forEach((id, index) => assert.notEqual(names[index], companionName(id, 'en')));
+  }
 });

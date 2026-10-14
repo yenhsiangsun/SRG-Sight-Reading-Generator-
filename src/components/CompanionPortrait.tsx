@@ -5,6 +5,7 @@ import {OriginalCompanion} from './OriginalCompanion';
 import {WorldAnimalPortrait} from './WorldAnimalPortrait';
 import {StorybookCompanionPortrait} from './StorybookCompanionPortrait';
 import type {CompanionDesign} from '../progress/companionDesign';
+import type {CompanionStage} from '../progress/companionGrowth';
 import {useCompanionDesign} from '../progress/useCompanionDesign';
 import './NoteCompanion.css';
 
@@ -191,7 +192,8 @@ function Ragdoll({id}: {id: string}) {
   </g>;
 }
 
-const petArt: Record<PetCompanion, (props: {id: string}) => React.JSX.Element> = {
+/** Retained original vector portraits. New companions use their painted portraits. */
+const petArt: Partial<Record<PetCompanion, (props: {id: string}) => React.JSX.Element>> = {
   'pet-celeste': Lark, 'pet-musicfox': Fox, 'pet-lily': Raccoon,
   'pet-moonrabbit': Rabbit, 'pet-nocturne': Cat, 'pet-bamboo': Panda, 'pet-penguin': Penguin,
   'pet-dragon': ({id})=><WorldAnimalPortrait kind="dragon"><Clockwork id={id} dark="#604021"/></WorldAnimalPortrait>,
@@ -205,14 +207,14 @@ const petArt: Record<PetCompanion, (props: {id: string}) => React.JSX.Element> =
 };
 
 /** One source for the equipped companion, store cards, and free previews. */
-export function CompanionPortrait({pet = null, className = '', animated = false, closeUp = false, design}: {
-  pet?: PetCompanion | null; className?: string; animated?: boolean; closeUp?: boolean; design?: CompanionDesign;
+export function CompanionPortrait({pet = null, className = '', animated = false, closeUp = false, design, stage = 'baby'}: {
+  pet?: PetCompanion | null; className?: string; animated?: boolean; closeUp?: boolean; design?: CompanionDesign; stage?: CompanionStage;
 }) {
   const id = useId().replace(/:/g, '');
   const preference = useCompanionDesign();
   const selectedDesign = design ?? preference.design;
   const Artwork = pet === null ? OriginalCompanion : petArt[pet];
-  return <svg viewBox={closeUp ? '45 -8 240 216' : '0 0 320 208'} className={`companion-portrait ${className}${animated ? ' companion-portrait--animated' : ''}`} aria-hidden="true" focusable="false" data-pet={pet ?? 'original'} data-design={selectedDesign}>
+  return <svg viewBox={closeUp ? '45 -8 240 216' : '0 0 320 208'} className={`companion-portrait ${className}${animated ? ' companion-portrait--animated' : ''}`} aria-hidden="true" focusable="false" data-pet={pet ?? 'original'} data-design={selectedDesign} data-stage={stage}>
     <defs>
       <linearGradient id={`${id}-body`} x2=".7" y2="1"><stop stopColor={forestPalettes.original[0]}/><stop offset=".5" stopColor={forestPalettes.original[1]}/><stop offset="1" stopColor={forestPalettes.original[2]}/></linearGradient>
       <linearGradient id={`${id}-face`} x1="0" y1="0" x2=".7" y2="1"><stop stopColor="#fff0cf"/><stop offset="1" stopColor="#e3c38b"/></linearGradient>
@@ -228,7 +230,7 @@ export function CompanionPortrait({pet = null, className = '', animated = false,
     </defs>
     <ellipse cx="160" cy="191" rx="73" ry="9" fill={`url(#${id}-shadow)`}/>
     <g className="note-companion__character">
-      {selectedDesign === 'storybook' ? <StorybookCompanionPortrait pet={pet} id={id}/> : <Artwork id={id}/>}
+      {selectedDesign === 'storybook' || !Artwork ? <StorybookCompanionPortrait pet={pet} id={id} stage={stage}/> : <Artwork id={id}/>}
     </g>
   </svg>;
 }

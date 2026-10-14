@@ -1,6 +1,9 @@
-import type {ExerciseData, GeneratedNote, MeasureData} from '../music';
+import type {ExerciseData, ExpressionAnchor, ExpressionSpan, GeneratedNote, MeasureData} from '../music';
 import {metricPosition, pulseGroups} from './meterFeel';
 import {rhythmTicks} from './rhythmTiming';
+import {INSTRUMENTS, type Instrument} from './instruments';
+import type {PhraseSpan} from './phrasePlan';
+import {planMusicalSlurs} from './slurPhrasing';
 
 export const dynamicVelocity = {p:0.42, mp:0.58, mf:0.73, f:0.88};
 type Character = 'light' | 'sustained' | 'marked';
@@ -46,7 +49,7 @@ function articulate(measure:MeasureData, character:Character, closing:boolean, o
 }
 
 /** Dynamics share a phrase plan across hands; articulation follows musical groups, never note counts. */
-export function addPerformanceMarks(exercise: ExerciseData, random:()=>number=Math.random): ExerciseData {
+function legacyPerformanceMarks(exercise: ExerciseData, random:()=>number): ExerciseData {
   const levels = ['p','mp','mf','f'] as const, characters:Character[]=['light','sustained','marked'];
   let dynamicIndex=pick(random,levels.length), previousCharacter:Character|undefined;
   const plan=exercise.measures.map((_,index)=>{
@@ -71,6 +74,91 @@ export function addPerformanceMarks(exercise: ExerciseData, random:()=>number=Ma
     });
   };
   return {...exercise,measures:decorate(exercise.measures),...(exercise.lowerMeasures?{lowerMeasures:decorate(exercise.lowerMeasures)}:{})};
+}
+
+interface LocatedNote {anchor:ExpressionAnchor; note:GeneratedNote}
+
+function phraseNotes(measures:readonly MeasureData[],phrase:PhraseSpan):LocatedNote[] {
+  return measures.flatMap((measure,bar)=>bar<phrase.startBar||bar>phrase.endBar?[]:
+    measure.events.map((note,event)=>({anchor:{bar,event},note})));
+}
+
+/** Legacy eligibility is retained only to keep expression-stage random draws
+ * stable. Actual slur placement comes from complete musical gestures below. */
+function connectedRuns(notes:readonly LocatedNote[]):LocatedNote[][] {
+  const runs:LocatedNote[][]=[];
+  let run:LocatedNote[]=[];
+  const flush=()=>{if(run.length>=2)runs.push(run);run=[];};
+  for(const located of notes) {
+    const previous=run.at(-1)?.note,note=located.note;
+    if(note.rest||note.articulation==='staccato'||note.technique) {flush();continue;}
+    if(previous && Math.abs((note.midi??0)-(previous.midi??0))>7)flush();
+    run.push(located);
+  }
+  flush();return runs;
+}
+
+function expressionSpans(exercise:ExerciseData,random:()=>number):ExpressionSpan[] {
+  const phrases=exercise.phrasePlan!, spans:ExpressionSpan[]=[];
+  const profile=INSTRUMENTS[(exercise.soundProfile??exercise.instrument) as Instrument];
+  const slurred=(exercise.soundProfile??exercise.instrument)==='Voice'||
+    ['鍵盤','弦樂','木管','銅管','國樂・拉弦','國樂・吹管'].includes(profile?.family??'');
+  const maxSlurs=Math.max(1,Math.floor(exercise.measures.length/4));
+  const maxHairpins=Math.max(1,Math.floor(exercise.measures.length/6));
+  const slurPlan=slurred?planMusicalSlurs(exercise):[];
+  let slurs=0,hairpins=0;
+  for(const [phraseIndex,phrase] of phrases.entries()) {
+    const notes=phraseNotes(exercise.measures,phrase),sounded=notes.filter(({note})=>!note.rest);
+    if(slurred&&slurs<maxSlurs&&(phraseIndex%2===0||random()<.3)) {
+      const runs=connectedRuns(notes);
+      const run=runs.length?runs[pick(random,runs.length)]:undefined;
+      if(run) {
+        const length=Math.min(run.length,exercise.difficulty==='beginner'?4:6);
+        pick(random,run.length-length+1);slurs++;
+      }
+    }
+    spans.push(...slurPlan.filter(span=>span.start.bar>=phrase.startBar&&span.start.bar<=phrase.endBar));
+    // Follow a real rise toward a peak, or the release after one. Flat figures
+    // receive no arbitrary swell, and the written notes and durations stay intact.
+    if(hairpins>=maxHairpins||sounded.length<4||(phraseIndex>0&&random()>=.5))continue;
+    const first=sounded[0],last=sounded.at(-1)!;
+    const peak=sounded.reduce((best,note)=>(note.note.midi??0)>(best.note.midi??0)?note:best);
+    const peakIndex=sounded.indexOf(peak),rise=(peak.note.midi??0)-(first.note.midi??0),fall=(peak.note.midi??0)-(last.note.midi??0);
+    const rising=rise>=3&&peakIndex>=2,falling=fall>=3&&sounded.length-peakIndex>=3;
+    if(!rising&&!falling)continue;
+    const crescendo=rising&&(!falling||rise>=fall);
+    const start=crescendo?first:peak,end=crescendo?peak:last;
+    spans.push({kind:crescendo?'crescendo':'diminuendo',staff:0,start:start.anchor,end:end.anchor});hairpins++;
+  }
+  return spans;
+}
+
+/** Melody, breath opportunities, articulation and expression share the actual
+ * phrase boundaries. Older saved/standalone inputs retain their existing marks.
+ */
+export function addPerformanceMarks(exercise:ExerciseData,random:()=>number=Math.random,enabled=true):ExerciseData {
+  if(!enabled)return exercise;
+  if(!exercise.phrasePlan?.length)return legacyPerformanceMarks(exercise,random);
+  const levels=['p','mp','mf','f'] as const,characters:Character[]=['light','sustained','marked'];
+  let dynamicIndex=pick(random,levels.length),previousCharacter:Character|undefined;
+  const gestures=exercise.phrasePlan.map((phrase,index)=>{
+    if(index>0)dynamicIndex+=dynamicIndex===0?1:dynamicIndex===3?-1:random()<.5?-1:1;
+    const choices=characters.filter(character=>character!==previousCharacter);
+    previousCharacter=choices[pick(random,choices.length)];
+    return {...phrase,dynamic:levels[dynamicIndex],character:previousCharacter!};
+  });
+  const decorate=(measures:MeasureData[])=>{
+    let previousDynamic:GeneratedNote['dynamic'];
+    return measures.map((measure,index)=>{
+      const phrase=gestures.find(phrase=>index>=phrase.startBar&&index<=phrase.endBar)!;
+      const events=articulate(measure,phrase.character,index===phrase.endBar,index===phrase.startBar,random,exercise.timeSignature);
+      const first=events.find(note=>!note.rest);
+      if(first&&phrase.dynamic!==previousDynamic){first.dynamic=phrase.dynamic;previousDynamic=phrase.dynamic;}
+      return {...measure,events};
+    });
+  };
+  const marked={...exercise,measures:decorate(exercise.measures),...(exercise.lowerMeasures?{lowerMeasures:decorate(exercise.lowerMeasures)}:{})};
+  return {...marked,expressionSpans:expressionSpans(marked,random)};
 }
 
 export function noteExpression(note: GeneratedNote, velocity: number) {

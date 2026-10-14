@@ -11,6 +11,6 @@ function subscribe(listener: () => void) {
   return () => { unsubscribe(); window.removeEventListener('storage', onStorage); };
 }
 export function useCompanionDesign() {
-  const design = useSyncExternalStore(subscribe, store.getSnapshot, () => 'classic' as const);
+  const design = useSyncExternalStore(subscribe, store.getSnapshot, () => 'storybook' as const);
   return {design, setDesign: store.set};
 }

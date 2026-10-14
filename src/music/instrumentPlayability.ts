@@ -4,19 +4,22 @@ import type {RhythmBarPlan} from './phraseRhythm';
 import {melodicVoice} from './exerciseQuality';
 import {pipaDoubleStopFingering} from './pipaFingering';
 import {isShengInstrument, shengButton, shengKeyboardButton} from './shengFingering';
+import type {PhraseSpan} from './phrasePlan';
 
 export function needsBreath(instrument?:string) {
   const family=INSTRUMENTS[instrument as Instrument]?.family;
   return instrument==='Voice' || ['木管','銅管','國樂・吹管'].includes(family);
 }
 
-/** One written breath opportunity per four-bar phrase, never at the final
- * cadence or inside a tuplet. Planned before pitches so grades stay independent.
+/** A written breath opportunity at shared phrase endings, never at the final
+ * cadence or inside a tuplet. Legacy plans use their original four-bar spacing.
+ * Planned before pitches so grades stay independent.
  */
-export function planBreathing(plan:RhythmBarPlan[],instrument?:string):RhythmBarPlan[] {
+export function planBreathing(plan:RhythmBarPlan[],instrument?:string,phrasePlan?:readonly PhraseSpan[]):RhythmBarPlan[] {
   if(!needsBreath(instrument))return plan;
+  const endings=phrasePlan?.length?new Set(phrasePlan.slice(0,-1).map(phrase=>phrase.endBar)):undefined;
   return plan.map((bar,index)=>{
-    if((index+1)%4 || index===plan.length-1)return bar;
+    if((endings?!endings.has(index):(index+1)%4!==0) || index===plan.length-1)return bar;
     const last=bar.notes.at(-1),previous=bar.notes.at(-2);
     if(!last || last.rest || last.tuplet || previous?.rest || ![2,4,6,8].includes(last.units))return bar;
     const start=last.startUnits, units=last.units-2;

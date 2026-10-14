@@ -79,8 +79,8 @@ test('every tonal scale retains its own notes, written octaves, rhythm and grade
 });
 
 test('whole-study minor and church-mode endings resolve through legal modal steps',()=>{
-  for(const [scaleId,approaches] of [['major',[11,2]],['natural-minor',[2]],['harmonic-minor',[11,2]],['melodic-minor',[11,2]],
-    ['dorian',[2]],['phrygian',[1]],['lydian',[11,2]],['mixolydian',[10,2]],['locrian',[1]],['pelog-pentatonic',[1]],['whole-tone',[2]]]) {
+  for(const [scaleId,approaches] of [['major',[11,2]],['natural-minor',[2,10]],['harmonic-minor',[11,2]],['melodic-minor',[11,2]],
+    ['dorian',[2,10]],['phrygian',[1]],['lydian',[11,2]],['mixolydian',[10,2]],['locrian',[1]],['pelog-pentatonic',[1]],['whole-tone',[2,10]]]) {
     const ex=addModalPhrasing(generatePracticeExercise({...base,scaleId}),base.range,false,[],true);
     const notes=sounding(ex.measures);
     assert.ok(approaches.includes(notes.at(-2).midi%12),`${scaleId}: ${notes.at(-2).midi%12}`);

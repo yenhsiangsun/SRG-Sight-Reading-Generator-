@@ -5,12 +5,15 @@ import type {PetCompanion} from '../progress/progress';
 import {companionName} from '../progress/companionNames';
 import {tipsForScore, type CompanionTip} from '../progress/companionTips';
 import {CompanionPortrait} from './CompanionPortrait';
+import type {CompanionStage} from '../progress/companionGrowth';
+import {companionGrowthCopy} from '../progress/companionGrowthCopy';
 import './NoteCompanion.css';
 import './PracticeCompanion.css';
 
-export default function PracticeCompanion({exercise, pet, playing, metronomeOnly, examActive, completed}: {
+export default function PracticeCompanion({exercise, pet, stage = 'baby', playing, metronomeOnly, examActive, completed}: {
   exercise: ExerciseData;
   pet: PetCompanion | null;
+  stage?: CompanionStage;
   playing: boolean;
   metronomeOnly: boolean;
   examActive: boolean;
@@ -33,10 +36,10 @@ export default function PracticeCompanion({exercise, pet, playing, metronomeOnly
       if (collapsed) setCollapsed(false);
       else if (!focused) next();
     }} aria-label={`${name} · ${t(collapsed ? 'companionShow' : 'companionNext')}`} disabled={focused && !collapsed}>
-      <CompanionPortrait pet={pet} closeUp animated={!focused}/>
+      <CompanionPortrait pet={pet} stage={stage} closeUp animated={!focused}/>
     </button>
     <div className="practice-companion__body">
-      <div className="practice-companion__heading"><strong>{name}</strong><button type="button" className="practice-companion__toggle" aria-expanded={!collapsed} aria-controls={contentId} onClick={() => setCollapsed(!collapsed)} aria-label={t(collapsed ? 'companionShow' : 'companionHide')} title={t(collapsed ? 'companionShow' : 'companionHide')}>{collapsed ? '+' : '−'}</button></div>
+      <div className="practice-companion__heading"><strong>{name} <small className="note-companion__age">{companionGrowthCopy(locale)[stage]}</small></strong><button type="button" className="practice-companion__toggle" aria-expanded={!collapsed} aria-controls={contentId} onClick={() => setCollapsed(!collapsed)} aria-label={t(collapsed ? 'companionShow' : 'companionHide')} title={t(collapsed ? 'companionShow' : 'companionHide')}>{collapsed ? '+' : '−'}</button></div>
       <div id={contentId} hidden={collapsed}>
         <p className="practice-companion__message" aria-live={focused ? 'off' : 'polite'} aria-atomic="true">{t(tip)}</p>
         {!focused && <button type="button" className="practice-companion__next" onClick={next}>{t('companionNext')} <span aria-hidden="true">↗</span></button>}

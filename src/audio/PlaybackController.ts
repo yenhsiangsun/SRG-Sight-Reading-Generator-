@@ -6,6 +6,7 @@ import {notePitches} from '../music/notePitches';
 import {addRhythmUnits} from '../music/rhythmTiming';
 import {metricPosition} from '../music/meterFeel';
 import {pipaExpression} from './pipaExpression';
+import {expressionAddress, playbackExpressionPlan} from '../music/expressionSpans';
 
 export type PlaybackStatus = 'idle' | 'starting' | 'playing' | 'paused';
 export type PlaybackMode = 'score' | 'metronome';
@@ -37,19 +38,23 @@ export interface AudioAdapter {
 export function createPlaybackEvents(exercise: ExerciseData, bpm: number, performTechniques = false) {
   if (!Number.isFinite(bpm) || bpm <= 0) throw new Error('請選擇有效的速度。');
   const events: Array<{ note: string; duration: number; time: number; velocity?:number }> = [];
+  const spans = playbackExpressionPlan(exercise);
   let duration = 0;
-  for (const measures of [exercise.measures, ...(exercise.lowerMeasures ? [exercise.lowerMeasures] : [])]) {
+  for (const [staff,measures] of [exercise.measures, ...(exercise.lowerMeasures ? [exercise.lowerMeasures] : [])].entries()) {
     let velocity:number|undefined;
-    for (const bar of measureTimeline(exercise,bpm,measures)) {
+    for (const [barIndex,bar] of measureTimeline(exercise,bpm,measures).entries()) {
       const {measure,secondsPerUnit}=bar;
       let units=0;
-      for (const note of measure.events) {
+      for (const [eventIndex,note] of measure.events.entries()) {
         if(note.dynamic)velocity=dynamicVelocity[note.dynamic];
         const length = note.durationUnits * secondsPerUnit;
         if (!note.rest) {
           const pitches = notePitches(note).slice().sort((a,b) => a.midi-b.midi);
           const expression=noteExpression(note,velocity??0.73);
-          const expressive=velocity!==undefined || note.articulation!==undefined;
+          const span=spans.get(expressionAddress(staff,barIndex,eventIndex));
+          const expressive=velocity!==undefined || note.articulation!==undefined || span!==undefined;
+          const lengthRatio=span?.legato && note.articulation!=='staccato' ? 1 : expression.lengthRatio;
+          const phraseVelocity=Math.min(1,expression.velocity*(span?.gain??1));
           const metrical=!!(measure.timeSignature ?? exercise.timeSignature);
           const metricGain=metrical ? metricPosition(measure,units,exercise.timeSignature).gain : 1;
           // Keep chord attacks from becoming disproportionately louder than single notes.
@@ -64,8 +69,8 @@ export function createPlaybackEvents(exercise: ExerciseData, bpm: number, perfor
               const midi = (Number(match[3])+1)*12+natural+alteration+exercise.transposition;
               pitch = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'][((midi%12)+12)%12]+(Math.floor(midi/12)-1);
             }
-            const event={note:pitch,duration:length*(expressive?expression.lengthRatio:1),time:bar.start+units*secondsPerUnit,
-              ...(metrical || expressive || pitches.length > 1 ? {velocity:expression.velocity*gain*metricGain} : {})};
+            const event={note:pitch,duration:length*(expressive?lengthRatio:1),time:bar.start+units*secondsPerUnit,
+              ...(metrical || expressive || pitches.length > 1 ? {velocity:phraseVelocity*gain*metricGain} : {})};
             events.push(...(performTechniques && exercise.soundProfile === 'Pipa' ?
               pipaExpression(event,note.technique,pitchIndex,pitches.length,length) : [event]));
           }

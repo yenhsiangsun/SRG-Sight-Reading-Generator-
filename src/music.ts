@@ -4,6 +4,7 @@ import type {PracticeRhythmNote} from './music/practiceRhythm';
 import {selectPhraseRhythmPlan, type RhythmBarPlan} from './music/phraseRhythm';
 import {PITCH_DIFFICULTY, pitchDistanceWeight} from './music/pitchDifficulty';
 import {addRhythmUnits} from './music/rhythmTiming';
+import {planMixedMeterSequence} from './music/meterSections';
 
 // src/music.ts
 // 真正的視譜練習音樂生成引擎
@@ -128,7 +129,17 @@ export interface MeasureData {
 // App.tsx 使用的名稱
 export type GeneratedMeasure = MeasureData;
 
+export interface ExpressionAnchor {bar: number; event: number}
+export interface ExpressionSpan {
+  kind: 'slur' | 'crescendo' | 'diminuendo';
+  staff: 0 | 1;
+  start: ExpressionAnchor;
+  end: ExpressionAnchor;
+}
+
 export interface ExerciseData {
+  phrasePlan?: import('./music/phrasePlan').PhraseSpan[];
+  expressionSpans?: ExpressionSpan[];
   harmonyPlan?: import('./music/phraseHarmony').HarmonyBar[];
   /** A single staff with either a fixed clef or automatic treble/bass changes. */
   staffMode?: 'fixed' | 'mixed';
@@ -922,7 +933,7 @@ export interface PracticeOptions {
   meters: TimeSignature[];
 }
 
-/** Meter changes occur at complete two-bar phrase boundaries. */
+/** Meter sections establish a complete new pulse before the next change. */
 export function createPracticeRhythmPlan(options: PracticeOptions): RhythmBarPlan[] {
   const {timeSignature, mixedMeters, measures} = options;
   const meters = [...new Set(options.meters)];
@@ -930,11 +941,9 @@ export function createPracticeRhythmPlan(options: PracticeOptions): RhythmBarPla
     throw new Error('混合拍號請至少選擇兩種拍號。');
   }
   if (!Number.isInteger(measures) || measures < 1 || measures > 32) throw new Error('請選擇有效的小節數。');
-  let meter = mixedMeters ? (meters.includes(timeSignature) ? timeSignature : meters[0]) : timeSignature;
-  const sequence = Array.from({length:measures},(_,index)=> {
-    if (mixedMeters && index > 0 && index % 2 === 0) meter = randomItem(meters.filter(value => value !== meter));
-    return meter;
-  });
+  const sequence = mixedMeters
+    ? planMixedMeterSequence(meters.includes(timeSignature) ? timeSignature : meters[0], meters, measures, options.rhythmLevel)
+    : Array.from({length: measures}, () => timeSignature);
   return selectPhraseRhythmPlan(sequence,options.rhythmLevel,options.rhythmFocus);
 }
 

@@ -4,7 +4,7 @@ import {loadModule} from './helpers.mjs';
 
 const {composeExercise}=loadModule('src/music/composeExercise.ts',491);
 const {generatePracticeExercise,TIME_SIGNATURES}=loadModule('src/music.ts',712);
-const {planStudyMelody}=loadModule('src/music/studyMelody.ts');
+const {planStudyMelody,STUDY_FORMS}=loadModule('src/music/studyMelody.ts');
 const {addModalPhrasing}=loadModule('src/music/modalPhrasing.ts');
 const {planPhraseHarmony}=loadModule('src/music/phraseHarmony.ts');
 const {buildPitchMaterial,describeTonality,pitchClass,SCALES}=loadModule('src/music/scales.ts');
@@ -18,7 +18,7 @@ const timing=exercise=>JSON.stringify(createPlaybackEvents(exercise,80).events.m
 
 test('whole studies plan every sounding onset, develop across barlines and recall a later answer',()=>{
   const forms=new Set(),figures=new Set(),layouts=new Set();
-  for(let sample=0;sample<60;sample++) {
+  for(let sample=0;sample<120;sample++) {
     const raw=generatePracticeExercise({...base,measures:sample%2?8:16});
     const before=JSON.stringify(raw),pitches=buildPitchMaterial(raw.tonality,base.range).pitches;
     const plan=planStudyMelody(raw.measures,pitches,pitchClass(raw.tonality.tonic),raw.difficulty);
@@ -31,7 +31,7 @@ test('whole studies plan every sounding onset, develop across barlines and recal
     assert.equal(plan.phrases.find(phrase=>phrase.role==='answer').figure,plan.phrases[0].figure);
     assert.equal(JSON.stringify(raw),before);
   }
-  assert.equal(forms.size,8);assert.equal(figures.size,4);assert.ok(layouts.size>=4);
+  assert.equal(forms.size,STUDY_FORMS.length);assert.equal(figures.size,4);assert.ok(layouts.size>=7);
 });
 
 test('actual new scores contain connected scale figures throughout the piece and distinct graded ranges',()=>{

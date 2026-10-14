@@ -10,6 +10,22 @@ export type SignatureGroup = 'sharp' | 'flat' | 'natural' | 'open';
 // for chromatic, symmetric or traditional-scale adaptations.
 export const SIGNATURE_WEIGHTS: Record<SignatureGroup, number> = {sharp: 35, flat: 35, natural: 10, open: 20};
 export const QUIET_SIGNATURE_WEIGHTS: Record<SignatureGroup, number> = {sharp: 35, flat: 35, natural: 25, open: 5};
+export type TonalityFamily = 'major-minor-modes' | 'pentatonic' | 'colour';
+// Give the musical families a share of practice, independent of how many labels
+// happen to be in the catalog. This applies to every instrument alike.
+export const TONALITY_FAMILY_WEIGHTS: Record<TonalityFamily, number> = {
+  'major-minor-modes': 65, pentatonic: 25, colour: 10,
+};
+const tonalModes = new Set(['major', 'natural-minor', 'harmonic-minor', 'melodic-minor',
+  'dorian', 'phrygian', 'lydian', 'mixolydian', 'locrian']);
+const modeWeights: Record<string, number> = {
+  major: 3, 'natural-minor': 2.5, 'harmonic-minor': 1, 'melodic-minor': 1,
+  dorian: 1.5, phrygian: 1, lydian: 1, mixolydian: 1.5, locrian: .5,
+};
+export function tonalityFamily(scaleId: string): TonalityFamily {
+  return tonalModes.has(scaleId) ? 'major-minor-modes'
+    : getScale(scaleId).intervals.length === 5 ? 'pentatonic' : 'colour';
+}
 export function signatureGroup(signature: string | null): SignatureGroup {
   return signature === null ? 'open' : signature === 'C' ? 'natural' : signature === 'F' || signature.includes('b') ? 'flat' : 'sharp';
 }
@@ -64,42 +80,61 @@ export function getTonalityChoices(ranges: readonly PitchRange[], options: Tonal
   }).filter(scale => scale.candidates.length > 0);
 }
 
-/** Pick a signature group, then a scale and tonic; one tonality serves the whole score. */
-export function selectRandomTonality(ranges: readonly PitchRange[], random: () => number = Math.random, options: TonalitySelectionOptions = {}): RandomTonality {
+/** Normalized, eligible choices; useful for auditing the actual practice mix. */
+export function getTonalityDistribution(ranges: readonly PitchRange[], options: TonalitySelectionOptions = {}): (RandomTonality & {weight: number})[] {
   const choices = getTonalityChoices(ranges,options);
   const quiet = options.allowAccidentals === false;
   const allowed = normalizeKeySignatureChoices(options.allowedKeySignatures);
-  const pick = <T,>(items: readonly T[]): T => items[Math.min(items.length - 1, Math.max(0, Math.floor(random() * items.length)))];
-  if (allowed) {
-    const eligible = allowed.filter(signature => choices.some(scale => scale.candidates.some(candidate =>
-      (candidate.signature ?? 'open') === signature)));
-    if (!eligible.length) throw new Error('所選調號在目前音域沒有可用音高，請擴大音域或選擇其他調號。');
-    const signature = pick(eligible);
-    const scales = choices.map(scale => {
-      const candidates = scale.candidates.filter(candidate => (candidate.signature ?? 'open') === signature);
-      const alterations = Math.min(...candidates.map(candidate => candidate.alterations));
-      return {...scale,candidates,weight:quiet ? 1 / (1 + alterations * alterations) : 1};
-    }).filter(scale => scale.candidates.length);
-    let position = Math.min(1 - Number.EPSILON, Math.max(0, random())) * scales.reduce((sum,scale) => sum + scale.weight,0);
-    const scale = scales.find(scale => (position -= scale.weight) < 0) ?? scales.at(-1)!;
-    return {scaleId:scale.scaleId,tonic:pick(scale.candidates).tonic};
+  const signatures = allowed ? allowed.filter(signature => choices.some(scale =>
+    scale.candidates.some(candidate => (candidate.signature ?? 'open') === signature))) : [undefined];
+  if (!signatures.length) throw new Error('所選調號在目前音域沒有可用音高，請擴大音域或選擇其他調號。');
+  const result: (RandomTonality & {weight: number})[] = [];
+  const signatureWeights = quiet ? QUIET_SIGNATURE_WEIGHTS : SIGNATURE_WEIGHTS;
+  for (const signature of signatures) {
+    // Explicit key selections remain equally likely, even when one supports
+    // fewer modes. Family shares are then normalized over what is playable.
+    const eligible = choices.map(scale => ({...scale, candidates: scale.candidates.filter(candidate =>
+      signature === undefined || (candidate.signature ?? 'open') === signature)})).filter(scale => scale.candidates.length);
+    const families = (Object.entries(TONALITY_FAMILY_WEIGHTS) as [TonalityFamily, number][])
+      .map(([family, weight]) => ({weight, scales: eligible.filter(scale => tonalityFamily(scale.scaleId) === family)}))
+      .filter(family => family.scales.length);
+    const familyTotal = families.reduce((sum, family) => sum + family.weight, 0);
+    for (const family of families) {
+      const shapes = new Map<string, typeof eligible>();
+      for (const scale of family.scales) {
+        const shape = getScale(scale.scaleId).intervals.join(',');
+        shapes.set(shape, [...shapes.get(shape) ?? [], scale]);
+      }
+      // Shang/Egyptian/Slendro, and Zhi/Yo, share one sounding pattern each.
+      // Extra names or spelling systems must not make that pattern more common.
+      const patterns = [...shapes.values()].map(scales => {
+        const alterations = Math.min(...scales.flatMap(scale => scale.candidates.map(candidate => candidate.alterations)));
+        const weight = Math.max(...scales.map(scale => modeWeights[scale.scaleId] ?? 1))
+          * (quiet ? 1 / (1 + alterations * alterations) : 1);
+        return {scales, weight};
+      });
+      const patternTotal = patterns.reduce((sum, pattern) => sum + pattern.weight, 0);
+      for (const pattern of patterns) {
+        const groups = (Object.entries(signatureWeights) as [SignatureGroup, number][]).map(([group, weight]) => ({weight,
+          scales: pattern.scales.map(scale => ({...scale, candidates: scale.candidates.filter(candidate => candidate.group === group)}))
+            .filter(scale => scale.candidates.length),
+        })).filter(group => group.scales.length);
+        const groupTotal = groups.reduce((sum, group) => sum + group.weight, 0);
+        for (const group of groups) for (const scale of group.scales) for (const candidate of scale.candidates) {
+          result.push({scaleId: scale.scaleId, tonic: candidate.tonic,
+            weight: 1 / signatures.length * family.weight / familyTotal * pattern.weight / patternTotal
+              * group.weight / groupTotal / group.scales.length / scale.candidates.length});
+        }
+      }
+    }
   }
-  const weights = quiet ? QUIET_SIGNATURE_WEIGHTS : SIGNATURE_WEIGHTS;
-  const groups = (Object.keys(weights) as SignatureGroup[]).map(group => ({
-    group, weight: weights[group], scales: choices.map(scale => {
-      const candidates = scale.candidates.filter(candidate => candidate.group === group);
-      const alterations = Math.min(...candidates.map(candidate => candidate.alterations));
-      return {scaleId:scale.scaleId, tonics:candidates.map(candidate => candidate.tonic),
-        weight:quiet ? 1 / (1 + alterations * alterations) : 1};
-    }).filter(scale => scale.tonics.length > 0),
-  })).filter(group => group.scales.length > 0);
-  // Renormalize over available groups for narrow/custom ranges. Within each group,
-  // choose the scale before the tonic so sparse scales are not crowded out.
-  const total = groups.reduce((sum, group) => sum + group.weight, 0);
-  let position = Math.min(1 - Number.EPSILON, Math.max(0, random())) * total;
-  const selectedGroup = groups.find(group => (position -= group.weight) < 0) ?? groups[groups.length - 1];
-  const scaleWeight = selectedGroup.scales.reduce((sum,scale) => sum + scale.weight,0);
-  let scalePosition = Math.min(1-Number.EPSILON,Math.max(0,random())) * scaleWeight;
-  const selected = selectedGroup.scales.find(scale => (scalePosition -= scale.weight) < 0) ?? selectedGroup.scales.at(-1)!;
-  return {scaleId: selected.scaleId, tonic: pick(selected.tonics)};
+  return result;
+}
+
+/** One balanced tonality serves the complete score and every requested staff. */
+export function selectRandomTonality(ranges: readonly PitchRange[], random: () => number = Math.random, options: TonalitySelectionOptions = {}): RandomTonality {
+  const choices = getTonalityDistribution(ranges, options);
+  let position = Math.min(1 - Number.EPSILON, Math.max(0, random()));
+  const selected = choices.find(choice => (position -= choice.weight) < 0) ?? choices.at(-1)!;
+  return {scaleId: selected.scaleId, tonic: selected.tonic};
 }
