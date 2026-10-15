@@ -86,6 +86,15 @@ workflows:
     environment:
       xcode: 26.4
       node: 24
+    # Separate capture branch avoids starting the iPad or TestFlight workflows.
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: codex/store-screenshot-iphone
+          include: true
+          source: true
+      cancel_previous_builds: false
     scripts:
       - name: Prepare unchanged production app for Simulator
         script: |
