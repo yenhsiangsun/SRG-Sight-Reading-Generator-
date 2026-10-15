@@ -41,8 +41,33 @@ workflows:
           xcode-project build-ipa \
             --project "ios/App/App.xcodeproj" \
             --scheme "App"
+      - name: Inspect packaged app and privacy manifests
+        script: |
+          shopt -s nullglob
+          ipa_files=(build/ios/ipa/*.ipa)
+          if [ "${#ipa_files[@]}" -ne 1 ]; then
+            echo "Expected exactly one signed IPA for inspection"
+            exit 1
+          fi
+          python3 scripts/verify-ios-release.py \
+            --ipa "${ipa_files[0]}" \
+            --web-root dist \
+            --expected-build "$BUILD_NUMBER" \
+            --expected-version 1.0 \
+            --output build/ios/release-inventory.json
+      - name: Capture native Simulator homepage previews (optional)
+        script: |
+          # Missing Simulator runtimes must not delay the signed IPA upload.
+          # PNGs still require visual review; they are not physical-device tests.
+          python3 scripts/capture-ios-simulator.py \
+            --output-dir build/ios/simulator-screenshots \
+            --timeout-seconds 900 || echo "Optional Simulator capture unavailable; continue TestFlight upload"
     artifacts:
       - build/ios/ipa/*.ipa
+      - build/ios/release-inventory.json
+      - build/ios/simulator-screenshots/*.png
+      - build/ios/simulator-screenshots/*.json
+      - build/ios/simulator-screenshots/*.log
       - /tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     publishing:

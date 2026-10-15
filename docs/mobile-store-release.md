@@ -1,5 +1,9 @@
 # Mobile store release content and privacy draft
 
+2026-10-15 preparation update: the offline App privacy/support dialogs are ready. The public three-language website and policy are published under 琢音 TONECRAFT, with publisher YenHsiang Sun, support email tonecraft.zhuoyin@gmail.com and effective date 2026-10-15. Apple No Data Collected disclosure is published; free pricing and 148 distribution regions excluding the EU are saved. See [app-store-submission-draft.md](./app-store-submission-draft.md), [public-support-site.md](./public-support-site.md) and [app-privacy-declaration.md](./app-privacy-declaration.md) for current verified evidence. A new TestFlight upload, store screenshots and content-rights preparation are authorized; App Store review must wait for user iPad testing approval. Latest live TestFlight at the start of this release is 1.0 (10). Packaged Pipa/Erhu use Guitar/Violin substitutes, and rejected old Erhu/BISA/Pipa banks are excluded from future production output. Current audio evidence and limitations are in [audio-release-audit.md](./audio-release-audit.md).
+
+**Historical material below (2026-09-28):** account-review status, missing publisher fields, draft policies, old builds and platform requirements below are retained as history. They are not current release status and must be rechecked before reuse. The linked 2026-10-15 documents supersede them.
+
 Reviewed: 2026-09-28. This file prepares Google Play and iPhone/iPad listing content; it is not evidence that a store submission, approval, account verification, or device test has completed.
 
 ## Current delivery route

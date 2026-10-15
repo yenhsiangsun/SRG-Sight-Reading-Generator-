@@ -1,0 +1,125 @@
+# Store screenshot preparation — 2026-10-15
+
+Status: capture plan verified against the current source. This document is not
+evidence that screenshots have been captured, uploaded, or tested on a device.
+Use the final release build through its normal interface; do not use the local
+calibration, tonality, or safe-area fixtures as store images.
+
+## Apple upload specifications
+
+The current app targets both iPhone and iPad (`TARGETED_DEVICE_FAMILY = "1,2"`).
+Apple's current reference requires at least one screenshot for an iPhone with
+Dynamic Island (medium display), and at least one for iPad 13-inch. Each device
+size accepts 1–10 screenshots in PNG, JPG, or JPEG without transparency.
+
+| Required group | Accepted portrait pixels | Accepted landscape pixels | Proposed capture |
+| --- | --- | --- | --- |
+| iPhone, Dynamic Island medium | 1179 × 2556; 1206 × 2622 | 2556 × 1179; 2622 × 1206 | 1179 × 2556 portrait |
+| iPad, 13-inch | 2064 × 2752; 2048 × 2732 | 2752 × 2064; 2732 × 2048 | 2732 × 2048 landscape |
+
+Reference, checked 2026-10-15:
+[Apple screenshot specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications).
+The live App Store Connect 1.0 Traditional Chinese media panel was checked on
+2026-10-15. Its medium Dynamic Island iPhone slot explicitly accepts
+1179 × 2556 or 1206 × 2622 portrait (and their landscape equivalents), matching
+the current reference. The iPhone Duo slot is separate; no unsupported device
+support claim or generated device frame is needed for this release.
+If the app's live App Store Connect media fields differ from the reference,
+record their accepted device group and pixel sizes before uploading. Do not
+force an image into a group that rejects its dimensions. Apple's legacy iPhone
+Face ID large group, if shown, accepts 1242 × 2688 or 1284 × 2778 portrait and
+their landscape counterparts; those are a separate size group.
+
+For browser layout drafts only, 1366 × 1024 CSS pixels at device scale 2 match
+the proposed iPad image dimensions; 393 × 852 at scale 3 match the proposed
+iPhone dimensions. These drafts are responsive UI evidence, not iOS simulator
+or physical-device evidence. Do not stretch a smaller screenshot to claim a
+higher resolution or add a fake device status bar. Prefer native simulator or
+device captures from the build being submitted for the final store set.
+
+## Capture set and normal UI paths
+
+Set the interface language to 繁體中文. Keep the standard layout size and forest
+companion appearance. Disable any browser translation. Capture the actual
+viewport, not a stitched full-page image. Allow page transitions, instrument
+artwork, companion atlases, notation fonts and score rendering to settle.
+
+The table is in proposed store order. The most efficient capture order is
+02 → 03 → 04 → 01 → 05 so that the first four images use the same session.
+
+| File stem | Screen and optional store caption | Actual UI path and preparation | What must remain visible |
+| --- | --- | --- | --- |
+| `01-musical-practice` | 練習樂譜／播放。Caption:「每次練習，都是一段音樂。」 | Home →「開始今日練習」→ choose Piano →「下一步」→ grand staff, C3–C6, 8 measures →「下一步」→ beginner pitch, simple rhythm, 4/4, natural key only, accidentals off →「開始視譜練習」。Use the resulting normal generated exercise. Scroll the score into a useful position; if showing playback, tap「播放樂譜」and capture while the real playhead is over the score. | Recognizable notation, printed BPM and playback controls. A still score is acceptable if capturing an active playhead is unreliable. Do not claim microphone feedback for polyphonic piano. |
+| `02-instrument-selection` | 選擇樂器。Caption:「從熟悉的樂器開始。」 | Home →「開始今日練習」。This is step 01「選擇你的樂器」。Choose Piano explicitly so a remembered user preference does not affect the set. Clear search, leave all instrument families visible; choose the viewport scroll position that shows the featured instrument and several real cards. | Current cute instrument artwork, selected instrument name, category filters and real selection cards. Do not restore the removed Gehu, Bass Gehu or Yunluo. |
+| `03-staff-range` | 譜表與選音域。Caption:「直接在譜上，找到舒適音域。」 | From step 01 tap「下一步」。Step 02「找到舒適的音域」has clef cards plus two vertical staff controls. For the piano set, select 大譜表 and adjust the lower/upper controls to C3 and C6. The「用音名精確調整」disclosure provides exact values if touch placement is awkward. Collapse it again before capture. | Real clef choices and both「最低音」「最高音」staff controls with their selected pitches. iPhone may require a natural scroll position instead of showing the entire page at once. |
+| `04-challenge-options` | 音高、節奏與調號。Caption:「難度與節奏，依自己安排。」 | From step 02 tap「下一步」。Step 03「設計今天的挑戰」has independent pitch cards, rhythm and meter selectors, and the key signature picker. Use 初級 + 簡單 + 4/4 +「無升降記號」for the score set; optionally select a second permitted key through the actual picker for this screenshot, then return to「無升降記號」only before generating image 01. Keep accidentals and mixed meters off for the simple score example. | Pitch difficulty choices, rhythm selector and key selection controls. On iPhone capture the key-selection area as a focused natural page scroll if all controls do not fit. Do not shrink the UI beyond the normal app size or composite separated portions. |
+| `05-forest-companions` | 森林小精靈成長。Caption:「讓每一天的練習，慢慢長大。」 | Header →「✦ … 星點」opens the real rewards dialog. Its upper section includes preview, and「一起長大的小精靈」shows 幼年／少年／成年. Use the permanently free 拍米 to show all three real forms without purchasing or inventing earned practice. Scroll the dialog so the growth selector is fully visible. Other animals may be previewed through「預覽造型」without unlocking. | Real forest artwork and honest locked/unlocked states. It is fine for 少年／成年 to remain locked. Do not inject progress, grant test points, remove lock symbols or claim a mature animal was earned when it was not. |
+
+Piano's C3–C6 range is a capture setting rather than a new default or a change
+to the generator. Do not change the app's code, music rules or persisted user
+history to produce these images. If existing practice data is useful for a
+native capture, use it with its actual unlocked stages; keep personal records
+out of the public image.
+
+## Current UI facts checked in source
+
+- `src/App.tsx` owns home → setup → practice navigation, real playback, the
+  rewards dialog and legal dialogs. There is no production URL that directly
+  opens arbitrary setup steps or manufactures a finished exercise.
+- `src/components/SetupPage.tsx` has step navigation (01/02/03), instrument
+  family/search, clef selection, `StaffRangePicker`, independent pitch/rhythm
+  controls, `KeySignaturePicker`, accidental and mixed-meter options.
+- `src/components/StaffRangePicker.tsx` supports tap/drag, semitone and octave
+  buttons, and keyboard arrows. `SetupPage` also offers exact note-name selects.
+- `src/hooks/useExercise.ts` starts with Piano, beginner pitch, simple rhythm,
+  4/4 and 8 measures; it restores the preferred instrument. New phone exercises
+  are capped at 8 measures. Use normal generation, not `?previewScale=…`.
+- `src/components/CompanionDesignPicker.tsx` displays all three actual forest
+  forms even when the later forms are locked. Each companion grows separately:
+  young at 30 minutes and adult at 180 minutes of credited practice. Original
+  art remains hidden; test-star controls are development-only and must not
+  appear in a store capture.
+- `MEMBERSHIP_ENABLED` is false. Do not show the hidden proposal pricing page,
+  imply a subscription exists, or advertise a daily generation cap. The proposed
+  future five-study limit has not been implemented.
+- Existing `.tmp-*.html`, `.tmp-*.tsx`, temporary screenshot previews and
+  `tests/fixtures/safe-area.html` are for development/QA. They are not final
+  store assets and cannot substitute for product-screen captures.
+
+## Language and legal consistency
+
+The app currently lists 12 interface locales: zh-TW, en, ja, es, de, fr, ko,
+pt-BR, ru, it, zh-CN and th. `src/legal/content.ts` contains complete privacy
+and support documents for zh-TW, zh-CN and English. The other nine locales show
+the English document with an explicit notice in the selected language; close
+and footer entry labels remain localized. Thus the proposed zh-TW screenshots
+do not show English fallback notices. Do not advertise all 12 legal documents
+as independently translated.
+
+No privacy/support sheet should cover the product in the store screenshot set.
+Separately verify the new native build opens the policy and support sheets
+offline, shows the approved publisher/contact, and follows the public links.
+
+## Capture receipt and acceptance
+
+For each final image, record: filename; App version/build; source commit;
+language; screen; actual pixel dimensions; portrait/landscape; capture source
+(physical iPad, iOS simulator, or browser draft); configuration; any normal
+scroll position; and whether uploaded to App Store Connect. Keep originals.
+
+Before uploading, inspect every image at its full dimensions and check:
+
+1. App branding, illustration style and controls match the new TestFlight build.
+2. Staff, beams, phrase lines, printed BPM and selected pitches are sharp and
+   readable; no incomplete load, blue caret overlap, warning or error banner.
+3. No real name, email, private practice results, developer controls, preview
+   banner, browser chrome, purchase proposal or misleading paid feature.
+4. No clipped top controls, unsafe-area overlap, truncated key choices or
+   artificial stretching. Do not use the iPad layout as an iPhone image.
+5. Pixel dimensions match the actual ASC media group, all files are RGB without
+   alpha, and the first screenshot communicates the working score experience.
+
+Physical iPad playback, real microphone permission/calibration, interruption
+recovery and safe-area behavior remain user TestFlight checks. A prepared
+screenshot set cannot mark them as passed. Leave App Store review submission
+pending until the user approves this TestFlight build.

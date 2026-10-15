@@ -2,6 +2,7 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { existsSync, createReadStream } from 'node:fs'
 import { resolve } from 'node:path'
+import { releasePublicAssets } from './build/releasePublicAssets.ts'
 
 const localPipa = resolve('pipa-preview.local')
 const pipaNotes = [45,49,53,57,62,66,72,76,79]
@@ -10,7 +11,7 @@ const localPipaReady = pipaNotes.every(note => existsSync(resolve(localPipa, `${
 // https://vite.dev/config/
 export default defineConfig(({ command }) => ({
   define: { 'import.meta.env.VITE_LOCAL_PIPA': JSON.stringify(command === 'serve' && localPipaReady) },
-  plugins: [react(), {
+  plugins: [react(), releasePublicAssets(), {
     name: 'local-pipa-preview',
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
