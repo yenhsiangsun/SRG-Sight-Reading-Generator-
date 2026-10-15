@@ -7,9 +7,12 @@ import {build} from 'vite';
 import {ARCHIVED_SAMPLE_DIRECTORIES, copyReleasePublicAssets, releasePublicAssets} from '../build/releasePublicAssets.ts';
 
 function fixture(t) {
-  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'srg-audio-release-'));
+  // macOS exposes /var as an alias of /private/var. Create and compare using
+  // the canonical parent so the cleanup guard remains strict on both paths.
+  const tempRoot = fs.realpathSync(os.tmpdir());
+  const root = fs.mkdtempSync(path.join(tempRoot, 'srg-audio-release-'));
   t.after(() => {
-    assert.equal(path.dirname(root), fs.realpathSync(os.tmpdir()));
+    assert.equal(fs.realpathSync(path.dirname(root)), tempRoot);
     assert.ok(path.basename(root).startsWith('srg-audio-release-'));
     fs.rmSync(root, {recursive:true, force:true});
   });
