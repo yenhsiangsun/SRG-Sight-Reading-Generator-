@@ -53,6 +53,45 @@ def select_devices(document):
     return {family: device for family, device in result.items() if device}
 
 
+def enumerate_devices(run, output, report):
+    """Allow one bounded cold CoreSimulator startup, without resetting devices."""
+    command = ["xcrun", "simctl", "list", "devices", "available", "--json"]
+    attempts = report.setdefault("deviceEnumeration", [])
+
+    def diagnostics(stage, warmup=False):
+        checks = [
+            ("simctl-path", ["xcrun", "--find", "simctl"], 15),
+            ("processes", ["ps", "-axo", "pid,ppid,state,etime,comm"], 20),
+            ("memory", ["vm_stat"], 15),
+        ]
+        if warmup:
+            # Asking the official runtime inventory can finish warming the
+            # service/runtime mount after a cold VM's first request timed out.
+            checks.append(("runtimes", ["xcrun", "simctl", "list", "runtimes", "--json"], 90))
+        for name, diagnostic_command, timeout in checks:
+            file = output / f"core-simulator-{stage}-{name}.log"
+            try:
+                file.write_text(run(diagnostic_command, timeout), encoding="utf-8")
+            except Exception as error:
+                # Main command logging also retains partial stdout on timeout.
+                file.write_text(f"Diagnostic unavailable: {error}\n", encoding="utf-8")
+                report["notes"].append(f"{stage} {name} diagnostic unavailable: {error}")
+
+    for number, timeout in enumerate((180, 120), 1):
+        try:
+            text = run(command, timeout)
+            document = json.loads(text)
+            (output / "available-simulator-devices.json").write_text(text, encoding="utf-8")
+            attempts.append({"attempt": number, "timeoutSeconds": timeout, "status": "completed"})
+            return document
+        except subprocess.TimeoutExpired:
+            attempts.append({"attempt": number, "timeoutSeconds": timeout, "status": "timed_out"})
+            report["notes"].append(f"CoreSimulator device enumeration attempt {number} timed out after {timeout}s")
+            diagnostics(f"attempt-{number}", warmup=number == 1)
+            if number == 2:
+                raise
+
+
 def capture_device(family, device, app, output, run, report, pause=time.sleep):
     """One device at a time, including cleanup after timeout or partial launch."""
     udid = device["udid"]
@@ -197,7 +236,7 @@ def main():
                     "limitation": "Matching App source does not make the unsigned Simulator binary identical to the signed TestFlight IPA."}
                 if changed:
                     raise RuntimeError("App source differs from the reference TestFlight commit; review before using screenshots")
-            devices = select_devices(json.loads(run(["xcrun", "simctl", "list", "devices", "available", "--json"], 30)))
+            devices = select_devices(enumerate_devices(run, output, report))
             if args.family != "all":
                 devices = {family: device for family, device in devices.items() if family == args.family}
             if not devices:
