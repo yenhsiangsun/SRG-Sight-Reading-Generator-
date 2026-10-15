@@ -76,6 +76,67 @@ workflows:
         # Internal testing receives uploads automatically; beta review is for external testers.
         submit_to_testflight: false
 
+  # Dedicated manual jobs: no signing, archive, upload or publishing. Run one
+  # device family at a time on a separate automation branch. App source must
+  # match TestFlight 1.0 (12), while capture tooling may have a newer commit.
+  ios-store-screenshots-iphone:
+    name: Store screenshots - iPhone only (manual)
+    instance_type: mac_mini_m2
+    max_build_duration: 45
+    environment:
+      xcode: 26.4
+      node: 24
+    scripts:
+      - name: Prepare unchanged production app for Simulator
+        script: |
+          git fetch --no-tags origin 555d0505b35188f2ce9bb6a799b03c4e4da1d6ad
+          npm ci
+          npm run build
+          npx cap sync ios
+      - name: Capture native iPhone homepage
+        script: |
+          python3 scripts/capture-ios-simulator.py \
+            --family iphone \
+            --build-number 12 \
+            --marketing-version 1.0 \
+            --app-source-commit 555d0505b35188f2ce9bb6a799b03c4e4da1d6ad \
+            --output-dir build/ios/store-screenshots-iphone \
+            --timeout-seconds 2100 \
+            --require-capture
+    artifacts:
+      - build/ios/store-screenshots-iphone/*.png
+      - build/ios/store-screenshots-iphone/*.json
+      - build/ios/store-screenshots-iphone/*.log
+
+  ios-store-screenshots-ipad:
+    name: Store screenshots - iPad only (manual)
+    instance_type: mac_mini_m2
+    max_build_duration: 45
+    environment:
+      xcode: 26.4
+      node: 24
+    scripts:
+      - name: Prepare unchanged production app for Simulator
+        script: |
+          git fetch --no-tags origin 555d0505b35188f2ce9bb6a799b03c4e4da1d6ad
+          npm ci
+          npm run build
+          npx cap sync ios
+      - name: Capture native iPad homepage
+        script: |
+          python3 scripts/capture-ios-simulator.py \
+            --family ipad \
+            --build-number 12 \
+            --marketing-version 1.0 \
+            --app-source-commit 555d0505b35188f2ce9bb6a799b03c4e4da1d6ad \
+            --output-dir build/ios/store-screenshots-ipad \
+            --timeout-seconds 2100 \
+            --require-capture
+    artifacts:
+      - build/ios/store-screenshots-ipad/*.png
+      - build/ios/store-screenshots-ipad/*.json
+      - build/ios/store-screenshots-ipad/*.log
+
   android-preview:
     name: Android installable preview
     instance_type: mac_mini_m2
