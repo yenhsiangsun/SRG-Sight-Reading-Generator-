@@ -115,6 +115,15 @@ workflows:
     environment:
       xcode: 26.4
       node: 24
+    # UI-start fallback, scoped exclusively to the isolated screenshot branch.
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: codex/store-screenshot-capture
+          include: true
+          source: true
+      cancel_previous_builds: false
     scripts:
       - name: Prepare unchanged production app for Simulator
         script: |
