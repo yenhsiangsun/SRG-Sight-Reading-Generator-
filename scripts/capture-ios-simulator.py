@@ -8,6 +8,7 @@ runtimes or a simulator build failure are recorded as a skipped capture.
 
 import argparse
 from datetime import datetime, timezone
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -34,6 +35,33 @@ def png_size(path):
     if header[:8] != b"\x89PNG\r\n\x1a\n" or header[12:16] != b"IHDR":
         raise ValueError("Simulator did not produce a valid PNG")
     return struct.unpack(">II", header[16:24])
+
+
+def normalize_app_icon(run, project_root, report):
+    """Match the existing production build preparation after source comparison."""
+    relative = Path("ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png")
+    icon = project_root / relative
+
+    def image_record():
+        width, height = png_size(icon)
+        return {"width": width, "height": height,
+                "sha256": hashlib.sha256(icon.read_bytes()).hexdigest()}
+
+    preparation = {"file": relative.as_posix(), "original": image_record(),
+        "sameStepAsProduction": True,
+        "productionWorkflow": "ipad-testflight",
+        "productionStep": "Normalize App Store icon dimensions", "status": "pending"}
+    report.setdefault("buildPreparation", {})["appIconNormalization"] = preparation
+    try:
+        run(["sips", "--resampleHeightWidth", "1024", "1024", str(icon)], 60)
+        preparation["final"] = image_record()
+        if (preparation["final"]["width"], preparation["final"]["height"]) != (1024, 1024):
+            raise RuntimeError("App Store icon normalization did not produce a 1024x1024 PNG")
+        preparation["status"] = "completed"
+    except Exception as error:
+        preparation["status"] = "failed"
+        preparation["error"] = str(error)
+        raise
 
 
 def select_devices(document):
@@ -236,6 +264,9 @@ def main():
                     "limitation": "Matching App source does not make the unsigned Simulator binary identical to the signed TestFlight IPA."}
                 if changed:
                     raise RuntimeError("App source differs from the reference TestFlight commit; review before using screenshots")
+            # Source equivalence is checked before this intentional CI-only
+            # transformation, just as the production archive normalizes the icon.
+            normalize_app_icon(run, Path.cwd(), report)
             devices = select_devices(enumerate_devices(run, output, report))
             if args.family != "all":
                 devices = {family: device for family, device in devices.items() if family == args.family}
