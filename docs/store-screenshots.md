@@ -1,9 +1,69 @@
-# Store screenshot preparation — 2026-10-15
+# Store screenshot preparation — 2026-10-16
 
-Status: capture plan verified against the current source. This document is not
-evidence that screenshots have been captured, uploaded, or tested on a device.
+Status: capture plan verified against the current source; five production-web
+UI drafts exist as recorded below. The iPhone and iPad capture-only jobs each
+produced one native PNG, but both failed visual QA for missing Chinese glyphs.
+No native screenshot is currently eligible for store upload, and no store media
+has been uploaded. This document does not establish a passed physical-device test.
 Use the final release build through its normal interface; do not use the local
 calibration, tonality, or safe-area fixtures as store images.
+
+2026-10-16 capture update: five real production-web UI drafts have now been
+captured from the normal flow (Piano preset C3–C6, beginner/simple, natural key,
+8 measures), without injected scores or unlocked rewards. They are saved under
+`.tmp-release-proof/store-screenshots/browser-drafts/` as `browser-instruments.jpg`,
+`browser-staff-range.jpg`, `browser-challenge-options.jpg`,
+`browser-musical-practice.jpg` and `browser-forest-companions.jpg`. These JPEGs are
+layout/content drafts, not iPad or iPhone Simulator screenshots and not store
+uploads. TestFlight **1.0 (12)** is available to the internal group with status
+「正在測試」. The same build has been selected in the App Store 1.0 draft,
+saved and verified after reload; it has not been submitted for review. Its
+selection does not replace the user's pending iPad test or final approval.
+
+The latest independent native Simulator screenshot jobs are listed below. Their
+capture branches do not publish another TestFlight build. Their actual outputs,
+pixel dimensions and visual quality must be reviewed before any store upload.
+
+| Capture target | Codemagic job ID | Isolated branch | Source commit | Current result |
+| --- | --- | --- | --- | --- |
+| iPad | `6ad101fd45beff93db2994e0` | `codex/store-screenshot-capture` | `7d3dc75` | Captured one native PNG; visual QA rejected for missing Chinese glyphs |
+| iPhone | `6ad101f745beff93db2994b6` | `codex/store-screenshot-iphone` | `e70f455` | Captured one native PNG; visual QA rejected for missing Chinese glyphs |
+
+The first capture-only jobs produced zero PNGs because initial CoreSimulator
+device enumeration exceeded 30 seconds. The next iPhone job passed enumeration
+in 33 seconds, then exposed a missing preparation step: the production pipeline
+normalizes the source app icon from 1254 to 1024 pixels, while the independent
+capture workflow had omitted it. The latest scripts perform that same existing
+production step after strict App-source comparison, record before/after
+properties, and allow a bounded cold Simulator initialization. These are
+capture-automation repairs; no new TestFlight upload or App behavior change was
+made. An unsigned Simulator build is not identical to the signed IPA.
+
+## Native visual QA: unresolved Chinese fallback
+
+The iPhone 17 Pro capture job completed successfully and produced one native
+1206 × 2622 PNG from version 1.0 (12). The iPad capture-only job also completed
+and produced `ipad-home-zh-TW.png` at 2064 × 2752. Visual review rejected both:
+general Chinese interface labels render as missing-glyph boxes, while serif
+hero and brand text render correctly. The iPhone original and
+`visual-review.json` are preserved in
+`.tmp-release-proof/capture-iphone-attempt3/`; the iPad original is preserved in
+`.tmp-release-proof/capture-ipad-attempt3/`. They are diagnostic evidence, not
+store assets. Both images are RGBA with opaque alpha; the iPad's alpha values
+are all 255. A final usable image must be exported without an alpha channel,
+but removing alpha cannot fix the missing text and does not make either
+rejected image eligible. Do not redraw, replace, or hide interface text in them.
+
+The relevant typography CSS is unchanged from the previously tested build 10.
+There is no bundled or remote CJK webfont. This supports a Simulator system-font
+fallback problem but does not prove its exact cause or physical-device behavior.
+The user has been asked to confirm Chinese text in TestFlight 12 on the iPad.
+Keep build 12, do not silently alter the App or claim a device regression, and do
+not upload either rejected picture. A usable native set is still required before
+formal store submission. The five browser drafts remain ready for content and
+composition review and clearly labeled drafts; none is a native capture or
+store upload. Physical iPad Chinese-text confirmation from the user remains
+pending and must be distinguished from these two Simulator results.
 
 ## Apple upload specifications
 
@@ -24,6 +84,9 @@ The live App Store Connect 1.0 Traditional Chinese media panel was checked on
 1179 × 2556 or 1206 × 2622 portrait (and their landscape equivalents), matching
 the current reference. The iPhone Duo slot is separate; no unsupported device
 support claim or generated device frame is needed for this release.
+The live iPad slot also explicitly accepts 2048 × 2732 or 2064 × 2752 portrait,
+and their landscape equivalents. The optional CI native Simulator captures use
+these supported portrait groups and record the actual pixel dimensions.
 If the app's live App Store Connect media fields differ from the reference,
 record their accepted device group and pixel sizes before uploading. Do not
 force an image into a group that rejects its dimensions. Apple's legacy iPhone
