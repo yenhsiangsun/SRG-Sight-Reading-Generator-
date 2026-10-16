@@ -1,0 +1,63 @@
+{
+  "dateTaipei": "2026-10-16",
+  "appVersion": "1.0",
+  "build": 12,
+  "appId": "6815293617",
+  "images": [
+    {
+      "family": "iphone",
+      "sourceType": "user supplied physical-device screenshot",
+      "sourceDimensions": [
+        590,
+        1280
+      ],
+      "sourceSha256": "aa234ef545ff28c988a27c4d7e7c19711a21d972525fee963073e968f338df76",
+      "storeFile": "iphone-store-zh-TW.jpg",
+      "storeDimensions": [
+        1179,
+        2556
+      ],
+      "storeSha256": "652e1adc36c9512ac57d4e64c4d038a27643ac3f103bfd1d19bfc6c6cdecbabb",
+      "mode": "RGB",
+      "visualReview": "passed by root and independent reviewer",
+      "appContentRedrawn": false,
+      "aspectRatioPreserved": true,
+      "compressedSourceResolutionRestored": false,
+      "treatment": "Full real UI preserved, deterministic typography and flat background around it; proportional Lanczos3 resampling, no sharpening or generative editing.",
+      "ascLocale": "zh-Hant",
+      "savedAndReloadVerified": true,
+      "storeScreenshotCount": 1
+    },
+    {
+      "family": "ipad",
+      "sourceType": "user supplied physical-device screenshot",
+      "sourceDimensions": [
+        960,
+        1280
+      ],
+      "sourceSha256": "24ae11eb99ef4855d41d65840acd62b82d8085cf4dc4a1a32413a180105b9813",
+      "storeFile": "ipad-store-zh-TW.jpg",
+      "storeDimensions": [
+        2048,
+        2732
+      ],
+      "storeSha256": "fa8dbcd6ff6111e04bd238fafcf73417f08ac46e999728c105ee38c4817cb421",
+      "mode": "RGB",
+      "visualReview": "passed by root and independent reviewer",
+      "appContentRedrawn": false,
+      "aspectRatioPreserved": true,
+      "compressedSourceResolutionRestored": false,
+      "treatment": "Full real UI preserved, deterministic typography and flat background around it; proportional Lanczos3 resampling, no sharpening or generative editing.",
+      "ascLocale": "zh-Hant",
+      "savedAndReloadVerified": true,
+      "storeScreenshotCount": 1
+    }
+  ],
+  "appStoreReviewSubmitted": false,
+  "publicAppRelease": false,
+  "note": "Store showcase graphics based on compressed real-device screenshots, not original high-resolution native captures or Apple approval.",
+  "references": [
+    "https://developer.apple.com/help/app-review/guideline-reference/2-3-3-screenshots/",
+    "https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications"
+  ]
+}

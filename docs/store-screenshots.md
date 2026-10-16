@@ -1,14 +1,44 @@
 # Store screenshot preparation — 2026-10-16
 
-Status: capture plan verified against the current source; five production-web
-UI drafts exist as recorded below. The iPhone and iPad capture-only jobs each
-produced one native PNG, but both failed visual QA for missing Chinese glyphs.
-No native screenshot is currently eligible for store upload, and no store media
-has been uploaded. The user has now confirmed Chinese homepage/button text is
-normal on a physical iPad in TestFlight 1.0 (12); other device acceptance tests
-and final submission approval are still pending.
-Use the final release build through its normal interface; do not use the local
-calibration, tonality, or safe-area fixtures as store images.
+Status: **two physical-device-based store showcase graphics are now uploaded
+and saved in the Traditional Chinese App Store 1.0 draft, one for iPhone and one
+for iPad**. Both were verified again after reloading App Store Connect. The
+selected App remains TestFlight **1.0 (12)**; no new App was uploaded and formal
+App Review has not been submitted. Full device acceptance remains with the user.
+
+## Saved store graphics — 2026-10-16
+
+| Device slot | Final JPEG | Dimensions | Saved count |
+| --- | --- | --- | ---: |
+| Dynamic Island iPhone, medium | [iphone-store-zh-TW.jpg](./store-assets/zh-TW/iphone-store-zh-TW.jpg) | 1179 × 2556 | 1 |
+| iPad 13-inch | [ipad-store-zh-TW.jpg](./store-assets/zh-TW/ipad-store-zh-TW.jpg) | 2048 × 2732 | 1 |
+
+The user supplied actual iPad and iPhone practice screenshots, with normal
+Chinese text and notation. The received JPEGs were compressed to 960 × 1280 and
+590 × 1280 respectively. The final graphics preserve each complete real UI at
+its original aspect ratio, with a flat cream background and brand/captions
+outside the UI. They do not redraw notation, reconstruct missing text, or claim
+to restore the original native resolution. Both are RGB JPEGs without alpha.
+Independent visual review confirmed clear main notation, BPM and interface;
+small text retains the source compression's softness. Detailed hashes, original
+dimensions and transformation disclosures are in
+[provenance.json](./store-assets/zh-TW/provenance.json).
+
+App Store Connect accepted both files, displayed one screenshot in each correct
+device tab, and retained them after a page reload. The media saves automatically;
+the main Save control was disabled after processing. Evidence screenshots are
+`.tmp-release-proof/apple-store-iphone-physical-saved.jpg` and
+`.tmp-release-proof/apple-store-ipad-physical-saved.jpg`. This is a saved-draft
+verification, not Apple review approval. The Add for Review button was not used.
+
+Apple permits screenshots with text/image overlays provided core functionality
+is not obscured and the actual App use remains clear
+([guideline 2.3.3](https://developer.apple.com/help/app-review/guideline-reference/2-3-3-screenshots/)).
+These two graphics show the App in use. No additional screenshot file is needed
+for the current minimum media set; the five browser drafts below remain optional
+plans for expanding the store gallery later.
+
+## Earlier draft and capture history (superseded for current store media)
 
 2026-10-16 capture update: five real production-web UI drafts have now been
 captured from the normal flow (Piano preset C3–C6, beginner/simple, natural key,
@@ -42,7 +72,7 @@ properties, and allow a bounded cold Simulator initialization. These are
 capture-automation repairs; no new TestFlight upload or App behavior change was
 made. An unsigned Simulator build is not identical to the signed IPA.
 
-## Native visual QA: unresolved Chinese fallback
+## Historical Simulator visual QA: Chinese fallback remains unresolved
 
 The iPhone 17 Pro capture job completed successfully and produced one native
 1206 × 2622 PNG from version 1.0 (12). The iPad capture-only job also completed
@@ -63,10 +93,11 @@ fallback problem but does not prove its exact cause or physical-device behavior.
 On 2026-10-16 the user confirmed Chinese text is normal on the physical iPad in
 TestFlight 12. This confirms only that text check, not all release acceptance.
 Keep build 12, do not silently alter the App or claim a device regression, and do
-not upload either rejected picture. A usable native set is still required before
-formal store submission. The five browser drafts remain ready for content and
+not upload either rejected picture. The current store media requirement is now
+met by the user-provided physical-device compositions above. The five browser drafts remain ready for content and
 composition review and clearly labeled drafts; none is a native capture or
-store upload. No physical iPhone text test has been reported.
+store upload. The later supplied iPhone practice screenshot also shows normal
+Chinese text; full iPhone acceptance is still pending.
 
 A single capture-only retry, job `6ad1a2b912cce3cb997099c8` at `049bf5c`,
 initialized the entire ephemeral
@@ -89,11 +120,9 @@ completion is a visual QA pass. Raw evidence is retained under
 `.tmp-release-proof/capture-system-locale-attempt4/` with `visual-review.json`.
 
 This retry did not sign/upload a new App or submit App Review. Stop font retries
-on this runtime. Obtain original screenshots from physical iPad/iPhone devices
-or a controllable Mac Simulator with functioning system fonts. Start with an
-uncropped generated-score practice screen per device; inspect its original
-dimensions before choosing an App Store slot. Additional screens may then be
-captured through the normal UI. The actual TestFlight 12 App remains unchanged.
+on this runtime. This was resolved for store-media preparation when the user supplied real
+iPad/iPhone practice screens. The rejected Simulator originals remain diagnostic
+evidence only. The actual TestFlight 12 App remains unchanged.
 
 ## Apple upload specifications
 
