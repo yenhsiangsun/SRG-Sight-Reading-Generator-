@@ -4,7 +4,9 @@ Status: capture plan verified against the current source; five production-web
 UI drafts exist as recorded below. The iPhone and iPad capture-only jobs each
 produced one native PNG, but both failed visual QA for missing Chinese glyphs.
 No native screenshot is currently eligible for store upload, and no store media
-has been uploaded. This document does not establish a passed physical-device test.
+has been uploaded. The user has now confirmed Chinese homepage/button text is
+normal on a physical iPad in TestFlight 1.0 (12); other device acceptance tests
+and final submission approval are still pending.
 Use the final release build through its normal interface; do not use the local
 calibration, tonality, or safe-area fixtures as store images.
 
@@ -28,6 +30,7 @@ pixel dimensions and visual quality must be reviewed before any store upload.
 | --- | --- | --- | --- | --- |
 | iPad | `6ad101fd45beff93db2994e0` | `codex/store-screenshot-capture` | `7d3dc75` | Captured one native PNG; visual QA rejected for missing Chinese glyphs |
 | iPhone | `6ad101f745beff93db2994b6` | `codex/store-screenshot-iphone` | `e70f455` | Captured one native PNG; visual QA rejected for missing Chinese glyphs |
+| iPhone + iPad, global Traditional Chinese retry | `6ad1a2b912cce3cb997099c8` | `codex/store-screenshot-capture` | `049bf5c` | Two homepage PNGs captured; both still rejected for missing Chinese glyphs; full UI sets incomplete |
 
 The first capture-only jobs produced zero PNGs because initial CoreSimulator
 device enumeration exceeded 30 seconds. The next iPhone job passed enumeration
@@ -57,13 +60,40 @@ rejected image eligible. Do not redraw, replace, or hide interface text in them.
 The relevant typography CSS is unchanged from the previously tested build 10.
 There is no bundled or remote CJK webfont. This supports a Simulator system-font
 fallback problem but does not prove its exact cause or physical-device behavior.
-The user has been asked to confirm Chinese text in TestFlight 12 on the iPad.
+On 2026-10-16 the user confirmed Chinese text is normal on the physical iPad in
+TestFlight 12. This confirms only that text check, not all release acceptance.
 Keep build 12, do not silently alter the App or claim a device regression, and do
 not upload either rejected picture. A usable native set is still required before
 formal store submission. The five browser drafts remain ready for content and
 composition review and clearly labeled drafts; none is a native capture or
-store upload. Physical iPad Chinese-text confirmation from the user remains
-pending and must be distinguished from these two Simulator results.
+store upload. No physical iPhone text test has been reported.
+
+A single capture-only retry, job `6ad1a2b912cce3cb997099c8` at `049bf5c`,
+initialized the entire ephemeral
+Simulator guest to `zh-Hant-TW` / `zh_TW`, reboots normally and records preference
+readback. Earlier attempts supplied only App launch-language arguments; those
+are distinct from the system language and region ([Apple localization testing](https://developer.apple.com/documentation/xcode/testing-localizations-when-running-your-app)).
+The preference plist retained the requested values after reboot, and the iPad
+statusbar date changed to Chinese. Guest `defaults` readback was unavailable
+(exit 134), so it was recorded as unavailable rather than silently treated as
+successful. Visual review still found missing glyphs in both native home PNGs;
+the system-locale hypothesis did **not** resolve the capture problem.
+The retry also used an independent XCTest UI bundle to navigate the installed,
+unchanged App through home, instruments, range, difficulty and generated score;
+it injects no scores, preferences or unlocked rewards. Its source comparison
+still targets App 12 commit `555d0505b35188f2ce9bb6a799b03c4e4da1d6ad`.
+The XCTest projects compiled and ran, but their normal-flow test could not
+reveal an expected button. Each exported only a home image and a failure
+diagnostic, not the five-screen set. Neither accessibility success nor job
+completion is a visual QA pass. Raw evidence is retained under
+`.tmp-release-proof/capture-system-locale-attempt4/` with `visual-review.json`.
+
+This retry did not sign/upload a new App or submit App Review. Stop font retries
+on this runtime. Obtain original screenshots from physical iPad/iPhone devices
+or a controllable Mac Simulator with functioning system fonts. Start with an
+uncropped generated-score practice screen per device; inspect its original
+dimensions before choosing an App Store slot. Additional screens may then be
+captured through the normal UI. The actual TestFlight 12 App remains unchanged.
 
 ## Apple upload specifications
 
