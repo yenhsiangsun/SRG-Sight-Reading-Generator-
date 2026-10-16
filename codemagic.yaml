@@ -109,7 +109,7 @@ workflows:
       - build/ios/store-screenshots-iphone/*.log
 
   ios-store-screenshots-ipad:
-    name: Store screenshots - iPad only (manual)
+    name: Store screenshots - Traditional Chinese iPhone and iPad
     instance_type: mac_mini_m2
     max_build_duration: 45
     environment:
@@ -131,10 +131,12 @@ workflows:
           npm ci
           npm run build
           npx cap sync ios
-      - name: Capture native iPad homepage
+      - name: Capture native iPhone and iPad in Chinese system locale
         script: |
           python3 scripts/capture-ios-simulator.py \
-            --family ipad \
+            --family all \
+            --system-locale-zh-tw \
+            --ui-capture \
             --build-number 12 \
             --marketing-version 1.0 \
             --app-source-commit 555d0505b35188f2ce9bb6a799b03c4e4da1d6ad \
@@ -145,6 +147,7 @@ workflows:
       - build/ios/store-screenshots-ipad/*.png
       - build/ios/store-screenshots-ipad/*.json
       - build/ios/store-screenshots-ipad/*.log
+      - build/ios/store-screenshots-ipad/*-ui-attachments/**/*
 
   android-preview:
     name: Android installable preview

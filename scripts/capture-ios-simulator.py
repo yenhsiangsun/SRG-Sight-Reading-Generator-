@@ -120,7 +120,83 @@ def enumerate_devices(run, output, report):
                 raise
 
 
-def capture_device(family, device, app, output, run, report, pause=time.sleep):
+def prepare_system_locale(device, run, report):
+    """Initialize only this ephemeral CI guest's language, then reboot normally.
+
+    Launch arguments affect the App process, not necessarily the WebContent or
+    font services. Use the Simulator's observed dataPath; never modify fonts,
+    the host preferences, or the submitted App's assets.
+    """
+    if not os.environ.get("CM_BUILD_ID"):
+        raise RuntimeError("System locale setup is restricted to ephemeral Codemagic guests")
+    udid = device["udid"]
+    devices_root = (Path.home() / "Library/Developer/CoreSimulator/Devices").resolve()
+    data = Path(device["dataPath"]).resolve()
+    expected = (devices_root / udid / "data").resolve()
+    if data != expected or not data.is_relative_to(devices_root):
+        raise RuntimeError("Unexpected Simulator guest dataPath")
+    preferences = data / "Library/Preferences/.GlobalPreferences.plist"
+    if not preferences.resolve().is_relative_to(data):
+        raise RuntimeError("Simulator preference path escapes the selected guest")
+    run(["xcrun", "simctl", "shutdown", udid], 90)
+    original = plistlib.loads(preferences.read_bytes()) if preferences.exists() else {}
+    record = {"family": device["name"], "udid": udid,
+        "before": {key: original.get(key) for key in ("AppleLanguages", "AppleLocale")},
+        "scope": "ephemeral Simulator guest only; App and host unchanged"}
+    report.setdefault("systemLocaleSetup", []).append(record)
+    original.update({"AppleLanguages": ["zh-Hant-TW", "en-US"], "AppleLocale": "zh_TW"})
+    preferences.parent.mkdir(parents=True, exist_ok=True)
+    preferences.write_bytes(plistlib.dumps(original, fmt=plistlib.FMT_BINARY))
+    run(["xcrun", "simctl", "boot", udid], 90)
+    run(["xcrun", "simctl", "bootstatus", udid, "-b"], 420)
+    actual = plistlib.loads(preferences.read_bytes())
+    record["after"] = {key: actual.get(key) for key in ("AppleLanguages", "AppleLocale")}
+    if record["after"] != {"AppleLanguages": ["zh-Hant-TW", "en-US"], "AppleLocale": "zh_TW"}:
+        raise RuntimeError("Simulator system locale did not persist through reboot")
+    record["status"] = "stored values verified after normal reboot; visual font QA still required"
+    for key in ("AppleLanguages", "AppleLocale"):
+        try:
+            value = run(["xcrun", "simctl", "spawn", udid, "/usr/bin/defaults",
+                         "read", ".GlobalPreferences.plist", key], 30)
+            record.setdefault("guestDefaultsReadback", {})[key] = value.strip()
+        except Exception as error:
+            record.setdefault("guestDefaultsReadback", {})[key] = {"unavailable": str(error)}
+
+
+def capture_ui_screens(family, device, output, run, report):
+    """Drive the installed App's real UI through an isolated XCTest bundle."""
+    generated = output / "UIRunner"
+    results = output / f"{family}-ui.xcresult"
+    exported = output / f"{family}-ui-attachments"
+    entry = {"family": family, "status": "pending", "appModified": False,
+             "visualReviewRequired": True, "eligibleForStoreUpload": False}
+    report.setdefault("uiCaptures", []).append(entry)
+    try:
+        run(["node", "scripts/generate-native-store-ui.mjs", str(generated)], 30)
+        command = ["xcodebuild", "test", "-project", str(generated / "NativeStoreCapture.xcodeproj"),
+            "-scheme", "NativeStoreCapture", "-destination", "platform=iOS Simulator,id=" + device["udid"],
+            "-derivedDataPath", str(output / "UITestDerivedData"), "-resultBundlePath", str(results),
+            "-parallel-testing-enabled", "NO", "-maximum-concurrent-test-simulator-destinations", "1",
+            "-test-timeouts-enabled", "YES", "-default-test-execution-time-allowance", "360",
+            "-maximum-test-execution-time-allowance", "600", "CODE_SIGNING_ALLOWED=NO"]
+        run(command, 900)
+        entry["status"] = "UI flow completed; awaiting attachment export and visual review"
+    except Exception as error:
+        entry["status"] = "UI capture incomplete"
+        entry["error"] = str(error)
+    finally:
+        if results.exists():
+            try:
+                run(["xcrun", "xcresulttool", "export", "attachments", "--path", str(results),
+                     "--output-path", str(exported)], 90)
+                entry["attachmentDirectory"] = exported.name
+                entry["exportedPngCount"] = len(list(exported.rglob("*.png")))
+            except Exception as error:
+                entry["exportError"] = str(error)
+
+
+def capture_device(family, device, app, output, run, report, pause=time.sleep,
+                   system_locale=False, ui_capture=False):
     """One device at a time, including cleanup after timeout or partial launch."""
     udid = device["udid"]
     base = ["xcrun", "simctl"]
@@ -152,6 +228,8 @@ def capture_device(family, device, app, output, run, report, pause=time.sleep):
         if device.get("state") != "Booted":
             run(base + ["boot", udid], 90)
         run(base + ["bootstatus", udid, "-b"], 420)
+        if system_locale:
+            prepare_system_locale(device, run, report)
         run(base + ["install", udid, str(app)], 180)
         try:
             run(base + ["status_bar", udid, "override", "--time", "9:41",
@@ -173,7 +251,7 @@ def capture_device(family, device, app, output, run, report, pause=time.sleep):
                 raise
         # Native launch completes before WKWebView's first render. Captures
         # still need human review even after a successful launch response.
-        pause(15)
+        pause(45 if system_locale else 15)
         file = output / f"{family}-home-zh-TW.png"
         run(base + ["io", udid, "screenshot", str(file)], 60)
         size = png_size(file)
@@ -186,6 +264,8 @@ def capture_device(family, device, app, output, run, report, pause=time.sleep):
         })
         if not accepted:
             note("Capture does not fit the intended store slot; obtain a supported native size before upload")
+        if ui_capture:
+            capture_ui_screens(family, device, output, run, report)
     except Exception as error:
         note(f"Capture unavailable: {error}")
     finally:
@@ -205,6 +285,10 @@ def main():
     parser.add_argument("--build-number")
     parser.add_argument("--marketing-version")
     parser.add_argument("--app-source-commit")
+    parser.add_argument("--system-locale-zh-tw", action="store_true",
+                        help="Initialize the ephemeral Simulator guest in Traditional Chinese, then reboot")
+    parser.add_argument("--ui-capture", action="store_true",
+                        help="Capture five actual screens with an isolated XCTest UI runner")
     parser.add_argument("--require-capture", action="store_true",
                         help="Fail a dedicated screenshot job if no confirmed-launch capture was produced")
     args = parser.parse_args()
@@ -301,7 +385,8 @@ def main():
                     report["notes"].append(f"No supported {family} Simulator available")
                     continue
                 progress(f"Capturing {family}: {device['name']}")
-                capture_device(family, device, app, output, run, report)
+                capture_device(family, device, app, output, run, report,
+                               system_locale=args.system_locale_zh_tw, ui_capture=args.ui_capture)
                 (output / "capture-inventory.json").write_text(json.dumps(report, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
         except Exception as error:
             report["notes"].append(f"Optional captures skipped: {error}")
