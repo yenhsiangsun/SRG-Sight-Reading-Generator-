@@ -192,6 +192,7 @@ export function addInstrumentHarmony(exercise: ExerciseData, range: PitchRange, 
     target=Math.min(limit,target+selected.size);
   }
   const eligible = sounded.filter(({note}) => !note.chord && note.durationUnits >= 2 && note.startUnits % 2 === 0)
+    .filter(({note,hand,bar}) => !piano || metricPosition(staffs[hand][bar],note.startUnits,exercise.timeSignature).onPulse)
     .filter(({note,hand,bar}) => !sheng || (metricPosition(staffs[hand][bar],note.startUnits,exercise.timeSignature).onPulse &&
       note.durationUnits >= (instrument === 'Bass Sheng' ? 4 : 2)))
     .map(item => ({...item, priority:random() + (item.note.startUnits === 0 ? 1 : 0)}))
@@ -211,9 +212,9 @@ export function addInstrumentHarmony(exercise: ExerciseData, range: PitchRange, 
     // Do not turn a passing chromatic note into an unrelated chord.
     if (!material.some(pitch => pitch.midi === anchor.midi)) continue;
     const melody = piano ? exercise.measures[bar].events.filter(upper => !upper.rest &&
-      upper.startUnits < note.startUnits+note.durationUnits && upper.startUnits+upper.durationUnits > note.startUnits &&
-      // Short passing notes may move freely; check the attack and sustained melody.
-      (upper.startUnits <= note.startUnits || upper.durationUnits >= 4)).flatMap(notePitches) : [];
+      // An added chord must fit the whole held bass, including later melody
+      // attacks. Leave the single-note support when extra tones would clash.
+      upper.startUnits < note.startUnits+note.durationUnits && upper.startUnits+upper.durationUnits > note.startUnits).flatMap(notePitches) : [];
     const center=exercise.harmonyPlan?.[bar];
     const pool = material.filter(pitch => (!piano || (pitch.midi >= anchor.midi && pitch.midi <= 64)) &&
       (!center || center.pitches.includes(pitch.midi%12)));

@@ -8,12 +8,15 @@ import {practiceCompanionMessages} from './practiceCompanionMessages';
 import {namedCatalogs} from './namedCatalogs';
 import {tuningMessages} from './tuningMessages';
 import {staffMessages} from './staffMessages';
+import {mixedClefMessages} from './mixedClefMessages';
 import {difficultyMessages} from './difficultyMessages';
 import {tonalityMessages} from './tonalityMessages';
 import {pdfMessages} from './pdfMessages';
 import {improvementMessages} from './improvementMessages';
 import {pipaMessages} from './pipaMessages';
 import {assessmentMessages} from './assessmentMessages';
+import {searchMessages} from './searchMessages';
+import {savedDataMessages} from './savedDataMessages';
 
 export const localeOrder = ['zh-TW', 'en', 'ja', 'es', 'de', 'fr', 'ko', 'pt-BR', 'ru', 'it', 'zh-CN', 'th'] as const;
 
@@ -22,6 +25,8 @@ export type Locale = (typeof localeOrder)[number];
 export const locales: Locale[] = [...localeOrder];
 
 export const messages = {
+  ...savedDataMessages,
+  ...searchMessages,
   ...assessmentMessages,
   ...pipaMessages,
   ...improvementMessages,
@@ -29,6 +34,7 @@ export const messages = {
   ...tonalityMessages,
   ...difficultyMessages,
   ...staffMessages,
+  ...mixedClefMessages,
   ...tuningMessages,
   ...layoutMessages,
   ...practiceToolsMessages,

@@ -35,3 +35,16 @@ test('exceptionally tall grand-staff system scales intact; per-page canvases sta
   }
   assert.throws(()=>paginateScore({width:0,systems:[]}));
 });
+
+test('variable-height engraved systems paginate intact without gaps, duplication or cropped rows',()=>{
+  let top=0;
+  const systems=[180,320,192,280,210,350,180,290].map(height=>{const row={top,bottom:top+height};top+=height;return row;});
+  const pages=paginateScore({width:720,systems});let next=0;
+  for(const page of pages){
+    assert.equal(page.firstSystem,next);next=page.lastSystem+1;
+    assert.equal(page.sourceY,systems[page.firstSystem].top);
+    assert.equal(page.sourceY+page.sourceHeight,systems[page.lastSystem].bottom);
+    assert.ok(page.height<=PDF_PAGE.scoreBottom-PDF_PAGE.scoreTop+1e-8);
+  }
+  assert.equal(next,systems.length);
+});

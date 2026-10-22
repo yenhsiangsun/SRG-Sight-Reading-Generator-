@@ -1,0 +1,813 @@
+{
+  "provenance": "B36 before-edit controls and four exact human-selected B25 review-v2 saved compositions/finals; no result-based seed selection.",
+  "listened": [
+    {
+      "group": 1,
+      "seed": 145007,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "selected": "B24",
+      "composedSHA256": "2450765504525de7e7a9d923f6b33e7ee4fd36222a298ca57fcfd587bab2cda0",
+      "finalSHA256": "9a8ef93fdf6198339b57472a0bcbe7d85b5f4060cd48b2d2c457fa15bfd726e8"
+    },
+    {
+      "group": 2,
+      "seed": 145007,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major-pentatonic",
+        "timeSignature": "6/8",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "selected": "B01",
+      "composedSHA256": "74ff3862a887343871b062062da457ba1bbb165ea90b6f01295e67ec20179ea6",
+      "finalSHA256": "b842a06c9df7735146ab9920abadc9b294a8f212817a97ae29650849c1ad6eca"
+    },
+    {
+      "group": 3,
+      "seed": 151027,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "selected": "B24",
+      "composedSHA256": "d8952ff584b3bb7f3b313b114ccc9d9296fd695d2f6a76b8172fa99bbfdb29fa",
+      "finalSHA256": "57270d5ea8a9694f4cfbe625df4321b04f62ee02e99060b42a61763ce6de205d"
+    },
+    {
+      "group": 4,
+      "seed": 151027,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major-pentatonic",
+        "timeSignature": "6/8",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "selected": "B01",
+      "composedSHA256": "5b64280797c05f488301c1e5977f457ff4e7e21e4debc6780062603d97d8b1f3",
+      "finalSHA256": "78de54af78081b26091ddf90a55764f51fbd1933bfbc0ac5aa2b088b9a33a761"
+    }
+  ],
+  "untouched": [
+    {
+      "name": "major3/4",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "3/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "composedSHA256": "e56a8118466ca7004abe54f482c813cd9ff639fbdb67cb2119599559527abc33"
+    },
+    {
+      "name": "major6/8",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "6/8",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "composedSHA256": "4cc2fbb1dbc43bf883901cadfb3565c22af287628646d28abc4c25cde48352a5"
+    },
+    {
+      "name": "natural-minor4/4",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "natural-minor",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "composedSHA256": "dd130b81256e904097632309610090854055b41290f54501e02eaeaa09579417"
+    },
+    {
+      "name": "major-pentatonic4/4",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major-pentatonic",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "composedSHA256": "d4adfd695030882d030c42d7b7d4dec975c4d9825a0c4267f1fb1379e81e3336"
+    },
+    {
+      "name": "minor-pentatonic6/8",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "minor-pentatonic",
+        "timeSignature": "6/8",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "composedSHA256": "41329f4831bd82305091e0d1973a00934c1ebdd5fdccfdfc4f8677b16a92c38e"
+    },
+    {
+      "name": "dorian4/4",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "dorian",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "composedSHA256": "c371fcd0df883b6a1bea7ce990a50fad87c8846c0fcc6476d7ddc43a5c6b5cd4"
+    },
+    {
+      "name": "added-accidentals",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": true,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "composedSHA256": "4a8035a0c7e386f9a68c4c61d8cc6c1c1b335a2d0dace1c0022056e2738fea96"
+    },
+    {
+      "name": "scale-focus",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ],
+        "pitchFocus": "scales"
+      },
+      "composedSHA256": "450462137b86e6e64cd7689f221e10fe32d8e9a9a9dc114d4b0af6bf58f27e1c"
+    },
+    {
+      "name": "leap-focus",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ],
+        "pitchFocus": "leaps"
+      },
+      "composedSHA256": "e18565e08b11c1304424c9f71b643a921e05bd69f7d8aada0d37202c5034752c"
+    },
+    {
+      "name": "sixteenth-focus",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ],
+        "rhythmFocus": "sixteenths"
+      },
+      "composedSHA256": "7b9b0bb8957890911913e40d49594c6794ed211664d4cac4ac6981763f7c3ab2"
+    },
+    {
+      "name": "mixed-rhythm-focus",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ],
+        "rhythmFocus": [
+          "sixteenths",
+          "dotted"
+        ]
+      },
+      "composedSHA256": "6b9c172172867db879a587ef67c2dcd2f1b1cf9d6b3c734ee21778cd72aa226e"
+    },
+    {
+      "name": "mixed-meter",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": true,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "composedSHA256": "5cda869564f46679241589ecea4aa17e5fad10ecbb858a526977dc2f9a8a6a07"
+    },
+    {
+      "name": "four-bars",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 4,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "composedSHA256": "40906cf94d099c2e934d4585461baf61dbb316b8c57a765976e666a4dffdb778"
+    },
+    {
+      "name": "six-bars",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 6,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "composedSHA256": "66ce48841d91371ae05f052caed957b8e2ad14088f1dded44d08be102a14561f"
+    },
+    {
+      "name": "nine-bars",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 9,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "composedSHA256": "f318455ffd4b6147703f6cb57d26c2099f0302074af19d1adec080acf7cafdae"
+    },
+    {
+      "name": "twelve-bars",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 12,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "composedSHA256": "3972f55396990792660daca6268a013e5bc330762cad40db603d9b8a04373668"
+    },
+    {
+      "name": "sixteen-bars",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 16,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "composedSHA256": "3e645ef7d54047bbb0a5194c01dc5803860907bd2742659c5a83af0997677d29"
+    },
+    {
+      "name": "piano-two-hand",
+      "seed": 57037,
+      "options": {
+        "instrument": "Piano",
+        "instrumentProfile": "Piano",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 48,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "grandMode": "two-hand",
+      "composedSHA256": "719730d2e9d66fca4e52635ab128b8ef6d9a0e25433a5fb71e9dcd55cc39484f"
+    },
+    {
+      "name": "yangqin-two-hand",
+      "seed": 57037,
+      "options": {
+        "instrument": "Piano",
+        "instrumentProfile": "Yangqin",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 48,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "grandMode": "two-hand",
+      "composedSHA256": "719730d2e9d66fca4e52635ab128b8ef6d9a0e25433a5fb71e9dcd55cc39484f"
+    },
+    {
+      "name": "grand-mono",
+      "seed": 57037,
+      "options": {
+        "instrument": "Piano",
+        "instrumentProfile": "Piano",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 48,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "grandMode": "mono",
+      "composedSHA256": "3bd565c8f9e44c363fadad3fad2154347d7338c031ab3ef08f3064f15224b7b2"
+    },
+    {
+      "name": "explicit-continuous-line",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "strategy": "continuous-line",
+      "composedSHA256": "8597e050bb6c9c5537d6e7e4df944f533f419e504a6a226932d7660d568a8919"
+    },
+    {
+      "name": "explicit-sentence-growth",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "strategy": "sentence-growth",
+      "composedSHA256": "bf441ecba25824dfd8afb482d4831465b2fdb3c21e4b7636e24f9feca810873b"
+    },
+    {
+      "name": "explicit-thematic-dialogue",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "strategy": "thematic-dialogue",
+      "composedSHA256": "fc78d4a5d57c026d009a95efabc6cdb5be1ec6e44757add06eb70fd529ab73bd"
+    },
+    {
+      "name": "explicit-thematic-continuation",
+      "seed": 57037,
+      "options": {
+        "instrument": "Sheng",
+        "instrumentProfile": "Sheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "rhythmLevel": "medium",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "measures": 8,
+        "tempo": 80,
+        "range": {
+          "min": 60,
+          "max": 84
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4",
+          "6/8"
+        ]
+      },
+      "strategy": "thematic-continuation",
+      "composedSHA256": "c82d766f9b6a2a74dce0b25a57af75920f2fa77d30199a0a43943e89d6a5c214"
+    }
+  ]
+}

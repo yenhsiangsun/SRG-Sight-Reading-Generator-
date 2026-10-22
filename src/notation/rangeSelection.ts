@@ -1,7 +1,17 @@
 import type {Clef} from '../music';
+import {normalizeMixedClefs} from './mixedClefs';
 export const rangeStaffBottom: Record<Clef,number> = {treble:30,bass:18,alto:24,tenor:22};
 /** The mixed-staff range picker shows each endpoint in its natural register. */
-export function mixedRangeClef(midi: number): Clef {return midi < 60 ? 'bass' : 'treble';}
+export function mixedRangeClef(midi: number, allowedClefs?: readonly Clef[]): Clef {
+  const selected = normalizeMixedClefs(allowedClefs);
+  if (selected.length === 2 && selected[0] === 'treble' && selected[1] === 'bass')
+    return midi < 60 ? 'bass' : 'treble';
+  const note = rangeNotePosition(midi);
+  const position = note.octave * 7 + note.degree;
+  // Prefer the selected staff whose centre is closest in the written register.
+  return selected.reduce((best,clef) =>
+    Math.abs(position-rangeStaffBottom[clef]-4) < Math.abs(position-rangeStaffBottom[best]-4) ? clef : best);
+}
 const naturals=[0,2,4,5,7,9,11];
 export function rangeNotePosition(midi:number) {
   const pc=((midi%12)+12)%12;

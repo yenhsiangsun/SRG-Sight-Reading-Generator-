@@ -1,11 +1,19 @@
 import type {LocaleCatalog} from './catalogTypes';
+import {layoutNamed} from './layoutMessages';
 import {improvementNamed} from './improvementMessages';
 import {pipaNamed} from './pipaMessages';
 import {assessmentNamed} from './assessmentMessages';
+import {searchNamed} from './searchMessages';
+import {savedDataNamed} from './savedDataMessages';
+import {mixedClefNamed} from './mixedClefMessages';
 
 export const simplifiedChinese: LocaleCatalog = {
   "messages": {
+    ...savedDataNamed(10),
+    ...mixedClefNamed(10),
+    ...layoutNamed(10),
     ...assessmentNamed(10),
+    ...searchNamed(10),
     ...improvementNamed(10),
     ...pipaNamed(10),
     "exportPdf": "导出 PDF",
@@ -59,6 +67,7 @@ export const simplifiedChinese: LocaleCatalog = {
     "savedPresets": "常用设置",
     "libraryLocal": "保存在此浏览器：最多 50 份谱、20 组设置。尚未跨设备同步。",
     "libraryEmpty": "还没有收藏，练习时点星号就能保存。",
+    "libraryPresetEmpty": "还没有常用设置。练习时打开“练习工具”，选择“存为常用设置”。",
     "openStudy": "打开练习",
     "removeStudy": "移除",
     "libraryFull": "收藏已满，请先移除不需要的项目。",
@@ -172,8 +181,8 @@ export const simplifiedChinese: LocaleCatalog = {
     "pianoRange": "钢琴基础 C3–C6",
     "outside": "自定义音域已超出此型制的参考范围。",
     "mixedStaff": "混合谱表",
-    "mixedStaffDetail": "高音＋低音・单行",
-    "mixedStaffHelp": "使用同一行五线谱，依音域切换高、低音谱号，减少加线；较极端的音域才使用 8va／8vb。",
+    "mixedStaffDetail": "自选谱号・单行",
+    "mixedStaffHelp": "使用同一行五线谱，依音域切换你选取的谱号，减少加线；较极端的音域才使用 8va／8vb。",
     "treble": "高音谱表",
     "bass": "低音谱表",
     "alto": "中音谱表",

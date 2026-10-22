@@ -1,0 +1,16 @@
+/* Step numbers describe progress; only the consistent footer moves the wizard. */
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page="setup"] #main .steps.setup-step-list{list-style:none;padding:0;gap:2px}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page="setup"] #main .setup-step-list>li{display:flex;align-items:center;gap:14px;min-height:46px;padding:10px 0;border-bottom:1px solid #d6d8c9;color:#68715f;font-size:12px;cursor:default}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page="setup"] #main .setup-step-number{font-family:var(--studio-ui-font);font-size:11px;font-variant-numeric:tabular-nums;color:#8b977f}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page="setup"] #main .setup-step-label{line-height:1.6}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page="setup"] #main .setup-step-list>li.current{color:#294b38;border-bottom-color:#718766;font-weight:600}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page="setup"] #main .setup-step-list>li:is(.current,.complete) .setup-step-number{color:#36583f}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page="setup"] #main .setup-wizard-actions{position:sticky;bottom:0;z-index:8;display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:24px;padding:16px 0 calc(16px + env(safe-area-inset-bottom,0px));background:#f5f3ea;border-top:1px solid #cbd2bf}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page="setup"] #main .setup-wizard-actions>button{min-height:48px;white-space:normal}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page="setup"] #main .setup-wizard-actions>.primary-button{margin-left:auto;min-width:128px}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page="setup"] #main .setup-wizard-actions>.quiet-button:disabled{opacity:.35;cursor:default}
+@media(max-width:700px){
+ .app.app.studio-app.forest-studio[data-design="atelier"][data-page="setup"] #main .steps.setup-step-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:0 0 22px}
+ .app.app.studio-app.forest-studio[data-design="atelier"][data-page="setup"] #main .setup-step-list>li{flex-direction:column;align-items:center;justify-content:flex-start;gap:5px;min-height:62px;padding:8px 3px;text-align:center;font-size:10px}
+ .app.app.studio-app.forest-studio[data-design="atelier"][data-page="setup"] #main .setup-wizard-actions{padding-top:14px;padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));gap:12px}
+}

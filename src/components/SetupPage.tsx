@@ -11,9 +11,12 @@ import { CLEFS, TIME_SIGNATURES, RANGE_OPTIONS, midiToNoteLabel } from '../exerc
 import type { ExerciseSettings } from '../hooks/useExercise';
 import { InstrumentArtwork } from './InstrumentArtwork';
 import {KeySignaturePicker} from './KeySignaturePicker';
+import {MixedClefPicker} from './MixedClefPicker';
 import './InstrumentSelection.css';
+import './SetupWizard.css';
 
 type Change = <K extends keyof ExerciseSettings>(key: K, value: ExerciseSettings[K]) => void;
+const SETUP_STEPS: readonly number[] = [0, 1, 3, 2];
 
 const families: Record<string, MessageKey> = {
   鍵盤: 'keyboard',
@@ -115,43 +118,55 @@ export default function SetupPage({
   const { locale, t } = useI18n();
   const w = (zh: string, en: string, ja: string) => words(locale, zh, en, ja);
   const compact = useCompactScreen();
-  const [step, setStep] = useState(initialStep);
+  const [step, setStep] = useState(SETUP_STEPS.includes(initialStep) ? initialStep : 0);
+  const stepIndex = SETUP_STEPS.indexOf(step);
+  const stepNumber = String(stepIndex + 1).padStart(2, '0');
   const panel = useRef<HTMLElement>(null);
-  useSetupStepMotion(panel, step);
+  useSetupStepMotion(panel, stepIndex);
   useEffect(() => { onStepChange?.(step); }, [step, onStepChange]);
   const [family, setFamily] = useState('all');
   const [search, setSearch] = useState('');
+  const searchInput = useRef<HTMLInputElement>(null);
+  const searchStatusId = useId();
+  const searchResultsId = useId();
+  const searchQuery = search.trim().toLowerCase();
+  const clearSearch = () => {
+    setSearch('');
+    searchInput.current?.focus();
+  };
 
   const chosen = {name: settings.instrument, ...INSTRUMENTS[settings.instrument]};
   const visible = INSTRUMENT_LIST.filter(
     item =>
       (family === 'all' || item.family === family) &&
-      `${item.zh} ${item.name} ${instrumentLabel(item.name, locale)}`.toLowerCase().includes(search.toLowerCase()),
+      `${item.zh} ${item.name} ${instrumentLabel(item.name, locale)}`.toLowerCase().includes(searchQuery),
   );
-  const titles = [t('chooseInstrument'), t('chooseRange'), t('chooseChallenge')];
+  const searchStatus = t('instrumentSearchResults')
+    .replace('{count}', visible.length.toLocaleString(locale))
+    .replace('{family}', family === 'all' ? t('allInstrumentFamilies') : t(families[family]));
+  const titles = [t('chooseInstrument'), t('chooseRange'), w('拍號與更多','Meter and more','拍子とその他'), t('chooseChallenge')];
   const mixedInvalid = settings.mixedMeters && settings.meters.length < 2;
   const levels = { Beginner: 'beginner', Intermediate: 'intermediate', Advanced: 'advanced' } as const;
 
   return (
-    <main className={`setup-layout${step === 0 ? ' setup-layout--instruments' : ''}`} id="main">
+    <main className={`setup-layout manuscript-setup${step === 0 ? ' setup-layout--instruments' : ''}`} id="main">
       <aside className="setup-intro">
         <span className="eyebrow">{w('音樂練習室', 'PRACTICE STUDIO', '音楽練習室')}</span>
-        <h1>{t('intro')}</h1>
-        <p>{t('setupHelp')}</p>
+        <h1>{w('留一點時間，','Make a little room','少しの時間を、')}<br/>{w('給音樂。','for music.','音楽に。')}</h1>
+        <p>{w('選一件樂器，留一點挑戰。讓今天的旋律，剛好適合你。','An instrument, a little challenge. Make today’s melody your own.','楽器と、小さな挑戦。今日の旋律を、あなたらしく。')}</p>
         <div className="instrument-intro-art"><InstrumentArtwork instrument={settings.instrument} /></div>
-        <nav className="steps" aria-label={t('setup')}>
-          {(['instruments', 'rangeStaff', 'challenge'] as const).map((key, index) => (
-            <button
-              key={key}
-              className={step === index ? 'current' : step > index ? 'complete' : ''}
-              onClick={() => setStep(index)}
+        <ol className="steps setup-step-list" aria-label={t('setup')}>
+          {SETUP_STEPS.map((index, position) => (
+            <li
+              key={index}
+              className={step === index ? 'current' : position < stepIndex ? 'complete' : ''}
               aria-current={step === index ? 'step' : undefined}
             >
-              <span>{step > index ? '✓' : `0${index + 1}`}</span>
-              {t(key)}
-            </button>
+              <span className="setup-step-number">{String(position + 1).padStart(2, '0')}</span>
+              <span className="setup-step-label">{index===0?t('instruments'):index===1?t('rangeStaff'):index===3?t('challenge'):w('拍號與更多','Meter and more','拍子とその他')}</span>
+            </li>
           ))}
-        </nav>
+        </ol>
         <div className="setup-summary">
           <span className="eyebrow">{w('本次練習', 'SESSION', '今回の練習')}</span>
           <strong>{instrumentLabel(settings.instrument, locale)}</strong>
@@ -162,10 +177,10 @@ export default function SetupPage({
       </aside>
       <section ref={panel} className="setup-panel" aria-labelledby="setup-title">
         <div className="panel-heading">
-          <span className="step-caption">{w('步驟', 'STEP', 'ステップ')} 0{step + 1} / 03</span>
+          <span className="step-caption">{stepNumber} / 04</span>
           <h2 id="setup-title" tabIndex={-1}>{titles[step]}</h2>
           <div className="setup-progress" aria-hidden="true">
-            {[0, 1, 2].map(index => <span key={index} data-reached={index <= step} />)}
+            {SETUP_STEPS.map((value, index) => <span key={value} data-reached={index <= stepIndex} />)}
           </div>
         </div>
         <div className="setup-content">
@@ -194,15 +209,26 @@ export default function SetupPage({
                 <div className="instrument-search-field">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m15.5 15.5 5 5" /></svg>
                 <input
+                  ref={searchInput}
                   type="search"
                   id="instrument-search"
                   value={search}
                   placeholder={t('search')}
+                  aria-controls={searchResultsId}
+                  aria-describedby={searchStatusId}
                   onChange={(e) => setSearch(e.target.value)}
                 />
+                {search.length > 0 && <button
+                  type="button"
+                  className="instrument-search-clear"
+                  aria-label={t('clearInstrumentSearch')}
+                  title={t('clearInstrumentSearch')}
+                  onClick={clearSearch}
+                ><span aria-hidden="true">×</span></button>}
                 </div>
               </div>
-              <div className="instrument-grid">
+              <p className="instrument-search-status" id={searchStatusId} role="status" aria-live="polite" aria-atomic="true">{searchStatus}</p>
+              <div className="instrument-grid" id={searchResultsId}>
                 {visible.map(item => (
                   <button
                     key={item.name}
@@ -222,7 +248,14 @@ export default function SetupPage({
                   </button>
                 ))}
               </div>
-              {!visible.length && <p role="status">{t('noResults')}</p>}
+              {!visible.length && <div className="instrument-search-empty">
+                <h3>{t('noResults')}</h3>
+                <p>{t('instrumentSearchEmptyHelp')}</p>
+                <div className="instrument-search-recovery">
+                  {search.length > 0 && <button type="button" className="secondary-button" onClick={clearSearch}>{t('clearInstrumentSearch')}</button>}
+                  {family !== 'all' && <button type="button" className="secondary-button" onClick={() => {setFamily('all'); searchInput.current?.focus();}}>{t('allInstrumentFamilies')}</button>}
+                </div>
+              </div>}
               <p className="field-note">{t('instrumentHelp')}</p>
             </>
           )}
@@ -248,7 +281,7 @@ export default function SetupPage({
                 </div>
               </fieldset>
               {settings.clef === 'grand' && <p className="field-note">{t(settings.instrument === 'Piano' || settings.instrument === 'Yangqin' ? 'grandHelp' : 'grandMonoHelp')}</p>}
-              {settings.clef === 'mixedStaff' && <p className="field-note">{t('mixedStaffHelp')}</p>}
+              {settings.clef === 'mixedStaff' && <><p className="field-note">{t('mixedStaffHelp')}</p><MixedClefPicker value={settings.mixedClefs} onChange={value=>change('mixedClefs',value)}/></>}
               <StaffRangePicker settings={settings} onMin={value=>change('rangeMinMidi',value)} onMax={value=>change('rangeMaxMidi',value)}/>
               <details><summary>{w('用音名精確調整','Adjust by note name','音名で細かく調整')}</summary>
               <div className="two-fields">
@@ -323,7 +356,7 @@ export default function SetupPage({
               <p className="field-note">{t('phoneHelp')}</p>
             </>
           )}
-          {step === 2 && (
+          {step === 3 && (
             <>
               <fieldset className="choice-field">
                 <legend>{t('pitchDifficulty')}</legend>
@@ -351,15 +384,19 @@ export default function SetupPage({
                   format={(v) => t(({ Simple: 'simple', Moderate: 'moderate', Complex: 'complex' } as const)[v])}
                   onChange={(v) => change('rhythmLevel', v)}
                 />
-                <Field
-                  label={t('meter')}
-                  value={settings.timeSignature}
-                  options={TIME_SIGNATURES}
-                  onChange={(v) => change('timeSignature', v)}
-                />
               </div>
               <p className="field-note">{t('rhythmDifficultyHelp')}</p>
               <KeySignaturePicker value={settings.allowedKeySignatures} onChange={value=>change('allowedKeySignatures',value)}/>
+            </>
+          )}
+          {step === 2 && (
+            <>
+              <Field
+                label={t('meter')}
+                value={settings.timeSignature}
+                options={TIME_SIGNATURES}
+                onChange={(v) => change('timeSignature', v)}
+              />
               <div className="advanced-options">
                 <Toggle
                   title={words(locale,'演奏記號練習','Expression practice','演奏記号の練習')}
@@ -411,19 +448,11 @@ export default function SetupPage({
 
 
         </div>
-        <div className="setup-actions">
-          <button className="quiet-button" disabled={step === 0} onClick={() => setStep(step - 1)}>
-            {t('previous')}
-          </button>
-          {step < 2 ? (
-            <button className="primary-button" onClick={() => setStep(step + 1)}>
-              {t('next')}
-            </button>
-          ) : (
-            <button className="primary-button" disabled={mixedInvalid} onClick={onStart}>
-              {t('start')}
-            </button>
-          )}
+        <div className="setup-actions setup-wizard-actions">
+          <button type="button" className="quiet-button" disabled={stepIndex===0} onClick={()=>{if(stepIndex>0)setStep(SETUP_STEPS[stepIndex-1]);}}>{t('previous')}</button>
+          {stepIndex<SETUP_STEPS.length-1?
+            <button type="button" className="primary-button" onClick={()=>setStep(SETUP_STEPS[stepIndex+1])}>{t('next')}</button>:
+            <button type="button" className="primary-button" disabled={mixedInvalid} onClick={onStart}>{t('start')}</button>}
         </div>
       </section>
     </main>

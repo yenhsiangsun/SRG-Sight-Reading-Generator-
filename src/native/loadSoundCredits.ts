@@ -8,6 +8,7 @@ export async function loadSoundCredits(pageUrl:string,baseUrl:string,signal?:Abo
     &&response.type!=='opaque'&&response.type!=='opaqueredirect';
   if(!response.ok&&!nativeLocal)throw new Error('Credits unavailable');
   const text=await response.text();
-  if(!text.trim())throw new Error('Credits unavailable');
+  // A missing bundled asset may be rewritten to the app's successful HTML entry.
+  if(!text.trim()||/^\s*(?:<!doctype\s+html\b|<html(?:\s|>))/i.test(text))throw new Error('Credits unavailable');
   return text;
 }

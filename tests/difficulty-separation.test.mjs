@@ -59,15 +59,20 @@ test('turning off extra chromatic notes preserves each mode, including required 
   }
 });
 
-test('piano accompaniment follows selected rhythm complexity even with beginner pitch difficulty',()=>{
+test('piano accompaniment grows through long tones, eighths and light sixteenths while leaving the lead room',()=>{
   const {generateGrandExercise}=loadModule('src/music/grandStaff.ts',672);
   for(const timeSignature of ['4/4','6/8','7/8']) {
-    const shares=rhythms.map(rhythmLevel=>{
+    const activity=rhythms.map(rhythmLevel=>{
       const ex=generateGrandExercise({...base,timeSignature,rhythmLevel,measures:32},'two-hand');
       const notes=ex.lowerMeasures.flatMap(m=>m.events).filter(n=>!n.rest);
       ex.measures.forEach((m,i)=>assert.equal(m.totalUnits,ex.lowerMeasures[i].totalUnits));
-      return notes.filter(n=>n.durationUnits===1).length/notes.length;
+      const lead=ex.measures.flatMap(m=>m.events).filter(n=>!n.rest);
+      assert.ok(notes.length<lead.length,`${timeSignature} ${rhythmLevel}: the bass supports the lead`);
+      return {count:notes.length,sixteenths:notes.filter(n=>n.durationUnits===1).length/notes.length};
     });
-    assert.ok(shares[2]>shares[1]+.1&&shares[1]>shares[0]+.08,`${timeSignature}: ${shares}`);
+    assert.ok(activity[1].count>activity[0].count*1.25&&activity[2].count>activity[1].count*1.15,`${timeSignature}: ${JSON.stringify(activity)}`);
+    assert.equal(activity[0].sixteenths,0);
+    assert.equal(activity[1].sixteenths,0);
+    assert.ok(activity[2].sixteenths>0&&activity[2].sixteenths<.35,'occasional subdivision, not a second dense melody');
   }
 });

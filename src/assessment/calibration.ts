@@ -33,9 +33,25 @@ export function loadCalibration(routeKey?:string):Calibration|null {
 export function saveCalibration(value:Calibration):boolean {
   if(!validCalibration(value))return false;
   try{
-    if(!value.routeKey){localStorage.setItem(KEY,JSON.stringify(value));return true;}
-    let previous;try{previous=JSON.parse(localStorage.getItem(KEY)??'null');}catch{previous=null;}
-    const entries=Object.fromEntries(Object.entries(previous?.version===2?previous.entries??{}:{}).filter(([,v])=>validCalibration(v as Calibration)).slice(-11));
+    // Reading must succeed before replacing a save. Unknown or partially
+    // unreadable data stays untouched; the caller can still use this session's value.
+    const raw=localStorage.getItem(KEY);
+    let previousEntries:Record<string,Calibration>={};
+    if(raw!==null){
+      const previous=JSON.parse(raw);
+      if(validCalibration(previous)){
+        if(previous.routeKey)previousEntries[previous.routeKey]=previous;
+      }else if(previous?.version===2&&previous.entries&&typeof previous.entries==='object'&&!Array.isArray(previous.entries)&&
+        typeof previous.lastRoute==='string'&&Object.hasOwn(previous.entries,previous.lastRoute)&&
+        Object.entries(previous.entries).every(([key,v])=>/^[a-f0-9]{1,8}$/.test(key)&&validCalibration(v as Calibration)&&(v as Calibration).routeKey===key)){
+        previousEntries=previous.entries;
+      }else return false;
+    }
+    if(!value.routeKey){
+      if(Object.keys(previousEntries).length)return false;
+      localStorage.setItem(KEY,JSON.stringify(value));return true;
+    }
+    const entries=Object.fromEntries(Object.entries(previousEntries).filter(([key])=>key!==value.routeKey).slice(-11));
     entries[value.routeKey]=value;
     localStorage.setItem(KEY,JSON.stringify({version:2,lastRoute:value.routeKey,entries}));return true;
   }catch{return false;}

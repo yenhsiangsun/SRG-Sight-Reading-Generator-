@@ -4,7 +4,7 @@ import {normalizeKeySignatureChoices, type KeySignatureChoice} from './keySignat
 
 interface PitchRange {min: number; max: number}
 export interface RandomTonality {tonic: Tonic; scaleId: string}
-export interface TonalitySelectionOptions {allowAccidentals?: boolean; difficulty?: Difficulty; allowedKeySignatures?: readonly KeySignatureChoice[]}
+export interface TonalitySelectionOptions {compositionStyle?: import('./musicalIntent').CompositionStyle;allowAccidentals?: boolean; difficulty?: Difficulty; allowedKeySignatures?: readonly KeySignatureChoice[]}
 export type SignatureGroup = 'sharp' | 'flat' | 'natural' | 'open';
 // Practice both kinds of key signatures regularly without inventing signatures
 // for chromatic, symmetric or traditional-scale adaptations.
@@ -61,7 +61,9 @@ export function getTonalityChoices(ranges: readonly PitchRange[], options: Tonal
   }
 
   const allowed = normalizeKeySignatureChoices(options.allowedKeySignatures);
-  return SCALES.map(scale => {
+  return SCALES.filter(scale=>options.compositionStyle==='pentatonic'?scale.intervals.length===5:
+    options.compositionStyle==='classical'?['major','harmonic-minor'].includes(scale.id):
+    options.compositionStyle==='lyrical'?scale.intervals.length===7:true).map(scale => {
     const candidates = (scale.id === 'atonal' ? ['C'] as const : TONICS)
       .map(tonic => ({tonic, tonality: describeTonality(tonic, scale.id)}))
       .filter(candidate => !allowed || (allowed.includes((candidate.tonality.signature ?? 'open') as KeySignatureChoice)
@@ -83,6 +85,8 @@ export function getTonalityChoices(ranges: readonly PitchRange[], options: Tonal
 /** Normalized, eligible choices; useful for auditing the actual practice mix. */
 export function getTonalityDistribution(ranges: readonly PitchRange[], options: TonalitySelectionOptions = {}): (RandomTonality & {weight: number})[] {
   const choices = getTonalityChoices(ranges,options);
+  if(!choices.length&&['classical','lyrical','pentatonic'].includes(options.compositionStyle??''))
+    throw new Error('這個樂曲性格與所選調號沒有相容組合，請選擇其他樂曲性格或調號。');
   const quiet = options.allowAccidentals === false;
   const allowed = normalizeKeySignatureChoices(options.allowedKeySignatures);
   const signatures = allowed ? allowed.filter(signature => choices.some(scale =>

@@ -9,6 +9,7 @@ import './ScorePlayhead.css';
 import ScoreFeedback from './ScoreFeedback';
 import type {AssessmentResult} from '../assessment/scoring';
 import {words} from '../progress/words';
+import {observeScoreWidth} from '../notation/observeScoreWidth';
 
 export default function ScoreDisplay({exercise,bpm=exercise.tempo,playback,assessment,size=1}: {
   exercise:ExerciseData;bpm?:number;playback?:ScorePlayback;assessment?:AssessmentResult|null;size?:number;
@@ -23,12 +24,10 @@ export default function ScoreDisplay({exercise,bpm=exercise.tempo,playback,asses
   useEffect(()=>{
     const container=containerRef.current;
     if(!container)return;
-    let previousWidth=-1;
-    const draw=()=>{
+    const draw=(clientWidth:number)=>{
       try {
+        const width=Math.max(clientWidth/size,300);
         container.replaceChildren();
-        const width=Math.max(container.clientWidth/size,300);
-        previousWidth=container.clientWidth;
         const next=drawScore(container,exercise,width);
         const svg=container.querySelector('svg');
         if(svg){
@@ -47,10 +46,7 @@ export default function ScoreDisplay({exercise,bpm=exercise.tempo,playback,asses
         setError(cause instanceof Error?cause.message:'譜面無法完成排版，請重新產生。');
       }
     };
-    draw();
-    const observer=new ResizeObserver(()=>{if(container.clientWidth!==previousWidth)draw();});
-    observer.observe(container);
-    return()=>observer.disconnect();
+    return observeScoreWidth(container,draw);
   },[exercise,locale,t,drawScore,size]);
 
   return <>

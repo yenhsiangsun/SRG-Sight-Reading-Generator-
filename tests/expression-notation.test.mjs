@@ -9,7 +9,7 @@ VF.Element.setTextMeasurementCanvas({getContext:()=>({measureText:text=>({width:
   actualBoundingBoxRight:text.length*8,actualBoundingBoxAscent:12,actualBoundingBoxDescent:3,fontBoundingBoxAscent:12,fontBoundingBoxDescent:3})})});
 const {createMeasureNotation,prepareNotationForDrawing}=loadModule('src/notation/createMeasureNotation.ts',1,undefined,{'vexflow':VF});
 const {simplifyStaffRests}=loadModule('src/notation/simplifyStaffRests.ts');
-const {planExpressionDrawing,drawExpressionSpans,expressionOverflow}=loadModule('src/notation/expressionSpans.ts');
+const {planExpressionDrawing,drawExpressionSpans,expressionOverflow,expressionSpace}=loadModule('src/notation/expressionSpans.ts');
 const {drawOctaveLines}=loadModule('src/notation/octaveLines.ts');
 const bar=(keys,unit=2)=>({totalUnits:16,timeSignature:'4/4',groups:[4,4,4,4],beamGroups:[4,4,4,4],events:keys.map((key,i)=>({
   key:key??'b/4',octave:Number(key?.split('/')[1]??4),rest:!key,duration:unit===2?'8':'q',dots:0,startUnits:i*unit,durationUnits:unit,
@@ -29,6 +29,21 @@ const context=()=>{
   ctx.measureText=text=>({width:text.length*7});return ctx;
 };
 const center=note=>(note.getNoteHeadBeginX()+note.getNoteHeadEndX())/2;
+
+test('expression air is reserved only for systems and hands touched by the original spans',()=>{
+  const source=Array.from({length:8},()=>bar(['c/4','d/4','e/4','f/4','g/4','f/4','e/4','c/4']));
+  const exercise={timeSignature:'4/4',measures:source,lowerMeasures:source,expressionSpans:[
+    {kind:'slur',staff:0,start:{bar:0,event:0},end:{bar:2,event:7}},
+    {kind:'crescendo',staff:1,start:{bar:5,event:0},end:{bar:6,event:7}},
+  ]};
+  const before=JSON.stringify(exercise);
+  assert.deepEqual(plainSpace(expressionSpace(exercise,0,{first:3,last:4})),{above:0,below:0});
+  assert.equal(expressionSpace(exercise,0,{first:2,last:3}).above,24,'a continued curve retains room');
+  assert.equal(expressionSpace(exercise,1,{first:4,last:5}).below,38,'a lower-staff hairpin retains room');
+  assert.deepEqual(plainSpace(expressionSpace(exercise,0,{first:5,last:6})),{above:0,below:0},'the other hand does not inherit that hairpin');
+  assert.equal(JSON.stringify(exercise),before,'spacing does not move musical anchors');
+});
+const plainSpace=x=>JSON.parse(JSON.stringify(x));
 const paintedY=(path,curve,x)=>{
   const t=(x-path.xStart)/(path.xEnd-path.xStart),u=1-t;
   return u*u*u*path.startY+3*u*u*t*curve[2]+3*u*t*t*curve[4]+t*t*t*path.endY;
@@ -65,6 +80,44 @@ test('slur curves clear inner noteheads and hairpins stay below beams, numerals 
   assert.ok(hairpin.bounds.yTop>slur.bounds.yBottom+8);assert.equal(hairpin.startOpening,0);assert.equal(hairpin.endOpening,7);
   const svg=context(),canvas=context();drawExpressionSpans(svg,exercise,bars);drawExpressionSpans(canvas,exercise,bars);
   assert.deepEqual(svg.commands,canvas.commands,'SVG and PDF surfaces receive identical expression engraving');
+});
+
+test('a hairpin ending on the first attack of a new system leaves no parallel-line stub',()=>{
+  for(const kind of ['crescendo','diminuendo'])for(const staff of [0,1]){
+    const source=Array.from({length:3},()=>bar(staff===0?['g/4','a/4','b/4','c/5','d/5','c/5','b/4','g/4']:['c/3','d/3','e/3','f/3','g/3','f/3','e/3','c/3']));
+    const exercise={timeSignature:'4/4',measures:source,...(staff===1?{lowerMeasures:source}:{}),
+      expressionSpans:[{kind,staff,start:{bar:0,event:0},end:{bar:2,event:0}}]};
+    const before=JSON.stringify(exercise),bars=source.map((b,i)=>prepare(b,i,Math.floor(i/2),staff));
+    const paths=planExpressionDrawing(exercise,bars);
+    assert.equal(paths.length,1,'the next system contains no audible hairpin interval before its first attack');
+    assert.equal(paths[0].row,0);assert.equal(paths[0].xEnd,bars[1].stave.getNoteEndX()-5);
+    assert.equal(paths[0].endOpening,kind==='crescendo'?7:0);
+    const ctx=context();drawExpressionSpans(ctx,exercise,bars);
+    assert.equal(ctx.commands.filter(c=>c[0]==='openGroup'&&c[1]===`expression-${kind}`).length,1);
+    assert.equal(JSON.stringify(exercise),before,'engraving does not rewrite the saved hairpin or musical events');
+  }
+});
+
+test('hairpins keep a visible wedge when the next system begins with silence before the ending attack',()=>{
+  const source=[bar(['g/4','a/4','b/4','c/5','d/5','c/5','b/4','g/4']),bar([null,null,'c/5','d/5','e/5','d/5','c/5','g/4'])];
+  for(const kind of ['crescendo','diminuendo']){
+    const exercise={timeSignature:'4/4',measures:source,expressionSpans:[{kind,staff:0,start:{bar:0,event:0},end:{bar:1,event:2}}]};
+    const bars=source.map((b,i)=>prepare(b,i,i)),paths=planExpressionDrawing(exercise,bars);
+    assert.equal(paths.length,2,'the silence before the target still occupies real score time');
+    assert.notEqual(paths[1].startOpening,paths[1].endOpening,'the continuation is a wedge, not parallel lines');
+    assert.equal(paths[1].xEnd,center(bars[1].notes[1]),'original event2 survives consolidation of two rests');
+  }
+});
+
+test('hairpin openings meet at the same score time across systems with different note densities',()=>{
+  const source=[bar(['g/4','a/4','b/4','c/5','d/5','c/5','b/4','g/4']),bar(['c/5','d/5','e/5','g/5'],4)];
+  for(const kind of ['crescendo','diminuendo']){
+    const exercise={timeSignature:'4/4',measures:source,expressionSpans:[{kind,staff:0,start:{bar:0,event:0},end:{bar:1,event:3}}]};
+    const paths=planExpressionDrawing(exercise,source.map((b,i)=>prepare(b,i,i)));
+    assert.equal(paths.length,2);
+    assert.ok(Math.abs(paths[0].endOpening-paths[1].startOpening)<1e-8,'system breaks do not introduce a jump in opening');
+    assert.ok(Math.abs(paths[0].endOpening-(kind==='crescendo'?4:3))<1e-8,'the break is16 units into a28-unit span');
+  }
 });
 
 test('octave indications clear expression bounds without changing notes or written octave displacement',()=>{

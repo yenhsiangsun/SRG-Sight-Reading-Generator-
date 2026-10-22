@@ -21,9 +21,10 @@
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] :is(.practice-title h1, .score-top h2, .exam-heading h2) {
-  font-family: 'Noto Serif TC', 'Songti TC', 'PMingLiU', Georgia, serif;
+  font-family: var(--studio-heading-font, 'Noto Serif TC', 'Songti TC', 'PMingLiU', Georgia, serif);
   font-weight: 450;
-  letter-spacing: .035em;
+  letter-spacing: var(--studio-heading-tracking, .035em);
+  line-height: var(--studio-heading-leading, normal);
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] .study-actions {
@@ -84,9 +85,9 @@
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] .practice-companion__heading strong {
-  font-family: 'Noto Serif TC', 'Songti TC', Georgia, serif;
+  font-family: var(--studio-heading-font, 'Noto Serif TC', 'Songti TC', Georgia, serif);
   font-weight: 500;
-  letter-spacing: .025em;
+  letter-spacing: var(--studio-heading-tracking, .025em);
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] .practice-companion .practice-companion__toggle {
@@ -99,6 +100,54 @@
   border-color: var(--theme-line);
   background: var(--theme-surface);
   box-shadow: 0 5px 16px #79523108;
+}
+
+.studio-app[data-design="atelier"][data-page="practice"] .practice-toolbar .tempo input[type="range"] {
+  min-height: 44px;
+}
+
+/* Enlarge the button's target while keeping the original switch artwork. */
+.studio-app[data-design="atelier"][data-page="practice"] .practice-toolbar .metronome-control .switch {
+  position: relative;
+  width: 46px;
+  min-height: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.studio-app[data-design="atelier"][data-page="practice"] .practice-toolbar .metronome-control .switch::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 46px;
+  height: 26px;
+  transform: translateY(-50%);
+  border: 1px solid var(--theme-muted);
+  border-radius: 20px;
+  background: var(--theme-line);
+  transition: background .15s;
+  pointer-events: none;
+}
+
+.studio-app[data-design="atelier"][data-page="practice"] .practice-toolbar .metronome-control .switch > span {
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  margin-top: -10px;
+  pointer-events: none;
+}
+
+.studio-app[data-design="atelier"][data-page="practice"] .practice-toolbar .metronome-control .switch[aria-checked="true"] {
+  background: transparent;
+}
+
+.studio-app[data-design="atelier"][data-page="practice"] .practice-toolbar .metronome-control .switch[aria-checked="true"]::before {
+  border-color: var(--theme-primary-ink);
+  background: var(--theme-primary);
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] :is(.icon-button, .tuning-trigger) {
@@ -122,6 +171,14 @@
   font-variant-numeric: tabular-nums;
 }
 
+.studio-app[data-design="atelier"][data-page="practice"] .tempo {
+  min-width: min-content;
+}
+
+.studio-app[data-design="atelier"][data-page="practice"] .tempo output {
+  flex-shrink: 0;
+}
+
 .studio-app[data-design="atelier"][data-page="practice"] .score-focus-controls input {
   accent-color: var(--theme-primary-ink);
 }
@@ -138,16 +195,44 @@
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] :is(.practice-settings, .practice-tools) > summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-height: 56px;
+  padding: 16px 20px;
+  list-style: none;
   font-weight: 500;
 }
 
+.studio-app[data-design="atelier"][data-page="practice"] :is(.practice-settings, .practice-tools) > summary::before {
+  content: '＋';
+  flex: 0 0 16px;
+  color: var(--theme-primary-ink);
+  font-size: 18px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.studio-app[data-design="atelier"][data-page="practice"] :is(.practice-settings, .practice-tools)[open] > summary::before {
+  content: '−';
+}
+
+.studio-app[data-design="atelier"][data-page="practice"] :is(.practice-settings, .practice-tools) > summary::-webkit-details-marker {
+  display: none;
+}
+
 .studio-app[data-design="atelier"][data-page="practice"] :is(.practice-settings, .practice-tools)[open] > summary {
-  margin-bottom: 16px;
+  margin-bottom: 0;
   border-bottom: 1px solid var(--theme-line);
 }
 
-.studio-app[data-design="atelier"][data-page="practice"] .practice-tools > summary::marker {
-  color: var(--theme-primary-ink);
+.studio-app[data-design="atelier"][data-page="practice"] :is(.practice-settings-content, .practice-tools-content) {
+  padding: 16px 20px 20px;
+}
+
+.studio-app[data-design="atelier"][data-page="practice"] .practice-tools-content h3 {
+  margin-top: 0;
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] :is(.practice-setting-fields select, .loop-fields select, .exam-settings select, .exam-settings input, .key-signature-chip, .key-signature-auto, .staff-range-controls button) {
@@ -177,6 +262,14 @@
 .studio-app[data-design="atelier"][data-page="practice"] .tools-footer {
   background: var(--theme-soft);
   border-radius: 0 0 6px 6px;
+}
+
+/* Explanatory actions may wrap independently of the compact playback row. */
+.studio-app[data-design="atelier"][data-page="practice"] :is(.practice-settings, .practice-tools, .tools-footer) :is(.secondary-button, .back-link) {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] .score-focus-controls {
@@ -303,8 +396,78 @@
   }
 }
 
+@media (max-width: 600px) {
+  .studio-app[data-design="atelier"][data-page="practice"] .player-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) repeat(3, 44px);
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .studio-app[data-design="atelier"][data-page="practice"] .play-main {
+    min-width: 0;
+    padding-inline: 10px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+  }
+
+  .studio-app[data-design="atelier"][data-page="practice"] .metronome-control > div {
+    min-width: 0;
+  }
+
+  .studio-app[data-design="atelier"][data-page="practice"] .metronome-control :is(strong, small) {
+    display: block;
+    margin-left: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+  }
+
+  .studio-app[data-design="atelier"][data-page="practice"] .metronome-control .switch {
+    flex-shrink: 0;
+  }
+
+  .studio-app[data-design="atelier"][data-page="practice"] :is(.practice-setting-fields, .loop-fields) select {
+    font-size: 16px;
+    max-width: 100%;
+  }
+
+  /* The tuning frequency already uses larger 32px numerals; keep that clarity. */
+  .studio-app[data-design="atelier"][data-page="practice"] .tuning-frequency-field input[type="number"] {
+    font-size: 32px;
+  }
+  .studio-app[data-design="atelier"][data-page="practice"] :is(.practice-settings, .practice-tools) > summary {
+    padding: 14px 16px;
+  }
+
+  .studio-app[data-design="atelier"][data-page="practice"] .practice-settings > summary span {
+    margin-left: 28px;
+  }
+
+  .studio-app[data-design="atelier"][data-page="practice"] :is(.practice-settings-content, .practice-tools-content) {
+    padding: 16px 16px 18px;
+  }
+}
+
+@media (max-width: 400px) {
+  .studio-app[data-design="atelier"][data-page="practice"] .player-controls {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .studio-app[data-design="atelier"][data-page="practice"] .play-main {
+    grid-column: 1 / -1;
+  }
+}
+
 @media print {
   .studio-app[data-design="atelier"][data-page="practice"] .score-card {
     box-shadow: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .studio-app[data-design="atelier"][data-page="practice"] .practice-settings fieldset > .practice-setting-fields:first-child {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

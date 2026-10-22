@@ -43,13 +43,13 @@ test('whole-piece harmonic plans begin and end at the modal center and never inv
   assert.equal(composeExercise({...opts,scaleId:'atonal'}).harmonyPlan,undefined);
 });
 
-test('shared harmony anchors arrivals while interior pulses retain melodic colour and graded movement',()=>{
+test('the original continuous-line strategy anchors bar arrivals while retaining interior colour and graded movement',()=>{
   const {composeExercise}=loadModule('src/music/composeExercise.ts',446);
   const {metricPosition}=loadModule('src/music/meterFeel.ts');const averages=[];
   for(const difficulty of ['beginner','intermediate','advanced']){
     let leaps=[],aligned=0,total=0,arrivals=0,alignedArrivals=0;
     for(let i=0;i<24;i++){
-      const ex=composeExercise({...opts,difficulty,range:{min:55,max:90}});
+      const ex=composeExercise({...opts,difficulty,range:{min:55,max:90}},undefined,'continuous-line');
       const notes=ex.measures.flatMap(b=>b.events).filter(n=>!n.rest);
       leaps.push(...notes.slice(1).map((n,j)=>Math.abs(n.midi-notes[j].midi)));
       ex.measures.forEach((bar,index)=>bar.events.filter(n=>!n.rest&&metricPosition(bar,n.startUnits).onPulse).forEach(n=>{
@@ -64,6 +64,28 @@ test('shared harmony anchors arrivals while interior pulses retain melodic colou
       'inner beats may use scale colour instead of being forced into chord tones');
   }
   assert.ok(averages[1]>averages[0]*1.5);assert.ok(averages[2]>averages[1]*1.4,JSON.stringify(averages));
+});
+
+test('approved major phrasing anchors complete phrase endings while retaining graded motion between them',()=>{
+  const {composeExercise}=loadModule('src/music/composeExercise.ts',446),averages=[];
+  for(const difficulty of ['beginner','intermediate','advanced']){
+    const leaps=[];
+    for(let i=0;i<24;i++){
+      const range={min:55,max:90},ex=composeExercise({...opts,difficulty,range});
+      validateGeneratedExercise(ex,range,false);
+      const notes=ex.measures.flatMap(b=>b.events).filter(n=>!n.rest);
+      for(const phrase of ex.phrasePlan){
+        const last=ex.measures.slice(phrase.startBar,phrase.endBar+1).flatMap(b=>b.events).filter(n=>!n.rest).at(-1);
+        assert.ok(ex.harmonyPlan[phrase.endBar].pitches.includes(last.midi%12),'complete phrase releases establish their planned harmony');
+      }
+      assert.equal(notes.at(-1).midi%12,0);
+      assert.ok(Math.abs(notes.at(-1).midi-notes.at(-2).midi)<=3);
+      leaps.push(...notes.slice(1).map((n,j)=>Math.abs(n.midi-notes[j].midi)));
+    }
+    averages.push(leaps.reduce((sum,n)=>sum+n,0)/leaps.length);
+  }
+  assert.ok(averages[1]>averages[0]*1.5);
+  assert.ok(averages[2]>averages[1]*1.4,JSON.stringify(averages));
 });
 
 test('breathing opportunities preserve exact bars, tuplets and the final cadence; instruments differ',()=>{

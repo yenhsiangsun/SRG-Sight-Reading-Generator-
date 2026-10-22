@@ -10,10 +10,14 @@ import {validRhythmFocus} from './focus';
 import {validPipaTechnique} from '../music/pipaTechniques';
 import {validKeySignatureChoices} from '../music/keySignatureChoices';
 import {validExpressionSpans} from '../music/expressionSpans';
+import {COMPOSITION_STYLES,validMusicalIntent} from '../music/musicalIntent';
+import {normalizeMixedClefs, validMixedClefs} from '../notation/mixedClefs';
 
 export const LIBRARY_KEY = 'sight-reading-library-v1';
 export interface SavedStudy {id: string; created: number; bpm: number; settings: ExerciseSettings; exercise?: ExerciseData}
 export interface Library {version: 1; scores: SavedStudy[]; presets: SavedStudy[]}
+export type LibraryMessage = 'savedStudy' | 'savedPreset' | 'libraryFull' | 'libraryError' | 'libraryInvalidScore' | 'libraryReadProtected' | 'libraryReadUnavailable';
+export interface LibraryReadResult {library: Library; unreadable: boolean}
 export const emptyLibrary = (): Library => ({version: 1, scores: [], presets: []});
 const record = (value: unknown): value is Record<string, unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
 const member = (value: unknown, choices: readonly unknown[]) => choices.includes(value);
@@ -22,6 +26,7 @@ const integer = (value: unknown, min: number, max: number) => typeof value === '
 export function validSettings(value: unknown): value is ExerciseSettings {
   if (!record(value)) return false;
   return typeof value.instrument === 'string' && Object.hasOwn(INSTRUMENTS, value.instrument) && member(value.clef, CLEFS)
+    && validMixedClefs(value.mixedClefs) && (value.compositionStyle===undefined||member(value.compositionStyle,COMPOSITION_STYLES))
     && member(value.difficulty, ['Beginner','Intermediate','Advanced']) && member(value.rhythmLevel, ['Simple','Moderate','Complex'])
     && validRhythmFocus(value.rhythmFocus) && member(value.pitchFocus,[undefined,'balanced','leaps','scales']) && member(value.keySignature, KEY_SIGNATURES)
     && validKeySignatureChoices(value.allowedKeySignatures)
@@ -60,10 +65,18 @@ export function validStudy(value: unknown, score: boolean): value is SavedStudy 
   const ex = value.exercise;
   const settings = value.settings;
   if (!record(ex) || !member(ex.timeSignature,TIME_SIGNATURES) || !member(ex.clef,['treble','bass','alto','tenor'])
+    || !validMixedClefs(ex.mixedClefs)
     || !member(ex.staffMode,[undefined,'fixed','mixed']) || (ex.staffMode==='mixed' && ex.lowerMeasures!==undefined)
     || !member(ex.keySignature,KEY_SIGNATURES) || !member(ex.difficulty,['beginner','intermediate','advanced']) || !member(ex.rhythmLevel,['simple','medium','complex'])
     || !validBpm(ex.tempo) || !integer(ex.transposition ?? 0,-48,48) || ex.soundProfile !== value.settings.instrument
     || !Array.isArray(ex.measures) || !ex.measures.length || ex.measures.length > 32 || !ex.measures.every(m => validMeasure(m,String(ex.timeSignature)))) return false;
+  if(!validMusicalIntent(ex.musicalIntent,ex.measures.length))return false;
+  if (ex.mixedClefs !== undefined && (ex.staffMode !== 'mixed' || ex.lowerMeasures !== undefined)) return false;
+  if ((settings.mixedClefs !== undefined || ex.mixedClefs !== undefined)
+    && (settings.clef === 'mixedStaff' || ex.staffMode === 'mixed')) {
+    if (settings.clef !== 'mixedStaff' || ex.staffMode !== 'mixed'
+      || JSON.stringify(normalizeMixedClefs(settings.mixedClefs)) !== JSON.stringify(normalizeMixedClefs(ex.mixedClefs))) return false;
+  }
   if (ex.tonality !== undefined) {
     const tonality=ex.tonality;
     if (!record(tonality) || !member(tonality.tonic,[null,...TONICS]) || !SCALES.some(s=>s.id===tonality.scaleId)
@@ -85,7 +98,8 @@ export function validStudy(value: unknown, score: boolean): value is SavedStudy 
     if (nextBar!==ex.measures.length) return false;
   }
   if (ex.lowerMeasures !== undefined && (!Array.isArray(ex.lowerMeasures) || ex.lowerMeasures.length !== ex.measures.length
-    || !member(ex.grandMode,['mono','two-hand']) || !ex.lowerMeasures.every((m,i) => validMeasure(m,String(ex.timeSignature)) && m.totalUnits === (ex.measures as MeasureData[])[i].totalUnits))) return false;
+    || !member(ex.grandMode,['mono','two-hand']) || !ex.lowerMeasures.every((m,i) => validMeasure(m,String(ex.timeSignature)) && m.totalUnits === (ex.measures as MeasureData[])[i].totalUnits
+      && (m.timeSignature ?? ex.timeSignature) === ((ex.measures as MeasureData[])[i].timeSignature ?? ex.timeSignature)))) return false;
   if (!validExpressionSpans(ex.expressionSpans,ex as unknown as ExerciseData)) return false;
   const staves = [...ex.measures as MeasureData[], ...(ex.lowerMeasures as MeasureData[] | undefined ?? [])];
   if (staves.some(bar => bar.events.some(note => note.technique !== undefined &&
@@ -98,11 +112,13 @@ export function validStudy(value: unknown, score: boolean): value is SavedStudy 
   return true;
 }
 
-export function readLibrary(raw: string | null): Library {
+/** Diagnose rejected data without writing or discarding its persisted source. */
+export function readLibraryResult(raw: string | null): LibraryReadResult {
   try {
-    if (!raw || raw.length > 16_000_000) return emptyLibrary();
+    if (!raw) return {library:emptyLibrary(), unreadable:false};
+    if (raw.length > 16_000_000) return {library:emptyLibrary(), unreadable:true};
     const data: unknown = JSON.parse(raw);
-    if (!record(data) || data.version !== 1 || !Array.isArray(data.scores) || !Array.isArray(data.presets)) return emptyLibrary();
+    if (!record(data) || data.version !== 1 || !Array.isArray(data.scores) || !Array.isArray(data.presets)) return {library:emptyLibrary(), unreadable:true};
     // Retire the old harmonic annotation without discarding a user's saved score.
     // These notes were already written and played at their resultant pitch.
     for (const study of data.scores) {
@@ -115,9 +131,13 @@ export function readLibrary(raw: string | null): Library {
         }
       }
     }
-    return {version:1, scores:data.scores.filter(s=>validStudy(s,true)).slice(0,50), presets:data.presets.filter(s=>validStudy(s,false)).slice(0,20)};
-  } catch { return emptyLibrary(); }
+    const scores=data.scores.filter(s=>validStudy(s,true)),presets=data.presets.filter(s=>validStudy(s,false));
+    return {library:{version:1,scores:scores.slice(0,50),presets:presets.slice(0,20)},
+      unreadable:scores.length!==data.scores.length || presets.length!==data.presets.length || scores.length>50 || presets.length>20};
+  } catch { return {library:emptyLibrary(), unreadable:true}; }
 }
+
+export function readLibrary(raw: string | null): Library { return readLibraryResult(raw).library; }
 
 export function addStudy(library: Library, study: SavedStudy, kind: 'scores' | 'presets'): Library {
   if (!validStudy(study,kind === 'scores')) throw new Error('libraryError');

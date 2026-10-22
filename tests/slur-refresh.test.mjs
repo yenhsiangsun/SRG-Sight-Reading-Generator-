@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {loadModule} from './helpers.mjs';
 
 const {refreshSlurPhrasing}=loadModule('src/music/refreshSlurPhrasing.ts');
+const {planMusicalSlurs}=loadModule('src/music/slurPhrasing.ts');
 const {validExpressionSpans}=loadModule('src/music/expressionSpans.ts');
 const {createPlaybackEvents}=loadModule('src/audio/PlaybackController.ts');
 const plain=value=>JSON.parse(JSON.stringify(value));
@@ -34,6 +35,26 @@ test('legacy, unmarked and explicitly disabled exercises keep their saved expres
   const legacy={...exercise,phrasePlan:undefined};assert.equal(refreshSlurPhrasing(legacy),legacy);
   const withoutSlurs={...exercise,expressionSpans:exercise.expressionSpans.filter(span=>span.kind!=='slur')};
   assert.equal(refreshSlurPhrasing(withoutSlurs),withoutSlurs);
+});
+
+test('correct slurs interleaved with a hairpin preserve the saved object, span order and source',()=>{
+  const exercise=source();
+  exercise.measures=[...exercise.measures,...source().measures];
+  exercise.phrasePlan=[...exercise.phrasePlan,...exercise.phrasePlan.map(phrase=>({...phrase,
+    startBar:phrase.startBar+4,endBar:phrase.endBar+4}))];
+  const slurs=planMusicalSlurs(exercise,0),hairpin=exercise.expressionSpans[0];
+  assert.ok(slurs.length>=2,'the regression includes a hairpin between two correct slurs');
+  exercise.expressionSpans=[slurs[0],hairpin,...slurs.slice(1)];
+  const spans=exercise.expressionSpans,before=JSON.stringify(exercise);
+  const freeze=value=>{
+    if(value&&typeof value==='object'){Object.values(value).forEach(freeze);Object.freeze(value);}
+  };
+  freeze(exercise);
+  assert.equal(refreshSlurPhrasing(exercise),exercise);
+  assert.equal(exercise.expressionSpans,spans);
+  assert.equal(exercise.expressionSpans[1],hairpin);
+  assert.equal(JSON.stringify(exercise),before);
+  assert.equal(refreshSlurPhrasing(exercise),exercise,'repeated restore keeps the same saved reference');
 });
 
 test('a saved lower-staff slur stays on the lower staff when its phrasing is refreshed',()=>{

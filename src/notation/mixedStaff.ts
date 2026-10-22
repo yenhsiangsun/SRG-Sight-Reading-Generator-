@@ -1,8 +1,9 @@
 import type {Clef, ExerciseData, MeasureData, TimeSignature} from '../music';
 import {notePitches} from '../music/notePitches';
 import {ledgerCount, planOctaveLines} from './octaveLines';
+import {normalizeMixedClefs} from './mixedClefs';
 
-const states: {clef: Clef;shift:number}[] = [
+const defaultStates: {clef: Clef;shift:number}[] = [
   {clef:'treble',shift:0}, {clef:'bass',shift:0},
   {clef:'treble',shift:1}, {clef:'bass',shift:-1},
 ];
@@ -20,7 +21,16 @@ export function usesMixedStaff(exercise: ExerciseData) {
  * their context. Extreme register changes may split a beam rather than leave
  * an unreadable pitch. No note, chord, rest, or time value is rewritten.
  */
-export function planMixedStaff(measures: readonly MeasureData[], initial: Clef = 'treble', fallback: TimeSignature = '4/4') {
+export function planMixedStaff(measures: readonly MeasureData[], initial: Clef = 'treble', fallback: TimeSignature = '4/4', allowedClefs?: readonly Clef[]) {
+  const selected = normalizeMixedClefs(allowedClefs);
+  // Keep the original states AND their ordering for existing treble/bass scores.
+  const states: {clef: Clef;shift:number}[] = selected.length === 2 && selected[0] === 'treble' && selected[1] === 'bass'
+    ? defaultStates
+    : [
+      ...selected.map(clef => ({clef,shift:0})),
+      ...selected.filter(clef => clef !== 'bass').map(clef => ({clef,shift:1})),
+      ...selected.filter(clef => clef !== 'treble').map(clef => ({clef,shift:-1})),
+    ];
   const events = measures.flatMap((measure,bar) => {
     const meter = measure.timeSignature ?? fallback;
     const lengths = meter.endsWith('/4') ? Array(measure.totalUnits/4).fill(4) as number[] : measure.beamGroups;
@@ -71,7 +81,7 @@ export function planMixedStaff(measures: readonly MeasureData[], initial: Clef =
 }
 
 export function planSingleStaff(exercise: ExerciseData, measures: readonly MeasureData[]) {
-  return usesMixedStaff(exercise) ? planMixedStaff(measures,exercise.clef,exercise.timeSignature) : {
+  return usesMixedStaff(exercise) ? planMixedStaff(measures,exercise.clef,exercise.timeSignature,exercise.mixedClefs) : {
     clefs:measures.map(measure => measure.events.map(() => exercise.clef)),
     shifts:planOctaveLines(measures,exercise.clef),
   };

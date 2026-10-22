@@ -1,5 +1,6 @@
 import type {RhythmLevel, RhythmPattern, TimeSignature} from '../music';
 import {focusedComposition, rhythmFocuses, type RhythmFocus, type RhythmFocusSelection} from '../practice/focus';
+import type {PhraseSpan} from './phrasePlan';
 import {pulseGroups} from './meterFeel';
 import {createGroupComposition, createPracticeRhythm, type EighthPulseRole, type PracticeRhythmNote} from './practiceRhythm';
 
@@ -26,7 +27,7 @@ function pulseRoles(meter:TimeSignature,barInSection:number,variant:number):read
 /** Time is planned in phrases before pitches, including the landing note.
  * A cell is one actual pulse: 4 units in /4, 6 in compound meter, 4+4+6 in 7/8.
  * No template is stretched from a simple beat into a compound beat. */
-export function createPhraseRhythmPlan(meters: readonly TimeSignature[], level: RhythmLevel, selection: RhythmFocusSelection = 'balanced', tripletLimit = level==='simple'?1:Infinity): RhythmBarPlan[] {
+export function createPhraseRhythmPlan(meters: readonly TimeSignature[], level: RhythmLevel, selection: RhythmFocusSelection = 'balanced', tripletLimit = level==='simple'?1:Infinity, phrasePlan?:readonly PhraseSpan[]): RhythmBarPlan[] {
   const focuses=rhythmFocuses(selection);
   if(focuses.length>1)return createMixedFocusPlan(meters,level,focuses);
   const focus=focuses[0];
@@ -34,12 +35,14 @@ export function createPhraseRhythmPlan(meters: readonly TimeSignature[], level: 
   let triplets=0;
   let materials = new Map<string, Cell[]>(), lastCell = '', busy = 0, position = 0;
   let sectionStart=0,profile=0;
+  const starts=phrasePlan?new Set(phrasePlan.map(p=>p.startBar)):undefined;
+  const ends=phrasePlan?new Set(phrasePlan.map(p=>p.endBar)):undefined;
   return meters.map((meter,bar) => {
     const eighth = meter.endsWith('/8'), groups = pulseGroups({timeSignature:meter,groups:[]});
     const changed=bar>0 && meter!==meters[bar-1];
     // Refresh long sections after four bars counted from the actual meter
     // entrance, not an unrelated global bar number inside the new phrase.
-    if (bar===0 || changed || bar-sectionStart===4) {
+    if (bar===0 || changed || (starts?starts.has(bar):bar-sectionStart===4)) {
       materials=new Map();lastCell='';busy=0;position=0;sectionStart=bar;
       if(eighth)profile=Math.floor(Math.random()*4);
     }
@@ -71,7 +74,7 @@ export function createPhraseRhythmPlan(meters: readonly TimeSignature[], level: 
       // A complete last pulse sounds to the barline. 3/8 retains an approach note
       // then a quarter landing, instead of reducing its entire final bar to one note.
       cells[cells.length-1]=meter==='3/8'?plain([2,4]):plain([groups.at(-1)!]);
-    } else if (((bar-sectionStart+1)%4===0 || meter!==meters[bar+1]) && groups.length>1 && focus==='balanced') {
+    } else if (((ends?ends.has(bar):(bar-sectionStart+1)%4===0) || meter!==meters[bar+1]) && groups.length>1 && focus==='balanced') {
       // An internal comma keeps moving; only the final cadence gets a full held pulse.
       cells[cells.length-1]=plain(groups.at(-1)===6?[2,4]:[2,2]);
     }
@@ -157,11 +160,11 @@ export function rhythmPlanPenalty(plan: readonly RhythmBarPlan[], level?: Rhythm
 }
 
 /** Bounded review: select the best of three rhythm plans, never an unbounded retry. */
-export function selectPhraseRhythmPlan(meters: readonly TimeSignature[], level: RhythmLevel, focus: RhythmFocusSelection = 'balanced', tripletLimit?:number) {
+export function selectPhraseRhythmPlan(meters: readonly TimeSignature[], level: RhythmLevel, focus: RhythmFocusSelection = 'balanced', tripletLimit?:number, phrasePlan?:readonly PhraseSpan[]) {
   const balanced=rhythmFocuses(focus)[0]==='balanced';
-  let best=createPhraseRhythmPlan(meters,level,focus,tripletLimit), penalty=rhythmPlanPenalty(best,balanced?level:undefined);
+  let best=createPhraseRhythmPlan(meters,level,focus,tripletLimit,phrasePlan), penalty=rhythmPlanPenalty(best,balanced?level:undefined);
   for(let attempt=1;attempt<3;attempt++) {
-    const candidate=createPhraseRhythmPlan(meters,level,focus,tripletLimit), score=rhythmPlanPenalty(candidate,balanced?level:undefined);
+    const candidate=createPhraseRhythmPlan(meters,level,focus,tripletLimit,phrasePlan), score=rhythmPlanPenalty(candidate,balanced?level:undefined);
     if(score<penalty){best=candidate;penalty=score;}
   }
   return best;

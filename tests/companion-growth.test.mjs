@@ -165,3 +165,23 @@ test('clock splits companion switches, resets scores and caps device suspension 
   assert.equal(newPet,2.75,'resuming never credits paused time');
   h.unmount();
 });
+
+test('a retained score does not earn companion time while practice is disabled',()=>{
+  const h=clockHarness();let credited=0;
+  const onElapsed=seconds=>credited+=seconds;
+  // App disables the clock on home/setup and while a dialog is open, even
+  // though the previous score and its session remain available for resuming.
+  h.render('retained-score',false,onElapsed);
+  h.advance(120000);
+  assert.equal(credited,0,'leaving the website open before practice earns nothing');
+  h.render('retained-score',true,onElapsed);h.advance(1250);
+  h.render('retained-score',false,onElapsed);
+  assert.equal(credited,1.25,'only the final fraction of actual practice is flushed');
+  h.advance(180000);
+  assert.equal(credited,1.25,'home/settings time cannot reach the growth callback');
+  h.render('retained-score',true,onElapsed);h.advance(500);
+  assert.equal(credited,1.75,'returning to practice starts from the current time');
+  h.visible(false);h.advance(120000);h.visible(true);
+  assert.equal(credited,1.75,'a background practice page is excluded too');
+  h.unmount();
+});

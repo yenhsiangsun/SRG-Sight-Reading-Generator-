@@ -19,7 +19,7 @@ export function addScalePractice(exercise:ExerciseData, range:PitchRange):Exerci
     const {pitches,tonicPC}=buildPitchMaterial(tonality,voiceRange);
     if(!notes.length||!pitches.length)return voice;
     const random=melodicRandom(notes);
-    const plan=planStudyMelody(voice,pitches,tonicPC,exercise.difficulty,exercise.soundProfile);
+    const plan=planStudyMelody(voice,pitches,tonicPC,exercise.difficulty,exercise.soundProfile,exercise.phrasePlan);
     const guides=new Map(plan.targets.map(target=>[target.index,target.midi]));
     const slots=voice.flatMap((bar,b)=>bar.events.flatMap(note=>note.rest?[]:[{note,bar:b,strong:metricPosition(bar,note.startUnits).onPulse}]));
     // Directional fragments, turns and repeated-note pickups, not full-octave laps.

@@ -8,12 +8,12 @@ import {midiToNoteLabel} from '../exerciseConfig';
 import type {ExerciseSettings} from '../hooks/useExercise';
 import './StaffRangePicker.css';
 
-function PitchStaff({value,min,max,clef:choice,label,onChange,disabled=false}:{value:number;min:number;max:number;clef:Clef|'mixedStaff';label:string;onChange:(value:number)=>void;disabled?:boolean}) {
+function PitchStaff({value,min,max,clef:choice,mixedClefs,label,onChange,disabled=false}:{value:number;min:number;max:number;clef:Clef|'mixedStaff';mixedClefs?:readonly Clef[];label:string;onChange:(value:number)=>void;disabled?:boolean}) {
   const {locale}=useI18n();
   const ref=useRef<HTMLDivElement>(null);
   const [heldShift,setHeldShift]=useState<number|null>(null);
   const [heldClef,setHeldClef]=useState<Clef|null>(null);
-  const clef=heldClef??(choice==='mixedStaff'?mixedRangeClef(value):choice);
+  const clef=heldClef??(choice==='mixedStaff'?mixedRangeClef(value,mixedClefs):choice);
   const active=useRef(false);
   const shift=heldShift??rangeOctaveShift(value,clef);
   const bottomY=clef==='bass'?190:clef==='treble'?130:160;
@@ -61,8 +61,8 @@ export function StaffRangePicker({settings,onMin,onMax,disabled=false}:{settings
   const {t,locale}=useI18n();
   return <div className="staff-range-picker"><p>{words(locale,'點選譜線或上下拖移音符，選出練習的最低音與最高音；♭／♯ 微調半音，±8 切換八度。','Tap the staff or drag vertically to choose the lowest and highest notes. Use ♭/♯ for semitones and ±8 for octaves.','譜面をタップ、または上下にドラッグして最低音と最高音を選びます。♭／♯で半音、±8でオクターブを調整します。')}</p>
     <div className="staff-range-pair">
-      <PitchStaff disabled={disabled} label={t('minimum')} value={settings.rangeMinMidi} min={21} max={settings.rangeMaxMidi-1} clef={settings.clef==='grand'?'bass':settings.clef} onChange={onMin}/>
-      <PitchStaff disabled={disabled} label={t('maximum')} value={settings.rangeMaxMidi} min={settings.rangeMinMidi+1} max={108} clef={settings.clef==='grand'?'treble':settings.clef} onChange={onMax}/>
+      <PitchStaff disabled={disabled} mixedClefs={settings.mixedClefs} label={t('minimum')} value={settings.rangeMinMidi} min={21} max={settings.rangeMaxMidi-1} clef={settings.clef==='grand'?'bass':settings.clef} onChange={onMin}/>
+      <PitchStaff disabled={disabled} mixedClefs={settings.mixedClefs} label={t('maximum')} value={settings.rangeMaxMidi} min={settings.rangeMinMidi+1} max={108} clef={settings.clef==='grand'?'treble':settings.clef} onChange={onMax}/>
     </div>
   </div>;
 }

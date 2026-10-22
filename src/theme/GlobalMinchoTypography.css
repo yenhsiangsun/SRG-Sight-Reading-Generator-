@@ -1,0 +1,66 @@
+@font-face{font-family:'Tonecraft Display';font-style:normal;font-weight:400 700;font-display:swap;src:url('/fonts/global-ming-v1/song-supplement.woff2') format('woff2');unicode-range:U+3000,U+9EBB;}
+/* The accepted Ming/Song pairing, extended to HTML throughout the studio.
+   Keep engraved SVGs, icon artwork and their music fonts outside this layer. */
+@font-face {
+  font-family: 'Tonecraft Ming';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/global-ming-v1/ming-800.woff2') format('woff2');
+}
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page] {
+  --studio-ui-font: 'Tonecraft Display', 'Noto Serif TC', 'Songti TC', 'Noto Serif SC', 'Noto Serif JP', 'Noto Serif KR', 'Thonburi', 'Leelawadee UI', serif;
+  --studio-heading-font: 'Tonecraft Ming', var(--studio-ui-font);
+  font-family: var(--studio-ui-font);
+  font-synthesis: none;
+}
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page] :where(button, input, select, textarea, summary, label, legend, p, span, small, strong, em, time, output, a, li, dt, dd, h1, h2, h3, h4, .note-companion):not(:where(svg, svg *)),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page] #main :where(button, input, select, textarea, summary, label, legend, p, span, small, strong, em, time, output, a, li, dt, dd, h1, h2, h3, h4):not(:where(svg, svg *)) {
+  font-family: var(--studio-ui-font);
+}
+
+/* Use the native heavy face for titles; supporting copy keeps its lighter weight. */
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page] :where(h1, h2, h3, h4, .brand, .instrument-card strong, .difficulty-card strong, .composition-choices strong):not(:where(svg, svg *)),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page] :where(h1, h2, h3, h4, .brand) :where(span, strong, small):not(:where(svg, svg *)),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page] #main :where(h1, h2, h3, h4, .instrument-card strong, .difficulty-card strong, .composition-choices strong):not(:where(svg, svg *)),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page] #main :where(h1, h2, h3, h4) :where(span, strong, small):not(:where(svg, svg *)) {
+  font-family: var(--studio-heading-font);
+  font-weight: 800;
+  font-synthesis: none;
+}
+
+/* A symbol and the small Latin signature are not secondary headings. */
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page] .brand .brand-mark {
+  font-family: 'Segoe UI Symbol', 'Apple Symbols', serif;
+  font-weight: 400;
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page] .brand .brand-subtitle {
+  font-family: var(--studio-ui-font);
+  font-weight: 500;
+}
+
+/* Center the visible clef outline, independently of a system font's bearings. */
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page] .brand .brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  font-size: 0;
+  line-height: 0;
+  letter-spacing: 0;
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page] .brand .brand-mark::before {
+  content: '';
+  display: block;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 34px;
+  background: currentColor;
+  -webkit-mask: url('/artwork/brand-clef.svg') center / contain no-repeat;
+  mask: url('/artwork/brand-clef.svg') center / contain no-repeat;
+}
+@media(max-width:700px) {
+  #root .app.app.studio-app.forest-studio[data-design="atelier"][data-page] .brand .brand-mark { display: none; }
+}

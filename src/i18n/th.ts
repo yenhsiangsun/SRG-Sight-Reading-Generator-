@@ -1,11 +1,19 @@
 import type {LocaleCatalog} from './catalogTypes';
+import {layoutNamed} from './layoutMessages';
 import {improvementNamed} from './improvementMessages';
 import {pipaNamed} from './pipaMessages';
 import {assessmentNamed} from './assessmentMessages';
+import {searchNamed} from './searchMessages';
+import {savedDataNamed} from './savedDataMessages';
+import {mixedClefNamed} from './mixedClefMessages';
 
 export const thai: LocaleCatalog = {
   messages: {
+    ...savedDataNamed(11),
+    ...mixedClefNamed(11),
+    ...layoutNamed(11),
     ...assessmentNamed(11),
+    ...searchNamed(11),
     ...improvementNamed(11),
     ...pipaNamed(11),
     exportPdf: 'ส่งออก PDF',
@@ -59,6 +67,7 @@ export const thai: LocaleCatalog = {
     savedPresets: 'การตั้งค่าที่บันทึกไว้',
     libraryLocal: 'บันทึกในเบราว์เซอร์นี้ได้สูงสุด 50 บทและ 20 ชุดการตั้งค่า ยังไม่รองรับการซิงค์ข้ามอุปกรณ์',
     libraryEmpty: 'ยังไม่มีรายการที่บันทึกไว้ กดดาวขณะฝึกซ้อมเพื่อบันทึก',
+    libraryPresetEmpty: 'ยังไม่มีการตั้งค่าที่บันทึกไว้ ระหว่างฝึกซ้อม ให้เปิดเครื่องมือฝึกซ้อม แล้วเลือกบันทึกการตั้งค่า',
     openStudy: 'เปิดแบบฝึก',
     removeStudy: 'นำออก',
     libraryFull: 'คลังเต็มแล้ว กรุณานำรายการเก่าออกก่อน',
@@ -172,8 +181,8 @@ export const thai: LocaleCatalog = {
     pianoRange: 'ช่วงเริ่มต้นสำหรับเปียโน C3–C6',
     outside: 'ช่วงเสียงที่กำหนดกว้างกว่าช่วงเสียงอ้างอิงของรุ่นนี้',
     mixedStaff: 'บรรทัดกุญแจผสม',
-    mixedStaffDetail: 'กุญแจซอล + ฟา · บรรทัดเดียว',
-    mixedStaffHelp: 'ใช้บรรทัดห้าเส้นเดียว สลับกุญแจซอลและฟาตามช่วงเสียงเพื่อลดเส้นน้อย ใช้ 8va/8vb เฉพาะช่วงเสียงที่สูงหรือต่ำมาก',
+    mixedStaffDetail: 'เลือกกุญแจเสียง · บรรทัดเดียว',
+    mixedStaffHelp: 'ใช้บรรทัดห้าเส้นเดียว สลับกุญแจเสียงที่เลือกตามช่วงเสียงเพื่อลดเส้นน้อย ใช้ 8va/8vb เฉพาะช่วงเสียงที่สูงหรือต่ำมาก',
     treble: 'บรรทัดกุญแจซอล',
     bass: 'บรรทัดกุญแจฟา',
     alto: 'บรรทัดกุญแจอัลโต',

@@ -147,7 +147,12 @@ export function scoreRecentSimilarity(exercise: ExerciseData, history: readonly 
   const current = fingerprintExercise(exercise, settings);
   return history.slice(0, RECENT_VARIETY_LIMIT).reduce((penalty, previous, index) =>
     previous.context === current.context
-      ? Math.max(penalty, musicalSimilarity(current, previous) * (1 - index * .025)) : penalty, 0);
+      ? Math.max(penalty, musicalSimilarity(current, previous) * (1 - index * .025),
+        // A changed melody alone should not excuse an identical whole-song
+        // rhythm immediately after it. Use the existing bounded retry budget;
+        // no new persistence, unbounded rejection or relaxed difficulty rules.
+        settings.compositionStyle==='auto'&&index===0&&current.rhythm.length>0&&current.rhythm.length===previous.rhythm.length&&
+          current.rhythm.every((value,i)=>value===previous.rhythm[i]) ? .85 : 0) : penalty, 0);
 }
 
 function defaultStorage(): VarietyStorage | undefined {

@@ -3,8 +3,9 @@ import {PITCH_DIFFICULTY} from './pitchDifficulty';
 import {assertMeasureRhythm} from './rhythmTiming';
 import {buildPitchMaterial, describeTonality} from './scales';
 import {midiFromKey} from './notePitches';
+import type {PitchFocus} from '../practice/focus';
 
-export interface ExerciseQuality {penalty: number; repeatedBars: number; repeatedNotes: number; leapRuns: number}
+export interface ExerciseQuality {penalty: number; repeatedBars: number; repeatedNotes: number; leapRuns: number; rapidLeapContinuations: number}
 
 /** A grand monophonic staff is one line, not two melodies separated by rests. */
 export function melodicVoice(exercise: ExerciseData): MeasureData[] {
@@ -12,12 +13,44 @@ export function melodicVoice(exercise: ExerciseData): MeasureData[] {
   return exercise.measures.map((bar,b)=>({...bar,events:bar.events.map((n,i)=>n.rest?exercise.lowerMeasures![b].events[i]:n)}));
 }
 
+/** A small preference between legal candidates, never a pitch correction. Only
+ * connected fast arrivals within a planned phrase count. Chord arpeggios, breath
+ * gaps and the final preparation/approach/tonic retain their existing freedom.
+ * Piano accompaniment is deliberately not treated as a second singing line. */
+function rapidLeapContinuations(exercise: ExerciseData): number {
+  if(!exercise.phrasePlan?.length || !exercise.harmonyPlan?.length)return 0;
+  const voice=melodicVoice(exercise);
+  const cadence=new Set(voice.flatMap(bar=>bar.events).filter(note=>!note.rest).slice(-3));
+  const phraseStarts=new Set(exercise.phrasePlan.map(phrase=>phrase.startBar));
+  let previous:{note:GeneratedNote;time:number}[]=[],offset=0,count=0;
+  for(const [barIndex,bar] of voice.entries()) {
+    if(phraseStarts.has(barIndex))previous=[];
+    for(const note of bar.events) {
+      if(note.rest){previous=[];continue;}
+      const time=offset+note.startUnits;
+      if(previous.length===2 && !cadence.has(note)) {
+        const [a,b]=previous,leap=b.note.midi!-a.note.midi!,continuation=note.midi!-b.note.midi!;
+        const connected=Math.abs(a.time+a.note.durationUnits-b.time)<1e-7 && Math.abs(b.time+b.note.durationUnits-time)<1e-7;
+        const chord=exercise.harmonyPlan[barIndex]?.pitches;
+        if(connected && Math.abs(leap)>=7 && Math.abs(continuation)>=3 && leap*continuation>0 &&
+          b.note.durationUnits<=2 && note.durationUnits<=2 && chord?.length &&
+          ![a.note,b.note,note].every(pitch=>chord.includes(pitch.midi!%12)))count++;
+      }
+      previous=[...previous,{note,time}].slice(-2);
+    }
+    offset+=bar.totalUnits;
+  }
+  return count;
+}
+
 /** Checks only undesirable excess, not average interval size. An advanced
  * candidate must not win merely because it is the easiest or smoothest one. */
-export function reviewExercise(exercise: ExerciseData, range: PitchRange, allowAccidentals: boolean): ExerciseQuality {
-  const result:ExerciseQuality={penalty:0,repeatedBars:0,repeatedNotes:0,leapRuns:0};
+export function reviewExercise(exercise: ExerciseData, range: PitchRange, allowAccidentals: boolean, pitchFocus?:PitchFocus): ExerciseQuality {
+  const result:ExerciseQuality={penalty:0,repeatedBars:0,repeatedNotes:0,leapRuns:0,rapidLeapContinuations:0};
   const tonal = !allowAccidentals && exercise.tonality?.scaleId!=='atonal';
-  const voices=[melodicVoice(exercise),...(exercise.grandMode==='two-hand' && exercise.lowerMeasures?[exercise.lowerMeasures]:[])];
+  // Recurring accompaniment figures are useful harmonic support. Audition
+  // melodic variety in the lead, rather than rewarding a second busy melody.
+  const voices=[melodicVoice(exercise)];
   const available=buildPitchMaterial(exercise.tonality??describeTonality(exercise.keySignature,'major'),range).pitches.length;
   for(const voice of voices) {
     let previousBar='', previous:GeneratedNote|undefined, samePitch=1, leapRun=0;
@@ -39,7 +72,10 @@ export function reviewExercise(exercise: ExerciseData, range: PitchRange, allowA
       }
     }
   }
-  result.penalty=result.repeatedBars*8+result.repeatedNotes*2+result.leapRuns;
+  if(tonal && pitchFocus!=='leaps')result.rapidLeapContinuations=rapidLeapContinuations(exercise);
+  // Even several awkward connections weigh less than one existing leap-run
+  // flag. This breaks otherwise equal candidates without flattening all leaps.
+  result.penalty=result.repeatedBars*8+result.repeatedNotes*2+result.leapRuns+Math.min(.75,result.rapidLeapContinuations*.15);
   return result;
 }
 

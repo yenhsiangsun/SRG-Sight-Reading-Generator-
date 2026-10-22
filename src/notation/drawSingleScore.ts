@@ -42,22 +42,31 @@ function drawSinglePass(container: HTMLDivElement | HTMLCanvasElement, exercise:
   });
   // Keep equal bars per row (one on phones, two on wider screens). Dense music expands horizontally instead of colliding.
   const measureWidth = Math.max((width - 20) / barsPerRow, ...prepared.map(item => item.neededWidth));
-  const lines = prepared.flatMap(item => item.notes.filter(note => !note.isRest()).flatMap(note => note.getKeyProps().map(key => key.line)));
-  const expressionExtent=expressionSpace(exercise,0);
-  const above = Math.max(0, (Math.max(5, ...lines) - 5) * 10) + (shifts.flat().some(shift => shift > 0) ? 65 : 0)
-    + tupletSpace(prepared.flatMap(item=>item.tuplets), 'above') + expressionExtent.above + padding.above;
-  const below = Math.max(0, (1 - Math.min(1, ...lines)) * 10) + (shifts.flat().some(shift => shift < 0) ? 65 : 0)
-    + tupletSpace(prepared.flatMap(item=>item.tuplets), 'below') + expressionExtent.below + padding.below;
-  const rowHeight = Math.max(180, 140 + above + below);
-  const layout: ScoreLayout = { width: measureWidth * barsPerRow + 20, height: rows * rowHeight + 45, measures: [] };
-  layout.systems = Array.from({length: rows}, (_, row) => ({top: row * rowHeight, bottom: (row + 1) * rowHeight + (row === rows - 1 ? 45 : 0)}));
+  // Reserve room where the ink occurs. One high note, octave sign or hairpin
+  // must not enlarge every otherwise ordinary system in the whole study.
+  const rowSpace=Array.from({length:rows},(_,row)=>{
+    const first=row*barsPerRow,last=Math.min(prepared.length-1,first+barsPerRow-1);
+    const items=prepared.slice(first,last+1),octaves=shifts.slice(first,last+1).flat();
+    const lines=items.flatMap(item=>item.notes.filter(note=>!note.isRest()).flatMap(note=>note.getKeyProps().map(key=>key.line)));
+    const expressionExtent=expressionSpace(exercise,0,{first,last});
+    const above=Math.max(0,(Math.max(5,...lines)-5)*10)+(octaves.some(shift=>shift>0)?65:0)
+      +tupletSpace(items.flatMap(item=>item.tuplets),'above')+expressionExtent.above+padding.above;
+    const below=Math.max(0,(1-Math.min(1,...lines))*10)+(octaves.some(shift=>shift<0)?65:0)
+      +tupletSpace(items.flatMap(item=>item.tuplets),'below')+expressionExtent.below+padding.below;
+    return {above,below,height:Math.max(180,140+above+below)};
+  });
+  let totalHeight=0;
+  const systems=rowSpace.map(space=>{const top=totalHeight;totalHeight+=space.height;return {top,bottom:totalHeight};});
+  if(systems.length)systems.at(-1)!.bottom+=45;
+  const layout:ScoreLayout={width:measureWidth*barsPerRow+20,height:totalHeight+45,measures:[],systems};
   const context = scoreContext(container, layout.width, layout.height, viewport);
   const octaveBars: OctaveBar[] = [];
   const expressionBars: ExpressionBar[]=[];
   prepared.forEach((item, index) => {
     const row = Math.floor(index / barsPerRow);
+    const {above,below}=rowSpace[row];
     const x = 10 + (index % barsPerRow) * measureWidth;
-    const y = row * rowHeight + 25 + above;
+    const y = systems[row].top + 25 + above;
     const stave = new Stave(x, y, measureWidth);
     if (item.firstOfRow) { stave.addClef(item.startClef, undefined, octaveAnnotation); if (signature) stave.addKeySignature(signature); }
     if (item.endClef) stave.addEndClef(item.endClef,'small',octaveAnnotation);

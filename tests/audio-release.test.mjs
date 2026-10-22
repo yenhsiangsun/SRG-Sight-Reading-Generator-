@@ -33,6 +33,7 @@ function fixture(t) {
   write('public/samples/western-completion/violin/D7.wav','extended-range-violin');
   write('public/samples/CREDITS.txt','Source authors, licenses and processing');
   write('public/companions/forest.png','current-companion');
+  write('public/companions/growth-art-prompts.json','local image-generation notes');
   write('public/capture-worklet.js','current-microphone-worklet');
   return {root,write,manifest,publicDir:path.join(root,'public'),outDir:path.join(root,'dist'),manifestPath:path.join(root,'src/audio/sampleManifest.json')};
 }
@@ -40,6 +41,8 @@ function fixture(t) {
 test('a real Vite build excludes archived audio while preserving active samples, credits and source previews', async t => {
   const f=fixture(t);
   await build({root:f.root,configFile:false,logLevel:'silent',plugins:[releasePublicAssets()]});
+  assert.equal(fs.existsSync(path.join(f.outDir,'companions/growth-art-prompts.json')),false,'development image prompts are not runtime assets');
+  assert.equal(fs.readFileSync(path.join(f.publicDir,'companions/growth-art-prompts.json'),'utf8'),'local image-generation notes','keep the source rights record');
   for(const directory of ARCHIVED_SAMPLE_DIRECTORIES) {
     assert.equal(fs.existsSync(path.join(f.outDir,directory)),false,directory);
     assert.equal(fs.readFileSync(path.join(f.publicDir,directory,'archived.wav'),'utf8'),'archive-preserved');
@@ -62,4 +65,12 @@ test('stale archived output is rejected and source directories cannot be used as
   f.write('dist/samples/pipa/stale.wav','stale');
   assert.throws(()=>copyReleasePublicAssets(f.publicDir,f.outDir,f.manifestPath),/Archived sample remains in release output/);
   assert.throws(()=>copyReleasePublicAssets(f.publicDir,f.publicDir,f.manifestPath),/separate source and output/);
+});
+
+test('stale development metadata is rejected without deleting the source or existing output',t=>{
+  const f=fixture(t);
+  f.write('dist/companions/growth-art-prompts.json','existing local notes');
+  assert.throws(()=>copyReleasePublicAssets(f.publicDir,f.outDir,f.manifestPath),/Development metadata remains in release output/);
+  assert.equal(fs.readFileSync(path.join(f.publicDir,'companions/growth-art-prompts.json'),'utf8'),'local image-generation notes');
+  assert.equal(fs.readFileSync(path.join(f.outDir,'companions/growth-art-prompts.json'),'utf8'),'existing local notes');
 });

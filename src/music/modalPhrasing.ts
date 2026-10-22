@@ -6,6 +6,9 @@ import {metricPosition} from './meterFeel';
 import type {HarmonyBar} from './phraseHarmony';
 import {planStudyMelody} from './studyMelody';
 import type {PhraseSpan} from './phrasePlan';
+import {planMotivicTargets} from './motivicStudy';
+import type {StudyStrategy} from './phraseStrategy';
+import {intentPitchTargets,type MusicalIntent} from './musicalIntent';
 
 // These are pitch-set practice rules, not reconstructions of traditional performance grammar.
 const colors: Record<string, number[]> = {
@@ -50,8 +53,11 @@ function slotsOf(measures: MeasureData[]): Slot[] {
   });
 }
 
-function phraseTargets(slots: Slot[], measures: MeasureData[], pitches: ScalePitch[], tonality: Tonality, melodicLine: boolean, difficulty: Difficulty, wholeStudy:boolean, instrument?:string,phrasePlan?:readonly PhraseSpan[]) {
+function phraseTargets(slots: Slot[], measures: MeasureData[], pitches: ScalePitch[], tonality: Tonality, melodicLine: boolean, difficulty: Difficulty, wholeStudy:boolean, instrument?:string,phrasePlan?:readonly PhraseSpan[],harmony:readonly HarmonyBar[]=[],motivic=false,strategy?:StudyStrategy,intent?:MusicalIntent) {
   const profile = modalProfile(tonality), targets = new Map<number, Target>();
+  if(intent&&melodicLine)return {targets:new Map<number,Target>(intentPitchTargets(measures,pitches,tonality,difficulty,intent,instrument).map(({index,...target})=>[index,target])),profile};
+  const blueprint=motivic&&melodicLine&&phrasePlan?planMotivicTargets(measures,pitches,tonality,difficulty,phrasePlan,harmony,instrument,strategy):undefined;
+  if(blueprint?.length)return {targets:new Map<number,Target>(blueprint.map(({index,...target})=>[index,target])),profile};
   const barCount=measures.length;
   const study=wholeStudy&&melodicLine?planStudyMelody(measures,pitches,profile.root,difficulty,instrument,phrasePlan):undefined;
   const character=melodicRandom(slots.map(slot=>slot.note));
@@ -119,10 +125,10 @@ function withPitch(note: GeneratedNote, pitch: ScalePitch): GeneratedNote {
 }
 
 /** Find an entire legal pitch path rather than changing endpoints after the fact. */
-function shapeStaff(measures: MeasureData[], range: PitchRange, tonality: Tonality, difficulty: Difficulty, upper?: MeasureData[], harmony: readonly HarmonyBar[] = [], wholeStudy=false, instrument?:string,phrasePlan?:readonly PhraseSpan[]) {
+function shapeStaff(measures: MeasureData[], range: PitchRange, tonality: Tonality, difficulty: Difficulty, upper?: MeasureData[], harmony: readonly HarmonyBar[] = [], wholeStudy=false, instrument?:string,phrasePlan?:readonly PhraseSpan[],motivic=false,strategy?:StudyStrategy,intent?:MusicalIntent) {
   const slots = slotsOf(measures), pitches = buildPitchMaterial(tonality,range).pitches;
   if (!slots.length || !pitches.length) return measures;
-  const {targets,profile} = phraseTargets(slots,measures,pitches,tonality,!upper,difficulty,wholeStudy,instrument,phrasePlan);
+  const {targets,profile} = phraseTargets(slots,measures,pitches,tonality,!upper,difficulty,wholeStudy,instrument,phrasePlan,harmony,motivic,strategy,intent);
   if (profile.root === null) return measures;
   const random = melodicRandom(slots.map(slot=>slot.note)), count = pitches.length, maxLeap = PITCH_DIFFICULTY[difficulty].maxLeap;
   // Preserve more of the graded source line as difficulty rises; a universal
@@ -176,7 +182,7 @@ function shapeStaff(measures: MeasureData[], range: PitchRange, tonality: Tonali
         // colour. Forcing every beat into the triad erased the fourth/seventh
         // degrees of Western modes and made different melodies sound alike.
         const arrival=slot.note.startUnits===0||index>=last-2;
-        const harmonyWeight=wholeStudy?(arrival?6:2.5):1.8;
+        const harmonyWeight=intent&&!upper?(arrival?2:1):wholeStudy?(arrival?6:2.5):1.8;
         local += harmonyCenter.pitches.includes(pitch.midi%12)?-harmonyWeight:harmonyWeight;
         if(upper && slot.note.startUnits===0 && pitch.midi%12!==harmonyCenter.root)local+=3;
       }
@@ -228,19 +234,19 @@ function shapeStaff(measures: MeasureData[], range: PitchRange, tonality: Tonali
 }
 
 /** New-score stage before instrument harmony. Saved scores and chromatic studies bypass it. */
-export function addModalPhrasing(exercise: ExerciseData, range: PitchRange, allowAccidentals: boolean, harmony: readonly HarmonyBar[] = [], wholeStudy=false, instrument?:string): ExerciseData {
+export function addModalPhrasing(exercise: ExerciseData, range: PitchRange, allowAccidentals: boolean, harmony: readonly HarmonyBar[] = [], wholeStudy=false, instrument?:string,motivic=false,strategy?:StudyStrategy): ExerciseData {
   if (allowAccidentals || exercise.tonality?.scaleId === 'atonal') return exercise;
   const tonality = exercise.tonality ?? describeTonality(exercise.keySignature,'major');
   if (tonality.tonic === null || [...exercise.measures,...exercise.lowerMeasures ?? []].some(bar => bar.events.some(note => note.chord))) return exercise;
   if (exercise.grandMode === 'mono' && exercise.lowerMeasures) {
     // Reassemble the single sounding line before shaping, then distribute it by pitch again.
     const melody = exercise.measures.map((bar,b) => ({...bar,events:bar.events.map((note,n) => note.rest ? exercise.lowerMeasures![b].events[n] : note)}));
-    const shaped = shapeStaff(melody,range,tonality,exercise.difficulty,undefined,harmony,wholeStudy,instrument,exercise.phrasePlan);
+    const shaped = shapeStaff(melody,range,tonality,exercise.difficulty,undefined,harmony,wholeStudy,instrument,exercise.phrasePlan,false,undefined,exercise.musicalIntent);
     const distribute = (upper: boolean) => shaped.map(bar => ({...bar,events:bar.events.map(note => !note.rest && ((note.midi ?? 60)>=60)===upper
       ? note : {...note,rest:true,key:upper?'b/4':'d/3',octave:upper?4:3,midi:undefined})}));
     return {...exercise,...(harmony.length?{harmonyPlan:[...harmony]}:{}),measures:distribute(true),lowerMeasures:distribute(false)};
   }
   const twoHand = exercise.grandMode === 'two-hand' && !!exercise.lowerMeasures;
-  const measures = shapeStaff(exercise.measures,twoHand?{min:60,max:range.max}:range,tonality,exercise.difficulty,undefined,harmony,wholeStudy,instrument,exercise.phrasePlan);
+  const measures = shapeStaff(exercise.measures,twoHand?{min:60,max:range.max}:range,tonality,exercise.difficulty,undefined,harmony,wholeStudy,instrument,exercise.phrasePlan,motivic,strategy,exercise.musicalIntent);
   return {...exercise,...(harmony.length?{harmonyPlan:[...harmony]}:{}),measures,...(twoHand ? {lowerMeasures:shapeStaff(exercise.lowerMeasures!,{min:range.min,max:59},tonality,exercise.difficulty,measures,harmony,wholeStudy,instrument,exercise.phrasePlan)} : {})};
 }

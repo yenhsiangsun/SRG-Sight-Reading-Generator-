@@ -6,9 +6,12 @@ import {planMusicalSlurs} from './slurPhrasing';
  * not have phrase slurs remain exactly as saved. */
 export function refreshSlurPhrasing(exercise:ExerciseData,enabled=true):ExerciseData {
   if(!enabled||!exercise.phrasePlan?.length||!exercise.expressionSpans?.some(span=>span.kind==='slur'))return exercise;
-  const slurStaves=[...new Set(exercise.expressionSpans.filter(span=>span.kind==='slur').map(span=>span.staff))];
-  const expressionSpans=[...exercise.expressionSpans.filter(span=>span.kind!=='slur'),
-    ...slurStaves.flatMap(staff=>planMusicalSlurs(exercise,staff))];
-  if(JSON.stringify(expressionSpans)===JSON.stringify(exercise.expressionSpans))return exercise;
+  const slurs=exercise.expressionSpans.filter(span=>span.kind==='slur');
+  const slurStaves=[...new Set(slurs.map(span=>span.staff))];
+  const refreshedSlurs=slurStaves.flatMap(staff=>planMusicalSlurs(exercise,staff));
+  // Hairpins can be interleaved with already-correct slurs in a saved score.
+  // Compare only the phrasing before rebuilding, preserving its exact identity.
+  if(JSON.stringify(refreshedSlurs)===JSON.stringify(slurs))return exercise;
+  const expressionSpans=[...exercise.expressionSpans.filter(span=>span.kind!=='slur'),...refreshedSlurs];
   return {...exercise,expressionSpans};
 }

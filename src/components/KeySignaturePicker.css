@@ -12,6 +12,9 @@
 .key-signature-row{margin-top:10px}.key-signature-row-label{display:block;font-size:.78rem;color:var(--theme-muted);margin-bottom:6px}
 .key-signature-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
 .key-signature-open{display:flex;align-items:center;gap:12px;margin-top:12px}.key-signature-open>.field-note{margin:0;flex:1}.key-signature-open>.key-signature-chip strong{font-size:.84rem}
+/* Descriptive choices can be much longer than the compact sharp/flat chips. */
+.key-signature-primary :is(.key-signature-chip,.key-signature-auto),.key-signature-open>.key-signature-chip{min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.key-signature-primary .key-signature-chip strong,.key-signature-open>.key-signature-chip strong{white-space:normal;overflow-wrap:anywhere}
 .key-signature-picker:disabled{opacity:.65}.key-signature-picker:disabled button{cursor:default}
 .practice-settings .key-signature-picker{margin:20px 0}
 @media(max-width:650px){.key-signature-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.key-signature-open{align-items:flex-start;flex-direction:column;gap:7px}.key-signature-chip,.key-signature-auto{padding:8px 10px}}

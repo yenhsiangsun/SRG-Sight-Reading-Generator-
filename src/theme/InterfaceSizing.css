@@ -1,0 +1,148 @@
+/* Interface spacing and HTML type are independent. Never scale engraved SVGs,
+   music artwork, hit-test coordinates or the score zoom transform. */
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] { --studio-space:16px;--studio-layout-text:1;--studio-text-scale:var(--studio-layout-text);--studio-font-body:calc(15px * var(--studio-text-scale));--studio-font-small:calc(13px * var(--studio-text-scale));font-size:var(--studio-font-body); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size][data-layout="standard"] { --studio-space:24px;--studio-layout-text:1.1; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size][data-layout="comfortable"] { --studio-space:32px;--studio-layout-text:1.2; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size][data-text-size="standard"] { --studio-text-scale:1; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size][data-text-size="large"] { --studio-text-scale:1.18; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size][data-text-size="extra-large"] { --studio-text-scale:1.35; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] :where(button,input,select,textarea,label,legend,summary,p,li,dt,dd):not(:where(svg,svg *)),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main :where(button,input,select,textarea,label,legend,summary,p,li,dt,dd):not(:where(svg,svg *)) { font-size:var(--studio-font-body); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] :where(div,section,aside,article,header,footer,nav,span,strong,small,b,em,time,output,a):not(:where(svg,svg *,.brand-mark,.score-playback-overlay,.score-playback-overlay *,.score-feedback-overlay,.score-feedback-overlay *)),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main :where(div,section,aside,article,header,footer,nav,span,strong,small,b,em,time,output,a):not(:where(svg,svg *,.brand-mark,.score-playback-overlay,.score-playback-overlay *,.score-feedback-overlay,.score-feedback-overlay *)) { font-size:inherit; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] :where(h1):not(:where(svg,svg *)),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main :where(h1):not(:where(svg,svg *)) { font-size:calc(32px * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] :where(h2):not(:where(svg,svg *)),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main :where(h2):not(:where(svg,svg *)) { font-size:calc(24px * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] :where(h3):not(:where(svg,svg *)),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main :where(h3):not(:where(svg,svg *)) { font-size:calc(20px * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] :where(h4):not(:where(svg,svg *)),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main :where(h4):not(:where(svg,svg *)) { font-size:calc(17px * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] :is(.brand-subtitle,.studio-kicker,.home-date,.manuscript-opening-kicker,.manuscript-section-heading,.manuscript-date,.home-companion-kicker,.home-companion-next,.home-companion-name small,.home-companion-practiced,.instrument-family,.field-note,.field-help,.score-kicker,.score-tonality,.score-info,.timbre-caption,.playback-caption,.layout-description,.setup-step-number,.setup-step-label,.library-score-facts dt,.companion-journal-copy p,.companion-journal-name small,small),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main :is(.brand-subtitle,.studio-kicker,.home-date,.manuscript-opening-kicker,.manuscript-section-heading,.manuscript-date,.home-companion-kicker,.home-companion-next,.home-companion-name small,.home-companion-practiced,.instrument-family,.field-note,.field-help,.score-kicker,.score-tonality,.score-info,.timbre-caption,.playback-caption,.layout-description,.setup-step-number,.setup-step-label,.library-score-facts dt,.companion-journal-copy p,.companion-journal-name small,small) { font-size:var(--studio-font-small); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] :is(.home-companion-tip p,.instrument-card span,.difficulty-card p,.score-playback-guide,.score-playback-guide p,.performance-mark-help p,.score-follow-toggle,.studio-nav button,.studio-menu-content button,.language-switch select,.studio-palette-trigger,.back-link,.score-focus-controls label,.score-focus-controls button),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main :is(.home-companion-tip p,.instrument-card span,.difficulty-card p,.score-playback-guide,.score-playback-guide p,.performance-mark-help p,.score-follow-toggle,.studio-nav button,.studio-menu-content button,.language-switch select,.studio-palette-trigger,.back-link,.score-focus-controls label,.score-focus-controls button) { font-size:calc(14px * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] :is(.instrument-card strong,.difficulty-card strong,.composition-choices strong,.layout-choice strong),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main :is(.instrument-card strong,.difficulty-card strong,.composition-choices strong,.layout-choice strong) { font-size:calc(17px * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] :is(.manuscript-opening-prose,.display-type-preview,.library-score-facts dd),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main :is(.manuscript-opening-prose,.display-type-preview,.library-score-facts dd) { font-size:calc(16px * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .brand,
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .brand { font-size:calc(23px * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .brand .brand-subtitle,
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .brand .brand-subtitle { font-size:calc(10px * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .brand .brand-mark,
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .brand .brand-mark { font-size:0; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .home-companion-name h2,
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .home-companion-name h2 { font-size:calc(26px * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .tempo output,
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .tempo output { font-size:calc(22px * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main #folio-cover-title { font-size:calc(clamp(30px,3vw,40px) * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main #folio-cover-title>span { font-size:inherit; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] :is(button,input,select,textarea),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main :is(button,select,textarea,input:not([type=checkbox],[type=radio],[type=range])) { min-height:44px; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] :is(button,summary,label,legend,p,small,strong,a),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main :is(button,summary,label,legend,p,small,strong,a) { overflow-wrap:anywhere; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .header { padding-block:calc(12px + (var(--studio-space) - 16px) * .5); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .header-content { gap:var(--studio-space); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .manuscript-opening { gap:calc(var(--studio-space) * 2);padding-block:calc(var(--studio-space) * 1.5);min-height:0; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .manuscript-opening-prose { margin-bottom:calc(var(--studio-space) * 1.5); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .note-companion--home { column-gap:var(--studio-space); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .setup-layout { gap:calc(var(--studio-space) * 1.5); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main.setup-layout { gap:calc(var(--studio-space) * 1.5);margin-top:var(--studio-space); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .panel-heading { padding:var(--studio-space); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .setup-content { padding-inline:var(--studio-space); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main :is(.instrument-grid,.difficulty-grid,.field-grid,.key-signature-grid) { gap:var(--studio-space); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main :is(.instrument-card,.difficulty-card,.clef-card) { padding:var(--studio-space);height:auto; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .setup-wizard-actions { padding-top:var(--studio-space);gap:var(--studio-space); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .practice-toolbar { padding-block:calc(var(--studio-space) * .65); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .score-top { padding-block:var(--studio-space); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-dialog { width:min(720px,calc(100% - var(--safe-left,0px) - var(--safe-right,0px) - 24px));max-height:calc(100dvh - var(--safe-top,0px) - var(--safe-bottom,0px) - 32px);overflow:auto;padding:clamp(16px,3vw,28px); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-dialog>header { gap:12px;align-items:flex-start; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-dialog>header h2 { min-width:0; }
+
+@media(max-width:700px) {
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main #folio-cover-title { font-size:calc(30px * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .header-content { gap:10px;flex-wrap:wrap; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .brand { font-size:calc(19px * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .note-companion--home { grid-template-columns:90px minmax(0,1fr);column-gap:14px; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .home-companion-name h2 { font-size:calc(22px * var(--studio-text-scale)); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .home-companion-guide { grid-column:1/-1;grid-row:auto;justify-self:start; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .setup-step-list>li { min-height:72px; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .instrument-grid { gap:calc(var(--studio-space) * .65); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .instrument-card { padding:calc(var(--studio-space) * .65); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] #main .manuscript-opening { gap:var(--studio-space);padding-block:var(--studio-space); }
+
+}
+
+/* All header destinations remain visible; narrow screens use deliberate rows. */
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .header-content{display:flex;flex-wrap:wrap;align-items:center;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-header-settings{display:flex;align-items:center;flex-wrap:wrap;gap:12px 18px;min-width:0;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-header-settings>button{border:0;background:transparent;color:var(--theme-page-text);padding:8px 2px;white-space:normal;cursor:pointer;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-header-settings .language-switch{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:0;color:var(--theme-page-muted);}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-header-settings .language-switch select{width:auto;max-width:170px;padding:6px 8px;border:1px solid var(--theme-line);background:var(--theme-surface);color:var(--theme-text);}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-nav{display:flex;flex-wrap:wrap;gap:12px 22px;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-nav button:first-child{display:inline-flex;align-items:center;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-palette-label{position:static;width:auto;height:auto;margin:0;padding:0;overflow:visible;clip-path:none;white-space:normal;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-palette-picker>summary{font-size:calc(14px * var(--studio-text-scale));}
+@media(max-width:700px){
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .header-content{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:12px;row-gap:8px;padding-inline:18px;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .brand{grid-column:1;grid-row:1;justify-self:start;min-width:0;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-palette-picker{grid-column:2;grid-row:1;justify-self:end;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-nav{grid-column:1/-1;grid-row:2;margin:0;width:100%;justify-content:flex-start;border-top:1px solid var(--theme-line);padding-top:5px;gap:8px 20px;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-header-settings{grid-column:1/-1;grid-row:3;gap:6px 16px;padding-top:4px;border-top:1px solid var(--theme-line);}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-header-settings .language-switch{flex:1 1 170px;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-header-settings .language-switch select{max-width:100%;min-width:0;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page][data-layout][data-text-size] .studio-palette-panel{position:absolute;left:auto;right:0;top:100%;width:min(270px,calc(100vw - 36px));}
+}

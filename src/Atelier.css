@@ -24,7 +24,7 @@
   color: var(--theme-page-text);
 }
 .atelier-home .home-heading { margin-bottom: 25px; }
-.atelier-home .home-heading h1 { font-size: 20px; font-weight: 450; }
+.atelier-home .home-heading h1 { font-size: 20px; font-weight: 450; font-family: var(--studio-heading-font, inherit); letter-spacing: var(--studio-heading-tracking, .035em); line-height: var(--studio-heading-leading, normal); }
 .atelier-home .home-date { font-size: 11px; }
 .studio-app .atelier-home .atelier-hero {
   min-height: 460px;
@@ -66,17 +66,17 @@
   border: 0;
   background: transparent;
   border-radius: 0;
-  font-size: 10px;
+  font-size: 11px;
   color: #795231;
   letter-spacing: .15em;
 }
 .atelier-home .studio-pill i { width: 20px; height: 1px; border-radius: 0; background: #a17b50; }
 .studio-app .atelier-home .hero-content h2 {
-  font-family: 'Noto Serif TC', 'Songti TC', 'PMingLiU', Georgia, serif;
+  font-family: var(--studio-heading-font, 'Noto Serif TC', 'Songti TC', 'PMingLiU', Georgia, serif);
   font-size: clamp(31px, 3.1vw, 46px);
   font-weight: 450;
-  line-height: 1.55;
-  letter-spacing: .035em;
+  line-height: var(--studio-heading-leading, 1.55);
+  letter-spacing: var(--studio-heading-tracking, .035em);
   margin: 23px 0 18px;
   color: #392a20;
 }
@@ -92,7 +92,7 @@
   box-shadow: 0 5px 15px #60422215;
 }
 .atelier-home .studio-cta:hover { background: var(--theme-primary-hover); }
-.atelier-home .hero-specs { margin-top: 25px; color: #705e4f; font-size: 10px; gap: 25px; flex-wrap: wrap; }
+.atelier-home .hero-specs { margin-top: 25px; color: #705e4f; font-size: 11px; gap: 25px; flex-wrap: wrap; }
 .atelier-home .hero-specs b { color: #705e4f; font-weight: 450; }
 .atelier-hero-signature {
   position: absolute;
@@ -111,15 +111,15 @@
 .atelier-content-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr); gap: 26px; margin-top: 28px; align-items: start; }
 .atelier-daybook { display: grid; gap: 20px; min-width: 0; }
 .atelier-home .journey-card { border-radius: 8px; box-shadow: none; padding: 27px 30px 23px; background: var(--theme-surface); border-color: var(--theme-line); }
-.atelier-home .section-title h2 { font-family: 'Noto Serif TC', 'Songti TC', Georgia, serif; font-size: 22px; font-weight: 450; }
-.atelier-home .soft-label { color: var(--theme-muted); background: transparent; padding: 0; border: 0; font-size: 9px; }
+.atelier-home .section-title h2 { font-family: var(--studio-heading-font, 'Noto Serif TC', 'Songti TC', Georgia, serif); font-size: 22px; font-weight: 450; letter-spacing: var(--studio-heading-tracking, .025em); line-height: var(--studio-heading-leading, normal); }
+.atelier-home .soft-label { color: var(--theme-muted); background: transparent; padding: 0; border: 0; font-size: 11px; }
 .atelier-home .week-days { gap: 12px; margin: 23px 0; }
 .atelier-home .week-days b { background: var(--theme-soft); border-color: var(--theme-line); }
 .atelier-home .week-days .day-complete b { background: var(--theme-primary); color: var(--theme-primary-text); }
 .atelier-home .week-days .day-today b { background: var(--theme-accent-soft); color: var(--theme-primary-ink); }
 .atelier-home .journey-footer { flex-wrap: wrap; gap: 8px; }
 .atelier-home .note-companion { border-radius: 8px; box-shadow: none; padding: 25px 26px 20px; background: var(--theme-surface); border-color: var(--theme-line); }
-.atelier-home .note-companion h2 { font-family: 'Noto Serif TC', 'Songti TC', Georgia, serif; font-size: 21px; font-weight: 450; }
+.atelier-home .note-companion h2 { font-family: var(--studio-heading-font, 'Noto Serif TC', 'Songti TC', Georgia, serif); font-size: 21px; font-weight: 450; letter-spacing: var(--studio-heading-tracking, -.01em); line-height: var(--studio-heading-leading, 1.2); }
 .atelier-home .companion-portrait { height: 175px; }
 .atelier-home .note-companion__tip { min-height: 60px; border-radius: 6px; background: var(--theme-soft); }
 .atelier-home .note-companion__tip::before { background: var(--theme-soft); }
@@ -131,6 +131,53 @@
 .studio-app[data-layout="compact"] .atelier-home .hero-content h2 { font-size: clamp(29px, 3vw, 39px); }
 .studio-app[data-layout="comfortable"] .atelier-home .hero-content { padding: 44px 48px 36px; }
 .studio-app[data-layout="comfortable"] .atelier-home .hero-content h2 { font-size: clamp(34px, 3.2vw, 49px); }
+
+/* Match the studio's quieter framing without replacing native modal behavior. */
+.studio-app[data-design="atelier"] .studio-dialog {
+  border-radius: 8px;
+  box-shadow: 0 24px 80px #392a2033;
+}
+.studio-app[data-design="atelier"] .studio-dialog > header { gap: 16px; }
+.studio-app[data-design="atelier"] .studio-dialog > header h2 {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--studio-heading-font, 'Noto Serif TC', 'Songti TC', 'PMingLiU', Georgia, serif);
+  letter-spacing: var(--studio-heading-tracking, .02em);
+  line-height: var(--studio-heading-leading, 1.6);
+}
+.studio-app[data-design="atelier"] .studio-dialog > header button {
+  flex: 0 0 44px;
+  width: 44px;
+  min-height: 44px;
+}
+.studio-app[data-design="atelier"] .studio-dialog :is(button, select, input, summary):focus-visible {
+  outline: 2px solid var(--theme-primary-ink);
+  outline-offset: 3px;
+}
+.studio-app[data-design="atelier"] .studio-dialog :is(.secondary-button, .back-link) {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.studio-app[data-design="atelier"] .library-empty {
+  padding: 32px 16px;
+  line-height: 1.8;
+}
+.studio-app[data-design="atelier"] .library-empty span { max-width: 34em; }
+.studio-app[data-design="atelier"] .studio-dialog .practice-modes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-block: 16px;
+}
+.studio-app[data-design="atelier"] .studio-dialog .practice-modes button {
+  min-width: 0;
+  min-height: 44px;
+  padding: 12px 10px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+}
 @media (max-width: 1000px) {
   .studio-app[data-layout] .atelier-home { padding: 26px 24px 0; }
   .studio-app[data-layout] .atelier-home .hero-content { width: 58%; padding: 35px 30px; }
@@ -167,7 +214,7 @@
   .studio-app .atelier-home .atelier-hero::before { display: none; }
   .studio-app[data-layout] .atelier-home .hero-content { order: 1; width: 100%; padding: 30px 24px 12px; }
   .studio-app[data-layout] .atelier-home .hero-content h2 { font-size: 30px; margin: 20px 0 15px; }
-  .atelier-home .hero-content p { font-size: 12px; max-width: 300px; }
+  .atelier-home .hero-content p { font-size: 13px; max-width: 300px; }
   .atelier-home .studio-cta { margin-top: 20px; }
   .atelier-home .hero-specs { gap: 17px; margin-top: 20px; }
   .atelier-hero-signature { right: 20px; bottom: 20px; font-size: 9px; z-index: 1; }
@@ -175,6 +222,21 @@
   .atelier-home .section-title h2 { font-size: 20px; }
   .atelier-home .week-days { gap: 6px; }
   .atelier-home .week-days b { width: 32px; height: 32px; }
+}
+
+@media (max-width: 760px) {
+  .studio-app[data-design="atelier"] .studio-dialog .library-actions {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .studio-app[data-design="atelier"] .studio-dialog .practice-modes {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 

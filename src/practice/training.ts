@@ -16,15 +16,19 @@ export const trainingContext=(settings:ExerciseSettings)=>{
   return JSON.stringify([settings.clef,settings.performanceMarks??true,settings.rangeMinMidi,settings.rangeMaxMidi,settings.allowAccidentals,
     focuses.length===1?focuses[0]:focuses,settings.pitchFocus??'balanced',settings.timeSignature,settings.mixedMeters,settings.meters]);
 };
-export function readTraining(raw:string|null):TrainingAttempt[] {
+export interface TrainingReadResult {history:TrainingAttempt[];unreadable:boolean}
+/** Keep readable attempts available without treating rejected data as an empty save. */
+export function readTrainingResult(raw:string|null):TrainingReadResult {
   try{
-    const data=JSON.parse(raw??'[]');if(!Array.isArray(data))return [];
-    return data.filter(a=>a&&typeof a.id==='string'&&typeof a.instrument==='string'&&typeof a.context==='string'&&Number.isFinite(a.at)&&
+    const data=JSON.parse(raw??'[]');if(!Array.isArray(data))return {history:[],unreadable:true};
+    const history=data.filter(a=>a&&typeof a.id==='string'&&typeof a.instrument==='string'&&typeof a.context==='string'&&Number.isFinite(a.at)&&
       ['Beginner','Intermediate','Advanced'].includes(a.difficulty)&&['Simple','Moderate','Complex'].includes(a.rhythmLevel)&&
       Number.isFinite(a.quarterBpm)&&a.quarterBpm>=20&&a.quarterBpm<=400&&
-      [a.pitch,a.rhythm,a.completion].every(n=>Number.isFinite(n)&&n>=0&&n<=100)).slice(-100);
-  }catch{return [];}
+      [a.pitch,a.rhythm,a.completion].every(n=>Number.isFinite(n)&&n>=0&&n<=100));
+    return {history:history.slice(-100),unreadable:history.length!==data.length};
+  }catch{return {history:[],unreadable:true};}
 }
+export function readTraining(raw:string|null):TrainingAttempt[] {return readTrainingResult(raw).history;}
 export function recordTraining(history:TrainingAttempt[],id:string,exercise:ExerciseData,settings:ExerciseSettings,bpm:number,result:AssessmentResult,at=Date.now()) {
   if(!result.reliable||result.confidence<88||result.completion<70||result.clipped||!validBpm(bpm)||history.some(a=>a.id===id))return history;
   return [...history,{id,at,instrument:settings.instrument,difficulty:settings.difficulty,rhythmLevel:settings.rhythmLevel,

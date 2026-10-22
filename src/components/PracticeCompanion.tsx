@@ -21,7 +21,9 @@ export default function PracticeCompanion({exercise, pet, stage = 'baby', playin
 }) {
   const {locale, t} = useI18n();
   const contentId = useId();
-  const [collapsed, setCollapsed] = useState(false);
+  // Keep the first phone view centered on the score; the portrait/toggle can
+  // always expand the cue. A user's later choice survives subsequent renders.
+  const [collapsed, setCollapsed] = useState(() => typeof window!=='undefined'&&window.matchMedia('(max-width: 600px)').matches);
   const [selection, setSelection] = useState({exercise, index: 0});
   const tips = useMemo(() => tipsForScore(exercise), [exercise]);
   // New scores start with a relevant cue; changing language or pets retains the current cue.
@@ -41,7 +43,7 @@ export default function PracticeCompanion({exercise, pet, stage = 'baby', playin
     <div className="practice-companion__body">
       <div className="practice-companion__heading"><strong>{name} <small className="note-companion__age">{companionGrowthCopy(locale)[stage]}</small></strong><button type="button" className="practice-companion__toggle" aria-expanded={!collapsed} aria-controls={contentId} onClick={() => setCollapsed(!collapsed)} aria-label={t(collapsed ? 'companionShow' : 'companionHide')} title={t(collapsed ? 'companionShow' : 'companionHide')}>{collapsed ? '+' : '−'}</button></div>
       <div id={contentId} hidden={collapsed}>
-        <p className="practice-companion__message" aria-live={focused ? 'off' : 'polite'} aria-atomic="true">{t(tip)}</p>
+        <p className="practice-companion__message" aria-live={focused ? 'off' : 'polite'} aria-atomic="true">{t(tip === 'tipComplete' ? 'practiceCompletedTip' : tip)}</p>
         {!focused && <button type="button" className="practice-companion__next" onClick={next}>{t('companionNext')} <span aria-hidden="true">↗</span></button>}
       </div>
     </div>

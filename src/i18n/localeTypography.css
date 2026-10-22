@@ -1,4 +1,24 @@
 /* Scope typography to HTML UI text: VexFlow's SVG engraving stays untouched. */
+/* Atelier headings consume these tokens explicitly, so their page selectors
+   cannot override a language's script-specific font. Forest Folio self-hosts a small licensed Chinese serif subset. */
+html:lang(th) .app {
+  --studio-heading-font: 'Noto Sans Thai', 'Leelawadee UI', Tahoma, system-ui, sans-serif;
+  --studio-heading-tracking: normal;
+  --studio-heading-leading: 1.65;
+}
+
+html:lang(zh-CN) .app {
+  --studio-heading-font: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+}
+
+html:lang(ja) .app {
+  --studio-heading-font: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', 'MS PMincho', serif;
+}
+
+html:lang(ko) .app {
+  --studio-heading-font: 'Noto Serif KR', 'Batang', 'AppleMyungjo', serif;
+}
+
 html:lang(th) .app,
 html:lang(th) .app :where(h1, h2, h3, p, span, small, strong, label, button, select, input, output, summary, li, a) {
   font-family: 'Noto Sans Thai', 'Leelawadee UI', Tahoma, system-ui, sans-serif;

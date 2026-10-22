@@ -1,0 +1,100 @@
+/* Reading UI uses one ink and one secondary neutral. Score engraving and
+   the functional blue playback cursor keep their own colors and geometry. */
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main { color:var(--theme-text); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main :is(.practice-heading,.studio-session-actions,.back-link,.studio-next-score,.tempo label,.tempo output,.score-focus-controls,.score-focus-controls button,.score-focus-controls label,.studio-score-actions>summary,.practice-settings>summary,.practice-tools>summary,.studio-secondary-controls) { color:var(--theme-text); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main :is(.practice-heading p,.timbre-caption,.playback-caption,.tempo-unit,.practice-tools p,.practice-settings p) { color:var(--theme-muted);font-weight:500; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main :is(.play-main,.primary-button) { background:var(--theme-primary);color:var(--theme-primary-text);border-color:var(--theme-primary); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main :is(.icon-button,.studio-next-score,.score-focus-button) { color:var(--theme-text);border-color:var(--theme-line);background:var(--theme-surface); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-focus-button[aria-pressed=true] { background:var(--theme-soft);border-color:var(--theme-primary-ink); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-card { --reading-ink:#292621;--reading-muted:#6b645b;color:var(--reading-ink); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-card :where(h1,h2,h3,p,label,summary,strong,small,span,time):not(:where(svg,svg *,.score-playback-overlay,.score-playback-overlay *,.score-feedback-overlay,.score-feedback-overlay *)) { color:inherit; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-card :is(p,label,summary,.score-info,.score-tonality,.score-kicker,.score-bottom) { font-weight:500;line-height:1.8; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main :is(.score-info,.score-kicker,.score-tonality,.score-bottom) { color:var(--reading-muted); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main #score-heading { color:var(--reading-ink);line-height:1.65;overflow:visible;padding-block:2px; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-scroll { display:grid;grid-template-columns:max-content minmax(0,1fr);column-gap:16px;align-items:center; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .performance-mark-help summary { display:flex;align-items:center;gap:8px;list-style:none;min-height:44px;padding:0;font-size:var(--studio-font-body);line-height:1.8;font-weight:500; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .performance-mark-help summary::-webkit-details-marker { display:none; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .performance-mark-help summary::before { content:'';flex:0 0 auto;width:0;height:0;border-block:5px solid transparent;border-left:6px solid currentColor;transform-origin:3px center; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .performance-mark-help[open] summary::before { transform:rotate(90deg); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-playback-guide { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px 20px;min-height:44px;padding:0;margin:0;color:var(--reading-ink); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-playback-guide p { flex:1 1 260px;margin:0;padding:0;font-size:var(--studio-font-body);font-weight:500;line-height:1.8; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-follow-toggle { display:inline-flex;align-items:center;gap:8px;min-height:44px;margin:0;font-size:var(--studio-font-small);font-weight:500;line-height:1.8;color:var(--reading-muted); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-follow-toggle input { width:16px;height:16px;min-height:0;flex:0 0 16px;accent-color:var(--theme-primary-ink); }
+
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .performance-mark-help{grid-column:1;min-width:0;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-playback-guide{grid-column:2;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main :is(.score-stage,.error-message,.performance-mark-help[open]){grid-column:1/-1;min-width:0;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-scroll:has(.performance-mark-help[open]) .score-playback-guide,#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-scroll:not(:has(.performance-mark-help)) .score-playback-guide{grid-column:1/-1;}
+@media(max-width:900px){
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-scroll { grid-template-columns:minmax(0,1fr); }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main :is(.performance-mark-help,.score-playback-guide) { grid-column:1/-1; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-playback-guide { justify-content:flex-start;justify-items:start;text-align:left;padding-bottom:8px; }
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-playback-guide p { flex-basis:100%; }
+
+}
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main :where(button,input,select,textarea,label,summary,p,small,li,dt,dd):not(:where(svg,svg *)){font-weight:500;}
+
+/* The playback surface stays white in every curated colorway. */
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .practice-toolbar{background:#fff;background-image:none;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main :is(.timbre-caption,.score-focus-controls){background:#fff;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main :is(.practice-toolbar .icon-button,.studio-next-score,.score-focus-button){background:#fff;}
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main>.score-focus-controls{grid-column:1/-1;border-left:1px solid var(--theme-line);}
+
+/* Focus mode retains the same comfortable inner edges as normal reading. */
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size].is-score-focused #main{padding:12px 20px 32px;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size].is-score-focused #main .practice-toolbar{padding-inline:20px;border:1px solid var(--theme-line);border-bottom:0;margin:0;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size].is-score-focused #main>.score-focus-controls{display:flex;justify-content:flex-end;align-items:center;gap:18px;min-height:52px;padding:4px 20px;margin:0;border-inline:1px solid var(--theme-line);border-bottom:1px solid var(--theme-line);}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size].is-score-focused #main .player-controls{flex-wrap:wrap;max-width:100%;}
+@media(max-width:700px){
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size].is-score-focused #main{padding:8px 12px 24px;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size].is-score-focused #main .practice-toolbar{padding-inline:12px;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size].is-score-focused #main>.score-focus-controls{padding-inline:12px;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size].is-score-focused #main .player-controls{flex-basis:100%;}
+}
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] .player-controls .icon-button{display:inline-flex;align-items:center;justify-content:center;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] .pause-symbol{display:block;flex:0 0 18px;width:18px;height:18px;}
+
+/* The reading header shows only the instrument and quarter-note tempo.
+   Full musical settings remain in the exercise and settings controls. */
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-top>div:first-child>p,#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-info>span{display:none;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-info>strong{font-size:calc(16px * var(--studio-text-scale));color:var(--reading-ink);}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main>.score-utility-bar{position:relative;grid-column:1/-1;grid-row:3;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 24px;min-height:56px;padding:4px 20px;background:#fff;border-inline:1px solid var(--theme-line);}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-utility-bar>.studio-secondary-controls{display:flex;align-items:center;flex-wrap:wrap;gap:12px 24px;margin:0;padding:0;min-width:0;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-utility-bar>.score-focus-controls{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:18px;margin:0;padding:0;min-height:48px;border:0;background:#fff;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-utility-bar .metronome-control{border:0;padding:0;margin:0;gap:12px;min-height:44px;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-utility-bar .tuning-trigger{background:#fff;border-color:var(--theme-line);color:var(--theme-text);}
+@media(max-width:700px){
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main>.score-utility-bar{padding-inline:12px;gap:4px 12px;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-utility-bar>.studio-secondary-controls{flex-basis:100%;justify-content:space-between;gap:8px 12px;}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .score-utility-bar>.score-focus-controls{flex-basis:100%;justify-content:flex-end;gap:12px;}
+}
+
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-layout][data-text-size] #main .practice-tools-content{grid-template-columns:minmax(0,1fr);}

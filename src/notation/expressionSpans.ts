@@ -17,8 +17,9 @@ export interface ExpressionSegment {
 }
 
 /** Keep extra expression room only on staves that actually contain spans. */
-export function expressionSpace(exercise: ExerciseData, staff: 0 | 1) {
-  const spans = scoreExpressionSpans(exercise).filter(span=>span.staff===staff);
+export function expressionSpace(exercise: ExerciseData, staff: 0 | 1, range?:{first:number;last:number}) {
+  const spans = scoreExpressionSpans(exercise).filter(span=>span.staff===staff&&
+    (!range||span.start.bar<=range.last&&span.end.bar>=range.first));
   return {above:spans.some(span=>span.kind==='slur')?24:0,
     below:spans.some(span=>span.kind!=='slur')?38:spans.length?24:0};
 }
@@ -155,10 +156,25 @@ export function planExpressionDrawing(exercise: ExerciseData, bars: readonly Exp
       segments.push(...choices.reduce((best,choice)=>choice.cost<best.cost?choice:best).paths);
       continue;
     }
+    const source=span.staff===0?exercise.measures:exercise.lowerMeasures!;
+    let offset=0;
+    const offsets=source.map(bar=>{const start=offset;offset+=bar.totalUnits;return start;});
+    const timeOf=(entry:Entry)=>offsets[entry.bar.bar]+(source[entry.bar.bar].events[entry.event].startUnits??
+      source[entry.bar.bar].events.slice(0,entry.event).reduce((sum,note)=>sum+note.durationUnits,0));
+    const spanStart=timeOf(entries[0]),spanDuration=timeOf(entries.at(-1)!)-spanStart;
+    if(spanDuration<=0)continue;
+    const progress=(time:number)=>Math.max(0,Math.min(1,(time-spanStart)/spanDuration));
     for (const row of rows) {
       const members = entries.filter(entry=>entry.bar.row===row);
       const first = members[0], last = members.at(-1)!;
       const continued = first !== entries[0], continues = last !== entries.at(-1);
+      const systemBars=bars.filter(bar=>bar.row===row&&bar.staff===span.staff);
+      const firstBar=Math.min(...systemBars.map(bar=>bar.bar)),lastBar=Math.max(...systemBars.map(bar=>bar.bar));
+      const startTime=continued?offsets[firstBar]:timeOf(first);
+      const endTime=continues?offsets[lastBar]+source[lastBar].totalUnits:timeOf(last);
+      // An endpoint on the next system's first attack has no elapsed time on
+      // that system. Finish at the preceding barline, without an equals-sign stub.
+      if(endTime-startTime<=1e-7)continue;
       const xStart = continued ? first.bar.stave.getNoteStartX()-6 : headCenter(first.note);
       const xEnd = continues ? last.bar.stave.getNoteEndX()-5 : headCenter(last.note);
       if (xEnd-xStart < 8) continue;
@@ -178,10 +194,9 @@ export function planExpressionDrawing(exercise: ExerciseData, bars: readonly Exp
       }
       for (const previous of segments) if (previous.row===row && previous.staff===span.staff &&
         previous.xStart<xEnd && previous.xEnd>xStart) y=Math.max(y,previous.bounds.yBottom+18);
-      const startProgress = entries.indexOf(first)/(entries.length-1), endProgress = entries.indexOf(last)/(entries.length-1);
+      const startProgress=progress(startTime),endProgress=progress(endTime);
       const opening = (progress: number) => (span.kind==='crescendo'?progress:1-progress)*7;
-      const startOpening = continued ? Math.max(1,opening(startProgress)) : span.kind==='crescendo'?0:7;
-      const endOpening = continues ? Math.max(1,opening(endProgress)) : span.kind==='crescendo'?7:0;
+      const startOpening=opening(startProgress),endOpening=opening(endProgress);
       segments.push({kind:span.kind,staff:span.staff,row,xStart,xEnd,startY:y,endY:y,controlLift:0,
         startOpening,endOpening,above:false,bars:touched,bounds:{xStart,xEnd,yTop:y-7,yBottom:y+7}});
     }

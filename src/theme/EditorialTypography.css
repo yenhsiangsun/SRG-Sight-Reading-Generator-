@@ -1,0 +1,63 @@
+/* Two locally licensed variable families: book titles and a clear reading face.
+   These selectors address HTML UI text; engraved SVGs keep their own fonts. */
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page]{
+ --studio-heading-font:'Tonecraft Display','Noto Serif TC','Songti TC',serif;
+ --studio-ui-font:'Tonecraft Text','Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;
+ --studio-heading-tracking:.035em;--studio-heading-leading:1.5;
+ font-family:var(--studio-ui-font);font-size:14px;font-weight:400;line-height:1.75;font-synthesis:none;
+}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] :where(button,input,select,textarea,summary){font-family:var(--studio-ui-font);font-weight:500;line-height:1.55;letter-spacing:.01em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] :where(h1,h2,h3){font-family:var(--studio-heading-font);font-weight:600;line-height:1.5;letter-spacing:.035em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .brand{font-family:'Tonecraft Display','Noto Serif TC','Songti TC',serif;font-weight:600;line-height:1.4;letter-spacing:.1em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .brand-subtitle{font-family:'Tonecraft Text','Noto Sans TC',sans-serif;font-size:9px;font-weight:500;line-height:1.5;letter-spacing:.2em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .studio-menu>summary{font-family:system-ui,sans-serif;line-height:1;letter-spacing:.08em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .manuscript-opening h1{font-weight:600;line-height:1.4;letter-spacing:.045em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .manuscript-opening-copy>p{font-size:15px;line-height:2;letter-spacing:.015em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .manuscript-opening-copy>.folio-eyebrow{font-size:12px;font-weight:500;letter-spacing:.075em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .manuscript-opening-copy>small{font-family:var(--studio-ui-font);font-size:11px;line-height:1.8;letter-spacing:.035em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .manuscript-primer h2{font-size:18px;font-weight:600;letter-spacing:.04em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .manuscript-primer p{font-size:14px;line-height:1.95}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .manuscript-dateline{font-size:11px;letter-spacing:.075em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] :is(.setup-intro h1,.panel-heading h2){font-weight:600;line-height:1.55;letter-spacing:.035em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .setup-intro>p{font-size:13px;line-height:1.95}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .field-note{font-size:12px;line-height:1.9}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .steps button{font-size:13px;line-height:1.65;letter-spacing:.015em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] :is(.difficulty-card strong,.instrument-card strong,.quick-instrument strong,.composition-choices strong){font-family:var(--studio-ui-font);font-weight:600;letter-spacing:.015em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .difficulty-card strong{font-size:20px}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .instrument-card strong{font-size:15px;line-height:1.7}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] :is(.quick-instrument small,.difficulty-card small){font-size:12px;line-height:1.8}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] #main.reading-desk .score-top h1{font-family:var(--studio-heading-font);font-weight:600;line-height:1.5;letter-spacing:.03em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] :is(.score-top p,.score-top .score-tonality){font-family:var(--studio-ui-font);font-size:13px;font-weight:400;line-height:1.8;letter-spacing:.015em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .score-info{font-size:12px;line-height:1.8}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .score-kicker{font-family:var(--studio-ui-font);font-size:10px;font-weight:500;letter-spacing:.075em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] :is(.tempo output,.score-info strong){font-family:var(--studio-ui-font);font-size:22px;font-weight:500;line-height:1.5;letter-spacing:0;font-variant-numeric:tabular-nums lining-nums}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] :is(output,time,.library-score-facts dd,.manuscript-week b,.level-number,.steps button>span,.companion-journal-summary strong){font-family:var(--studio-ui-font);font-style:normal;font-variant-numeric:tabular-nums lining-nums;letter-spacing:0}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] :is(.engraving-label,.folio-eyebrow,.companion-journal-kicker,.library-folio-kicker,.folio-cover-edition,.manuscript-section-heading,.composition-roman,.engraving-number,.library-folio-index,.library-folio-tabs button>span,.manuscript-primer li>span){font-family:var(--studio-heading-font);font-style:normal}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .studio-dialog>header h2{font-weight:600;line-height:1.5;letter-spacing:.035em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .library-list h3{font-size:25px;font-weight:600;line-height:1.5;letter-spacing:.025em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .library-tonality b{font-family:var(--studio-ui-font);font-size:14px;font-weight:500}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .library-score-facts dt{font-size:11px;font-weight:500;line-height:1.8}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .library-score-facts dd{font-size:18px;font-weight:500;line-height:1.65}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] :is(.library-challenge,.library-reading-detail,.library-entry-footer time,.library-find>p){font-size:12px;line-height:1.85}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .companion-journal-copy h3{font-weight:600;letter-spacing:.03em}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .companion-journal-copy p{font-size:13px;line-height:1.9}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] :is(.companion-journal-name,.companion-growth-heading h3){font-family:var(--studio-ui-font);font-size:13px;font-weight:500;letter-spacing:.015em;line-height:1.75}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page] .companion-journal-tile>small{font-size:11px;line-height:1.8}
+html:lang(zh-CN) .app.app.studio-app.forest-studio[data-design="atelier"][data-page]{--studio-heading-font:'Noto Serif SC','Songti SC','Noto Sans SC','PingFang SC',serif;--studio-ui-font:'Noto Sans SC','PingFang SC','Microsoft YaHei',system-ui,sans-serif}
+html:lang(ja) .app.app.studio-app.forest-studio[data-design="atelier"][data-page]{--studio-heading-font:'Noto Serif JP','Hiragino Mincho ProN','Yu Mincho',serif;--studio-ui-font:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',system-ui,sans-serif}
+html:lang(ko) .app.app.studio-app.forest-studio[data-design="atelier"][data-page]{--studio-heading-font:'Noto Serif KR','Batang','AppleMyungjo',serif;--studio-ui-font:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif}
+html:lang(th) .app.app.studio-app.forest-studio[data-design="atelier"][data-page]{--studio-heading-font:'Noto Sans Thai','Thonburi','Leelawadee UI',Tahoma,sans-serif;--studio-ui-font:'Noto Sans Thai','Thonburi','Leelawadee UI',Tahoma,sans-serif;--studio-heading-tracking:normal}
+html:lang(th) .app.app.studio-app.forest-studio[data-design="atelier"][data-page] :where(h1,h2,h3,p,span,button,summary,label,small,select,input,output,a,li){letter-spacing:normal}
+html:is(:lang(en),:lang(es),:lang(de),:lang(fr),:lang(pt),:lang(ru),:lang(it)) .app.app.studio-app.forest-studio[data-design="atelier"][data-page] :where(h1,h2,h3){letter-spacing:0}
+html:is(:lang(en),:lang(es),:lang(de),:lang(fr),:lang(pt),:lang(ru),:lang(it)) .app.app.studio-app.forest-studio[data-design="atelier"][data-page] .manuscript-opening h1{letter-spacing:-.01em;line-height:1.2}
+@media(max-width:700px){
+ /* A short title keeps a compact side column. When the flex item wraps below
+    a long title, its full width naturally fits one horizontal metadata row. */
+ .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-practice-mode="practice"] .score-top>.score-info{flex:1 1 92px;min-width:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,90px),1fr));gap:4px 12px;align-items:baseline}
+ .app.app.studio-app.forest-studio[data-design="atelier"][data-page] .manuscript-opening-copy>p{font-size:14px;line-height:1.95}
+ .app.app.studio-app.forest-studio[data-design="atelier"][data-page] .manuscript-dateline{font-size:10px;letter-spacing:.035em}
+ .app.app.studio-app.forest-studio[data-design="atelier"][data-page] .manuscript-opening-copy>.folio-eyebrow{font-size:11px;letter-spacing:.055em}
+ .app.app.studio-app.forest-studio[data-design="atelier"][data-page] .library-list h3{font-size:22px}
+ .app.app.studio-app.forest-studio[data-design="atelier"][data-page] .library-score-facts dd{font-size:17px}
+ .app.app.studio-app.forest-studio[data-design="atelier"][data-page] .tempo output{font-size:19px}
+}

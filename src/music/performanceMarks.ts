@@ -1,4 +1,5 @@
 import type {ExerciseData, ExpressionAnchor, ExpressionSpan, GeneratedNote, MeasureData} from '../music';
+import {addIntentExpression} from './intentExpression';
 import {metricPosition, pulseGroups} from './meterFeel';
 import {rhythmTicks} from './rhythmTiming';
 import {INSTRUMENTS, type Instrument} from './instruments';
@@ -138,6 +139,7 @@ function expressionSpans(exercise:ExerciseData,random:()=>number):ExpressionSpan
  */
 export function addPerformanceMarks(exercise:ExerciseData,random:()=>number=Math.random,enabled=true):ExerciseData {
   if(!enabled)return exercise;
+  if(exercise.musicalIntent)return addIntentExpression(exercise);
   if(!exercise.phrasePlan?.length)return legacyPerformanceMarks(exercise,random);
   const levels=['p','mp','mf','f'] as const,characters:Character[]=['light','sustained','marked'];
   let dynamicIndex=pick(random,levels.length),previousCharacter:Character|undefined;

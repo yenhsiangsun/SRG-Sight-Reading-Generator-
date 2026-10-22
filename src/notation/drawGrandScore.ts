@@ -55,34 +55,38 @@ function drawGrandPass(container: HTMLDivElement | HTMLCanvasElement, exercise: 
     });
     return {...notation,meter,first,showTime,neededWidth:notation.minWidth+Math.max(...headerWidths)+70};
   });
-  const rightExtent=extent(prepared.flatMap(item=>item.right.notes));
-  const leftExtent=extent(prepared.flatMap(item=>item.left.notes));
-  for (const [staff,ext] of [[0,rightExtent],[1,leftExtent]] as const) {
-    const space=expressionSpace(exercise,staff);ext.above+=space.above;ext.below+=space.below;
-  }
-  for (const side of ['above','below'] as const) {
-    rightExtent[side] += tupletSpace(prepared.flatMap(item=>item.right.tuplets), side);
-    leftExtent[side] += tupletSpace(prepared.flatMap(item=>item.left.tuplets), side);
-  }
-  for(const [ext,shifts] of [[rightExtent,upperShifts],[leftExtent,lowerShifts]] as const){
-    if(shifts.flat().some(shift=>shift>0))ext.above+=65;
-    if(shifts.flat().some(shift=>shift<0))ext.below+=65;
-  }
-  rightExtent.above+=padding.above;
-  rightExtent.below+=padding.between;
-  leftExtent.below+=padding.below;
-  const staffGap=130+rightExtent.below+leftExtent.above;
-  const rowHeight=staffGap+150+rightExtent.above+leftExtent.below;
+  const rows=Math.ceil(prepared.length/barsPerRow);
+  const rowSpace=Array.from({length:rows},(_,row)=>{
+    const first=row*barsPerRow,last=Math.min(prepared.length-1,first+barsPerRow-1),items=prepared.slice(first,last+1);
+    const rightExtent=extent(items.flatMap(item=>item.right.notes)),leftExtent=extent(items.flatMap(item=>item.left.notes));
+    for(const [staff,ext] of [[0,rightExtent],[1,leftExtent]] as const){
+      const space=expressionSpace(exercise,staff,{first,last});ext.above+=space.above;ext.below+=space.below;
+    }
+    for(const side of ['above','below'] as const){
+      rightExtent[side]+=tupletSpace(items.flatMap(item=>item.right.tuplets),side);
+      leftExtent[side]+=tupletSpace(items.flatMap(item=>item.left.tuplets),side);
+    }
+    for(const [ext,shifts] of [[rightExtent,upperShifts],[leftExtent,lowerShifts]] as const){
+      const local=shifts.slice(first,last+1).flat();
+      if(local.some(shift=>shift>0))ext.above+=65;
+      if(local.some(shift=>shift<0))ext.below+=65;
+    }
+    rightExtent.above+=padding.above;rightExtent.below+=padding.between;leftExtent.below+=padding.below;
+    const staffGap=130+rightExtent.below+leftExtent.above;
+    return {rightExtent,leftExtent,staffGap,height:staffGap+150+rightExtent.above+leftExtent.below};
+  });
   const measureWidth=Math.max((width-50)/barsPerRow,...prepared.map(item=>item.neededWidth));
-  const layout:ScoreLayout={width:measureWidth*barsPerRow+50,height:Math.ceil(prepared.length/barsPerRow)*rowHeight+30,measures:[]};
-  const rows = Math.ceil(prepared.length / barsPerRow);
-  layout.systems = Array.from({length: rows}, (_, row) => ({top: row * rowHeight, bottom: (row + 1) * rowHeight + (row === rows - 1 ? 30 : 0)}));
+  let totalHeight=0;
+  const systems=rowSpace.map(space=>{const top=totalHeight;totalHeight+=space.height;return {top,bottom:totalHeight};});
+  if(systems.length)systems.at(-1)!.bottom+=30;
+  const layout:ScoreLayout={width:measureWidth*barsPerRow+50,height:totalHeight+30,measures:[],systems};
   const context=scoreContext(container,layout.width,layout.height,viewport);
   const octaveBars: OctaveBar[][]=[[],[]];
   const expressionBars: ExpressionBar[]=[];
   prepared.forEach((item,index)=>{
+    const row=Math.floor(index/barsPerRow),{rightExtent,leftExtent,staffGap}=rowSpace[row];
     const x=30+(index%barsPerRow)*measureWidth;
-    const y=Math.floor(index/barsPerRow)*rowHeight+25+rightExtent.above;
+    const y=systems[row].top+25+rightExtent.above;
     const staves=(['treble','bass'] as const).map((clef,hand)=>{
       const stave=new Stave(x,y+hand*staffGap,measureWidth);
       if(item.first){stave.addClef(clef);if(signature)stave.addKeySignature(signature);}

@@ -1,6 +1,7 @@
 import { buildPitchMaterial, describeTonality, type Tonic, type Tonality, type PitchMaterial, type ScalePitch } from './music/scales';
 import type { RhythmFocusSelection } from './practice/focus';
 import type {PracticeRhythmNote} from './music/practiceRhythm';
+import type {PhraseSpan} from './music/phrasePlan';
 import {selectPhraseRhythmPlan, type RhythmBarPlan} from './music/phraseRhythm';
 import {PITCH_DIFFICULTY, pitchDistanceWeight} from './music/pitchDifficulty';
 import {addRhythmUnits} from './music/rhythmTiming';
@@ -138,11 +139,14 @@ export interface ExpressionSpan {
 }
 
 export interface ExerciseData {
+  musicalIntent?: import('./music/musicalIntent').MusicalIntent;
   phrasePlan?: import('./music/phrasePlan').PhraseSpan[];
   expressionSpans?: ExpressionSpan[];
   harmonyPlan?: import('./music/phraseHarmony').HarmonyBar[];
-  /** A single staff with either a fixed clef or automatic treble/bass changes. */
+  /** A single staff with either a fixed clef or automatic selected-clef changes. */
   staffMode?: 'fixed' | 'mixed';
+  /** Omitted on legacy scores: mixed staff then uses treble and bass. */
+  mixedClefs?: Clef[];
   soundProfile?: string;
   lowerMeasures?: MeasureData[];
   grandMode?: 'mono' | 'two-hand';
@@ -914,6 +918,7 @@ export function getKeyScale(
 }
 
 export interface PracticeOptions {
+  compositionStyle?: import('./music/musicalIntent').CompositionStyle;
   pitchFocus?: import('./practice/focus').PitchFocus;
   instrumentProfile?: string;
   rhythmFocus?: RhythmFocusSelection;
@@ -934,7 +939,7 @@ export interface PracticeOptions {
 }
 
 /** Meter sections establish a complete new pulse before the next change. */
-export function createPracticeRhythmPlan(options: PracticeOptions): RhythmBarPlan[] {
+export function createPracticeRhythmPlan(options: PracticeOptions, phrasePlan?:readonly PhraseSpan[]): RhythmBarPlan[] {
   const {timeSignature, mixedMeters, measures} = options;
   const meters = [...new Set(options.meters)];
   if (mixedMeters && (meters.length < 2 || meters.some(meter => !TIME_SIGNATURES[meter]))) {
@@ -944,7 +949,7 @@ export function createPracticeRhythmPlan(options: PracticeOptions): RhythmBarPla
   const sequence = mixedMeters
     ? planMixedMeterSequence(meters.includes(timeSignature) ? timeSignature : meters[0], meters, measures, options.rhythmLevel)
     : Array.from({length: measures}, () => timeSignature);
-  return selectPhraseRhythmPlan(sequence,options.rhythmLevel,options.rhythmFocus);
+  return selectPhraseRhythmPlan(sequence,options.rhythmLevel,options.rhythmFocus,undefined,phrasePlan);
 }
 
 /** The optional internal plan lets candidate pitches share exactly the same rhythm. */

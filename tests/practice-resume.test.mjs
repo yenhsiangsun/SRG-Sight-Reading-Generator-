@@ -50,6 +50,29 @@ test('denied or full storage does not throw or overwrite a valid resume with inv
   assert.deepEqual(plain(store.read()),plain(snapshot));
 });
 
+test('an actual resume write exception preserves the prior snapshot and can recover on the next capture',()=>{
+  const snapshot=fixture(),before=JSON.stringify(snapshot);let raw=before,denied=true,writes=0;
+  const store=createResumeStore(()=>({getItem:()=>raw,setItem:(_key,value)=>{if(denied)throw Error('isolated quota exhausted');writes++;raw=value;}}));
+  const next={...snapshot,position:snapshot.position+.5};
+  assert.equal(store.write(next),false);assert.equal(raw,before);assert.equal(writes,0);
+  assert.deepEqual(plain(store.read()),plain(snapshot));
+  denied=false;assert.equal(store.write(next),true);assert.equal(writes,1);assert.deepEqual(plain(store.read()),plain(next));
+});
+
+test('resume provider and read exceptions report unavailability without writing and can be retried after recovery',()=>{
+  for(const failure of ['provider','read']){
+    const snapshot=fixture(),before=JSON.stringify(snapshot);let unavailable=true,raw=before,writes=0;
+    const store=createResumeStore(()=>{
+      if(unavailable&&failure==='provider')throw Error('isolated Storage getter denied');
+      return {getItem(){if(unavailable)throw Error('isolated getItem denied');return raw;},setItem(_key,value){writes++;raw=value;}};
+    });
+    const status=store.readResult();assert.equal(status.last,null);assert.equal(status.storageUnavailable,true);assert.equal(status.unreadable,false);
+    assert.equal(store.write({...snapshot,position:1}),false);assert.equal(raw,before);assert.equal(writes,0);
+    unavailable=false;assert.deepEqual(plain(store.readResult().last),plain(snapshot));
+    assert.equal(store.write({...snapshot,position:1}),true);assert.equal(writes,1);assert.equal(store.read().position,1);
+  }
+});
+
 test('resume controls have explicit copy for all twelve supported languages',()=>{
   for(const locale of ['zh-TW','en','ja','es','de','fr','ko','pt-BR','ru','it','zh-CN','th']){
     const copy=resumeCopy(locale);

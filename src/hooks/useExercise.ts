@@ -6,6 +6,7 @@ import {addPipaTechniques} from '../music/pipaTechniques';
 import { selectPracticeTempo } from '../practice/tempo';
 import {validBpm} from '../audio/tempo';
 import {refineFastPassages} from '../music/tempoFlow';
+import {coordinateGrandStaff} from '../music/grandAccompaniment';
 import {validateGeneratedExercise} from '../music/exerciseQuality';
 import {readRecentExercises, rememberRecentExercise, scoreRecentSimilarity} from '../practice/recentVariety';
 import type { RhythmFocusSelection, PitchFocus } from '../practice/focus';
@@ -14,15 +15,18 @@ import { selectRandomTonality, type RandomTonality } from '../music/randomTonali
 import {normalizeKeySignatureChoices, type KeySignatureChoice} from '../music/keySignatureChoices';
 import {loadPreferredInstrument, rememberInstrument} from '../practice/instrumentPreference';
 import { useState } from 'react';
-import {type ExerciseData, type KeySignature, type TimeSignature } from '../music';
+import {type ExerciseData, type Clef as StaffClef, type KeySignature, type TimeSignature } from '../music';
+import {normalizeMixedClefs, validMixedClefs} from '../notation/mixedClefs';
 import { INSTRUMENTS, mapDifficulty, mapRhythmLevel, type Instrument, type Clef, type Difficulty, type RhythmLevel } from '../exerciseConfig';
 
 export interface ExerciseSettings {
+  compositionStyle?: import('../music/musicalIntent').CompositionStyle;
   pitchFocus?: PitchFocus;
   performanceMarks?: boolean;
   rhythmFocus?: RhythmFocusSelection;
   instrument: Instrument;
   clef: Clef;
+  mixedClefs?: StaffClef[];
   difficulty: Difficulty;
   keySignature: KeySignature;
   allowedKeySignatures?: KeySignatureChoice[];
@@ -50,7 +54,7 @@ export function useExercise(previewTonality?: RandomTonality) {
   const [savedSettings, setSettings] = useState<ExerciseSettings>(() => {
     const instrument = loadPreferredInstrument();
     const profile = INSTRUMENTS[instrument];
-    return {...DEFAULT_SETTINGS, instrument, clef: profile.clef, rangeMinMidi: profile.min, rangeMaxMidi: profile.max};
+    return {...DEFAULT_SETTINGS, compositionStyle:'auto', instrument, clef: profile.clef, rangeMinMidi: profile.min, rangeMaxMidi: profile.max};
   });
   const settings = { ...DEFAULT_SETTINGS, ...savedSettings };
   const [current, setCurrent] = useState<CurrentExercise | null>(null);
@@ -80,17 +84,23 @@ export function useExercise(previewTonality?: RandomTonality) {
 
   function generateFrom(settings: ExerciseSettings, bpm: number,tempoOverride?:number) {
     try {
-      settings = {...settings,allowedKeySignatures:normalizeKeySignatureChoices(settings.allowedKeySignatures)};
+      if (!validMixedClefs(settings.mixedClefs)) throw new Error('混合譜表至少需要兩種不同的譜號。');
+      // A newly generated study always chooses one coherent musical grammar.
+      // Stored scores still restore exactly; their old internal style must not
+      // silently lock future practice to that style or to the legacy composer.
+      settings = {...settings,compositionStyle:'auto',allowedKeySignatures:normalizeKeySignatureChoices(settings.allowedKeySignatures)};
+      if (settings.mixedClefs) settings.mixedClefs = normalizeMixedClefs(settings.mixedClefs);
       const measureCount=window.matchMedia('(max-width: 600px)').matches?Math.min(settings.measureCount,8):settings.measureCount;
       const twoHand = settings.clef === 'grand' && (settings.instrument === 'Piano' || settings.instrument === 'Yangqin');
       const range = {min: settings.rangeMinMidi, max: settings.rangeMaxMidi};
       const tonality = pendingPreview ?? selectRandomTonality(twoHand && range.min <= 58 && range.max >= 61
         ? [range, {min: range.min, max: 59}, {min: 60, max: range.max}]
-        : [range], Math.random, {allowAccidentals:settings.allowAccidentals, difficulty:mapDifficulty(settings.difficulty),allowedKeySignatures:settings.allowedKeySignatures});
+        : [range], Math.random, {allowAccidentals:settings.allowAccidentals, difficulty:mapDifficulty(settings.difficulty),allowedKeySignatures:settings.allowedKeySignatures,compositionStyle:settings.compositionStyle});
       const signature = describeTonality(tonality.tonic,tonality.scaleId).signature as KeySignature | null;
       const options = {
         instrument: INSTRUMENTS[settings.instrument].engineInstrument,
         instrumentProfile: settings.instrument,
+        compositionStyle: settings.compositionStyle,
         clef: settings.clef === 'grand' || settings.clef === 'mixedStaff' ? 'treble' : settings.clef, difficulty: mapDifficulty(settings.difficulty),
         keySignature: signature ?? 'C', timeSignature: settings.timeSignature,
         rhythmLevel: mapRhythmLevel(settings.rhythmLevel), rhythmFocus: settings.rhythmFocus, pitchFocus:settings.pitchFocus, measures: measureCount,
@@ -104,14 +114,18 @@ export function useExercise(previewTonality?: RandomTonality) {
         candidate.staffMode=settings.clef==='mixedStaff'?'mixed':'fixed';
         candidate.transposition=INSTRUMENTS[settings.instrument].transpose;
         candidate.tempo=validBpm(tempoOverride)?tempoOverride:selectPracticeTempo(candidate,bpm);
-        if(settings.pitchFocus!=='scales'&&settings.pitchFocus!=='leaps')
+        if(!candidate.musicalIntent&&settings.pitchFocus!=='scales'&&settings.pitchFocus!=='leaps')
           candidate=refineFastPassages(candidate,range,settings.instrument,options.allowAccidentals);
+        candidate=coordinateGrandStaff(candidate,range,options.allowAccidentals,settings.pitchFocus==='scales');
         validateGeneratedExercise(candidate,range,options.allowAccidentals);
         if(settings.pitchFocus!=='scales')candidate=addInstrumentHarmony(candidate,range);
         if(settings.performanceMarks??true) {
           candidate=addPerformanceMarks(candidate);
           if(settings.pitchFocus!=='scales')candidate=addPipaTechniques(candidate,range);
         }
+        // Display preferences never enter composition, scoring or its random stream.
+        if (settings.clef === 'mixedStaff' && settings.mixedClefs)
+          candidate.mixedClefs = [...settings.mixedClefs];
         return candidate;
       };
       let exercise=createStudy();
@@ -129,7 +143,7 @@ export function useExercise(previewTonality?: RandomTonality) {
       }
       setSettings(settings);
       rememberInstrument(settings.instrument);
-      setCurrent((previous) => ({ exercise, settings: { ...settings, ...tonality, keySignature:signature ?? 'C', allowAccidentals: pendingPreview ? false : settings.allowAccidentals, measureCount, meters: [...settings.meters] }, number: (previous?.number ?? 0) + 1, isPreview: !!pendingPreview }));
+      setCurrent((previous) => ({ exercise, settings: { ...settings, ...(settings.mixedClefs?{mixedClefs:[...settings.mixedClefs]}:{}), ...tonality, keySignature:signature ?? 'C', allowAccidentals: pendingPreview ? false : settings.allowAccidentals, measureCount, meters: [...settings.meters] }, number: (previous?.number ?? 0) + 1, isPreview: !!pendingPreview }));
       setPreviewConsumed(true);
       setError('');
       return exercise.tempo;
@@ -145,6 +159,7 @@ export function useExercise(previewTonality?: RandomTonality) {
     rememberInstrument(settings.instrument);
     setCurrent(previous => ({exercise, settings, number: (previous?.number ?? 0) + 1}));
     setError('');
+    return exercise;
   }
   return { settings, current, error, change, generateNew, generateFrom, restore, previewPending: !!pendingPreview };
 }

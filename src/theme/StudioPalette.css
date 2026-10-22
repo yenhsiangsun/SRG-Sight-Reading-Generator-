@@ -1,0 +1,85 @@
+/* Fixed light colorways. Engraved music keeps a white sheet and black ink. */
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] {
+  --studio-paper: var(--theme-surface);
+  --studio-ink: var(--theme-page-text);
+  --studio-muted: var(--theme-page-muted);
+  --studio-rule: var(--theme-line);
+  background: var(--theme-background);
+  color: var(--theme-page-text);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] :is(.header,.privacy-support-footer,.manuscript-opening,.manuscript-notebook,.setup-step-list>li,.setup-summary,.setup-panel,.practice-toolbar,.studio-practice-tools,.practice-checkout,.library-entry,.studio-dialog) {
+  border-color: var(--theme-line);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] :is(.brand,h1,h2,h3,h4,.studio-nav button,.back-link,.studio-palette-picker>summary) {
+  color: var(--theme-primary-ink);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] .brand-mark {
+  color: var(--theme-primary);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] #main :is(h1,h2,h3,h4,.home-companion-guide,.home-companion-tip p,.setup-step-list>li.current,.instrument-feature h3) {
+  color: var(--theme-primary-ink);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] #main :is(.manuscript-opening-prose,.manuscript-opening-kicker,.manuscript-dateline,.home-companion-kicker,.home-companion-practiced,.home-companion-next,.home-companion-name small,.manuscript-week,.manuscript-progress-copy,.field-note,.setup-intro>p,.option-row p) {
+  color: var(--theme-page-muted);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] :is(.studio-dialog,.studio-menu-content,.setup-panel,.practice-toolbar,.advanced-options,.library-list article,.library-entry) {
+  background: var(--theme-surface);
+  color: var(--theme-text);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] #main .setup-wizard-actions {
+  background: var(--theme-background);
+  border-color: var(--theme-line);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] :is(.studio-cta,.primary-button,.play-main,.resume-practice button),
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] #main :is(.studio-cta,.primary-button,.play-main,.resume-practice button) {
+  background: var(--theme-primary);
+  border-color: var(--theme-primary);
+  color: var(--theme-primary-text);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] :is(input,select,textarea) {
+  accent-color: var(--theme-primary);
+  color: var(--theme-text);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] :is(input:not([type=range]):not([type=checkbox]),select,textarea) {
+  background: var(--theme-surface);
+  border-color: var(--theme-line);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] #main :is(.instrument-card.selected,.difficulty-card.selected,.family-tabs button[aria-pressed=true],.meter-options button[aria-pressed=true]) {
+  background: var(--theme-soft);
+  border-color: var(--theme-primary);
+  color: var(--theme-text);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] #main .home-companion-tip,
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] #main .home-companion-tip::before {
+  background: var(--theme-surface);
+  border-color: var(--theme-line);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] #main .switch::before {
+  background: var(--theme-soft);
+  border-color: var(--theme-primary);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] #main .switch[aria-checked=true]::before {
+  background: var(--theme-primary);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] #main .home-companion-progress {
+  background: var(--theme-line);
+  color: var(--theme-primary);
+  accent-color: var(--theme-primary);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] .home-companion-progress::-webkit-progress-bar { background: var(--theme-line); }
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] .home-companion-progress::-webkit-progress-value { background: var(--theme-primary); }
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] .home-companion-progress::-moz-progress-bar { background: var(--theme-primary); }
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] :is(button,summary,input,select,textarea):focus-visible {
+  outline-color: var(--theme-primary);
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] #main .score-card {
+  background: #fff;
+  color: #111;
+  border-color: #dedbd2;
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] #main .score-card :is(h1,h2,p,span,strong,small,label,summary) {
+  color: #252525;
+}
+#root .app.app.studio-app.forest-studio[data-design="atelier"][data-colorway] #main .score-card #score-heading {
+  color: #252525;
+}

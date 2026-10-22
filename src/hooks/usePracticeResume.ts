@@ -4,8 +4,10 @@ import type {SavedStudy} from '../practice/library';
 
 export function usePracticeResume(study: Omit<SavedStudy, 'created'> | null, active: boolean, getPosition: () => number) {
   const store = useMemo(() => createResumeStore(() => window.localStorage), []);
-  const [last, setLast] = useState(() => store.read());
-  const [storageWarning, setStorageWarning] = useState(false);
+  const [initial] = useState(() => store.readResult());
+  const [last, setLast] = useState(initial.last);
+  const [readWarning, setReadWarning] = useState(initial.unreadable);
+  const [storageWarning, setStorageWarning] = useState(initial.storageUnavailable);
   const written = useRef('');
   const created = useRef({id: last?.study.id, at: last?.study.created ?? 0});
   const capture = useCallback(() => {
@@ -16,7 +18,9 @@ export function usePracticeResume(study: Omit<SavedStudy, 'created'> | null, act
     if (signature === written.current) return;
     const saved = store.write(snapshot);
     if (saved) written.current = signature;
-    setStorageWarning(!saved);
+    const unreadable=!saved&&store.readResult().unreadable;
+    setReadWarning(unreadable);
+    setStorageWarning(!saved&&!unreadable);
     // Even with blocked storage, returning to the home screen can resume this session.
     setLast(snapshot);
   }, [study, active, getPosition, store]);
@@ -32,5 +36,5 @@ export function usePracticeResume(study: Omit<SavedStudy, 'created'> | null, act
       document.removeEventListener('visibilitychange', capture);
     };
   }, [active, study, capture]);
-  return {last, capture, storageWarning};
+  return {last, capture, storageWarning, readWarning};
 }

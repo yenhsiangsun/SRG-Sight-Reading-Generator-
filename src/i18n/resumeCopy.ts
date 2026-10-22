@@ -1,4 +1,4 @@
-import type {Locale} from './messages';
+import {translate,type Locale} from './messages';
 
 const copy: Record<Locale, readonly [string, string, string, string]> = {
   'zh-TW': ['繼續上次練習', '第 {bar} 小節 · 點選後自行開始播放', '上次樂譜與播放位置已自動保存。', '無法保存上次練習，關閉 App 後可能遺失。'],
@@ -14,7 +14,13 @@ const copy: Record<Locale, readonly [string, string, string, string]> = {
   'zh-CN': ['继续上次练习', '第 {bar} 小节 · 点选后自行开始播放', '上次乐谱与播放位置已自动保存。', '无法保存上次练习，关闭 App 后可能丢失。'],
   th: ['ฝึกต่อจากครั้งที่แล้ว', 'ห้องที่ {bar} · กดเล่นเมื่อพร้อม', 'บันทึกโน้ตและตำแหน่งเล่นล่าสุดโดยอัตโนมัติ', 'บันทึกการฝึกไม่ได้ ข้อมูลอาจหายเมื่อปิดแอป'],
 };
+const newPractice: Record<Locale,string> = {
+  'zh-TW':'開始新的練習',en:'Start a new practice',ja:'新しい練習を始める',
+  es:'Empezar una nueva práctica',de:'Neue Übung beginnen',fr:'Commencer une nouvelle séance',
+  ko:'새 연습 시작하기','pt-BR':'Começar uma nova prática',ru:'Начать новое занятие',
+  it:'Inizia una nuova esercitazione','zh-CN':'开始新的练习',th:'เริ่มฝึกใหม่',
+};
 export function resumeCopy(locale: Locale) {
   const [title, position, help, error] = copy[locale];
-  return {title, position, help, error};
+  return {title, position, help, error, unreadable:translate(locale,'resumeReadProtected'), newPractice:newPractice[locale]};
 }

@@ -11,9 +11,14 @@ export const ARCHIVED_SAMPLE_DIRECTORIES = [
   'samples/pipa',
 ] as const
 
+// Keep project illustration provenance in source without publishing local
+// generation notes or workstation paths as a runtime asset.
+const DEVELOPMENT_ONLY_PUBLIC_FILES = ['companions/growth-art-prompts.json'] as const
+
 export function isReleasePublicAsset(file: string): boolean {
   const normalized = file.split(sep).join('/').replaceAll('\\', '/')
-  if (normalized === 'favicon.svg' || normalized === 'icons.svg') return false
+  if (normalized === 'favicon.svg' || normalized === 'icons.svg'
+    || DEVELOPMENT_ONLY_PUBLIC_FILES.some(file => normalized === file)) return false
   return !ARCHIVED_SAMPLE_DIRECTORIES.some(directory =>
     normalized === directory || normalized.startsWith(`${directory}/`))
 }
@@ -45,6 +50,13 @@ export function copyReleasePublicAssets(publicDir: string, outDir: string, manif
       throw new Error(`Active playback uses an excluded release sample: ${file}`)
     }
     if (!existsSync(file) || !statSync(file).isFile()) throw new Error(`Missing release sample: ${file}`)
+  }
+  // An uncleared output directory may already contain excluded source notes.
+  // Refuse that output before copying; never silently delete existing files.
+  for (const file of DEVELOPMENT_ONLY_PUBLIC_FILES) {
+    if (existsSync(resolve(destination, file))) {
+      throw new Error(`Development metadata remains in release output; clean the output directory: ${file}`)
+    }
   }
   mkdirSync(destination, { recursive: true })
   cpSync(source, destination, {

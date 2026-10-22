@@ -1,0 +1,19 @@
+.playback-button-label {
+  display: inline-grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+}
+
+.play-main > .playback-button-label {
+  font: inherit;
+}
+
+.playback-button-label > span {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+/* Reserve each translated label's space without adding it to the button name. */
+.playback-button-label > span[aria-hidden="true"] {
+  visibility: hidden;
+}

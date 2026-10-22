@@ -2,8 +2,9 @@ import type {Locale} from './messages';
 import {additionalText} from './additionalText';
 import {companionText} from './companionText';
 import {namedCatalogs} from './namedCatalogs';
+import {folioText} from './folioText';
 
-export const textCatalog = {...additionalText, ...companionText};
+export const textCatalog = {...additionalText, ...companionText, ...folioText};
 const extraLocales = ['es', 'de', 'fr', 'ko', 'pt-BR', 'ru', 'it'];
 
 export function localizeEnglish(locale: Locale, source: string): string {

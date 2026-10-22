@@ -7,7 +7,7 @@ import {words} from '../progress/words';
 import type {Locale} from '../i18n/messages';
 import {companionName} from '../progress/companionNames';
 import {generalTips} from '../progress/companionTips';
-import type {CompanionStage} from '../progress/companionGrowth';
+import {COMPANION_STAGE_SECONDS, type CompanionStage, type getCompanionGrowth} from '../progress/companionGrowth';
 import {companionGrowthCopy} from '../progress/companionGrowthCopy';
 
 export interface NoteCompanionProps {
@@ -19,6 +19,7 @@ export interface NoteCompanionProps {
   pet?: PetCompanion | null;
   stage?: CompanionStage;
   onRewards: () => void;
+  homeGrowth?: ReturnType<typeof getCompanionGrowth>;
 }
 
 const copy = {
@@ -36,7 +37,7 @@ const localizedText = (locale: Locale, value: Readonly<Record<CompanionLocale, s
 
 
 /** A silent companion; its visual rewards never interrupt the score or audio clock. */
-export function NoteCompanion({level, points, todayCount, dailyGoal, quiet = false, pet = null, stage = 'baby', onRewards}: NoteCompanionProps) {
+export function NoteCompanion({level, points, todayCount, dailyGoal, quiet = false, pet = null, stage = 'baby', homeGrowth, onRewards}: NoteCompanionProps) {
   const {locale, t} = useI18n();
   const petId = pet;
   const word = (key: keyof typeof copy) => localizedText(locale, copy[key]);
@@ -58,6 +59,28 @@ export function NoteCompanion({level, points, todayCount, dailyGoal, quiet = fal
     setInteraction(value => value + 1);
     setGreeting(true);
   };
+
+  if (homeGrowth) {
+    const growthCopy = companionGrowthCopy(locale);
+    const practiced = growthCopy.practiced.replace('{minutes}', Math.floor(homeGrowth.seconds / 60).toLocaleString(locale));
+    const next = homeGrowth.nextUnlockSeconds;
+    const remaining = next === null ? growthCopy.grown : growthCopy.remaining.replace('{minutes}', Math.ceil((next - homeGrowth.seconds) / 60).toLocaleString(locale));
+    const stageStart = COMPANION_STAGE_SECONDS[homeGrowth.unlockedStage];
+    return <aside className={`${className} note-companion--home`} aria-label={`${petName} · ${word('companion')}`}>
+      <button type="button" className={`note-companion__pet home-companion-portrait${greeting ? ' is-greeting' : ''}`} onClick={greet} aria-label={words(locale,'和{name}互動，看看練習小提醒','Tap {name} for a practice tip','{name}をタップして練習のヒントを見る').replace('{name}',petName)}>
+        <CompanionPortrait pet={petId} stage={stage} closeUp className="note-companion__illustration"/>
+      </button>
+      <div className="note-companion__tip home-companion-tip" aria-live="polite" aria-atomic="true"><p>{t(generalTips[interaction % generalTips.length])}</p></div>
+      <div className="home-companion-summary">
+        <p className="home-companion-kicker">{words(locale,'一起練習的小夥伴','Your practice companion','練習の仲間')}</p>
+        <div className="home-companion-name"><h2>{petName}</h2><small>{growthCopy[stage]}</small></div>
+        <p className="home-companion-practiced">{practiced}</p>
+        {next !== null && <progress className="home-companion-progress" value={Math.max(0,homeGrowth.seconds - stageStart)} max={next - stageStart} aria-label={remaining}/>}
+        <p className="home-companion-next">{remaining}</p>
+        <button type="button" className="home-companion-guide" onClick={onRewards}>{word('rewards')}<span aria-hidden="true">↗</span></button>
+      </div>
+    </aside>;
+  }
 
   return <aside className={className} aria-label={`${petName} · ${word('companion')}`}>
     <div className="note-companion__heading">

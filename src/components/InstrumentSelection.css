@@ -17,7 +17,7 @@
 }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-intro > .eyebrow,
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-summary .eyebrow { color: var(--theme-primary-ink); letter-spacing: .17em; font-size: 10px; }
-.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-intro h1 { color: var(--theme-page-text); font-size: clamp(27px, 2.5vw, 36px); line-height: 1.7; margin: 20px 0 15px; letter-spacing: .04em; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-intro h1 { color: var(--theme-page-text); font-family: var(--studio-heading-font, 'Noto Serif TC', 'PMingLiU', Georgia, serif); font-size: clamp(27px, 2.5vw, 36px); line-height: var(--studio-heading-leading, 1.7); margin: 20px 0 15px; letter-spacing: var(--studio-heading-tracking, .04em); }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-intro > p { color: var(--theme-muted); font-size: 13px; line-height: 1.9; }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-intro-art { width: 175px; margin: 14px auto 6px; }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .steps { gap: 11px; margin: 25px 0; }
@@ -26,17 +26,17 @@
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .steps button > span { border-color: var(--theme-line); color: var(--theme-muted); border-radius: 50%; width: 32px; height: 32px; font-size: 11px; }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .steps button.current > span { background: var(--theme-primary); color: var(--theme-primary-text); border-color: var(--theme-primary); }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-summary { border-color: var(--theme-line); padding-top: 22px; }
-.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-summary strong { color: var(--theme-page-text); font-family: 'Noto Serif TC', 'PMingLiU', Georgia, serif; font-size: 19px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-summary strong { color: var(--theme-page-text); font-family: var(--studio-heading-font, 'Noto Serif TC', 'Songti TC', 'PMingLiU', Georgia, serif); font-size: 19px; }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-summary p { color: var(--theme-muted); line-height: 1.8; }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-panel { border-radius: 5px; box-shadow: 0 12px 40px -26px color-mix(in srgb, var(--theme-primary) 30%, transparent); }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .panel-heading { padding: 30px 30px 24px; border-bottom: 1px solid var(--theme-line); }
-.studio-app[data-layout] .setup-layout.setup-layout--instruments .step-caption { color: var(--theme-muted); font-size: 10px; letter-spacing: .15em; }
-.studio-app[data-layout] .setup-layout.setup-layout--instruments .panel-heading h2 { font-family: 'Noto Serif TC', 'PMingLiU', Georgia, serif; font-weight: 500; font-size: clamp(23px, 2vw, 28px); letter-spacing: .045em; margin-top: 9px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .step-caption { color: var(--theme-muted); font-size: 11px; letter-spacing: .15em; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .panel-heading h2 { font-family: var(--studio-heading-font, 'Noto Serif TC', 'Songti TC', 'PMingLiU', Georgia, serif); font-weight: 500; font-size: clamp(23px, 2vw, 28px); letter-spacing: var(--studio-heading-tracking, .045em); line-height: var(--studio-heading-leading, normal); margin-top: 9px; }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-content { padding: 24px 30px 22px; }
 .setup-layout--instruments .instrument-feature { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 25px; margin-bottom: 24px; background: var(--theme-soft); border: 1px solid var(--theme-line); border-radius: 3px; min-height: 151px; }
 .setup-layout--instruments .instrument-feature-copy { min-width: 0; }
 .setup-layout--instruments .instrument-feature .eyebrow { color: var(--theme-muted); font-size: 10px; letter-spacing: .1em; }
-.setup-layout--instruments .instrument-feature h3 { font-family: 'Noto Serif TC', 'PMingLiU', Georgia, serif; color: var(--theme-text); font-size: 23px; font-weight: 500; margin: 9px 0 14px; overflow-wrap: anywhere; }
+.setup-layout--instruments .instrument-feature h3 { font-family: var(--studio-heading-font, 'Noto Serif TC', 'Songti TC', 'PMingLiU', Georgia, serif); color: var(--theme-text); font-size: 23px; font-weight: 500; line-height: var(--studio-heading-leading, normal); margin: 9px 0 14px; overflow-wrap: anywhere; }
 .setup-layout--instruments .instrument-feature dl { display: flex; gap: 24px; flex-wrap: wrap; margin: 0; }
 .setup-layout--instruments .instrument-feature dl > div { display: grid; gap: 5px; }
 .setup-layout--instruments .instrument-feature dt { color: var(--theme-muted); font-size: 10px; }
@@ -50,14 +50,23 @@
 .setup-layout--instruments .instrument-search-field { position: relative; min-width: 0; }
 .setup-layout--instruments .instrument-search-field > svg { position: absolute; top: 15px; left: 15px; width: 19px; height: 19px; fill: none; stroke: var(--theme-muted); stroke-width: 1.5; pointer-events: none; }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-search label { color: var(--theme-muted); font-size: 11px; font-weight: 400; }
-.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-search input { min-height: 48px; border-radius: 3px; padding: 12px 16px 12px 44px; font-size: 13px; }
-.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-search input::placeholder { color: var(--theme-muted); opacity: .75; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-search input { min-height: 48px; border-radius: 3px; padding: 12px 54px 12px 44px; font-size: 13px; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-search input::placeholder { color: var(--theme-muted); opacity: 1; }
+.setup-layout--instruments .instrument-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.setup-layout--instruments .instrument-search-clear { position: absolute; top: 2px; right: 2px; display: grid; place-items: center; width: 44px; min-height: 44px; padding: 0; border: 0; border-radius: 3px; background: transparent; color: var(--theme-primary-ink); font-size: 25px; line-height: 1; }
+.setup-layout--instruments .instrument-search-clear:hover { background: var(--theme-soft); }
+.setup-layout--instruments .instrument-search-status { margin: -7px 0 14px; color: var(--theme-muted); font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }
+.setup-layout--instruments .instrument-search-empty { display: grid; justify-items: start; gap: 12px; padding: 24px 20px; border: 1px dashed var(--theme-line); border-radius: 4px; background: var(--theme-soft); }
+.setup-layout--instruments .instrument-search-empty h3 { margin: 0; color: var(--theme-text); font-size: 15px; font-weight: 550; line-height: 1.6; }
+.setup-layout--instruments .instrument-search-empty p { color: var(--theme-muted); font-size: 13px; line-height: 1.8; }
+.setup-layout--instruments .instrument-search-recovery { display: flex; flex-wrap: wrap; gap: 8px; max-width: 100%; }
+.setup-layout--instruments .instrument-search-recovery .secondary-button { min-height: 44px; max-width: 100%; white-space: normal; text-align: start; line-height: 1.5; }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-height: 495px; padding: 3px; scrollbar-width: thin; scrollbar-color: var(--theme-line) transparent; }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card { position: relative; display: flex; flex-direction: column; align-items: stretch; min-height: 190px; padding: 15px; border-radius: 3px; box-shadow: none; background: var(--theme-surface); transition: background .18s ease, border-color .18s ease, transform .18s ease; }
 .setup-layout--instruments .instrument-card-art { height: 116px; width: 132px; align-self: center; margin: 0 0 9px; }
-.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card .instrument-family { font-size: 9px; letter-spacing: .045em; margin-bottom: 6px; line-height: 1.4; }
-.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card strong { font-family: 'Noto Serif TC', 'PMingLiU', Georgia, serif; font-size: 14px; font-weight: 500; margin-bottom: 5px; line-height: 1.65; overflow-wrap: anywhere; }
-.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card .instrument-range { font-size: 10px; letter-spacing: .03em; margin-top: auto; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card .instrument-family { font-size: 11px; letter-spacing: .045em; margin-bottom: 6px; line-height: 1.4; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card strong { font-family: var(--studio-heading-font, 'Noto Serif TC', 'Songti TC', 'PMingLiU', Georgia, serif); font-size: 14px; font-weight: 500; margin-bottom: 5px; line-height: var(--studio-heading-leading, 1.65); overflow-wrap: anywhere; }
+.studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card .instrument-range { font-size: 11px; letter-spacing: .03em; margin-top: auto; }
 .setup-layout--instruments .selection-dot { position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 19px; height: 19px; border-color: var(--theme-line); font-size: 10px; }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card.selected { border-color: var(--theme-primary-ink); background: var(--theme-soft); box-shadow: inset 0 0 0 1px var(--theme-primary-ink); }
 .studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-card.selected .selection-dot { color: var(--theme-primary-text); border-color: var(--theme-primary); background: var(--theme-primary); }
@@ -74,9 +83,10 @@
   .setup-layout--instruments .instrument-feature { padding: 19px; }
 }
 @media (max-width: 760px) {
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-search input { font-size: 16px; }
   .studio-app[data-layout] .setup-layout.setup-layout--instruments { display: grid; grid-template-columns: 1fr; gap: 15px; padding: 20px 20px 32px; }
   .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-intro { position: static; padding: 6px 1px; margin: 0; }
-  .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-intro h1 { font-size: 25px; margin: 9px 0; line-height: 1.6; }
+  .studio-app[data-layout] .setup-layout.setup-layout--instruments .setup-intro h1 { font-size: 25px; margin: 9px 0; line-height: var(--studio-heading-leading, 1.6); }
   .studio-app[data-layout] .setup-layout.setup-layout--instruments .instrument-intro-art { display: none; }
   .studio-app[data-layout] .setup-layout.setup-layout--instruments .steps { display: flex; flex-direction: row; gap: 8px; margin: 14px 0 0; }
   .studio-app[data-layout] .setup-layout.setup-layout--instruments .steps button { min-height: 44px; gap: 7px; font-size: 11px; }

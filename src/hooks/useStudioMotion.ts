@@ -36,6 +36,15 @@ export function useStudioPageMotion(root: RefObject<HTMLDivElement | null>, page
     const find = (selector: string) => container.querySelector(selector);
     // A new score fades in without moving its measured SVG or resetting controls.
     if (old.page === page && old.studyNumber !== studyNumber && page === 'practice') {
+      // Applying a setup or focused study replaces the keyed action button.
+      // Recover only the focus lost to body; leave other controls and modals alone.
+      if (document.activeElement === document.body && !document.querySelector('dialog[open]')) {
+        const heading = find('#score-heading') as HTMLElement | null;
+        if (heading) {
+          heading.tabIndex = -1;
+          heading.focus({preventScroll: true});
+        }
+      }
       return enter([{element: find('.score-card')}], 300);
     }
     if (old.page !== page) {

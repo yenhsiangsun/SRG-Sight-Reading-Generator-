@@ -83,13 +83,16 @@ test('simple /8 practice includes subdivisions without optional tonality or acci
   }
 });
 
-test('both piano hands inherit simple /8 subdivisions without changing their shared bar boundaries', () => {
+test('simple piano /8 melody retains subdivisions over a quieter large-pulse accompaniment with matching bars', () => {
   const {generateGrandExercise} = loadModule('src/music/grandStaff.ts', 992);
   for (const timeSignature of eighthMeters) {
     const exercise = generateGrandExercise({...base, instrument: 'Piano', range: {min: 36, max: 84},
       timeSignature, rhythmLevel: 'simple', difficulty: 'beginner'}, 'two-hand');
     assert.ok(countSounded(exercise).sixteenths > 0, `upper ${timeSignature}`);
-    assert.ok(countSounded({...exercise, measures: exercise.lowerMeasures}).sixteenths > 0, `lower ${timeSignature}`);
+    const lower=exercise.lowerMeasures.flatMap(bar=>bar.events).filter(note=>!note.rest);
+    assert.ok(lower.every(note=>note.durationUnits>=4),`steady lower pulses ${timeSignature}`);
+    assert.ok(lower.length<exercise.measures.flatMap(bar=>bar.events).filter(note=>!note.rest).length,
+      `the lower hand leaves room for the melodic subdivisions in ${timeSignature}`);
     for (let index = 0; index < exercise.measures.length; index++) {
       const top = exercise.measures[index], bottom = exercise.lowerMeasures[index];
       assert.equal(top.totalUnits, bottom.totalUnits);
