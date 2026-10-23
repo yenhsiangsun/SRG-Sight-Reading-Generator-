@@ -8,6 +8,7 @@ import {planSingleStaff} from './mixedStaff';
 import {tupletSpace} from './ScoreTuplet';
 import {scoreContext, type ScoreViewport} from './scoreRenderer';
 import {drawExpressionSpans, expressionOverflow, expressionSpace, type ExpressionBar} from './expressionSpans';
+import {drawPipaRollSpans,pipaRollSpanSpace} from './pipaRollSpans';
 
 export function drawSingleScore(container: HTMLDivElement | HTMLCanvasElement, exercise: ExerciseData, width: number, viewport?: ScoreViewport): ScoreLayout {
   return drawSinglePass(container,exercise,width,viewport,{above:0,below:0},true);
@@ -50,7 +51,7 @@ function drawSinglePass(container: HTMLDivElement | HTMLCanvasElement, exercise:
     const lines=items.flatMap(item=>item.notes.filter(note=>!note.isRest()).flatMap(note=>note.getKeyProps().map(key=>key.line)));
     const expressionExtent=expressionSpace(exercise,0,{first,last});
     const above=Math.max(0,(Math.max(5,...lines)-5)*10)+(octaves.some(shift=>shift>0)?65:0)
-      +tupletSpace(items.flatMap(item=>item.tuplets),'above')+expressionExtent.above+padding.above;
+      +tupletSpace(items.flatMap(item=>item.tuplets),'above')+expressionExtent.above+pipaRollSpanSpace(measures,{first,last})+padding.above;
     const below=Math.max(0,(1-Math.min(1,...lines))*10)+(octaves.some(shift=>shift<0)?65:0)
       +tupletSpace(items.flatMap(item=>item.tuplets),'below')+expressionExtent.below+padding.below;
     return {above,below,height:Math.max(180,140+above+below)};
@@ -97,10 +98,11 @@ function drawSinglePass(container: HTMLDivElement | HTMLCanvasElement, exercise:
     context.restore();
   });
   const expressions=drawExpressionSpans(context,exercise,expressionBars);
-  octaveBars.forEach((bar,index)=>{bar.expressionBounds=expressions.filter(span=>span.bars.includes(index)).map(span=>span.bounds);});
+  const rolls=drawPipaRollSpans(context,expressionBars,expressions),ink=[...expressions,...rolls];
+  octaveBars.forEach((bar,index)=>{bar.expressionBounds=ink.filter(span=>span.bars.includes(index)).map(span=>span.bounds);});
   const octaveBounds=drawOctaveLines(context, octaveBars);
-  const overflow=expressionOverflow([...expressions,...octaveBounds],layout.systems!);
-  if (canCorrect&&expressions.length>0&&(overflow.above||overflow.below)) {
+  const overflow=expressionOverflow([...ink,...octaveBounds],layout.systems!);
+  if (canCorrect&&ink.length>0&&(overflow.above||overflow.below)) {
     // One correction only, driven by actual ink. PDF pagination receives this
     // final layout, and canvas/SVG repeat exactly the same geometry calculation.
     if (!viewport) container.replaceChildren();

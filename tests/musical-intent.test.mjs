@@ -5,7 +5,7 @@ import {loadModule} from './helpers.mjs';
 const base={compositionStyle:'classical',instrument:'Sheng',instrumentProfile:'Sheng',clef:'treble',difficulty:'beginner',keySignature:'C',tonic:'C',scaleId:'major',timeSignature:'4/4',rhythmLevel:'simple',measures:8,tempo:80,range:{min:60,max:84},allowAccidentals:false,mixedMeters:false,meters:['4/4']};
 const rhythm=ex=>JSON.stringify(ex.measures.map(b=>b.events.map(n=>[n.startUnits,n.durationUnits,n.rest,n.tuplet])));
 const plain=value=>JSON.parse(JSON.stringify(value));
-const bridge=`export {composeExercise} from './composeExercise';export {validateGeneratedExercise} from './exerciseQuality';export {addPerformanceMarks} from './performanceMarks';export {addInstrumentHarmony} from './instrumentHarmony';export {validMusicalIntent} from './musicalIntent';export {createPlaybackEvents} from '../audio/PlaybackController';export {notePitches} from './notePitches';export {isShengPracticeVoicing} from './shengFingering';`;
+const bridge=`export {composeExercise} from './composeExercise';export {composeIntentExercise} from './intentComposition';export {validateGeneratedExercise} from './exerciseQuality';export {addPerformanceMarks} from './performanceMarks';export {addInstrumentHarmony} from './instrumentHarmony';export {validMusicalIntent} from './musicalIntent';export {createPlaybackEvents} from '../audio/PlaybackController';export {notePitches} from './notePitches';export {isShengPracticeVoicing} from './shengFingering';`;
 
 test('three grammars preplan distinct forms, harmonic routes and rhythms before pitch generation',()=>{
   const api=loadModule('src/music/musicalIntent.ts',48013),plans=[];
@@ -22,12 +22,12 @@ test('three grammars preplan distinct forms, harmonic routes and rhythms before 
   assert.equal(new Set(plans.map(p=>JSON.stringify(p.harmony))).size,3);
 });
 
-for(const compositionStyle of ['classical','lyrical','pentatonic'])test(`${compositionStyle}: grade-independent timing, legal final chords and playable events`,()=>{
+for(const compositionStyle of ['classical','lyrical','pentatonic'])test(`retained explicit ${compositionStyle}: grade-independent timing, legal final chords and playable events`,()=>{
   let previousRhythm;
   for(const difficulty of ['beginner','intermediate','advanced']){
     const api=loadModule('src/music/__intentBridge.ts',49009,bridge);
     const options={...base,compositionStyle,difficulty,scaleId:compositionStyle==='pentatonic'?'major-pentatonic':'major',rhythmLevel:'medium'};
-    let ex=api.composeExercise(options);
+    let ex=api.composeIntentExercise(options);
     assert.equal(ex.musicalIntent.grammar,compositionStyle);api.validateGeneratedExercise(ex,options.range,false);
     previousRhythm??=rhythm(ex);assert.equal(rhythm(ex),previousRhythm);
     const last=ex.measures.flatMap(b=>b.events).filter(n=>!n.rest).at(-1);assert.equal(last.midi%12,0);

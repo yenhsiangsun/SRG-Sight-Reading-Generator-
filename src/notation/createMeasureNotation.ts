@@ -1,10 +1,11 @@
-import { Accidental, Annotation, Articulation, Modifier, Beam, ClefNote, NoteSubGroup, Dot, Fraction, StaveNote, Stroke, Tuplet, Voice, type Stave } from 'vexflow';
+import { Accidental, Annotation, Articulation, Modifier, Beam, Dot, Fraction, StaveNote, Tuplet, Voice, type Stave } from 'vexflow';
 import type { Clef, MeasureData, TimeSignature } from '../music';
 import {octaveWrittenKey} from './octaveLines';
 import {notePitches} from '../music/notePitches';
 import {addRhythmUnits, assertMeasureRhythm} from '../music/rhythmTiming';
 import {ScoreTuplet, chooseTupletSide} from './ScoreTuplet';
 import {PipaRollMark} from './PipaRollMark';
+import {InlineClefChange} from './InlineClefChange';
 
 export function createMeasureNotation(measure: MeasureData, clef: Clef, key: string, meter: TimeSignature, octaveShifts: number[] = [], eventClefs: Clef[] = [], clefAnnotation?: string) {
   const [numBeats, beatValue] = meter.split('/').map(Number);
@@ -24,19 +25,15 @@ export function createMeasureNotation(measure: MeasureData, clef: Clef, key: str
       durationOverride: note.measureRest ? new Fraction(numBeats,beatValue) : undefined,
     });
     if (activeClef !== previousClef) {
-      const change = new NoteSubGroup([new ClefNote(activeClef,'small',clefAnnotation)]);
-      // NoteSubGroup reserves only the glyph width by default. Leave breathing
-      // room between an inline clef and the following note/accidental.
+      const change = new InlineClefChange(activeClef,clefAnnotation);
       change.preFormat();
-      change.setWidth(change.getWidth() + 10);
       result.addModifier(change,0);
     }
     previousClef = activeClef;
     for (let dot = 0; dot < note.dots; dot++) Dot.buildAndAttach([result]);
     if (!note.rest && note.technique) {
-      if (note.technique === 'pipa-roll') result.addModifier(new PipaRollMark(),0);
-      if (note.technique === 'pipa-brush') result.addModifier(new Stroke(Stroke.Type.BRUSH_DOWN,{allVoices:false}),0);
-      if (note.technique === 'pipa-arpeggio') result.addModifier(new Stroke(Stroke.Type.ARPEGGIO_DIRECTIONLESS,{allVoices:false}),0);
+      if (note.technique === 'pipa-roll' && (!note.pipaRollGroup ||
+        note.startUnits===note.pipaRollGroup.startUnits)) result.addModifier(new PipaRollMark(),0);
     }
     if(!note.rest && note.articulation) {
       const code={staccato:'a.',tenuto:'a-',accent:'a>'}[note.articulation];

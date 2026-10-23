@@ -1,17 +1,20 @@
-import {Articulation, Modifier, StaveNote, Stem} from 'vexflow';
+import {Articulation, BoundingBox, Modifier, StaveNote, Stem} from 'vexflow';
 
 /** The five separated rays used for a five-finger pipa roll.
  * Reuse articulation spacing; draw paths so the sign works in SVG and PDF
  * without relying on the device's Chinese or music-symbol font fallback.
  */
 export class PipaRollMark extends Articulation {
+  private rollBounds?: BoundingBox;
   constructor() { super('ah'); this.setPosition(Modifier.Position.ABOVE); }
+  getBoundingBox() { return this.rollBounds ?? super.getBoundingBox(); }
   draw() {
     const context = this.checkContext();
     const note = this.checkAttachedNote() as StaveNote;
     const x = note.getModifierStartXY(Modifier.Position.ABOVE,this.checkIndex()).x;
     const top = note.hasStem() && note.getStemDirection() === Stem.UP ? note.getStemExtents().topY : Math.min(...note.getYs());
     const y = Math.min(note.checkStave().getYForTopText(this.textLine),top-17);
+    this.rollBounds = new BoundingBox(x-8,y-8,16,16);
     this.setRendered();
     context.save(); context.setLineWidth(1.4);
     context.beginPath();

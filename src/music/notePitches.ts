@@ -27,7 +27,7 @@ export function forMonophonicAssessment(exercise: ExerciseData): ExerciseData {
   if ((!hasPolyphony(exercise) && !techniques) || (exercise.lowerMeasures && exercise.grandMode !== 'mono')) return exercise;
   const melody = (measures: ExerciseData['measures']) => measures.map(bar => ({...bar,events:bar.events.map(note => {
     if (!note.chord && !note.technique) return note;
-    const single = {...note}; delete single.chord; delete single.technique; return single;
+    const single = {...note}; delete single.chord; delete single.technique; delete single.pipaRollGroup; return single;
   })}));
   // Phrasing addresses remain valid: removing chord/technique metadata never
   // removes rhythmic events, including rests, from either staff.

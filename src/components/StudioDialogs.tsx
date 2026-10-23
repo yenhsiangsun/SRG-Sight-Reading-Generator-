@@ -27,7 +27,7 @@ export function StudioDialog({title,onClose,children}:{title:string;onClose:()=>
   },[]);
   return <dialog ref={ref} className="studio-dialog" aria-labelledby="studio-dialog-title" onCancel={onClose} onClick={e=>{if(e.target===e.currentTarget){const r=e.currentTarget.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)onClose();}}}><header><h2 id="studio-dialog-title">{title}</h2><button aria-label={words(locale,'關閉','Close','閉じる')} onClick={onClose}>×</button></header>{children}</dialog>;
 }
-export function RewardsDialog({progress,onRedeem,onResetPet,onClose,onGrantPreviewPoints,onSelectStage}:{progress:ProgressState;onRedeem:(id:RewardId)=>void;onResetPet:()=>void;onClose:()=>void;onGrantPreviewPoints?:()=>void;onSelectStage?:(pet:ProgressState['activePet'],stage:CompanionStage|null)=>void}){
+export function RewardsDialog({progress,onRedeem,onResetPet,onClose,onGrantPreviewPoints,onSelectStage,onRedeemStage}:{progress:ProgressState;onRedeem:(id:RewardId)=>void;onResetPet:()=>void;onClose:()=>void;onGrantPreviewPoints?:()=>void;onSelectStage?:(pet:ProgressState['activePet'],stage:CompanionStage|null)=>void;onRedeemStage?:(pet:ProgressState['activePet'],stage:CompanionStage)=>void}){
   const {locale}=useI18n();const w=(zh:string,en:string,ja:string)=>words(locale,zh,en,ja);const level=getLevel(progress.xp);
   const previewTools=import.meta.env.DEV&&onGrantPreviewPoints?<p className="reward-help"><button className="secondary-button" onClick={onGrantPreviewPoints}>{w('補滿 10,000 測試星點','Top up to 10,000 test stars','テスト用スターを10,000まで補充')}</button></p>:null;
   const [preview,setPreview]=useState<ProgressState['activePet']>(progress.activePet);
@@ -60,7 +60,7 @@ export function RewardsDialog({progress,onRedeem,onResetPet,onClose,onGrantPrevi
           <button className="secondary-button companion-journal-equip" disabled={previewActive||(!previewOwned&&progress.points<(previewReward?.cost??0))} onClick={()=>preview===null?onResetPet():onRedeem(preview)}>
             {previewActive?w('使用中','Equipped','使用中'):previewOwned?w('套用這個造型','Equip companion','この姿を使う'):`${w('兌換','Unlock','交換')} ${previewReward?.cost} ${w('星點','stars','スター')}`}
           </button>
-          <CompanionDesignPicker pet={preview} progress={progress} onSelectStage={onSelectStage}/>
+          <CompanionDesignPicker key={preview??'original'} pet={preview} progress={progress} onSelectStage={onSelectStage} onRedeemStage={onRedeemStage}/>
         </section>
         <section className="companion-journal-index" aria-label={w('造型預覽','Companion preview','プレビュー')}>
           <div className="companion-journal-index-heading"><span>{w('預覽造型','Preview','プレビュー')}</span><small>{String(REWARDS.length+1).padStart(2,'0')}</small></div>

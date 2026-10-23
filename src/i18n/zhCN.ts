@@ -101,7 +101,7 @@ export const simplifiedChinese: LocaleCatalog = {
     "tipComplete": "这次的投入已经记下来了。休息一下，或挑一句想再练的地方，都很好。",
     "playbackPosition": "乐谱播放位置",
     "cursorMeasure": "小节",
-    "cursorHelp": "点选谱面或拖动蓝色光标，选择播放位置。",
+    "cursorHelp": "点选谱面或拖动播放光标，选择播放位置。",
     "followPlayback": "跟随播放滚动",
     "cursorKeyboardHelp": "可拖动；方向键逐音移动，Home 回到开头，End 到结尾。",
     "recorded": "真实乐器录音",

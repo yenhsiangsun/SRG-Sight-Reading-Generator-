@@ -7,12 +7,14 @@ import {planBreathing,instrumentMotionPenalty} from './instrumentPlayability';
 import {addRareThirtySeconds} from './rareRhythm';
 import {validateGeneratedExercise,reviewExercise} from './exerciseQuality';
 import {settleGrandPhraseRhythm} from './grandPhraseRelease';
+import {addPipaRollRhythm} from './pipaRollRhythm';
 
 /** An explicit, reversible entry point. Legacy composition consumes no new
  * random draws; every new candidate shares one prior form/rhythm/harmony plan. */
 export function composeIntentExercise(options:PracticeOptions,grandMode?:'mono'|'two-hand'):ExerciseData {
   const intent=planMusicalIntent(options);
-  const rhythm=addRareThirtySeconds(planBreathing(intent.rhythm,options.instrumentProfile,intent.phrases),options.rhythmLevel,options.rhythmFocus);
+  const withRollOpportunity=addPipaRollRhythm(intent.rhythm,options,intent.phrases);
+  const rhythm=addRareThirtySeconds(planBreathing(withRollOpportunity,options.instrumentProfile,intent.phrases),options.rhythmLevel,options.rhythmFocus);
   intent.rhythm=rhythm;
   const lower=grandMode==='two-hand'?createGrandAccompanimentRhythmPlan(rhythm.map(b=>b.meter),options.rhythmLevel):undefined;
   let best:ExerciseData|undefined,penalty=Infinity,lastError:unknown;

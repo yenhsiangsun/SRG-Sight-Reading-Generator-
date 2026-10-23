@@ -36,9 +36,9 @@ test('an initial progress read failure preserves the original save after writes 
   const saved=storage(),raw=saved.raw;saved.readError=true;
   const h=hook(saved,true);let current=h.render();
   assert.equal(current.storageWarning,true);assert.equal(current.state.xp,0);assert.equal(saved.writes.length,0);
-  saved.readError=false;current.complete('in-memory');current.grantPreviewPoints();current.addPracticeTime(null,12);
+  saved.readError=false;current.complete('in-memory');current.grantPreviewPoints();current.selectStage(null,'baby');
   current=h.render();
-  assert.equal(current.state.xp,20);assert.equal(current.state.points,10000);assert.equal(current.state.companionGrowth.original.seconds,12);
+  assert.equal(current.state.xp,20);assert.equal(current.state.points,10000);assert.equal(current.state.companionGrowth.original.seconds,0);
   assert.equal(current.storageWarning,true);assert.equal(saved.raw,raw);assert.equal(saved.writes.length,0);h.unmount();
 });
 
@@ -57,9 +57,9 @@ test('read protection stays for this mount; a fresh valid read restores normal p
   assert.equal(current.storageWarning,true);assert.equal(saved.raw,repairedOutside);assert.equal(saved.writes.length,0);h.unmount();
   const fresh=hook(saved);current=fresh.render();
   assert.equal(current.storageWarning,false);assert.equal(current.state.xp,240);assert.equal(current.state.activePet,'pet-orange');
-  current.addPracticeTime('pet-orange',30);current.selectStage('pet-orange','young');current=fresh.render();
+  current.selectStage('pet-orange','young');current.selectStage('pet-orange','young');current=fresh.render();
   const persisted=JSON.parse(saved.raw);
-  assert.equal(current.storageWarning,false);assert.equal(persisted.companionGrowth['pet-orange'].seconds,3630);assert.equal(persisted.companionGrowth['pet-orange'].selectedStage,'young');
+  assert.equal(current.storageWarning,false);assert.equal(persisted.companionGrowth['pet-orange'].seconds,3600);assert.equal(persisted.companionGrowth['pet-orange'].selectedStage,'young');
   assert.equal(persisted.points,75);assert.ok(saved.writes.length>=2);fresh.unmount();
 });
 
@@ -85,8 +85,8 @@ test('ordinary write failure keeps current progress and can retry after quota re
   const saved=storage(),original=saved.raw;saved.writeError=true;
   const h=hook(saved);let current=h.render();assert.equal(current.storageWarning,true);assert.equal(saved.raw,original);
   current.complete('new-score');current=h.render();assert.equal(current.state.xp,260);assert.equal(saved.raw,original);
-  saved.writeError=false;current.addPracticeTime('pet-orange',10);current=h.render();
-  assert.equal(current.storageWarning,false);assert.equal(JSON.parse(saved.raw).xp,260);assert.equal(JSON.parse(saved.raw).companionGrowth['pet-orange'].seconds,3610);h.unmount();
+  saved.writeError=false;current.selectStage('pet-orange','young');current=h.render();
+  assert.equal(current.storageWarning,false);assert.equal(JSON.parse(saved.raw).xp,260);assert.equal(JSON.parse(saved.raw).companionGrowth['pet-orange'].seconds,3600);h.unmount();
 });
 
 test('later valid external progress is preserved while new progress stays in memory',()=>{
@@ -95,8 +95,8 @@ test('later valid external progress is preserved while new progress stays in mem
   current.complete('temporary-score');current=h.render();
   assert.equal(saved.raw,external);assert.equal(current.state.xp,260);assert.ok(current.state.completedSessions.includes('temporary-score'));
   assert.equal(current.storageWarning,true);assert.equal(current.storageConflict,true);
-  current.addPracticeTime('pet-orange',5);current=h.render();
-  assert.equal(saved.raw,external);assert.equal(current.state.companionGrowth['pet-orange'].seconds,3605);assert.equal(current.storageConflict,true);h.unmount();
+  current.selectStage('pet-orange','young');current=h.render();
+  assert.equal(saved.raw,external);assert.equal(current.state.companionGrowth['pet-orange'].seconds,3600);assert.equal(current.storageConflict,true);h.unmount();
 });
 
 test('external malformed, future, deleted or differently formatted raw is never silently replaced',()=>{
@@ -120,17 +120,17 @@ test('a transient read failure before writing preserves raw and retries on a lat
   const saved=storage(),h=hook(saved);let current=h.render();const original=saved.raw;
   saved.readError=true;current.complete('pending-score');current=h.render();
   assert.equal(saved.raw,original);assert.equal(current.state.xp,260);assert.equal(current.storageWarning,true);assert.equal(current.storageConflict,false);
-  saved.readError=false;current.addPracticeTime('pet-orange',10);current=h.render();
-  assert.equal(current.storageWarning,false);assert.equal(current.storageConflict,false);assert.equal(JSON.parse(saved.raw).xp,260);assert.equal(JSON.parse(saved.raw).companionGrowth['pet-orange'].seconds,3610);h.unmount();
+  saved.readError=false;current.selectStage('pet-orange','young');current=h.render();
+  assert.equal(current.storageWarning,false);assert.equal(current.storageConflict,false);assert.equal(JSON.parse(saved.raw).xp,260);assert.equal(JSON.parse(saved.raw).companionGrowth['pet-orange'].seconds,3600);h.unmount();
 });
 
 test('restoring the exact expected raw permits retry; a fresh mount instead adopts external data',()=>{
   const saved=storage(),h=hook(saved);let current=h.render();const expected=saved.raw;
   const external=JSON.stringify({...savedProgress(),xp:900,completedSessions:['external-score']});saved.raw=external;
   current.complete('temporary-score');current=h.render();assert.equal(saved.raw,external);assert.equal(current.storageConflict,true);
-  saved.raw=expected;current.addPracticeTime('pet-orange',5);current=h.render();
+  saved.raw=expected;current.selectStage('pet-orange','young');current=h.render();
   assert.equal(current.storageWarning,false);assert.equal(current.storageConflict,false);assert.equal(JSON.parse(saved.raw).xp,260);
-  saved.raw=external;current.addPracticeTime('pet-orange',5);current=h.render();assert.equal(current.storageConflict,true);h.unmount();
+  saved.raw=external;current.selectStage('pet-orange','baby');current=h.render();assert.equal(current.storageConflict,true);h.unmount();
   const fresh=hook(saved);current=fresh.render();
   assert.equal(current.state.xp,900);assert.deepEqual(Array.from(current.state.completedSessions),['external-score']);assert.equal(current.storageWarning,false);assert.equal(current.storageConflict,false);fresh.unmount();
 });
@@ -138,10 +138,10 @@ test('restoring the exact expected raw permits retry; a fresh mount instead adop
 test('successful own writes advance the expected raw across completions, growth and stage selection',()=>{
   const saved=storage(),h=hook(saved);let current=h.render();
   current.complete('first-score');current=h.render();current.complete('second-score');current=h.render();
-  current.addPracticeTime('pet-orange',10);current.selectStage('pet-orange','young');current=h.render();
+  current.selectStage('pet-orange','young');current.selectStage('pet-orange','young');current=h.render();
   const persisted=JSON.parse(saved.raw);
   assert.equal(persisted.xp,280);assert.equal(persisted.points,95);assert.deepEqual(persisted.completedSessions,['kept-session','first-score','second-score']);
-  assert.deepEqual(persisted.companionGrowth['pet-orange'],{seconds:3610,selectedStage:'young'});assert.equal(current.storageWarning,false);h.unmount();
+  assert.deepEqual(persisted.companionGrowth['pet-orange'],{seconds:3600,unlockedStage:'young',selectedStage:'young'});assert.equal(current.storageWarning,false);h.unmount();
 });
 
 test('calendar rollover preserves progress and permits the next day to be saved',()=>{
@@ -165,4 +165,27 @@ test('unmount cancels a queued write and preview-only actions remain gated',()=>
   assert.equal(saved.raw,raw);assert.equal(saved.writes.length,0);
   const preview=hook(saved,true);let next=preview.render();next.grantPreviewPoints();next=preview.render();
   assert.equal(next.state.points,10000);assert.equal(JSON.parse(saved.raw).points,10000);preview.unmount();
+});
+
+test('stage redemption persists wallet deduction and unlocked form together, and reload cannot charge again',()=>{
+ const baseline={...savedProgress(),points:500,companionGrowth:{'pet-orange':{seconds:0,selectedStage:null}}};
+ const saved=storage(JSON.stringify(baseline)),h=hook(saved);let current=h.render();
+ current.redeemStage('pet-orange','young');current.redeemStage('pet-orange','young');current=h.render();
+ let persisted=JSON.parse(saved.raw);assert.equal(persisted.points,400);assert.equal(persisted.companionGrowth['pet-orange'].unlockedStage,'young');
+ current.redeemStage('pet-orange','adult');current=h.render();persisted=JSON.parse(saved.raw);
+ assert.equal(persisted.points,0);assert.equal(persisted.companionGrowth['pet-orange'].unlockedStage,'adult');assert.equal(persisted.xp,240);
+ h.unmount();const fresh=hook(saved);current=fresh.render();current.redeemStage('pet-orange','adult');current.selectStage('pet-orange','baby');current=fresh.render();
+ assert.equal(current.state.points,0);assert.equal(current.state.companionGrowth['pet-orange'].selectedStage,'baby');assert.equal(current.state.companionGrowth['pet-orange'].unlockedStage,'adult');fresh.unmount();
+});
+
+test('a failed or conflicting redemption write preserves the saved wallet and reports the unsaved in-memory form',()=>{
+ for(const conflict of [false,true]){
+  const saved=storage(JSON.stringify({...savedProgress(),points:500,companionGrowth:{}})),h=hook(saved);let current=h.render();
+  const prior=saved.raw;if(conflict)saved.raw=JSON.stringify({...savedProgress(),points:900});else saved.writeError=true;
+  const protectedRaw=saved.raw;current.redeemStage('pet-orange','young');current=h.render();
+  assert.equal(current.state.points,400);assert.equal(current.state.companionGrowth['pet-orange'].unlockedStage,'young');
+  assert.equal(saved.raw,protectedRaw);assert.equal(current.storageWarning,true);assert.equal(current.storageConflict,conflict);
+  if(!conflict){saved.writeError=false;current.selectStage('pet-orange','baby');current=h.render();assert.equal(JSON.parse(saved.raw).points,400);assert.equal(current.storageWarning,false);}
+  assert.ok(prior);h.unmount();
+ }
 });

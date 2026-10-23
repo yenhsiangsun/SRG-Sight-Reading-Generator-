@@ -4,6 +4,13 @@
   --studio-ink: var(--theme-page-text);
   --studio-muted: var(--theme-page-muted);
   --studio-rule: var(--theme-line);
+  --theme-border: var(--theme-line);
+  --folio-paper: var(--theme-surface);
+  --folio-ground: var(--theme-background);
+  --folio-ink: var(--theme-text);
+  --folio-green: var(--theme-primary);
+  --folio-gold: var(--theme-primary);
+  --folio-line: var(--theme-line);
   background: var(--theme-background);
   color: var(--theme-page-text);
 }

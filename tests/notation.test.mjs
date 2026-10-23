@@ -14,6 +14,35 @@ const engine=loadModule('src/music.ts',812);
 const {createMeasureNotation}=loadModule('src/notation/createMeasureNotation.ts',1,undefined,{'vexflow':VF});
 const options={instrument:'Sheng',clef:'treble',difficulty:'advanced',keySignature:'C',timeSignature:'4/4',rhythmLevel:'complex',measures:8,tempo:72,range:{min:48,max:84},allowAccidentals:true,mixedMeters:true,meters:['3/4','4/4','6/8','7/8']};
 
+test('pipa legacy sweeps no longer print strokes while an interior finger roll and original chord notes remain',()=>{
+  const {midiFromKey}=loadModule('src/music/notePitches.ts');
+  const pitch=key=>({key,midi:midiFromKey(key),octave:+key.split('/')[1]});
+  const measure=bar(['c/4','a/4','c/4','g/4']);
+  for(const [index,technique]of [[0,'pipa-brush'],[2,'pipa-arpeggio']]){
+    measure.events[index].technique=technique;
+    measure.events[index].chord=['e/3','g/3','c/4'].map(pitch);
+  }
+  measure.events[1].technique='pipa-roll';
+  const notation=createMeasureNotation(measure,'treble','C','4/4');
+  assert.ok(notation.voice.isComplete());
+  assert.ok(notation.notes.every(n=>n.getModifiers().every(m=>m.getCategory()!==VF.Stroke.CATEGORY)));
+  assert.ok(notation.notes[1].getModifiers().some(m=>m.getCategory()===VF.Articulation.CATEGORY));
+  for(const index of [0,2])assert.deepEqual(notation.notes[index].getKeys(),['e/3','g/3','c/4']);
+});
+
+test('continuous pipa rolls mark only the opening note while the range covers the remaining notes without changing ticks',()=>{
+  const measure=bar(['a/3','e/4','c/4','c/4']);
+  measure.events=[...measure.events.slice(0,2),
+    {...measure.events[0],startUnits:8,duration:'16',durationUnits:1,technique:'pipa-roll',pipaRollGroup:{startUnits:8,endUnits:16}},
+    {...measure.events[1],startUnits:9,duration:'8',dots:1,durationUnits:3,technique:'pipa-roll',pipaRollGroup:{startUnits:8,endUnits:16}},
+    {...measure.events[2],startUnits:12,technique:'pipa-roll',pipaRollGroup:{startUnits:8,endUnits:16}}];
+  const notation=createMeasureNotation(measure,'treble','C','4/4');
+  assert.ok(notation.voice.isComplete());
+  const marked=notation.notes.map((n,i)=>n.getModifiers().some(m=>m.getCategory()===VF.Articulation.CATEGORY)?i:null).filter(i=>i!==null);
+  assert.deepEqual(marked,[2],'only the opening note gets a sign; the range continues through the last beat');
+  assert.equal(notation.notes.length,5);
+});
+
 test('chords are a single strict rhythmic event with every notehead and accidental present',()=>{
   const {midiFromKey}=loadModule('src/music/notePitches.ts');
   const chord=keys=>keys.map(key=>({key,octave:+key.split('/')[1],midi:midiFromKey(key)}));

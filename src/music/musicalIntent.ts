@@ -4,6 +4,9 @@ import type {PhraseSpan} from './phrasePlan';
 import type {HarmonyBar} from './phraseHarmony';
 import type {RhythmBarPlan} from './phraseRhythm';
 import {pulseGroups} from './meterFeel';
+import {intentRhythmCell} from './intentRhythmGrade';
+import {planIntentOpening,openingMotif,openingAnchor,validIntentOpening,type IntentOpening} from './intentOpening';
+import {addRhythmUnits} from './rhythmTiming';
 
 export const COMPOSITION_STYLES=['auto','classical','lyrical','pentatonic','legacy'] as const;
 export type CompositionStyle=typeof COMPOSITION_STYLES[number];
@@ -22,6 +25,7 @@ export interface MusicalIntent {
   phrases:IntentPhrase[];
   harmony:HarmonyBar[];
   rhythm:RhythmBarPlan[];
+  opening?:IntentOpening;
 }
 const mod=(n:number,m=12)=>(n%m+m)%m;
 
@@ -82,59 +86,50 @@ function written(units:number):{duration:VexDuration;dots:number} {
   return {duration:units===.5?'32':'16',dots:0};
 }
 /** Rhythmic syntax depends on grammar and the phrase's job, never pitch grade. */
-function intentRhythm(o:PracticeOptions,grammar:MusicalGrammar,phrases:IntentPhrase[],variant:number):RhythmBarPlan[] {
+function intentRhythm(o:PracticeOptions,grammar:MusicalGrammar,phrases:IntentPhrase[],variant:number,opening?:IntentOpening):RhythmBarPlan[] {
   const info=TIME_SIGNATURES[o.timeSignature],groups=pulseGroups({timeSignature:o.timeSignature,groups:[]}),compound=info.denominator===8;
+  const totalUnits=info.numerator*16/info.denominator;
   return Array.from({length:o.measures},(_,bar)=>{
     const phrase=phrases.find(p=>bar>=p.startBar&&bar<=p.endBar)!,local=bar-phrase.startBar;
     const length=phrase.endBar-phrase.startBar+1,response=phrase.startBar>0;
     const landing=bar===phrase.endBar,final=bar===o.measures-1;
+    const sentence=grammar==='classical'&&length>=6;
+    const reprise=sentence&&local===length-2;
+    const motiveLocal=sentence&&local>=2&&local<4?local-2:reprise?0:local;
+    const developing=grammar==='classical'?local>=Math.ceil(length/2)&&!landing&&!reprise:
+      local===Math.floor(length*phrase.peak)||local===Math.floor(length*phrase.peak)-1;
     let position=0;
     const cells=groups.map((pulse,g)=>{
       const ending=landing&&g===groups.length-1;
-      if(ending)return [pulse];
-      // A two-bar presentation develops into a continuation. Do not rotate
-      // the same four cells every other bar in every musical grammar.
-      const sentence=grammar==='classical'&&length>=6;
-      const reprise=sentence&&local===length-2;
-      // A sentence presents the same two-bar rhythm twice with developing
-      // pitches, then fragments it, recalls its opening and finally settles.
-      const motiveLocal=sentence&&local>=2&&local<4?local-2:reprise?0:local;
-      const code=(variant+motiveLocal+g+(response?1:0))%4;
-      if(o.rhythmLevel==='simple') {
-        const active=grammar==='lyrical'?local===Math.floor(length*phrase.peak):
-          grammar==='pentatonic'?local%2===(response?1:0):local===1||local===length-2;
-        return active&&g===(variant+local)%groups.length?[2,pulse-2]:[pulse];
+      if(ending){
+        if(!final&&o.rhythmLevel==='complex'&&pulse===6)return [1,1,2,2];
+        return !final&&o.rhythmLevel!=='simple'&&pulse===4&&totalUnits<16?[2,2]:[pulse];
       }
-      if(grammar==='lyrical'){
-        const peak=Math.floor(length*phrase.peak),moving=local===peak||local===peak-1&&g===groups.length-1;
-        if(!moving)return g===groups.length-1&&local%2===1?(pulse===6?[4,2]:[2,2]):[pulse];
-        if(pulse===6)return o.rhythmLevel==='complex'&&code===2?[2,1,1,2]:code%2?[4,2]:[2,2,2];
-        return o.rhythmLevel==='complex'&&code===2?[1,1,1,1]:code%2?[3,1]:[2,2];
+      // The figure follows the motive on its return. The selected tier supplies
+      // its vocabulary throughout the phrase, including lyrical and modal calls.
+      if(o.rhythmLevel!=='simple'){
+        const figure=variant*2+motiveLocal+g*(grammar==='lyrical'?2:grammar==='pentatonic'?3:1)+
+          (grammar==='pentatonic'?2:0)+(response?3:0);
+        return intentRhythmCell(pulse,o.rhythmLevel,figure,developing);
       }
-      if(grammar==='pentatonic'){
-        // A call leaves a held pulse; the reply moves that space and gathers
-        // energy. The same contour can be heard with a different pulse role.
-        const moving=g===(local+(response?1:0))%groups.length;
-        if(!moving)return [pulse];
-        if(pulse===6)return o.rhythmLevel==='complex'&&local>0?[2,1,1,2]:code%2?[2,2,2]:[2,4];
-        return o.rhythmLevel==='complex'&&local>0?[1,1,2]:code%2?[2,2]:[3,1];
-      }
-      const continuing=local>=Math.ceil(length/2)&&!landing&&!reprise;
-      if(pulse===6)return continuing&&o.rhythmLevel==='complex'?[2,1,1,2]:code===0?[6]:code===1?[4,2]:[2,2,2];
-      if(continuing)return o.rhythmLevel==='complex'?(code%2?[1,1,2]:[1,1,1,1]):code%2?[3,1]:[2,2];
-      return code===0?[4]:code===1?[3,1]:[2,2];
+      // Beginner phrases keep the existing longer tones and small vocabulary.
+      const active=grammar==='lyrical'?local===Math.floor(length*phrase.peak):
+        grammar==='pentatonic'?local%2===(response?1:0):local===1||local===length-2;
+      return active&&g===(variant+local)%groups.length?[2,pulse-2]:[pulse];
     });
     // A singing line has sustained spans, while the answer's cadence broadens.
     if(!compound&&groups.length>=2&&groups[0]===4&&groups[1]===4&&
-      ((grammar==='lyrical'&&local%2===0)||(landing&&o.rhythmLevel==='simple')||final))cells.splice(0,2,[8]);
+      ((grammar==='lyrical'&&local%2===0&&o.rhythmLevel!=='complex')||(landing&&o.rhythmLevel==='simple')||final&&o.rhythmLevel!=='complex'))cells.splice(0,2,[8]);
     // Each grammar arrives in its own way. A universal q-q-half ending used
     // to erase the distinction again at the most memorable part of the song.
     if(final&&o.timeSignature==='4/4'){
-      const closing=grammar==='lyrical'?[[4],[12]]:grammar==='pentatonic'?[[8],[8]]:
-        o.rhythmLevel==='simple'?[[4],[4],[8]]:o.rhythmLevel==='complex'?[[1,1,2],[4],[8]]:[[2,2],[4],[8]];
+      const closing=o.rhythmLevel==='complex'?
+        grammar==='lyrical'?[[3,1],[1,1,2],[8]]:grammar==='pentatonic'?[[1,2,1],[2,2],[8]]:[[1,1,2],[2,1,1],[8]]:
+        grammar==='lyrical'?[[4],[12]]:grammar==='pentatonic'?[[8],[8]]:
+        o.rhythmLevel==='simple'?[[4],[4],[8]]:[[2,2],[4],[8]];
       cells.splice(0,cells.length,...closing);
     }
-    if(final&&grammar==='lyrical'&&o.timeSignature==='6/8')cells.splice(0,cells.length,[12]);
+    if(final&&grammar==='lyrical'&&o.timeSignature==='6/8'&&o.rhythmLevel!=='complex')cells.splice(0,cells.length,[12]);
     // One complete triplet gesture can decorate a quarter-pulse phrase. In
     // compound meter its three eighths are already the natural pulse, not 3:2.
     const tripletColor=o.rhythmLevel==='complex'?variant!==0:o.rhythmLevel==='medium'?variant>=2:variant===3;
@@ -142,14 +137,49 @@ function intentRhythm(o:PracticeOptions,grammar:MusicalGrammar,phrases:IntentPhr
       const pulse=cells.findIndex((cell,index)=>index<cells.length-1&&cell.reduce((s,n)=>s+n,0)===4);
       if(pulse>=0)cells[pulse]=[4/3,4/3,4/3];
     }
+    // Vary the order and internal direction of the existing pulse cells. Their
+    // inventory stays intact, preserving grade separation and the increase
+    // in activity during a continuation. Unequal pulses never trade places.
+    if(opening&&motiveLocal<2&&!landing){
+      const sums=cells.map(cell=>cell.reduce((sum,n)=>sum+n,0));
+      for(const units of new Set(sums)){
+        const indices=sums.flatMap((sum,index)=>Math.abs(sum-units)<1e-7?[index]:[]);
+        const originals=indices.map(index=>[...cells[index]]);
+        for(const [n,index]of indices.entries()){
+          const cell=originals[(n+opening.rhythm)%indices.length];
+          cells[index]=opening.rhythm%2?[...cell].reverse():cell;
+        }
+      }
+      if(o.rhythmLevel==='simple'&&!compound&&opening.rhythm%3!==0){
+        const start=opening.rhythm%2?0:cells.length-2;
+        if(start>=0&&[cells[start],cells[start+1]].every(cell=>cell?.reduce((sum,n)=>sum+n,0)===4))cells.splice(start,2,[8]);
+      }
+    }
     const flat=cells.flat();
+    const restLimit=o.rhythmLevel==='simple'?4:Math.min(4,totalUnits/4);
+    const cadenceRest=!final&&landing&&grammar!=='lyrical'&&flat.at(-1)!<=restLimit?flat.at(-1)!:0;
+    const gapBudget=Math.max(0,Math.min(2,totalUnits/4-cadenceRest));
+    let shortRestUnits=0,previousRest=false;
     const notes=flat.map((units,index)=>{
-      const startUnits=position;position+=units;
-      const rest=!final&&landing&&index===flat.length-1&&units<=4&&grammar!=='lyrical';
+      const startUnits=position;position=addRhythmUnits(position,units);
+      // Brief gaps inside a figure practise re-entry. They follow the same
+      // motive on a return, never replace a tuplet or the opening downbeat,
+      // and never erase consecutive notes or more than two sixteenths a bar.
+      const gap=o.rhythmLevel==='complex'&&!final&&units===1&&index>0&&!previousRest&&shortRestUnits+units<=gapBudget&&
+        !(compound&&startUnits%6===0)&&
+        (variant+motiveLocal+index)%7===3;
+      const rest=gap||!final&&landing&&index===flat.length-1&&cadenceRest>0;
+      if(gap)shortRestUnits+=units;
+      previousRest=rest;
       return {...written(units),units,startUnits,rest,...(units===4/3?{tuplet:3 as const}:{})};
     });
+    // An occasional short delayed melody entrance keeps the written bar and
+    // pulse intact. The accompanying hand can still establish the downbeat.
+    if(opening?.weak&&motiveLocal===0&&!landing&&notes.length>2&&notes[0].units<=2&&!notes[1].rest&&
+      notes[0].units+notes.reduce((sum,n)=>sum+(n.rest?n.units:0),0)<=totalUnits/4)notes[0].rest=true;
     // Leave space at the start of an occasional modal answer, never the whole bar.
-    if(grammar==='pentatonic'&&phrase.gesture==='answer'&&local===0&&notes.length>2&&notes[0].units<=2)notes[0].rest=true;
+    if(grammar==='pentatonic'&&phrase.gesture==='answer'&&local===0&&notes.length>2&&notes[0].units<=2&&
+      (o.rhythmLevel==='simple'||!notes[1].rest&&notes[0].units+notes.reduce((s,n)=>s+(n.rest?n.units:0),0)<=totalUnits/4))notes[0].rest=true;
     return {meter:o.timeSignature,notes};
   });
 }
@@ -160,9 +190,7 @@ export function planMusicalIntent(o:PracticeOptions,random:()=>number=Math.rando
   const grammar:MusicalGrammar=pent?'pentatonic':o.compositionStyle==='lyrical'?'lyrical':
     o.compositionStyle==='classical'?'classical':random()<.5?'classical':'lyrical';
   const variant=Math.floor(random()*4),direction=random()<.5?1:-1;
-  const cells:Record<MusicalGrammar,number[][]>={classical:[[0,1,2,1,3],[0,2,1,0,-1],[0,0,1,3,2]],
-    lyrical:[[0,1,3,2,1],[0,2,3,1,0],[0,-1,1,2,1]],pentatonic:[[0,1,0,2],[0,2,1,0],[0,0,1,-1]]};
-  const motif=cells[grammar][Math.floor(random()*3)].map(n=>n*direction);
+  const opening=planIntentOpening(tonality,random(),variant),motif=openingMotif(grammar,opening,direction);
   let start=0;
   const lengths=partition(o.measures,grammar,variant);
   const phrases:IntentPhrase[]=lengths.map((length,index)=>{
@@ -173,7 +201,7 @@ export function planMusicalIntent(o:PracticeOptions,random:()=>number=Math.rando
         grammar==='classical'?(length>=6?.62:.5):grammar==='lyrical'?(last?.45:.68):index===0?.4:.6};
     start=end+1;return p;
   });
-  return {version:1,grammar,motif,variant,phrases,harmony:harmonyFor(tonality,phrases,grammar,variant),rhythm:intentRhythm(o,grammar,phrases,variant)};
+  return {version:1,grammar,motif,variant,opening,phrases,harmony:harmonyFor(tonality,phrases,grammar,variant),rhythm:intentRhythm(o,grammar,phrases,variant,opening)};
 }
 
 /** Realize the prewritten intention on actual onset time, with the existing
@@ -187,6 +215,8 @@ export function intentPitchTargets(measures:MeasureData[],pitches:ScalePitch[],t
   const center=['Piano','Yangqin'].includes(instrument??'')?Math.max(pitches[0].midi,Math.min(pitches.at(-1)!.midi,72)):midpoint;
   const tonic=pitches.filter(p=>p.midi%12===root).sort((a,b)=>Math.abs(a.midi-center)-Math.abs(b.midi-center))[0]??pitches[Math.floor(pitches.length/2)];
   const tonicIndex=pitches.indexOf(tonic),band={beginner:3,intermediate:5,advanced:7}[difficulty];
+  const entry=intent.opening?openingAnchor(pitches,root,tonic.midi,difficulty,intent.opening,intent.motif):tonicIndex;
+  const polarity=intent.opening?Math.sign(intent.motif.find(n=>n!==0)??1):1;
   const slots=measures.flatMap((m,bar)=>m.events.filter(n=>!n.rest).map(n=>({n,bar})));
   const nearest=(index:number)=>pitches[Math.max(0,Math.min(pitches.length-1,index))].midi;
   const cellAt=(cell:number[],fraction:number)=>{
@@ -206,9 +236,10 @@ export function intentPitchTargets(measures:MeasureData[],pitches:ScalePitch[],t
     const returning=intent.grammar==='classical'&&length>=6&&cycle===Math.ceil(length/2)-1;
     const cell=cycle===0||returning?intent.motif:intent.motif.slice(-3);
     let offset=cellAt(cell,fraction);
-    if(intent.grammar==='classical')offset=(answer?-offset*.65:offset)+phase*band*.65+(cycle&&!returning?phase:0);
-    else if(intent.grammar==='lyrical')offset=phase*band+cellAt(intent.motif,local)*.5;
-    else offset=(answer?-offset:offset)+(pIndex%2?2:0)+phase*band*.35;
+    if(intent.grammar==='classical')offset=(answer?-offset*.65:offset)+phase*band*(intent.opening?.3*polarity:.65)+(cycle&&!returning?phase:0);
+    else if(intent.grammar==='lyrical')offset=phase*band*(intent.opening?.55*polarity:1)+cellAt(intent.motif,local)*.5;
+    else offset=(answer?-offset:offset)+(pIndex%2?2:0)+phase*band*.35*polarity;
+    if(intent.opening)offset+=(entry-tonicIndex)*(1-local)*(answer?.6:1);
     offset=Math.round(offset);
     // Advanced development uses turn/neighbor decoration; not compulsory octave leaps.
     if(difficulty!=='beginner'&&n.durationUnits<=2&&index%4===1)offset+=difficulty==='advanced'?2:1;
@@ -228,6 +259,22 @@ export function intentPitchTargets(measures:MeasureData[],pitches:ScalePitch[],t
     if(intent.grammar==='lyrical'&&previous?.weight===14&&previous.midi!==undefined){
       const r=pitches.findIndex(p=>p.midi===previous.midi)-1;
       if(r>=0)targets[index]={index,midi:pitches[r].midi,weight:16};
+    }
+  }
+  // Present a short recognizable nucleus on actual attacks. The later answer
+  // recalls/inverts that nucleus; the preplanned line develops its tail. This
+  // also lets a busy opening turn within its first few sounds instead of
+  // rounding several sixteenths to the same tonic on a slow two-bar ramp.
+  if(intent.opening)for(const phrase of intent.phrases){
+    const members=slots.flatMap((slot,index)=>slot.bar>=phrase.startBar&&slot.bar<=Math.min(phrase.startBar+1,phrase.endBar)?[index]:[]);
+    const count=Math.min(intent.motif.length,members.length-2);
+    if(count<2)continue;
+    const answer=phrase.gesture==='answer',shape=phrase.gesture==='extend'?intent.motif.slice(-3):intent.motif;
+    const anchor=openingAnchor(pitches,root,tonic.midi,difficulty,intent.opening,shape,answer);
+    for(let n=0;n<Math.min(count,shape.length);n++){
+      const index=members[n],degree=anchor+(answer?-shape[n]:shape[n]);
+      if(degree<0||degree>=pitches.length)continue;
+      targets[index]={index,midi:pitches[degree].midi,weight:n===0?12:8};
     }
   }
   // Reserve an actual approach and landing after expressive decorations. The
@@ -261,6 +308,7 @@ export function validMusicalIntent(value:unknown,bars:number):value is MusicalIn
   if(value===undefined)return true;
   if(!value||typeof value!=='object'||Array.isArray(value))return false;
   const v=value as Record<string,unknown>;
+  if(!validIntentOpening(v.opening))return false;
   if(v.version!==1||!['classical','lyrical','pentatonic'].includes(String(v.grammar))||
     !Number.isInteger(v.variant)||Number(v.variant)<0||Number(v.variant)>3||
     !Array.isArray(v.motif)||v.motif.length<2||v.motif.length>8||!v.motif.every(n=>Number.isInteger(n)&&Math.abs(n)<=8)||

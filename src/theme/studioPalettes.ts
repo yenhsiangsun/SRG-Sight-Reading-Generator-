@@ -15,5 +15,6 @@ export function isStudioPaletteId(value:unknown):value is StudioPaletteId {
   return typeof value==='string'&&Object.hasOwn(STUDIO_PALETTES,value);
 }
 export function studioPaletteStyle(id:StudioPaletteId):CSSProperties {
-  return themeStyleFromState(STUDIO_PALETTES[id]);
+  const palette=STUDIO_PALETTES[id];
+  return themeStyleFromState({...palette,accent:palette.primary});
 }

@@ -3,7 +3,7 @@
 @font-face{font-family:'Tonecraft Home Pen';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/home-pen-v1/home-pen.woff2') format('woff2')}
 @font-face{font-family:'Tonecraft Home Mincho';font-style:normal;font-weight:800;font-display:swap;src:url('/fonts/home-mincho-v1/home-title-800.woff2') format('woff2')}
 .app.app.studio-app.forest-studio[data-design="atelier"][data-page="home"] #main .manuscript-opening-copy{min-width:0;text-align:center}
-.app.app.studio-app.forest-studio[data-design="atelier"][data-page="home"] #main .manuscript-opening-kicker{display:block;font-family:var(--studio-ui-font);font-size:11px;font-weight:400;line-height:1.8;letter-spacing:.14em;color:#6a775f}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page="home"] #main .manuscript-opening-kicker{display:block;font-family:var(--studio-ui-font);font-size:11px;font-weight:400;line-height:1.8;letter-spacing:.14em;color:var(--theme-muted)}
 .app.app.studio-app.forest-studio[data-design="atelier"][data-page="home"] #main .manuscript-opening h1{line-height:1.3;margin:22px 0 26px}
 .app.app.studio-app.forest-studio[data-design="atelier"][data-page="home"] #main .manuscript-opening h1>span{display:block}
 .app.app.studio-app.forest-studio[data-design="atelier"][data-page="home"] #main .manuscript-opening h1>span:first-child{font-size:.76em;font-weight:500;margin-bottom:.12em}
@@ -25,7 +25,7 @@
 .app.app.studio-app.forest-studio[data-design="atelier"][data-page="home"] #main .manuscript-opening-copy[data-home-type="book"] h1>span{display:inline}
 .app.app.studio-app.forest-studio[data-design="atelier"][data-page="home"] #main .manuscript-opening-copy[data-home-type="book"] h1>span:first-child{font-size:1em;font-weight:800;margin:0}
 .app.app.studio-app.forest-studio[data-design="atelier"][data-page="home"] #main .manuscript-opening-copy[data-home-type="book"] :is(.manuscript-opening-kicker,.manuscript-opening-prose){font-family:var(--studio-heading-font);font-weight:400;font-synthesis:none}
-.app.app.studio-app.forest-studio[data-design="atelier"][data-page="home"] #main .manuscript-opening-copy[data-home-type="book"] .manuscript-opening-prose{font-size:16px;line-height:2.15;letter-spacing:.07em;color:#53634e}
+.app.app.studio-app.forest-studio[data-design="atelier"][data-page="home"] #main .manuscript-opening-copy[data-home-type="book"] .manuscript-opening-prose{font-size:16px;line-height:2.15;letter-spacing:.07em;color:var(--theme-muted)}
 .app.app.studio-app.forest-studio[data-design="atelier"][data-page="home"] #main .manuscript-opening-copy[data-home-type="book"]>.studio-cta{max-width:300px}
 @media(max-width:700px){
  .app.app.studio-app.forest-studio[data-design="atelier"][data-page="home"] #main .manuscript-opening-copy[data-home-type="book"] h1{font-size:34px;letter-spacing:.06em}

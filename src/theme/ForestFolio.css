@@ -1,133 +1,133 @@
 /* Forest Folio: one fixed visual system. Engraved SVGs retain their own fonts,
    white paper, dimensions and contrast. No filters or textures cover notation. */
 .app.app.studio-app.folio-edition[data-design="atelier"][data-page] {
-  --folio-paper:#fffdf7;--folio-ground:#f5f2e9;--folio-ink:#263d33;
-  --folio-green:#244b3e;--folio-line:#d8d9c9;--folio-gold:#a67d42;
+  --folio-paper:var(--theme-surface);--folio-ground:var(--theme-background);--folio-ink:var(--theme-text);
+  --folio-green:var(--theme-primary);--folio-line:var(--theme-line);--folio-gold:var(--theme-primary);
   --studio-heading-font:'Tonecraft Serif','Noto Serif TC','Songti TC',serif;
   color:var(--folio-ink);background:var(--folio-ground);
-  background-image:radial-gradient(ellipse at 12% 0%,#e3e6d74d,transparent 58%);
+  background-image:radial-gradient(ellipse at 12% 0%,var(--theme-soft),transparent 58%);
 }
 .app.studio-app.folio-edition[data-design="atelier"][data-page] :where(button,input,select,summary){font-family:inherit}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] :where(button,a,input,select,summary):focus-visible{outline:3px solid #42715f;outline-offset:4px}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] :where(button,a,input,select,summary):focus-visible{outline:3px solid var(--theme-primary);outline-offset:4px}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] :where(h1,h2,h3){font-family:var(--studio-heading-font);font-weight:600;letter-spacing:.055em}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .header{padding:0;background:#f5f2e9ed;border-bottom:1px solid var(--folio-line);box-shadow:none;backdrop-filter:blur(12px)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .header{padding:0;background:var(--theme-soft);border-bottom:1px solid var(--folio-line);box-shadow:none;backdrop-filter:blur(12px)}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .header-content{max-width:1440px;padding:15px 42px;gap:28px}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .brand{color:var(--folio-ink);font-family:var(--studio-heading-font);font-size:23px;letter-spacing:.14em}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .brand-mark{background:transparent;border:1px solid #a8b5a3;border-radius:50%;width:42px;height:42px;color:var(--folio-green)}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .brand-subtitle{font-family:Georgia,serif;font-size:9px;letter-spacing:.23em;margin-top:3px;color:#5c6c5c}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .brand-mark{background:transparent;border:1px solid var(--theme-line);border-radius:50%;width:42px;height:42px;color:var(--folio-green)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .brand-subtitle{font-family:Georgia,serif;font-size:9px;letter-spacing:.23em;margin-top:3px;color:var(--theme-muted)}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .studio-nav{gap:24px}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .studio-nav button{font-size:12px;letter-spacing:.035em;color:#53624f}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .studio-nav button{font-size:12px;letter-spacing:.035em;color:var(--theme-muted)}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .studio-nav button[aria-current=page]{color:var(--folio-green);text-decoration:underline;text-underline-offset:8px;text-decoration-thickness:1px}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .header-tools{border-left:1px solid var(--folio-line);padding-left:20px;gap:12px}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .layout-trigger{border:0;background:transparent;padding:10px 2px;font-size:11px}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .language-switcher{font-size:11px}
-.folio-eyebrow{display:block;font-size:10px;letter-spacing:.17em;font-weight:600;line-height:1.8;color:#66725e}
+.folio-eyebrow{display:block;font-size:10px;letter-spacing:.17em;font-weight:600;line-height:1.8;color:var(--theme-muted)}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .studio-home{max-width:1360px;margin:0 auto;padding:30px 42px 48px}
 .folio-home-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:20px}
-.folio-home-heading .home-date{font-size:11px;color:#6c7462;letter-spacing:.035em}
+.folio-home-heading .home-date{font-size:11px;color:var(--theme-muted);letter-spacing:.035em}
 .folio-cover{position:relative;display:grid;grid-template-columns:38% 62%;min-height:540px;isolation:isolate;
-  border:1px solid #ccd2bd;box-shadow:0 18px 40px -28px #293c33a3,3px 3px 0 #e7e5d9,4px 4px 0 #d2d4c4;background:var(--folio-paper)}
+  border:1px solid var(--theme-line);box-shadow:0 18px 40px -28px #000000a3,3px 3px 0 var(--theme-line),4px 4px 0 var(--theme-line);background:var(--folio-paper)}
 .folio-cover-spine{z-index:2;pointer-events:none;position:absolute;inset:0 auto 0 0;width:30px;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;
-  background:#1d3d33;color:#dbdfc9;font:9px Georgia,serif;letter-spacing:.2em;border-right:1px solid #52715c}
-.folio-cover-copy{background:var(--folio-green);color:#faf6e7;padding:46px 40px 36px 62px;display:flex;flex-direction:column;align-items:flex-start;z-index:1}
-.folio-cover-copy .folio-eyebrow{font-size:10px;color:#ccd4b7;letter-spacing:.16em;max-width:260px}
-.folio-cover-copy h1{font-size:clamp(36px,3.4vw,52px);line-height:1.55;font-weight:500;letter-spacing:.09em;margin:24px 0 16px;color:#fff9e9}
-.folio-cover-rule{width:38px;border-top:1px solid #a8b38a;margin:8px 0 18px}
-.folio-cover-copy p{max-width:270px;font-size:13px;line-height:2.15;color:#e0e4d0;margin:0 0 28px;text-wrap:pretty}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .folio-cover-copy .studio-cta{margin-top:auto;background:#f2e9ce;color:#244b3e;border:1px solid #e8debe;border-radius:2px;box-shadow:none;font-size:13px;font-weight:650;min-height:48px;padding:13px 20px;gap:28px;width:100%;max-width:270px;justify-content:space-between}
+  background:var(--theme-primary);color:var(--theme-primary-text);font:9px Georgia,serif;letter-spacing:.2em;border-right:1px solid var(--theme-primary)}
+.folio-cover-copy{background:var(--folio-green);color:var(--theme-primary-text);padding:46px 40px 36px 62px;display:flex;flex-direction:column;align-items:flex-start;z-index:1}
+.folio-cover-copy .folio-eyebrow{font-size:10px;color:var(--theme-muted);letter-spacing:.16em;max-width:260px}
+.folio-cover-copy h1{font-size:clamp(36px,3.4vw,52px);line-height:1.55;font-weight:500;letter-spacing:.09em;margin:24px 0 16px;color:var(--theme-primary-text)}
+.folio-cover-rule{width:38px;border-top:1px solid var(--theme-line);margin:8px 0 18px}
+.folio-cover-copy p{max-width:270px;font-size:13px;line-height:2.15;color:var(--theme-primary-text);margin:0 0 28px;text-wrap:pretty}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .folio-cover-copy .studio-cta{margin-top:auto;background:var(--theme-soft);color:var(--theme-text);border:1px solid var(--theme-line);border-radius:2px;box-shadow:none;font-size:13px;font-weight:650;min-height:48px;padding:13px 20px;gap:28px;width:100%;max-width:270px;justify-content:space-between}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .folio-cover-copy .studio-cta:hover{background:white;transform:translateY(-2px)}
-.folio-cover-edition{font-size:9px;letter-spacing:.12em;color:#b5c3a4;margin-top:22px;line-height:1.8}
-.folio-cover-plate{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#f7f3e8;min-width:0}
+.folio-cover-edition{font-size:9px;letter-spacing:.12em;color:var(--theme-muted);margin-top:22px;line-height:1.8}
+.folio-cover-plate{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--theme-soft);min-width:0}
 .folio-cover-plate img{width:100%;height:100%;object-fit:cover;object-position:62% center;mix-blend-mode:multiply;position:absolute;inset:0}
-.folio-plate-caption{position:absolute;bottom:22px;left:24px;right:24px;display:flex;gap:16px;align-items:center;font-size:10px;letter-spacing:.04em;color:#516047;padding-top:14px;border-top:1px solid #bac3a15c}
+.folio-plate-caption{position:absolute;bottom:22px;left:24px;right:24px;display:flex;gap:16px;align-items:center;font-size:10px;letter-spacing:.04em;color:var(--theme-muted);padding-top:14px;border-top:1px solid var(--theme-soft)}
 .folio-plate-caption>span:first-child{font:9px Georgia,serif;white-space:nowrap;letter-spacing:.12em}
 .folio-chapter-index{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,1fr);margin:30px 0 38px;border-top:1px solid var(--folio-line);border-bottom:1px solid var(--folio-line)}
 .folio-chapter-index li{display:grid;grid-template-columns:32px 1fr 20px;gap:7px 10px;text-align:left;background:transparent;border:0;padding:23px 24px;color:var(--folio-ink);border-right:1px solid var(--folio-line)}
 .folio-chapter-index li:first-child{padding-left:0}.folio-chapter-index li:last-child{border-right:0}
-.folio-chapter-index li>span{grid-row:1/3;font:italic 22px Georgia,serif;color:#83916f}
+.folio-chapter-index li>span{grid-row:1/3;font:italic 22px Georgia,serif;color:var(--theme-muted)}
 .folio-chapter-index strong{font-family:var(--studio-heading-font);font-size:15px;font-weight:600;letter-spacing:.04em}
-.folio-chapter-index small{grid-column:2;font-size:11px;color:#74806b;line-height:1.6}
-.folio-chapter-index i{grid-column:3;grid-row:1/3;align-self:center;font-style:normal;color:#657a58;transition:transform .2s}
+.folio-chapter-index small{grid-column:2;font-size:11px;color:var(--theme-muted);line-height:1.6}
+.folio-chapter-index i{grid-column:3;grid-row:1/3;align-self:center;font-style:normal;color:var(--theme-muted);transition:transform .2s}
 .folio-chapter-index li:hover i{transform:translateX(4px)}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .folio-journal-grid{grid-template-columns:minmax(0,1.8fr) minmax(270px,1fr);gap:28px}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .journey-card{border:0;border-top:1px solid var(--folio-line);border-bottom:1px solid var(--folio-line);background:transparent;box-shadow:none;border-radius:0;padding:23px 0}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .journey-card h2{font-size:23px;letter-spacing:.05em}.app.studio-app.folio-edition[data-design="atelier"][data-page] .section-title .studio-kicker{font-size:9px;letter-spacing:.12em;color:#78856c}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .week-days{margin:24px 0 20px;gap:10px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .week-days>div b{border-radius:50%;background:#ecebdc;color:#637858;font-family:Georgia,serif;border:1px solid #d3d8c5}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .week-days .day-complete b{background:#315543;color:#fffdf5}.app.studio-app.folio-edition[data-design="atelier"][data-page] .week-days .day-today b{background:#fffdf7;border:1px solid #71835f}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .journey-footer{font-size:11px;color:#65705e}.app.studio-app.folio-edition[data-design="atelier"][data-page] .home-bottom-note{margin:36px 0 0;font-family:var(--studio-heading-font);font-size:13px;letter-spacing:.06em}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .note-companion{background:#eeefdf;border:1px solid #d6dbc4;border-radius:3px;box-shadow:none}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .journey-card h2{font-size:23px;letter-spacing:.05em}.app.studio-app.folio-edition[data-design="atelier"][data-page] .section-title .studio-kicker{font-size:9px;letter-spacing:.12em;color:var(--theme-muted)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .week-days{margin:24px 0 20px;gap:10px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .week-days>div b{border-radius:50%;background:var(--theme-soft);color:var(--theme-muted);font-family:Georgia,serif;border:1px solid var(--theme-line)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .week-days .day-complete b{background:var(--theme-primary);color:var(--theme-primary-text)}.app.studio-app.folio-edition[data-design="atelier"][data-page] .week-days .day-today b{background:var(--theme-surface);border:1px solid var(--theme-primary)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .journey-footer{font-size:11px;color:var(--theme-muted)}.app.studio-app.folio-edition[data-design="atelier"][data-page] .home-bottom-note{margin:36px 0 0;font-family:var(--studio-heading-font);font-size:13px;letter-spacing:.06em}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .note-companion{background:var(--theme-soft);border:1px solid var(--theme-line);border-radius:3px;box-shadow:none}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .primary-button,.app.studio-app.folio-edition[data-design="atelier"][data-page] .play-button{background:var(--folio-green);color:white;border-color:var(--folio-green);border-radius:3px;box-shadow:none}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .secondary-button,.app.studio-app.folio-edition[data-design="atelier"][data-page] .quiet-button{border-radius:3px}
 /* Chapter spread: navigation is a book margin, choices live on the right page. */
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-layout{max-width:1360px;margin:36px auto 60px;padding:0 42px;display:grid;grid-template-columns:260px minmax(0,1fr);gap:44px;align-items:start}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-intro{position:sticky;top:108px;background:transparent;border:0;box-shadow:none;padding:8px 0 24px;border-radius:0}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-intro>.eyebrow{color:#708066;font-size:10px;letter-spacing:.19em}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-intro>.eyebrow{color:var(--theme-muted);font-size:10px;letter-spacing:.19em}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-intro h1{font-size:30px;line-height:1.65;margin:19px 0 12px;letter-spacing:.06em;color:var(--folio-ink)}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-intro>p{font-size:12px;line-height:2;color:#6a7563;margin:0}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-intro>p{font-size:12px;line-height:2;color:var(--theme-muted);margin:0}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-intro-art{height:125px;margin:20px 0 18px;justify-content:flex-start;opacity:.9}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-intro-art svg{width:125px;height:125px}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .steps{gap:0;margin:20px 0}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .steps button{border:0;border-top:1px solid #d8dcca;border-radius:0;padding:16px 4px;background:transparent;font-size:12px;color:#6a7562;min-height:50px}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .steps button:last-child{border-bottom:1px solid #d8dcca}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .steps button>span{background:transparent;color:#7c8c6b;font-family:Georgia,serif;font-size:17px;border:0}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .steps button.current{color:#234f3a;font-weight:700;background:linear-gradient(90deg,#e8ebd8,transparent)}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-summary{border:0;border-left:2px solid #a8b68e;border-radius:0;padding:4px 0 4px 16px;margin-top:26px;background:transparent}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .steps button{border:0;border-top:1px solid var(--theme-line);border-radius:0;padding:16px 4px;background:transparent;font-size:12px;color:var(--theme-muted);min-height:50px}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .steps button:last-child{border-bottom:1px solid var(--theme-line)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .steps button>span{background:transparent;color:var(--theme-muted);font-family:Georgia,serif;font-size:17px;border:0}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .steps button.current{color:var(--theme-text);font-weight:700;background:linear-gradient(90deg,var(--theme-soft),transparent)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-summary{border:0;border-left:2px solid var(--theme-line);border-radius:0;padding:4px 0 4px 16px;margin-top:26px;background:transparent}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-summary>strong{font-family:var(--studio-heading-font);font-size:18px;color:var(--folio-ink)}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-panel{border:1px solid #d4d8c5;background:var(--folio-paper);border-radius:3px;box-shadow:0 18px 30px -28px #33402f66;overflow:clip}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .panel-heading{padding:30px 34px 24px;border-bottom:1px solid #e2e3d6;background:transparent;position:relative}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .step-caption{font-size:9px;color:#7a876d;letter-spacing:.16em}.app.studio-app.folio-edition[data-design="atelier"][data-page] .panel-heading h2{font-size:30px;line-height:1.5;margin:9px 0;color:var(--folio-ink)}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-progress{width:100px;gap:5px;margin-top:20px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-progress span{height:2px;border-radius:0;background:#e2e5d6}.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-progress span[data-reached=true]{background:#73885e}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-content{padding:26px 34px 30px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-actions{position:sticky;bottom:0;z-index:3;padding:20px 34px;border-top:1px solid #dde0cf;background:#f4f3e8}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-feature{background:#eef0e2;border:1px solid #dce1cd;border-radius:2px;min-height:170px;padding:24px 28px}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-feature h3{font-size:29px;color:#2d503b}.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-feature-art{width:146px;height:146px}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .family-tabs{gap:6px;padding-bottom:17px;border-bottom:1px solid #e3e5d7}.app.studio-app.folio-edition[data-design="atelier"][data-page] .family-tabs button{background:transparent;border:1px solid transparent;border-radius:2px;font-size:11px;min-height:44px;padding:7px 11px}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .family-tabs button[aria-pressed=true]{background:#e8eddc;color:#254e39;border-color:#b4c09c}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-search input{background:#fafaf1;border:1px solid #d5dbc6;border-radius:2px}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-panel{border:1px solid var(--theme-line);background:var(--folio-paper);border-radius:3px;box-shadow:0 18px 30px -28px #00000066;overflow:clip}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .panel-heading{padding:30px 34px 24px;border-bottom:1px solid var(--theme-line);background:transparent;position:relative}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .step-caption{font-size:9px;color:var(--theme-muted);letter-spacing:.16em}.app.studio-app.folio-edition[data-design="atelier"][data-page] .panel-heading h2{font-size:30px;line-height:1.5;margin:9px 0;color:var(--folio-ink)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-progress{width:100px;gap:5px;margin-top:20px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-progress span{height:2px;border-radius:0;background:var(--theme-soft)}.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-progress span[data-reached=true]{background:var(--theme-primary)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-content{padding:26px 34px 30px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-actions{position:sticky;bottom:0;z-index:3;padding:20px 34px;border-top:1px solid var(--theme-line);background:var(--theme-soft)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-feature{background:var(--theme-soft);border:1px solid var(--theme-line);border-radius:2px;min-height:170px;padding:24px 28px}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-feature h3{font-size:29px;color:var(--theme-text)}.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-feature-art{width:146px;height:146px}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .family-tabs{gap:6px;padding-bottom:17px;border-bottom:1px solid var(--theme-line)}.app.studio-app.folio-edition[data-design="atelier"][data-page] .family-tabs button{background:transparent;border:1px solid transparent;border-radius:2px;font-size:11px;min-height:44px;padding:7px 11px}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .family-tabs button[aria-pressed=true]{background:var(--theme-soft);color:var(--theme-text);border-color:var(--theme-line)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-search input{background:var(--theme-surface);border:1px solid var(--theme-line);border-radius:2px}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-card{border:1px solid #dfe3d1;background:#fffef9;border-radius:2px;box-shadow:none;padding:18px 14px 16px;min-height:180px;transition:background .2s,border-color .2s,transform .2s}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-card:hover{transform:translateY(-3px);background:#f3f5e8;border-color:#97ab7e}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-card.selected{background:#ebefdf;border:1px solid #738c5e;box-shadow:inset 0 -3px #738c5e}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-card-art{width:94px;height:94px;margin:0 auto 10px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-card strong{font-family:var(--studio-heading-font);font-size:15px;font-weight:600;color:#2e4837}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-family{font-size:9px;letter-spacing:.07em;color:#79846d}.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-range{font-size:10px;color:#717b66}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .choice-field legend,.app.studio-app.folio-edition[data-design="atelier"][data-page] .composition-picker legend{font-family:var(--studio-heading-font);font-size:19px;font-weight:600;letter-spacing:.05em;color:#304d38}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .difficulty-card,.app.studio-app.folio-edition[data-design="atelier"][data-page] .clef-card{border-radius:2px;border:1px solid #dce0ce;background:#fffdf7;box-shadow:none}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .difficulty-card.selected,.app.studio-app.folio-edition[data-design="atelier"][data-page] .clef-card.selected{background:#edf0df;border-color:#7f9468}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .difficulty-card strong{font-family:var(--studio-heading-font);font-size:19px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .level-number{font-family:Georgia,serif;color:#758560}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .control-group select,.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-setting-fields select{border-radius:2px;border-color:#d1d8bf;background:#fffef8;min-height:44px}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .advanced-options,.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-reference{border-radius:2px;background:#f5f5ea;border-color:#dce1cd}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-card{border:1px solid var(--theme-line);background:#fffef9;border-radius:2px;box-shadow:none;padding:18px 14px 16px;min-height:180px;transition:background .2s,border-color .2s,transform .2s}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-card:hover{transform:translateY(-3px);background:var(--theme-soft);border-color:var(--theme-line)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-card.selected{background:var(--theme-soft);border:1px solid var(--theme-primary);box-shadow:inset 0 -3px var(--theme-primary)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-card-art{width:94px;height:94px;margin:0 auto 10px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-card strong{font-family:var(--studio-heading-font);font-size:15px;font-weight:600;color:var(--theme-text)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-family{font-size:9px;letter-spacing:.07em;color:var(--theme-muted)}.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-range{font-size:10px;color:var(--theme-muted)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .choice-field legend,.app.studio-app.folio-edition[data-design="atelier"][data-page] .composition-picker legend{font-family:var(--studio-heading-font);font-size:19px;font-weight:600;letter-spacing:.05em;color:var(--theme-text)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .difficulty-card,.app.studio-app.folio-edition[data-design="atelier"][data-page] .clef-card{border-radius:2px;border:1px solid var(--theme-line);background:var(--theme-surface);box-shadow:none}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .difficulty-card.selected,.app.studio-app.folio-edition[data-design="atelier"][data-page] .clef-card.selected{background:var(--theme-soft);border-color:var(--theme-primary)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .difficulty-card strong{font-family:var(--studio-heading-font);font-size:19px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .level-number{font-family:Georgia,serif;color:var(--theme-muted)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .control-group select,.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-setting-fields select{border-radius:2px;border-color:var(--theme-line);background:var(--theme-surface);min-height:44px}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .advanced-options,.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-reference{border-radius:2px;background:var(--theme-soft);border-color:var(--theme-line)}
 /* Musical character is a simple choice, not an exposed compositional algorithm. */
 .composition-picker{border:0;padding:0;margin:26px 0 30px;min-width:0}
-.composition-picker>p{font-size:12px;line-height:1.9;color:#69745f;margin:8px 0 16px}
+.composition-picker>p{font-size:12px;line-height:1.9;color:var(--theme-muted);margin:8px 0 16px}
 .composition-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.composition-choices button{display:grid;grid-template-columns:28px 1fr;gap:5px 10px;padding:17px 15px;text-align:left;border:1px solid #d8deca;border-radius:2px;background:#fffef9;color:#304937;min-height:96px}
-.composition-roman{grid-row:1/3;font:italic 20px Georgia,serif;color:#85936c}.composition-choices strong{font-family:var(--studio-heading-font);font-size:16px;line-height:1.6;font-weight:600}
-.composition-choices small{grid-column:2;font-size:11px;line-height:1.7;color:#69745e}
-.composition-choices button[aria-pressed=true]{background:#edf1e1;border-color:#708a59;box-shadow:inset 3px 0 #708a59}
-.composition-choices button:disabled{opacity:.6}.composition-legacy{display:flex;align-items:center;gap:7px;font-size:12px;margin-top:16px;color:#59684e;min-height:44px}
-.composition-legacy input{accent-color:#315643;width:16px;height:16px}.composition-picker .composition-footnote{font-size:10px;margin:0;color:#76806c}
+.composition-choices button{display:grid;grid-template-columns:28px 1fr;gap:5px 10px;padding:17px 15px;text-align:left;border:1px solid var(--theme-line);border-radius:2px;background:#fffef9;color:var(--theme-text);min-height:96px}
+.composition-roman{grid-row:1/3;font:italic 20px Georgia,serif;color:var(--theme-muted)}.composition-choices strong{font-family:var(--studio-heading-font);font-size:16px;line-height:1.6;font-weight:600}
+.composition-choices small{grid-column:2;font-size:11px;line-height:1.7;color:var(--theme-muted)}
+.composition-choices button[aria-pressed=true]{background:var(--theme-soft);border-color:var(--theme-primary);box-shadow:inset 3px 0 var(--theme-primary)}
+.composition-choices button:disabled{opacity:.6}.composition-legacy{display:flex;align-items:center;gap:7px;font-size:12px;margin-top:16px;color:var(--theme-muted);min-height:44px}
+.composition-legacy input{accent-color:var(--theme-primary);width:16px;height:16px}.composition-picker .composition-footnote{font-size:10px;margin:0;color:var(--theme-muted)}
 /* The practice page is a quiet reading desk with an ink-and-paper score stage. */
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-main{max-width:1360px;margin:0 auto;padding:26px 42px 55px}
 .app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-heading{font-size:11px;border-bottom:1px solid var(--folio-line);padding:0 0 16px;margin-bottom:25px}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-title{align-items:end;gap:20px;margin-bottom:24px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-title h1{font-size:32px;line-height:1.65;color:#263e31;letter-spacing:.05em}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-title .eyebrow{color:#718064;font-size:9px;letter-spacing:.18em}.app.studio-app.folio-edition[data-design="atelier"][data-page] .study-actions{gap:7px;flex-wrap:wrap;justify-content:flex-end}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .study-actions button{font-size:11px;padding:11px 14px;min-height:44px;background:#fffdf6;border-color:#cdd5be;color:#36523d}
-.musical-intent-caption{display:flex;align-items:center;gap:30px;padding:22px 26px;border-top:1px solid #d7ddc9;border-bottom:1px solid #d7ddc9;margin:0 0 25px;background:#eef0e2}
-.musical-intent-caption>div{min-width:150px}.musical-intent-caption strong{font-family:var(--studio-heading-font);font-size:19px;letter-spacing:.08em;color:#35513a;display:block;margin-top:5px}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-title{align-items:end;gap:20px;margin-bottom:24px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-title h1{font-size:32px;line-height:1.65;color:var(--theme-text);letter-spacing:.05em}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-title .eyebrow{color:var(--theme-muted);font-size:9px;letter-spacing:.18em}.app.studio-app.folio-edition[data-design="atelier"][data-page] .study-actions{gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .study-actions button{font-size:11px;padding:11px 14px;min-height:44px;background:var(--theme-surface);border-color:var(--theme-line);color:var(--theme-text)}
+.musical-intent-caption{display:flex;align-items:center;gap:30px;padding:22px 26px;border-top:1px solid var(--theme-line);border-bottom:1px solid var(--theme-line);margin:0 0 25px;background:var(--theme-soft)}
+.musical-intent-caption>div{min-width:150px}.musical-intent-caption strong{font-family:var(--studio-heading-font);font-size:19px;letter-spacing:.08em;color:var(--theme-text);display:block;margin-top:5px}
 .musical-intent-caption ol{display:flex;margin:0;padding:0;list-style:none;flex:1;min-width:0}
-.musical-intent-caption li{display:grid;grid-template-columns:22px 1fr;gap:5px 8px;flex:1;padding:4px 20px;border-left:1px solid #d3dac0;min-width:0}
-.musical-intent-caption li>span{font:italic 14px Georgia,serif;color:#829268;grid-row:1/3}.musical-intent-caption li b{font-size:12px;font-weight:550;color:#48603f}.musical-intent-caption li small{font:11px Georgia,serif;color:#768365}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-companion{background:transparent;border:0;border-left:2px solid #a9b78c;box-shadow:none;border-radius:0;padding:12px 18px;margin-bottom:22px}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-toolbar{background:#fffdf7;border:1px solid #d1d9c2;border-radius:3px;box-shadow:0 7px 15px -13px #354d2a;padding:13px 16px}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-settings,.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-tools{border-color:#d1d9c2;border-radius:3px;background:#f9f9f0}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-settings summary,.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-tools summary{color:#3b553d;font-size:12px;padding-top:14px;padding-bottom:14px}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-focus-controls{margin-top:28px;margin-bottom:14px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-focus-controls button{font-size:11px;background:transparent;border-color:#bfcbb0}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-card{background:#fff;border:1px solid #d8dccd;border-radius:1px;box-shadow:0 20px 45px -34px #3d50349c,3px 4px 0 #e9e9dc,4px 5px 0 #d4d8c6;padding:40px 30px 18px;position:relative;color:#242923}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-top{padding:0 6px 23px;border-bottom:1px solid #dfe2d8}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-top h2{font-size:28px;color:#28392e;font-family:var(--studio-heading-font)}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-kicker{font-size:9px;letter-spacing:.15em;color:#77816f}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-info{font-size:11px;color:#4e5d48}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-info>strong{font:19px Georgia,serif;color:#243c2c}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-bottom{font-size:10px;color:#6a745e;border-top:1px solid #e0e5d9;padding:15px 5px 0}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-checkout{border:1px solid #d2dcc1;border-radius:3px;background:#edf1e1;box-shadow:none;margin-top:28px}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-checkout strong{font-family:var(--studio-heading-font);font-size:17px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .checkout-icon{color:#839664}
-.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-footnote{font-size:11px;color:#6c775f}
+.musical-intent-caption li{display:grid;grid-template-columns:22px 1fr;gap:5px 8px;flex:1;padding:4px 20px;border-left:1px solid var(--theme-line);min-width:0}
+.musical-intent-caption li>span{font:italic 14px Georgia,serif;color:var(--theme-muted);grid-row:1/3}.musical-intent-caption li b{font-size:12px;font-weight:550;color:var(--theme-muted)}.musical-intent-caption li small{font:11px Georgia,serif;color:var(--theme-muted)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-companion{background:transparent;border:0;border-left:2px solid var(--theme-line);box-shadow:none;border-radius:0;padding:12px 18px;margin-bottom:22px}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-toolbar{background:var(--theme-surface);border:1px solid var(--theme-line);border-radius:3px;box-shadow:0 7px 15px -13px var(--theme-primary);padding:13px 16px}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-settings,.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-tools{border-color:var(--theme-line);border-radius:3px;background:var(--theme-surface)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-settings summary,.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-tools summary{color:var(--theme-text);font-size:12px;padding-top:14px;padding-bottom:14px}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-focus-controls{margin-top:28px;margin-bottom:14px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-focus-controls button{font-size:11px;background:transparent;border-color:var(--theme-line)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-card{background:#fff;border:1px solid var(--theme-line);border-radius:1px;box-shadow:0 20px 45px -34px #0000009c,3px 4px 0 var(--theme-line),4px 5px 0 var(--theme-line);padding:40px 30px 18px;position:relative;color:#242923}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-top{padding:0 6px 23px;border-bottom:1px solid var(--theme-line)}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-top h2{font-size:28px;color:var(--theme-text);font-family:var(--studio-heading-font)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-kicker{font-size:9px;letter-spacing:.15em;color:var(--theme-muted)}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-info{font-size:11px;color:var(--theme-muted)}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-info>strong{font:19px Georgia,serif;color:var(--theme-text)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-bottom{font-size:10px;color:var(--theme-muted);border-top:1px solid var(--theme-line);padding:15px 5px 0}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-checkout{border:1px solid var(--theme-line);border-radius:3px;background:var(--theme-soft);box-shadow:none;margin-top:28px}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-checkout strong{font-family:var(--studio-heading-font);font-size:17px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .checkout-icon{color:var(--theme-muted)}
+.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-footnote{font-size:11px;color:var(--theme-muted)}
 /* Respect script-specific readable fallback. Music glyphs are never selected. */
 :lang(th) .folio-edition{--studio-heading-font:'Noto Sans Thai','Thonburi','Leelawadee UI',sans-serif}
 :lang(ja) .folio-edition{--studio-heading-font:'Yu Mincho','Hiragino Mincho ProN',serif}
@@ -156,7 +156,7 @@
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-intro>.eyebrow{grid-column:1/3;font-size:9px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-intro h1{font-size:25px;line-height:1.5;margin:14px 0 10px}
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-intro>p{grid-column:1;font-size:11px;line-height:1.9}.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-intro-art{grid-column:2;grid-row:2/4;height:90px;align-self:center;margin:0}
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-intro-art svg{height:86px;width:86px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .steps{grid-column:1/3;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:20px 0 0}
-  .app.studio-app.folio-edition[data-design="atelier"][data-page] .steps button{font-size:10px;padding:12px 6px;display:flex;gap:5px;border-top:1px solid #ccd4bd;border-bottom:1px solid #ccd4bd;justify-content:center;min-height:44px}
+  .app.studio-app.folio-edition[data-design="atelier"][data-page] .steps button{font-size:10px;padding:12px 6px;display:flex;gap:5px;border-top:1px solid var(--theme-line);border-bottom:1px solid var(--theme-line);justify-content:center;min-height:44px}
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .steps button>span{font-size:13px;min-width:19px;width:auto}.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-summary{display:none}
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .panel-heading{padding:22px 20px 18px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .panel-heading h2{font-size:25px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-content{padding:20px 16px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .setup-actions{padding:16px;position:sticky;bottom:0;z-index:2}
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-feature{padding:17px 18px;min-height:145px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-feature-art{width:114px;height:114px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .instrument-feature h3{font-size:24px}
@@ -169,7 +169,7 @@
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .study-actions{width:100%}.app.studio-app.folio-edition[data-design="atelier"][data-page] .study-actions button{font-size:10px;padding:10px;flex:1}
   .musical-intent-caption{flex-direction:column;align-items:stretch;gap:15px;padding:18px 16px;margin-bottom:20px}.musical-intent-caption>div{display:flex;align-items:center;justify-content:space-between;gap:10px}.musical-intent-caption strong{font-size:17px;margin:0}.musical-intent-caption .folio-eyebrow{font-size:8px}
   .musical-intent-caption li{padding:3px 9px;grid-template-columns:1fr;gap:4px}.musical-intent-caption li:first-child{padding-left:0;border:0}.musical-intent-caption li>span{grid-row:auto;font-size:12px}.musical-intent-caption li b{font-size:10px}.musical-intent-caption li small{font-size:10px}
-  .app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-toolbar{padding:12px;border-radius:2px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-focus-controls{margin-top:23px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-card{padding:27px 12px 15px;margin-inline:0;box-shadow:2px 3px 0 #e4e7d9;border-radius:0}
+  .app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-toolbar{padding:12px;border-radius:2px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-focus-controls{margin-top:23px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-card{padding:27px 12px 15px;margin-inline:0;box-shadow:2px 3px 0 var(--theme-line);border-radius:0}
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .score-top{padding:0 4px 21px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-top h2{font-size:24px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-info>strong{font-size:17px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .score-info{font-size:10px}
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-checkout strong{font-size:15px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-checkout{padding:18px 15px}.app.studio-app.folio-edition[data-design="atelier"][data-page] .home-bottom-note{font-size:11px;line-height:2}
 }
@@ -188,7 +188,7 @@
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .tempo label small{font-size:9px}
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .tempo input{grid-column:1;min-width:0;width:100%;min-height:44px;margin:0}
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .tempo output{grid-column:2;font-size:16px;align-self:center}
-  .app.studio-app.folio-edition[data-design="atelier"][data-page] .metronome-control{grid-column:1/-1;width:100%;margin:0;border-top:1px solid #d5dcc9;padding:5px 0 0;min-height:48px}
+  .app.studio-app.folio-edition[data-design="atelier"][data-page] .metronome-control{grid-column:1/-1;width:100%;margin:0;border-top:1px solid var(--theme-line);padding:5px 0 0;min-height:48px}
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .metronome-control strong{font-size:11px}
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .metronome-control small{font-size:9px}
   .app.studio-app.folio-edition[data-design="atelier"][data-page] .practice-companion{margin:0 0 16px;padding:7px 12px;align-items:center}
@@ -203,4 +203,4 @@
 }
 
 .folio-cover-plate--photo img{mix-blend-mode:normal;object-position:55% center}
-.folio-cover-plate--photo .folio-plate-caption{color:#3c473a;background:#f8f3e6e8;border:0;padding:12px 14px;left:18px;right:auto;bottom:18px}
+.folio-cover-plate--photo .folio-plate-caption{color:var(--theme-text);background:var(--theme-soft);border:0;padding:12px 14px;left:18px;right:auto;bottom:18px}

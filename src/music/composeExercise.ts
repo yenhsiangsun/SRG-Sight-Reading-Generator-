@@ -15,12 +15,14 @@ import {supportsMotivicStudy,linkMotivicRhythm,phraseDirectedHarmony} from './mo
 import {planStudyStructure,shapeStrategyHarmony,type StudyStrategy} from './phraseStrategy';
 import {chooseMacroForm} from './phraseForm';
 import {supportsMusicalIntent} from './musicalIntent';
-import {composeIntentExercise} from './intentComposition';
+import {composeContrastStudy} from './contrastStudy';
+import {addPipaRollRhythm} from './pipaRollRhythm';
 
 /** Rhythm, rests, meter and the final landing are fixed before auditioning pitch
  * candidates. Three attempts maximum keeps generation bounded on phones/tablets. */
 export function composeExercise(options: PracticeOptions, grandMode?: 'mono'|'two-hand',strategy?:StudyStrategy): ExerciseData {
-  if(strategy===undefined&&supportsMusicalIntent(options))return composeIntentExercise(options,grandMode);
+  // Human-selected C: carry the longer melodic arc through ordinary studies.
+  if(strategy===undefined&&supportsMusicalIntent(options))return composeContrastStudy(options,'long-line',grandMode);
   const motivic=supportsMotivicStudy(options,grandMode);
   // Promote the listened version only in its approved major 4/4 context.
   // Unsupported options draw no new random values and retain the old path.
@@ -32,7 +34,8 @@ export function composeExercise(options: PracticeOptions, grandMode?: 'mono'|'tw
   const structure=motivic&&rawRhythm.length>=8?planStudyStructure(rawRhythm,activeStrategy,macro):undefined;
   const phrasePlan=structure?.phrases??planExercisePhrases(rawRhythm);
   const connectedRhythm=structure?.rhythm??(motivic?linkMotivicRhythm(rawRhythm,phrasePlan):rawRhythm);
-  const rhythm=addRareThirtySeconds(planBreathing(connectedRhythm,options.instrumentProfile,phrasePlan),options.rhythmLevel,options.rhythmFocus);
+  const withRollOpportunity=addPipaRollRhythm(connectedRhythm,options,phrasePlan);
+  const rhythm=addRareThirtySeconds(planBreathing(withRollOpportunity,options.instrumentProfile,phrasePlan),options.rhythmLevel,options.rhythmFocus);
   const lower=grandMode==='two-hand'?createGrandAccompanimentRhythmPlan(rhythm.map(bar=>bar.meter),options.rhythmLevel):undefined;
   let best:ExerciseData|undefined, bestPenalty=Infinity, validationError:unknown;
   for(let attempt=0;attempt<3;attempt++) {

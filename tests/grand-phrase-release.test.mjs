@@ -32,9 +32,9 @@ test('a held note starting off the main pulse keeps the independent bass figure'
   assert.equal(settleGrandPhraseRhythm(source),source);
 });
 
-test('the completed piano and yangqin pipeline preserves the exact selected melody and original harmonic journey',()=>{
+test('the retained B87 pipeline preserves its original half-cadence breath and melody',()=>{
   const base={compositionStyle:'classical',instrument:'Piano',instrumentProfile:'Piano',clef:'treble',keySignature:'C',tonic:'C',scaleId:'major',timeSignature:'4/4',rhythmLevel:'medium',measures:8,tempo:80,range:{min:48,max:84},allowAccidentals:false,mixedMeters:false,meters:['4/4']};
-  const bridge=`export {composeExercise} from './composeExercise';export {validateGeneratedExercise} from './exerciseQuality';export {coordinateGrandStaff} from './grandAccompaniment';`;
+  const bridge=`export {composeIntentExercise as composeExercise} from './intentComposition';export {validateGeneratedExercise} from './exerciseQuality';export {coordinateGrandStaff} from './grandAccompaniment';`;
   for(const instrumentProfile of ['Piano','Yangqin'])for(const difficulty of ['beginner','intermediate','advanced']){
     const o={...base,instrumentProfile,difficulty};
     const reference=loadModule('src/music/__releaseReference.ts',95003,bridge,{'./grandPhraseRelease':{settleGrandPhraseRhythm:ex=>ex}}).composeExercise(o,'two-hand');
@@ -48,5 +48,23 @@ test('the completed piano and yangqin pipeline preserves the exact selected melo
     assert.ok(result.lowerMeasures[3].events.filter(n=>n.startUnits>=12).every(n=>n.rest),'both voices release at the half-cadence breath');
     assert.equal(result.lowerMeasures[7].events.at(-1).durationUnits,8,'the final bass supports the melody’s existing half-note landing');
     assert.deepEqual(plain(api.coordinateGrandStaff(result,o.range)),plain(result),'the later final-coordination pass does not undo the release');
+  }
+});
+
+test('the adopted long line preserves its melody and supports the actual ending without a forced halfway breath',()=>{
+  const base={compositionStyle:'auto',instrument:'Piano',clef:'treble',keySignature:'C',tonic:'C',scaleId:'major',timeSignature:'4/4',rhythmLevel:'medium',measures:8,tempo:80,range:{min:48,max:84},allowAccidentals:false,mixedMeters:false,meters:['4/4']};
+  const bridge=`export {composeExercise} from './composeExercise';export {coordinateGrandStaff} from './grandAccompaniment';export {validateGeneratedExercise} from './exerciseQuality';`;
+  for(const instrumentProfile of ['Piano','Yangqin']){
+    const o={...base,instrumentProfile,difficulty:'intermediate'};
+    const reference=loadModule('src/music/__longReleaseReference.ts',95003,bridge,{'./grandPhraseRelease':{settleGrandPhraseRhythm:ex=>ex}}).composeExercise(o,'two-hand');
+    const api=loadModule('src/music/__longRelease.ts',95003,bridge),result=api.composeExercise(o,'two-hand');
+    api.validateGeneratedExercise(result,o.range,false);
+    assert.deepEqual(plain(result.measures),plain(reference.measures));
+    assert.deepEqual(plain(result.harmonyPlan),plain(reference.harmonyPlan));
+    assert.deepEqual(plain(result.lowerMeasures.slice(0,-1)),plain(reference.lowerMeasures.slice(0,-1)));
+    assert.deepEqual(plain(result.phrasePlan.map(p=>[p.startBar,p.endBar])),[[0,7]]);
+    const landing=result.measures.at(-1).events.filter(n=>!n.rest).at(-1),bass=result.lowerMeasures.at(-1).events.at(-1);
+    assert.equal(bass.startUnits,landing.startUnits);assert.equal(bass.durationUnits,landing.durationUnits);
+    assert.deepEqual(plain(api.coordinateGrandStaff(result,o.range)),plain(result));
   }
 });

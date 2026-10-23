@@ -1,0 +1,1472 @@
+{
+  "origin": "B89 before snapshot, previous real useExercise seeded821; isolated memory only",
+  "settings": {
+    "performanceMarks": true,
+    "instrument": "Sheng",
+    "clef": "treble",
+    "difficulty": "Advanced",
+    "keySignature": "D",
+    "tonic": "A",
+    "scaleId": "mixolydian",
+    "timeSignature": "4/4",
+    "rhythmLevel": "Moderate",
+    "measureCount": 8,
+    "rangeMinMidi": 55,
+    "rangeMaxMidi": 90,
+    "allowAccidentals": false,
+    "mixedMeters": false,
+    "meters": [
+      "3/4",
+      "4/4",
+      "6/8"
+    ],
+    "compositionStyle": "auto"
+  },
+  "exercise": {
+    "instrument": "Piano",
+    "clef": "treble",
+    "difficulty": "advanced",
+    "keySignature": "D",
+    "timeSignature": "4/4",
+    "rhythmLevel": "medium",
+    "tempo": 80,
+    "measures": [
+      {
+        "events": [
+          {
+            "key": "e/4",
+            "octave": 4,
+            "duration": "h",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 0,
+            "durationUnits": 8,
+            "midi": 64,
+            "chord": [
+              {
+                "midi": 61,
+                "key": "c#/4",
+                "octave": 4
+              },
+              {
+                "key": "e/4",
+                "octave": 4,
+                "midi": 64
+              },
+              {
+                "midi": 73,
+                "key": "c#/5",
+                "octave": 5
+              }
+            ],
+            "dynamic": "mp"
+          },
+          {
+            "key": "f#/4",
+            "octave": 4,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 8,
+            "durationUnits": 1,
+            "midi": 66
+          },
+          {
+            "key": "g/4",
+            "octave": 4,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 9,
+            "durationUnits": 1,
+            "midi": 67
+          },
+          {
+            "key": "f#/4",
+            "octave": 4,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 10,
+            "durationUnits": 2,
+            "midi": 66
+          },
+          {
+            "key": "d/4",
+            "octave": 4,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 12,
+            "durationUnits": 2,
+            "midi": 62
+          },
+          {
+            "key": "b/4",
+            "octave": 4,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 14,
+            "durationUnits": 2,
+            "midi": 71
+          }
+        ],
+        "totalUnits": 16,
+        "groups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "beamGroups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "timeSignature": "4/4"
+      },
+      {
+        "events": [
+          {
+            "key": "a/4",
+            "octave": 4,
+            "duration": "q",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 0,
+            "durationUnits": 4,
+            "midi": 69,
+            "chord": [
+              {
+                "midi": 57,
+                "key": "a/3",
+                "octave": 3
+              },
+              {
+                "midi": 64,
+                "key": "e/4",
+                "octave": 4
+              },
+              {
+                "key": "a/4",
+                "octave": 4,
+                "midi": 69
+              }
+            ]
+          },
+          {
+            "key": "a/4",
+            "octave": 4,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 4,
+            "durationUnits": 2,
+            "midi": 69
+          },
+          {
+            "key": "b/4",
+            "octave": 4,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 6,
+            "durationUnits": 1,
+            "midi": 71
+          },
+          {
+            "key": "d/5",
+            "octave": 5,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 7,
+            "durationUnits": 1,
+            "midi": 74
+          },
+          {
+            "key": "b/4",
+            "octave": 4,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 8,
+            "durationUnits": 1.3333333333333333,
+            "tuplet": 3,
+            "midi": 71
+          },
+          {
+            "key": "b/4",
+            "octave": 4,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 9.333333333333334,
+            "durationUnits": 1.3333333333333333,
+            "tuplet": 3,
+            "midi": 71
+          },
+          {
+            "key": "b/4",
+            "octave": 4,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 10.666666666666666,
+            "durationUnits": 1.3333333333333333,
+            "tuplet": 3,
+            "midi": 71
+          },
+          {
+            "key": "c#/5",
+            "octave": 5,
+            "duration": "8",
+            "dots": 1,
+            "rest": false,
+            "startUnits": 12,
+            "durationUnits": 3,
+            "midi": 73
+          },
+          {
+            "key": "c#/5",
+            "octave": 5,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 15,
+            "durationUnits": 1,
+            "midi": 73
+          }
+        ],
+        "totalUnits": 16,
+        "groups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "beamGroups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "timeSignature": "4/4"
+      },
+      {
+        "events": [
+          {
+            "key": "e/5",
+            "octave": 5,
+            "duration": "h",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 0,
+            "durationUnits": 8,
+            "midi": 76,
+            "chord": [
+              {
+                "midi": 71,
+                "key": "b/4",
+                "octave": 4
+              },
+              {
+                "key": "e/5",
+                "octave": 5,
+                "midi": 76
+              },
+              {
+                "midi": 83,
+                "key": "b/5",
+                "octave": 5
+              }
+            ]
+          },
+          {
+            "key": "d/5",
+            "octave": 5,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 8,
+            "durationUnits": 2,
+            "midi": 74
+          },
+          {
+            "key": "f#/5",
+            "octave": 5,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 10,
+            "durationUnits": 2,
+            "midi": 78
+          },
+          {
+            "key": "d/5",
+            "octave": 5,
+            "duration": "8",
+            "dots": 1,
+            "rest": false,
+            "startUnits": 12,
+            "durationUnits": 3,
+            "midi": 74
+          },
+          {
+            "key": "d/5",
+            "octave": 5,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 15,
+            "durationUnits": 1,
+            "midi": 74
+          }
+        ],
+        "totalUnits": 16,
+        "groups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "beamGroups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "timeSignature": "4/4"
+      },
+      {
+        "events": [
+          {
+            "key": "f#/5",
+            "octave": 5,
+            "duration": "8",
+            "dots": 1,
+            "rest": false,
+            "startUnits": 0,
+            "durationUnits": 3,
+            "midi": 78,
+            "chord": [
+              {
+                "midi": 71,
+                "key": "b/4",
+                "octave": 4
+              },
+              {
+                "key": "f#/5",
+                "octave": 5,
+                "midi": 78
+              },
+              {
+                "midi": 83,
+                "key": "b/5",
+                "octave": 5
+              }
+            ]
+          },
+          {
+            "key": "e/5",
+            "octave": 5,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 3,
+            "durationUnits": 1,
+            "midi": 76
+          },
+          {
+            "key": "c#/5",
+            "octave": 5,
+            "duration": "q",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 4,
+            "durationUnits": 4,
+            "midi": 73
+          },
+          {
+            "key": "b/4",
+            "octave": 4,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 8,
+            "durationUnits": 2,
+            "midi": 71
+          },
+          {
+            "key": "b/4",
+            "octave": 4,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 10,
+            "durationUnits": 1,
+            "midi": 71
+          },
+          {
+            "key": "f#/4",
+            "octave": 4,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 11,
+            "durationUnits": 1,
+            "midi": 66
+          },
+          {
+            "key": "e/4",
+            "octave": 4,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 12,
+            "durationUnits": 2,
+            "midi": 64
+          },
+          {
+            "key": "b/4",
+            "octave": 4,
+            "duration": "8",
+            "dots": 0,
+            "rest": true,
+            "startUnits": 14,
+            "durationUnits": 2
+          }
+        ],
+        "totalUnits": 16,
+        "groups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "beamGroups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "timeSignature": "4/4"
+      },
+      {
+        "events": [
+          {
+            "key": "e/4",
+            "octave": 4,
+            "duration": "h",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 0,
+            "durationUnits": 8,
+            "midi": 64,
+            "chord": [
+              {
+                "key": "e/4",
+                "octave": 4,
+                "midi": 64
+              },
+              {
+                "midi": 69,
+                "key": "a/4",
+                "octave": 4
+              },
+              {
+                "midi": 73,
+                "key": "c#/5",
+                "octave": 5
+              }
+            ],
+            "dynamic": "mp"
+          },
+          {
+            "key": "f#/4",
+            "octave": 4,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 8,
+            "durationUnits": 2,
+            "midi": 66
+          },
+          {
+            "key": "g/4",
+            "octave": 4,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 10,
+            "durationUnits": 1,
+            "midi": 67
+          },
+          {
+            "key": "f#/4",
+            "octave": 4,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 11,
+            "durationUnits": 1,
+            "midi": 66
+          },
+          {
+            "key": "d/4",
+            "octave": 4,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 12,
+            "durationUnits": 2,
+            "midi": 62
+          },
+          {
+            "key": "b/4",
+            "octave": 4,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 14,
+            "durationUnits": 2,
+            "midi": 71
+          }
+        ],
+        "totalUnits": 16,
+        "groups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "beamGroups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "timeSignature": "4/4"
+      },
+      {
+        "events": [
+          {
+            "key": "b/4",
+            "octave": 4,
+            "duration": "8",
+            "dots": 1,
+            "rest": false,
+            "startUnits": 0,
+            "durationUnits": 3,
+            "midi": 71,
+            "chord": [
+              {
+                "midi": 66,
+                "key": "f#/4",
+                "octave": 4
+              },
+              {
+                "key": "b/4",
+                "octave": 4,
+                "midi": 71
+              }
+            ]
+          },
+          {
+            "key": "c#/5",
+            "octave": 5,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 3,
+            "durationUnits": 1,
+            "midi": 73
+          },
+          {
+            "key": "c#/5",
+            "octave": 5,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 4,
+            "durationUnits": 2,
+            "midi": 73
+          },
+          {
+            "key": "c#/5",
+            "octave": 5,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 6,
+            "durationUnits": 2,
+            "midi": 73
+          },
+          {
+            "key": "f#/5",
+            "octave": 5,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 8,
+            "durationUnits": 1,
+            "midi": 78
+          },
+          {
+            "key": "d/5",
+            "octave": 5,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 9,
+            "durationUnits": 1,
+            "midi": 74
+          },
+          {
+            "key": "d/5",
+            "octave": 5,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 10,
+            "durationUnits": 2,
+            "midi": 74
+          },
+          {
+            "key": "e/5",
+            "octave": 5,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 12,
+            "durationUnits": 2,
+            "midi": 76
+          },
+          {
+            "key": "g/5",
+            "octave": 5,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 14,
+            "durationUnits": 2,
+            "midi": 79
+          }
+        ],
+        "totalUnits": 16,
+        "groups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "beamGroups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "timeSignature": "4/4"
+      },
+      {
+        "events": [
+          {
+            "key": "f#/5",
+            "octave": 5,
+            "duration": "h",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 0,
+            "durationUnits": 8,
+            "midi": 78,
+            "chord": [
+              {
+                "midi": 71,
+                "key": "b/4",
+                "octave": 4
+              },
+              {
+                "key": "f#/5",
+                "octave": 5,
+                "midi": 78
+              }
+            ]
+          },
+          {
+            "key": "e/5",
+            "octave": 5,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 8,
+            "durationUnits": 2,
+            "midi": 76
+          },
+          {
+            "key": "c#/5",
+            "octave": 5,
+            "duration": "8",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 10,
+            "durationUnits": 2,
+            "midi": 73
+          },
+          {
+            "key": "c#/5",
+            "octave": 5,
+            "duration": "8",
+            "dots": 1,
+            "rest": false,
+            "startUnits": 12,
+            "durationUnits": 3,
+            "midi": 73
+          },
+          {
+            "key": "c#/5",
+            "octave": 5,
+            "duration": "16",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 15,
+            "durationUnits": 1,
+            "midi": 73
+          }
+        ],
+        "totalUnits": 16,
+        "groups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "beamGroups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "timeSignature": "4/4"
+      },
+      {
+        "events": [
+          {
+            "key": "b/4",
+            "octave": 4,
+            "duration": "q",
+            "dots": 0,
+            "rest": false,
+            "startUnits": 0,
+            "durationUnits": 4,
+            "midi": 71,
+            "chord": [
+              {
+                "midi": 64,
+                "key": "e/4",
+                "octave": 4
+              },
+              {
+                "key": "b/4",
+                "octave": 4,
+                "midi": 71
+              },
+              {
+                "midi": 76,
+                "key": "e/5",
+                "octave": 5
+              }
+            ]
+          },
+          {
+            "key": "a/4",
+            "octave": 4,
+            "duration": "h",
+            "dots": 1,
+            "rest": false,
+            "startUnits": 4,
+            "durationUnits": 12,
+            "midi": 69,
+            "articulation": "tenuto"
+          }
+        ],
+        "totalUnits": 16,
+        "groups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "beamGroups": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "timeSignature": "4/4"
+      }
+    ],
+    "tonality": {
+      "tonic": "A",
+      "scaleId": "mixolydian",
+      "label": "A 混合利底安 Mixolydian",
+      "notes": [
+        "A",
+        "B",
+        "C#",
+        "D",
+        "E",
+        "F#",
+        "G"
+      ],
+      "signature": "D"
+    },
+    "phrasePlan": [
+      {
+        "startBar": 0,
+        "endBar": 3,
+        "role": "opening"
+      },
+      {
+        "startBar": 4,
+        "endBar": 7,
+        "role": "closing"
+      }
+    ],
+    "musicalIntent": {
+      "version": 1,
+      "grammar": "lyrical",
+      "motif": [
+        0,
+        1,
+        2,
+        1,
+        -1
+      ],
+      "variant": 3,
+      "opening": {
+        "version": 1,
+        "shape": 7,
+        "anchor": 7,
+        "register": -1,
+        "rhythm": 6,
+        "weak": false
+      },
+      "phrases": [
+        {
+          "startBar": 0,
+          "endBar": 3,
+          "role": "opening",
+          "cadence": "open",
+          "gesture": "present",
+          "peak": 0.68
+        },
+        {
+          "startBar": 4,
+          "endBar": 7,
+          "role": "closing",
+          "cadence": "home",
+          "gesture": "return",
+          "peak": 0.45
+        }
+      ],
+      "harmony": [
+        {
+          "root": 9,
+          "pitches": [
+            9,
+            1,
+            4
+          ],
+          "role": "home"
+        },
+        {
+          "root": 9,
+          "pitches": [
+            9,
+            1,
+            4
+          ],
+          "role": "depart"
+        },
+        {
+          "root": 11,
+          "pitches": [
+            11,
+            2,
+            6
+          ],
+          "role": "prepare"
+        },
+        {
+          "root": 4,
+          "pitches": [
+            4,
+            7,
+            11
+          ],
+          "role": "arrive"
+        },
+        {
+          "root": 9,
+          "pitches": [
+            9,
+            1,
+            4
+          ],
+          "role": "depart"
+        },
+        {
+          "root": 6,
+          "pitches": [
+            6,
+            9,
+            1
+          ],
+          "role": "depart"
+        },
+        {
+          "root": 4,
+          "pitches": [
+            4,
+            7,
+            11
+          ],
+          "role": "prepare"
+        },
+        {
+          "root": 9,
+          "pitches": [
+            9,
+            1,
+            4
+          ],
+          "role": "arrive"
+        }
+      ],
+      "rhythm": [
+        {
+          "meter": "4/4",
+          "notes": [
+            {
+              "duration": "h",
+              "dots": 0,
+              "units": 8,
+              "startUnits": 0,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 8,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 9,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 10,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 12,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 14,
+              "rest": false
+            }
+          ]
+        },
+        {
+          "meter": "4/4",
+          "notes": [
+            {
+              "duration": "q",
+              "dots": 0,
+              "units": 4,
+              "startUnits": 0,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 4,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 6,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 7,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 1.3333333333333333,
+              "startUnits": 8,
+              "rest": false,
+              "tuplet": 3
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 1.3333333333333333,
+              "startUnits": 9.333333333333334,
+              "rest": false,
+              "tuplet": 3
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 1.3333333333333333,
+              "startUnits": 10.666666666666666,
+              "rest": false,
+              "tuplet": 3
+            },
+            {
+              "duration": "8",
+              "dots": 1,
+              "units": 3,
+              "startUnits": 12,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 15,
+              "rest": false
+            }
+          ]
+        },
+        {
+          "meter": "4/4",
+          "notes": [
+            {
+              "duration": "h",
+              "dots": 0,
+              "units": 8,
+              "startUnits": 0,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 8,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 10,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 1,
+              "units": 3,
+              "startUnits": 12,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 15,
+              "rest": false
+            }
+          ]
+        },
+        {
+          "meter": "4/4",
+          "notes": [
+            {
+              "duration": "8",
+              "dots": 1,
+              "units": 3,
+              "startUnits": 0,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 3,
+              "rest": false
+            },
+            {
+              "duration": "q",
+              "dots": 0,
+              "units": 4,
+              "startUnits": 4,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 8,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 10,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 11,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 12,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 14,
+              "rest": true
+            }
+          ]
+        },
+        {
+          "meter": "4/4",
+          "notes": [
+            {
+              "duration": "h",
+              "dots": 0,
+              "units": 8,
+              "startUnits": 0,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 8,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 10,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 11,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 12,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 14,
+              "rest": false
+            }
+          ]
+        },
+        {
+          "meter": "4/4",
+          "notes": [
+            {
+              "duration": "8",
+              "dots": 1,
+              "units": 3,
+              "startUnits": 0,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 3,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 4,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 6,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 8,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 9,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 10,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 12,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 14,
+              "rest": false
+            }
+          ]
+        },
+        {
+          "meter": "4/4",
+          "notes": [
+            {
+              "duration": "h",
+              "dots": 0,
+              "units": 8,
+              "startUnits": 0,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 8,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 0,
+              "units": 2,
+              "startUnits": 10,
+              "rest": false
+            },
+            {
+              "duration": "8",
+              "dots": 1,
+              "units": 3,
+              "startUnits": 12,
+              "rest": false
+            },
+            {
+              "duration": "16",
+              "dots": 0,
+              "units": 1,
+              "startUnits": 15,
+              "rest": false
+            }
+          ]
+        },
+        {
+          "meter": "4/4",
+          "notes": [
+            {
+              "duration": "q",
+              "dots": 0,
+              "units": 4,
+              "startUnits": 0,
+              "rest": false
+            },
+            {
+              "duration": "h",
+              "dots": 1,
+              "units": 12,
+              "startUnits": 4,
+              "rest": false
+            }
+          ]
+        }
+      ]
+    },
+    "harmonyPlan": [
+      {
+        "root": 9,
+        "pitches": [
+          9,
+          1,
+          4
+        ],
+        "role": "home"
+      },
+      {
+        "root": 9,
+        "pitches": [
+          9,
+          1,
+          4
+        ],
+        "role": "depart"
+      },
+      {
+        "root": 11,
+        "pitches": [
+          11,
+          2,
+          6
+        ],
+        "role": "prepare"
+      },
+      {
+        "root": 4,
+        "pitches": [
+          4,
+          7,
+          11
+        ],
+        "role": "arrive"
+      },
+      {
+        "root": 9,
+        "pitches": [
+          9,
+          1,
+          4
+        ],
+        "role": "depart"
+      },
+      {
+        "root": 6,
+        "pitches": [
+          6,
+          9,
+          1
+        ],
+        "role": "depart"
+      },
+      {
+        "root": 4,
+        "pitches": [
+          4,
+          7,
+          11
+        ],
+        "role": "prepare"
+      },
+      {
+        "root": 9,
+        "pitches": [
+          9,
+          1,
+          4
+        ],
+        "role": "arrive"
+      }
+    ],
+    "soundProfile": "Sheng",
+    "staffMode": "fixed",
+    "transposition": 0,
+    "expressionSpans": [
+      {
+        "kind": "slur",
+        "staff": 0,
+        "start": {
+          "bar": 3,
+          "event": 3
+        },
+        "end": {
+          "bar": 3,
+          "event": 6
+        }
+      },
+      {
+        "kind": "slur",
+        "staff": 0,
+        "start": {
+          "bar": 6,
+          "event": 0
+        },
+        "end": {
+          "bar": 7,
+          "event": 1
+        }
+      },
+      {
+        "kind": "crescendo",
+        "staff": 0,
+        "start": {
+          "bar": 4,
+          "event": 0
+        },
+        "end": {
+          "bar": 5,
+          "event": 8
+        }
+      },
+      {
+        "kind": "diminuendo",
+        "staff": 0,
+        "start": {
+          "bar": 5,
+          "event": 8
+        },
+        "end": {
+          "bar": 7,
+          "event": 1
+        }
+      }
+    ]
+  }
+}

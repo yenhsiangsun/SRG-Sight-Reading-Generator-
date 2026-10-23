@@ -116,8 +116,8 @@ function studio(h) {
 
 test('resuming a legacy slur refresh uses one accepted exercise for current, completion identity and seek', async t => {
   const h = exerciseHook(), ui = studio(h); t.after(() => ui.player.dispose());
-  const current = h.render().current, slurs = current.exercise.expressionSpans.filter(span => span.kind === 'slur');
-  assert.ok(slurs.length > 1, 'real generated fixture has multiple phrase slurs');
+  const current = JSON.parse(fs.readFileSync(new URL('./fixtures/legacy-slur-session.json',import.meta.url))), slurs = current.exercise.expressionSpans.filter(span => span.kind === 'slur');
+  assert.ok(slurs.length > 1, 'frozen pre-C generated fixture has multiple phrase slurs');
   const legacy = {...current.exercise, expressionSpans: [...current.exercise.expressionSpans.filter(span => span.kind !== 'slur'), slurs[0]]};
   assert.notEqual(refreshSlurPhrasing(legacy), legacy, 'this valid saved fixture really needs a new phrasing object');
   const study = {id: 'persistent-completed-session', created: 1, bpm: 80, settings: current.settings, exercise: legacy};

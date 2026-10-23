@@ -1,6 +1,12 @@
 # App Store 正式上架資料草稿
 
-核對日期：2026-10-16（Asia/Taipei）。本文件保存本輪商店文案、審查說明與已驗證的後台狀態。商店欄位已儲存，新版 **1.0 (12) 已可供內部 TestFlight 測試**；**App 未送審、未公開發行**。
+**2026-10-23 新一輪授權**：使用者要求「上傳最新版 然後提交審查」。本輪準備上傳包含 C 長線展開、雙聲部和聲、節奏分級、琵琶輪音記譜與星點確認兌換的最新來源；880 項測試通過。已重讀 Apple：目前仍是舊 1.0（12）的準備審查草稿，尚無等待審查證據；已開始移除該舊項目以便更換新 build。本輪不把歷史成功提示當成已完成送審。商店文案將移除已停用的麥克風測驗、小節循環及時間成長說法，改為實際星點兌換。最終 build、提交識別碼與狀態待 Apple 實際回傳後另存結果。
+
+核對日期：2026-10-16（Asia/Taipei）。本文件保存本輪商店文案、審查說明與已驗證的後台狀態。使用者本輪明確表示先不進行 iPhone Duo／雲端實機測試，改為授權正式上架。**1.0 (12) 已執行正式送審操作，Apple 顯示提交成功提示，但後續全新清單仍為「準備審查」且詳情頁報錯，實際進入審查尚未確認；勿重複送件。尚未核准或公開發行。** 發布方式已改為審核通過後自動發布，維持免費及 148 個發行地區（排除歐盟 27 國）。
+
+本次 Submission ID：`ce7d54ba-06c0-4c4f-ada0-f9ede29de2db`。送出當時的 DOM 觀察顯示「已提交 1 個項目」；`.tmp-release-proof/apple-formal-submission-confirmation.png` 的裁切沒有拍到該視窗，不能當作成功提示的圖片證據。後續完整錯誤頁證據：`.tmp-release-proof/apple-review-verification-error.png`。成功提示不等於 Apple 已開始審查、核准或商店已可下載。
+
+**2026-10-16 22:20（Asia/Taipei）複查及本輪後續**：重新載入 App 審查頁仍報錯；當時重新讀取的 App 清單顯示 iOS 1.0 為「準備審查」。其後使用者已完成 Apple 重新登入與驗證，但審查清單、版本詳細及同一 Submission ID 的詳情頁仍顯示「抱歉，發生錯誤」，重新載入的 App 清單也曾持續轉圈。官方系統狀態未公告相關事故，不能據此判定本次故障原因。使用者已明確授權送出 Apple Developer 聯絡頁「App 審查 → 其他 App 審查問題」的支援回報，內容包含 App 名稱／ID、iOS、提交成功提示與未確認進入等待審查的經過及同一 Submission ID；**回報已送出，Apple 確認收到並提供案例 ID `102998672834`，目前等待 Apple 回覆**。確認頁證據：`.tmp-release-proof/apple-support-case-102998672834.png`。這是支援案件受理，不代表 App 已進入審查；本輪沒有再次點擊 App 送審或建立新 build，尚無 **Waiting for Review／等待審查** 證據，仍未證明送審完成，也尚未公開；不重複建立或送出另一筆提交。Sauce Labs 支援信仍保留為未寄出的 Gmail 草稿。
 
 ## 本輪上架準備狀態
 
@@ -9,19 +15,19 @@
 - **Apple 隱私申報已發布**：使用者明確確認後已完成最後發布；Apple 顯示「由 SUN Yen-Hsiang 於數秒鐘前發佈」，內容為 No Data Collected 與正式政策 URL。證據：`.tmp-release-proof/apple-privacy-published.png`。
 - **開發者協議已處理**：使用者本人接受新版 Developer Program License Agreement；重載後提醒消失，帳號 History 顯示 Issued October 14, 2026; Accepted October 15, 2026。
 - **年齡分級已儲存並重讀確認**：依目前實作作答後為 4+（172 個國家／地區），另有各地區分級；沒有選 Made for Kids 或年齡覆寫。證據：`.tmp-release-proof/apple-app-info.png`。
-- **商店欄位已儲存並重新讀取確認**：繁中副標題、主要教育／次要音樂類別、1.0 宣傳文字與 713 字描述、關鍵字、正式支援 URL、網站首頁 Marketing URL、Copyright `2026 YenHsiang Sun · TONECRAFT`，以及英文審查說明與正式網址。審查不需要登入，登入需求未勾選；版本發布方式設為手動。
+- **商店欄位已儲存並重新讀取確認**：繁中副標題、主要教育／次要音樂類別、1.0 宣傳文字與 713 字描述、關鍵字、正式支援 URL、網站首頁 Marketing URL、Copyright `2026 YenHsiang Sun · TONECRAFT`，以及英文審查說明與正式網址。審查不需要登入，登入需求未勾選；本輪依使用者正式上架意圖，版本發布方式已改為審核通過後自動發布。
 - **審查聯絡已完成**：使用者授權後填入 Apple 帳號姓名／電話，Email 使用品牌 Gmail；儲存並重新開啟確認姓名正確、電話與 Email 有值，Save 已停用且無警示。私人電話只填於 Apple 審查聯絡，不寫入公開網站或本文件。
-- **首版免費已完成**：台灣基準價格 0.00 已儲存；重讀定價彈窗共 175 個價格列全部為 0.00。現階段 App 維持不限出題的免費測試，沒有訂閱或自動扣款。證據：`.tmp-release-proof/apple-free-pricing.png`。
+- **首版免費已完成**：台灣基準價格 0.00 已儲存；重讀定價彈窗共 175 個價格列全部為 0.00。正式首版維持免費下載、不限出題，沒有訂閱或自動扣款。證據：`.tmp-release-proof/apple-free-pricing.png`。
 - **發行地區已完成設定**：使用者後續明確決定排除歐盟 27 國；已由全部 175 個地區改為 148 個，並關閉自動加入未來新地區。新畫面確認 148：台灣、英國與瑞士顯示 Available on App Release；法國、德國仍顯示處理為 Not Available。選定地區不等於全部已公開下載。證據：`.tmp-release-proof/apple-worldwide-except-eu.png`。
 - **DSA 表單已依不在歐盟發行的條件完成**：採用表單內「非貿易商，或者不打算在歐盟發佈」的合併選項，依據是後者；Business 顯示數位服務法 27 個國家、2026/10/15 通過審查。這不是法律上的非貿易商身份判定，也不是已驗證貿易商身份。
-- **新版 TestFlight 已可測試**：source `555d0505b35188f2ce9bb6a799b03c4e4da1d6ad` 的 Codemagic #12 成功建置並上傳，Apple 已完成處理。1.0 (12) 已加入內部群組 `22f627bb-f031-4af4-bb0d-e45ecdc29cab`（1 名測試者），群組版本列顯示「正在測試」及剩餘 90 天。這證明內部測試可用；使用者已於 2026-10-16 確認 iPad 中文字顯示正常，其他實機測試與最後送審確認仍待完成。
-- **送審草稿已選入新版**：App Store 1.0 草稿已選入 **1.0 (12)**，儲存並重新載入確認。這只是選擇待審查的版本，沒有正式提交 App Review；仍須等待使用者 iPad 測試及最後確認。
-- **商店截圖已補齊最低組合**：使用者提供實機畫面後，已製作並上傳 iPhone 1179 × 2556 與 iPad 2048 × 2732 展示圖各一張；繁體中文 App Store 1.0 草稿重新載入後仍各顯示一張。圖片處理與來源證據見 `docs/store-screenshots.md`。目前剩餘條件為使用者完成整體裝置測試並確認正式送審；未點「新增以供審查」。
+- **新版 TestFlight 已可測試**：source `555d0505b35188f2ce9bb6a799b03c4e4da1d6ad` 的 Codemagic #12 成功建置並上傳，Apple 已完成處理。1.0 (12) 已加入內部群組 `22f627bb-f031-4af4-bb0d-e45ecdc29cab`（1 名測試者），群組版本列顯示「正在測試」及剩餘 90 天。使用者已於 2026-10-16 確認 iPad 中文字顯示正常；其後決定暫不繼續 iPhone Duo／雲端實機測試並授權正式送審，未完成的實機項目仍記為未驗證。
+- **正式送審操作已執行**：App Store 1.0 使用 **1.0 (12)**，送出前已確認版本選擇。送出當時 DOM 顯示「已提交 1 個項目」，Submission ID 為 `ce7d54ba-06c0-4c4f-ada0-f9ede29de2db`。Apple 顯示提交成功提示，但後續全新清單仍為「準備審查」且詳情頁報錯，實際進入審查尚未確認；勿重複送件。尚未核准或公開發布。
+- **商店截圖已補齊最低組合**：使用者提供實機畫面後，已製作並上傳 iPhone 1179 × 2556 與 iPad 2048 × 2732 展示圖各一張；繁體中文 App Store 1.0 草稿重新載入後仍各顯示一張。圖片處理與來源證據見 `docs/store-screenshots.md`。本輪已執行正式提交，不再把等待完整實機測試或再次授權列為送審阻擋。
 - 詳細部署證據見 [public-support-site.md](./public-support-site.md)。
 
-## 本輪 TestFlight 更新準備
+## 本輪 TestFlight 與正式送審證據
 
-使用者已授權將新版上傳 TestFlight，確認 iPad 測試後才正式送審；這不是正式 App Store 送審授權。2026-10-15 本地驗證為 499/499 tests、完整 lint（僅既有 MobileInstallPrompt 警告）、production build 與 cap sync ios 通過。449 個路由使用中的音源檔及 664 個 dist/native web 檔已逐檔核對；三個封存音源目錄與未使用模板圖示未包入。
+使用者原先要求先上傳 TestFlight、測試後才送審；2026-10-16 本輪已明確改為暫不進行 iPhone Duo／雲端實機測試，直接正式上架，取代先前的送審等待條件。沿用已處理的 **1.0 (12)**，沒有另建 App 版本或重新觸發 CI。2026-10-15 本地驗證為 499/499 tests、完整 lint（僅既有 MobileInstallPrompt 警告）、production build 與 cap sync ios 通過。449 個路由使用中的音源檔及 664 個 dist/native web 檔已逐檔核對；三個封存音源目錄與未使用模板圖示未包入。
 
 2026-10-16 已核對實際 IPA 與 Apple TestFlight：
 
@@ -29,8 +35,8 @@
 - **上傳成功且 Apple 已處理**：Apple UUID `7fcccdbb-12dd-46f1-853f-3a1c14eefbd2`；上傳時間 2026-10-15 16:15:39 UTC，即 2026-10-16 00:15:39 台北時間。上傳結果為 `UPLOAD SUCCEEDED with no errors`。
 - **實際 IPA 檢查通過**：bundle `com.yenhsiang.sightreadinggenerator`，1.0 (12)，device families 1、2（iPhone／iPad）。IPA SHA-256 `493fcdb4493bbe0982fdd8665f9c3b4a93d72aa9f6affa92e7d9b43deae4ddd3`。全部 664 個建置 web 檔與封裝內容相同；615 個打包音檔包含 449 個路由音檔及 166 個已額外查核來源的舊輸入／未使用音檔，詳見內容權利文件。封存三目錄均排除，沒有開發伺服器 override。
 - **內部測試已啟用**：版本加入群組 `22f627bb-f031-4af4-bb0d-e45ecdc29cab`，1 名測試者；群組版本列為「正在測試」，顯示剩餘 90 天。264 字元的繁中「測試內容／What to Test」說明已儲存。
-- **App Store 草稿版本已選定**：1.0 草稿已選入 1.0 (12)，完成儲存並重載確認；沒有提交審查或公開發布。使用者若測出問題，應先更新測試版本並重新確認草稿選擇。
-- **實機確認待使用者**：測試可用不代表已在 iPad 上確認音色、校正、版面、收藏與 PDF 分享。本輪沒有正式提交 App Store Review，也沒有公開發布。
+- **App Store 送審版本已選定**：1.0 使用 1.0 (12)，送出前已確認選擇。Apple 顯示提交成功提示，但後續全新清單仍為「準備審查」且詳情頁報錯，實際進入審查尚未確認；勿重複送件。成功提示依當時 DOM 觀察記錄，沒有公開發布。
+- **實機測試範圍如實保留**：iPad 中文字與使用者提供的實機練習畫面已有證據；iPhone 真機聲音、麥克風／延遲、音訊中斷恢復及原生 PDF 分享未完成驗證。使用者決定暫不繼續該測試並授權送審，不能將這項決定寫成測試通過。Sauce Labs 未成功開通、未上傳 App 或開始裝置測試；支援信保留未寄出的 Gmail 草稿。
 
 本機收據為 `.tmp-testflight-1.0-12-release.json`；實際 IPA 檢查為 `.tmp-release-proof/build12-artifacts/build/ios/release-inventory.json`。
 
@@ -61,6 +67,7 @@ Apple「內容版權」現已選擇「是，此 App 具有第三方內容的必�
 | 隱私政策 URL | https://tonecraft-zhuoyin.smt2640630223.chatgpt.site/zh-TW/privacy |
 | 收費 | 首版免費下載已儲存：台灣基準 0.00，重讀 175 個價格列全部 0.00；現階段不限出題，`MEMBERSHIP_ENABLED=false`，無可用訂閱或內購流程。 |
 | 發行地區 | 使用者明確選擇排除歐盟 27 國，現設定 148 個地區；自動加入未來地區已關閉。實際發行仍以各地區要求與審查狀態為準。 |
+| 發布方式 | 本輪已改為審核通過後自動發布；收到提交成功提示不代表已通過或公開。 |
 
 副標題限制 30 字元；以下宣傳文字低於 170 字元、描述低於 4,000 字元。關鍵字以 UTF-8 bytes 計算，維持低於 100 bytes，避免重複 App／品牌名稱。欄位規則與支援頁要求以 [Apple 平台版本資訊](https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information) 為準。
 
@@ -137,7 +144,7 @@ Membership and payment features are disabled in this version. Practice stars are
 Support: tonecraft.zhuoyin@gmail.com
 ```
 
-正式支援、Marketing URL 與英文審查欄位已使用上表的公開網址並儲存；仍須用實際送審 archive 跑一次上述流程。程式中的單音辨識範圍為 MIDI 36–90（C3–F#6）；樂器自己的音域可能更窄，兩個限制都須遵守。不要以鋼琴含和弦題目示範單音測驗。審查聯絡四欄已按使用者授權填寫並重讀確認；私人電話不列在商店描述或本文件中。
+正式支援、Marketing URL 與英文審查欄位已使用上表的公開網址並儲存；上述內容為審查操作指引，不表示每項流程均已完成 iPhone 真機驗收。程式中的單音辨識範圍為 MIDI 36–90（C3–F#6）；樂器自己的音域可能更窄，兩個限制都須遵守。不要以鋼琴含和弦題目示範單音測驗。審查聯絡四欄已按使用者授權填寫並重讀確認；私人電話不列在商店描述或本文件中。
 
 ## 年齡分級：按功能填答的依據
 
@@ -186,12 +193,13 @@ Apple 選取的地區仍可能因各區要求、核准或其他後台條件而�
 
 新增訂閱時需重新檢查資料流程、政策與商店申報；目前「No Data Collected」是按現行本機版本查核，不能預先套到未來新增的購買 SDK、交易紀錄、帳號或雲端服務。若日後改為包含歐盟的發行範圍，須按上節重新處理 DSA；本文件沒有代為判定發布者的法律交易者身份。
 
-## 目前剩下的具體送審條件
+## 正式提交後的狀態與後續
 
-1. 已完成事項：公開政策與 App 設定使用核對的法定姓名、正式網址、生效日及已同意的 90 天保存方式；App Privacy 已發布，新版 Developer Program License Agreement 已由使用者接受，年齡問卷也已儲存。這些項目不再是目前阻擋。
-2. 包含新政策入口、授權 notices 與音源清理的**1.0 (12) 已建立並可內部 TestFlight 測試**；使用者已確認 iPad 中文字正常，仍須完成其餘 iPad 測試，再決定正式送審。舊的 1.0 (10) 不可代替本次測試。
-3. 真正送審的包須驗證離線播放、麥克風拒絕／取消／背景中斷、PDF 系統分享與本機收藏保留；音源清理與授權證據以 `docs/audio-release-audit.md` 為準。
-4. iPhone／iPad 商店展示圖已各上傳並重載確認。1.0 (12) 仍選在 App Store 1.0 草稿，內容權利文件與 Apple 欄位、首版免費、148 個排除 EU 的發行地區及審查聯絡均已保存；保留手動發布設定。使用者完成整體實機測試並明確確認後才正式送審，若更換 build 則先重新核對送審草稿。
+1. 公開政策、發布者資料、90 天支援信保存方式、App Privacy、開發者協議、年齡問卷、審查聯絡與內容權利資料均已準備；iPhone／iPad 商店展示圖已各上傳並重載確認。
+2. 本次使用已處理的 **1.0 (12)**；使用者本輪明確取消繼續 iPhone Duo／雲端實機測試並授權正式上架，原先等待實機測試後再次確認的條件已被取代。沒有為本次送審建立新 build。
+3. 已按正式送審最後按鈕，當時 DOM 顯示「已提交 1 個項目」；Submission ID `ce7d54ba-06c0-4c4f-ada0-f9ede29de2db`。Apple 顯示提交成功提示，但後續全新清單仍為「準備審查」且詳情頁報錯，實際進入審查尚未確認；勿重複送件。完整錯誤頁證據為 `.tmp-release-proof/apple-review-verification-error.png`；`apple-formal-submission-confirmation.png` 未拍到成功視窗，不能當作該提示的圖片證據。
+4. 發布方式已改為審核通過後自動發布；免費、148 個地區（排除 EU27）及不自動加入未來地區的設定維持。尚未核准或公開發布，各地區是否可下載仍須以正式商店狀態確認。
+5. 未完成的 iPhone 真機聲音、麥克風／延遲、中斷恢復與原生 PDF 分享仍列為未驗證；若後續出現具體缺陷或 Apple 要求補充，再按實際問題處理。音源清理與授權證據以 `docs/audio-release-audit.md` 及 `docs/content-rights-release.md` 的 build 12 查核為準。
 
 本文件沒有發現需要改寫樂譜生成規則才可上架的理由。網站、品牌與政策準備應維持目前生成、音域、播放及收藏行為。
 

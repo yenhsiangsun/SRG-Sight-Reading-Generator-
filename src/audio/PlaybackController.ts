@@ -72,7 +72,8 @@ export function createPlaybackEvents(exercise: ExerciseData, bpm: number, perfor
             const event={note:pitch,duration:length*(expressive?lengthRatio:1),time:bar.start+units*secondsPerUnit,
               ...(metrical || expressive || pitches.length > 1 ? {velocity:phraseVelocity*gain*metricGain} : {})};
             events.push(...(performTechniques && exercise.soundProfile === 'Pipa' ?
-              pipaExpression(event,note.technique,pitchIndex,pitches.length,length) : [event]));
+              pipaExpression(event,note.technique,pitchIndex,pitches.length,length,
+                note.pipaRollGroup?(units-note.pipaRollGroup.startUnits)*secondsPerUnit:undefined) : [event]));
           }
         }
         units = addRhythmUnits(units,note.durationUnits);

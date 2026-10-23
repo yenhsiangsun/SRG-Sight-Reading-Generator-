@@ -46,9 +46,19 @@ for(const fixture of fixtures.listened){
 }
 
 for(const fixture of fixtures.untouched){
-  test(`major phrase adoption preserves the previous seeded output for ${fixture.name}`,()=>{
+  test(`major phrase routing preserves ${fixture.counterpointB86?'the original melody and rhythm with the authorized B86 bass correction':'the previous seeded output'} for ${fixture.name}`,()=>{
     const ex=loadModule('src/music/composeExercise.ts',fixture.seed).composeExercise(fixture.options,fixture.grandMode,fixture.strategy);
-    assert.equal(hash(ex),fixture.composedSHA256);
+    const correction=fixture.counterpointB86;
+    if(correction){
+      assert.equal(hash(ex),correction.composedSHA256);
+      assert.notEqual(hash(ex),fixture.composedSHA256);
+      assert.equal(hash(ex.measures),correction.upperSHA256);
+      const timing=[ex.measures,ex.lowerMeasures].map(staff=>staff.map(bar=>({...bar,events:bar.events.map(({midi:_midi,key:_key,octave:_octave,chord:_chord,...n})=>n)})));
+      assert.equal(hash(timing),correction.timingSHA256);
+      const {lowerMeasures,...unchanged}=ex;
+      assert.ok(lowerMeasures?.length);
+      assert.equal(hash(unchanged),correction.unchangedOutsideLowerSHA256);
+    }else assert.equal(hash(ex),fixture.composedSHA256);
   });
 }
 

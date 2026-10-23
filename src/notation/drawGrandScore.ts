@@ -7,6 +7,7 @@ import { collectMeasureAnchors, collectNoteGeometry, type ScoreLayout } from './
 import {tupletSpace} from './ScoreTuplet';
 import {scoreContext, type ScoreViewport} from './scoreRenderer';
 import {drawExpressionSpans, expressionOverflow, expressionSpace, type ExpressionBar} from './expressionSpans';
+import {drawPipaRollSpans,pipaRollSpanSpace} from './pipaRollSpans';
 
 export function prepareGrandMeasure(upper: MeasureData, lower: MeasureData, key: string, meter: TimeSignature, simplifyRests=false, upperShifts: number[] = [], lowerShifts: number[] = []) {
   if (upper.totalUnits !== lower.totalUnits || (lower.timeSignature && lower.timeSignature !== meter)) {
@@ -61,6 +62,7 @@ function drawGrandPass(container: HTMLDivElement | HTMLCanvasElement, exercise: 
     const rightExtent=extent(items.flatMap(item=>item.right.notes)),leftExtent=extent(items.flatMap(item=>item.left.notes));
     for(const [staff,ext] of [[0,rightExtent],[1,leftExtent]] as const){
       const space=expressionSpace(exercise,staff,{first,last});ext.above+=space.above;ext.below+=space.below;
+      ext.above+=pipaRollSpanSpace(staff===0?upperMeasures:lowerMeasures,{first,last});
     }
     for(const side of ['above','below'] as const){
       rightExtent[side]+=tupletSpace(items.flatMap(item=>item.right.tuplets),side);
@@ -124,23 +126,24 @@ function drawGrandPass(container: HTMLDivElement | HTMLCanvasElement, exercise: 
     context.fillText(String(index+1),x,y+5);context.restore();
   });
   const expressions=drawExpressionSpans(context,exercise,expressionBars);
+  const rolls=drawPipaRollSpans(context,expressionBars,expressions),ink=[...expressions,...rolls];
   const octaveBounds:Array<{row:number;bounds:{xStart:number;xEnd:number;yTop:number;yBottom:number}}> = [];
   octaveBars.forEach((bars,staff)=>{
-    bars.forEach((bar,index)=>{bar.expressionBounds=expressions.filter(span=>span.staff===staff&&span.bars.includes(index)).map(span=>span.bounds);});
+    bars.forEach((bar,index)=>{bar.expressionBounds=ink.filter(span=>span.staff===staff&&span.bars.includes(index)).map(span=>span.bounds);});
     octaveBounds.push(...drawOctaveLines(context,bars));
   });
-  const overflow=expressionOverflow([...expressions,...octaveBounds],layout.systems!);
+  const overflow=expressionOverflow([...ink,...octaveBounds],layout.systems!);
   let between=0;
   for (let row=0;row<rows;row++) {
     const handBounds=([0,1] as const).map(staff=>{
       const notes=expressionBars.filter(bar=>bar.row===row&&bar.staff===staff).flatMap(bar=>bar.notes);
-      const ink=expressions.filter(span=>span.row===row&&span.staff===staff);
-      return {top:Math.min(...notes.map(note=>note.getBoundingBox().getY()),...ink.map(span=>span.bounds.yTop)),
-        bottom:Math.max(...notes.map(note=>{const box=note.getBoundingBox();return box.getY()+box.getH();}),...ink.map(span=>span.bounds.yBottom))};
+      const handInk=ink.filter(span=>span.row===row&&span.staff===staff);
+      return {top:Math.min(...notes.map(note=>note.getBoundingBox().getY()),...handInk.map(span=>span.bounds.yTop)),
+        bottom:Math.max(...notes.map(note=>{const box=note.getBoundingBox();return box.getY()+box.getH();}),...handInk.map(span=>span.bounds.yBottom))};
     });
     between=Math.max(between,handBounds[0].bottom+12-handBounds[1].top);
   }
-  if (canCorrect&&expressions.length>0&&(overflow.above||overflow.below||between>0)) {
+  if (canCorrect&&ink.length>0&&(overflow.above||overflow.below||between>0)) {
     if (!viewport) container.replaceChildren();
     return drawGrandPass(container,exercise,width,viewport,{...overflow,between:Math.ceil(Math.max(0,between))},false);
   }

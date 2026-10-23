@@ -8,6 +8,7 @@ import {assertMeasureRhythm} from '../music/rhythmTiming';
 import {validBpm} from '../audio/tempo';
 import {validRhythmFocus} from './focus';
 import {validPipaTechnique} from '../music/pipaTechniques';
+import {validPipaRollGroups} from '../music/pipaRollGroups';
 import {validKeySignatureChoices} from '../music/keySignatureChoices';
 import {validExpressionSpans} from '../music/expressionSpans';
 import {COMPOSITION_STYLES,validMusicalIntent} from '../music/musicalIntent';
@@ -102,7 +103,8 @@ export function validStudy(value: unknown, score: boolean): value is SavedStudy 
       && (m.timeSignature ?? ex.timeSignature) === ((ex.measures as MeasureData[])[i].timeSignature ?? ex.timeSignature)))) return false;
   if (!validExpressionSpans(ex.expressionSpans,ex as unknown as ExerciseData)) return false;
   const staves = [...ex.measures as MeasureData[], ...(ex.lowerMeasures as MeasureData[] | undefined ?? [])];
-  if (staves.some(bar => bar.events.some(note => note.technique !== undefined &&
+  if (staves.some(bar => !validPipaRollGroups(bar,ex.timeSignature as TimeSignature) || bar.events.some(note =>
+    (note.technique !== undefined || note.pipaRollGroup !== undefined) &&
     (ex.soundProfile !== 'Pipa' || !validPipaTechnique(note))))) return false;
   const shengProfile = typeof ex.soundProfile === 'string' && isShengInstrument(ex.soundProfile) ? ex.soundProfile : undefined;
   if (staves.some(bar => bar.events.some(note => note.chord && (

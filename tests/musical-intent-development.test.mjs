@@ -8,9 +8,9 @@ const melody=ex=>plain(ex.measures.map(b=>b.events.map(n=>[n.midi,n.durationUnit
 const base={instrument:'Sheng',instrumentProfile:'Sheng',clef:'treble',difficulty:'intermediate',keySignature:'C',tonic:'C',scaleId:'major',timeSignature:'4/4',rhythmLevel:'medium',measures:8,tempo:80,range:{min:60,max:84},allowAccidentals:false,mixedMeters:false,meters:['4/4']};
 const bridge=`export {composeExercise} from './composeExercise';export {coordinateGrandStaff} from './grandAccompaniment';export {addInstrumentHarmony} from './instrumentHarmony';export {addPerformanceMarks} from './performanceMarks';export {addPipaTechniques} from './pipaTechniques';export {validateGeneratedExercise} from './exerciseQuality';`;
 
-test('character changes the whole rhythmic journey and arrival, not just its opening or label',()=>{
+test('the retained explicit grammar composer keeps its distinct journeys for comparison',()=>{
   const scores=['classical','lyrical','pentatonic'].map(compositionStyle=>
-    loadModule('src/music/composeExercise.ts',63011).composeExercise({...base,compositionStyle,scaleId:compositionStyle==='pentatonic'?'major-pentatonic':'major'}));
+    loadModule('src/music/intentComposition.ts',63011).composeIntentExercise({...base,compositionStyle,scaleId:compositionStyle==='pentatonic'?'major-pentatonic':'major'}));
   for(let a=0;a<scores.length;a++)for(let b=a+1;b<scores.length;b++){
     const changed=scores[a].measures.flatMap((bar,i)=>rhythm(bar)!==rhythm(scores[b].measures[i])?[i]:[]);
     assert.ok(changed.length>=5,'differences must reach most of the song');

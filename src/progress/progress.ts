@@ -53,7 +53,7 @@ export interface ProgressState {
   cosmetics: RewardId[];
   /** null is the permanently free original Mimo; reward pets keep their own IDs. */
   activePet: PetCompanion | null;
-  /** Foreground practice is tracked independently for each equipped companion. */
+  /** Redeemed growth forms, independent for each companion. */
   companionGrowth: CompanionGrowthState;
 }
 
@@ -158,17 +158,15 @@ export function recordPractice(state: ProgressState, sessionId: string, now: Dat
   const key = sessionKey(sessionId);
   if (!key || current.completedSessions.includes(key)) return { state: current, awarded: false };
   const awarded = current.today.count < DAILY_REWARDED_PRACTICES;
-  return {
-    state: {
+  const next: ProgressState = {
       ...current,
       xp: Math.min(MAX_COUNTER, current.xp + (awarded ? 20 : 0)),
       points: Math.min(MAX_COUNTER, current.points + (awarded ? 10 : 0)),
       practiceDays: [...new Set([...current.practiceDays, current.today.date])].sort().slice(-DAY_HISTORY_LIMIT),
       completedSessions: [...current.completedSessions, key].slice(-SESSION_HISTORY_LIMIT),
       today: { ...current.today, count: Math.min(MAX_COUNTER, current.today.count + 1) },
-    },
-    awarded,
   };
+  return {state:next,awarded};
 }
 
 /** Redeems a reward and equips it if already owned, or purchases it first. */

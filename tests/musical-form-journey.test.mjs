@@ -32,7 +32,9 @@ test('a continuous sentence remembers its opening, develops density, and delays 
   assert.deepEqual(timing(plan.rhythm[0]),timing(plan.rhythm[6]),'the opening returns before closure');
   assert.ok(plan.rhythm[4].notes.length>plan.rhythm[0].notes.length,'continuation gathers motion rather than uniform density');
   assert.ok(plan.rhythm[7].notes.length<plan.rhythm[4].notes.length,'the close broadens after the continuation');
-  assert.ok(plan.rhythm.slice(0,7).every(b=>b.notes.every(n=>!n.rest)),'no artificial interior phrase-end rest');
+  // Complex figures now include short re-entry gaps, but a continuous sentence
+  // must still avoid the full-beat phrase-end pauses of separate short calls.
+  assert.ok(plan.rhythm.slice(0,7).every(b=>b.notes.every(n=>!n.rest||n.units===1)),'no artificial interior phrase-end rest');
 });
 
 test('new longer arcs remain legal and approach the cadence by step for bowed, sheng and two-staff instruments',()=>{

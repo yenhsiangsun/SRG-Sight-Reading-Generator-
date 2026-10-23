@@ -104,11 +104,11 @@ test('alto and tenor are chosen for their natural registers instead of merely be
     const selectedCost=keys.reduce((sum,key)=>sum+ledgerCount(key,clef),0);
     assert.ok(selectedCost<keys.reduce((sum,key)=>sum+ledgerCount(key,'treble'),0));
   }
-  // Sustained registers justify a change; one-bar alternation may correctly
-  // keep one C clef to avoid forcing a disruptive change at every barline.
-  const passage=[...Array.from({length:2},()=>bar(['c/3','d/3','e/3','c/3'])),
-    ...Array.from({length:2},()=>bar(['c/5','d/5','e/5','c/5']))];
-  const plan=planMixedStaff(passage,'treble','4/4',['alto','tenor']);
+  // Sustained phrases in different registers still justify both selected C
+  // clefs. Overlapping short passages need not force a gratuitous change.
+  const passage=[...Array.from({length:4},()=>bar(['c/3','d/3','e/3','c/3'])),
+    ...Array.from({length:4},()=>bar(['c/5','d/5','e/5','c/5']))];
+  const plan=planMixedStaff(passage,'treble','4/4',['alto','tenor'],[{startBar:0,endBar:3},{startBar:4,endBar:7}]);
   assert.deepEqual([...new Set(plan.clefs.flat())].sort(),['alto','tenor'],'a two-C-clef study can actually change between both selected clefs');
   const short=Array.from({length:4},()=>[bar(['c/3','e/3','g/3','c/3']),bar(['c/5','e/5','g/5','c/5'])]).flat(),before=plain(short);
   const shortPlan=planMixedStaff(short,'treble','4/4',['alto','tenor']);

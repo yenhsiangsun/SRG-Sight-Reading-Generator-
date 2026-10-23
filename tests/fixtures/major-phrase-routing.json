@@ -633,7 +633,14 @@
         ]
       },
       "grandMode": "two-hand",
-      "composedSHA256": "719730d2e9d66fca4e52635ab128b8ef6d9a0e25433a5fb71e9dcd55cc39484f"
+      "composedSHA256": "719730d2e9d66fca4e52635ab128b8ef6d9a0e25433a5fb71e9dcd55cc39484f",
+      "counterpointB86": {
+        "note": "Human-authorized two-hand accompaniment correction. Original whole-score baseline retained above; upper voice and both rhythms remain exact.",
+        "composedSHA256": "c4f1c91f511aa2a2dc081be656f4578734d4354c1d76d215ea3ce2bcc7975021",
+        "upperSHA256": "3b9bee4ebb8a6db646eba3c5842129184826e2143c7450fbe83a361b361a4abb",
+        "timingSHA256": "1ebfac1b2cdcdf5c638fe35cd39a269ae64dc3ba855f297184d7ad053097533b",
+        "unchangedOutsideLowerSHA256": "ae85d37448d1a0781b206e791aa751eb497c1550c4f3695891b1313fd13896e1"
+      }
     },
     {
       "name": "yangqin-two-hand",
@@ -662,7 +669,14 @@
         ]
       },
       "grandMode": "two-hand",
-      "composedSHA256": "719730d2e9d66fca4e52635ab128b8ef6d9a0e25433a5fb71e9dcd55cc39484f"
+      "composedSHA256": "719730d2e9d66fca4e52635ab128b8ef6d9a0e25433a5fb71e9dcd55cc39484f",
+      "counterpointB86": {
+        "note": "Human-authorized two-hand accompaniment correction. Original whole-score baseline retained above; upper voice and both rhythms remain exact.",
+        "composedSHA256": "c4f1c91f511aa2a2dc081be656f4578734d4354c1d76d215ea3ce2bcc7975021",
+        "upperSHA256": "3b9bee4ebb8a6db646eba3c5842129184826e2143c7450fbe83a361b361a4abb",
+        "timingSHA256": "1ebfac1b2cdcdf5c638fe35cd39a269ae64dc3ba855f297184d7ad053097533b",
+        "unchangedOutsideLowerSHA256": "ae85d37448d1a0781b206e791aa751eb497c1550c4f3695891b1313fd13896e1"
+      }
     },
     {
       "name": "grand-mono",

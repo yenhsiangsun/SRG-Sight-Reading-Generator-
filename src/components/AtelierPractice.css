@@ -99,7 +99,7 @@
   border-radius: 7px;
   border-color: var(--theme-line);
   background: var(--theme-surface);
-  box-shadow: 0 5px 16px #79523108;
+  box-shadow: 0 5px 16px #00000008;
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] .practice-toolbar .tempo input[type="range"] {
@@ -286,25 +286,25 @@
 /* Leave the score's width, padding and drawing descendants untouched. */
 .studio-app[data-design="atelier"][data-page="practice"] .score-card {
   background: #fff;
-  border-color: #ded5c9;
+  border-color: var(--theme-line);
   border-radius: 3px;
-  box-shadow: 0 10px 28px #7952310b, 0 4px 0 -1px #fffdf8, 0 4px 0 #ded5c9;
+  box-shadow: 0 10px 28px #0000000b, 0 4px 0 -1px var(--theme-line), 0 4px 0 var(--theme-line);
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] :is(.score-top, .score-bottom) {
-  border-color: #e8e1d7;
+  border-color: var(--theme-line);
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] :is(.score-top h2, .score-info strong) {
-  color: #392a20;
+  color: var(--theme-text);
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] :is(.score-kicker, .score-top p, .score-info, .score-bottom) {
-  color: #705e4f;
+  color: var(--theme-muted);
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] :is(.score-top p > span, .score-bottom b) {
-  color: #c8b9a7;
+  color: var(--theme-muted);
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] .score-scroll {
@@ -312,7 +312,7 @@
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] .score-card :focus-visible {
-  outline-color: #754525;
+  outline-color: var(--theme-primary);
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] .practice-checkout {
@@ -330,7 +330,7 @@
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] .tuning-panel {
-  box-shadow: 0 12px 36px #5b3a2420;
+  box-shadow: 0 12px 36px #00000020;
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] .tuning-frequency-field input {
@@ -362,7 +362,7 @@
 }
 
 .studio-app[data-design="atelier"][data-page="practice"] .assessment-panel.is-active {
-  box-shadow: 0 5px 16px #79523110;
+  box-shadow: 0 5px 16px #00000010;
 }
 
 @media (max-width: 760px) {

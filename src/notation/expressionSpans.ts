@@ -113,6 +113,16 @@ function slurSegment(members:Entry[],all:Entry[],bars:readonly ExpressionBar[],s
     bounds:slurBounds(xStart,xEnd,startY,endY,controlLift,above)};
 }
 
+/** Short single-voice technique slurs attach to the participating notes. The
+ * conventional side is below all-up stems and above down/mixed stems, rather
+ * than a fixed position relative to a technique bracket. */
+export function planLocalSlur(bar:ExpressionBar,first:number,last:number):ExpressionSegment|undefined {
+  const members=bar.notes.flatMap((note,event)=>event>=first&&event<=last&&!note.isRest()?[{bar,note,event}]:[]);
+  if(members.length<2)return;
+  const span:ExpressionSpan={kind:'slur',staff:bar.staff,start:{bar:bar.bar,event:first},end:{bar:bar.bar,event:last}};
+  return slurSegment(members,members,[bar],span,!members.every(entry=>entry.note.getStemDirection()>0));
+}
+
 function slurCost(segments:ExpressionSegment[],entries:Entry[],above:boolean) {
   let distance=0;
   for (const entry of entries) {
@@ -206,9 +216,14 @@ export function planExpressionDrawing(exercise: ExerciseData, bars: readonly Exp
 
 export function drawExpressionSpans(context: RenderContext, exercise: ExerciseData, bars: readonly ExpressionBar[]) {
   const segments = planExpressionDrawing(exercise,bars);
+  drawExpressionSegments(context,segments);
+  return segments;
+}
+
+export function drawExpressionSegments(context:RenderContext,segments:readonly ExpressionSegment[],prefix='expression') {
   for (const segment of segments) {
     const {xStart,xEnd,startY,endY,controlLift}=segment, width=xEnd-xStart;
-    context.save();context.openGroup(`expression-${segment.kind}`);
+    context.save();context.openGroup(`${prefix}-${segment.kind}`);
     context.setFillStyle('#000000').setStrokeStyle('#000000').setLineWidth(1.1);
     if (segment.kind==='slur') {
       // A tapered filled curve with a light outline stays readable on tablets,
@@ -226,5 +241,4 @@ export function drawExpressionSpans(context: RenderContext, exercise: ExerciseDa
     }
     context.closeGroup();context.restore();
   }
-  return segments;
 }

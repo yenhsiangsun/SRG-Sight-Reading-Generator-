@@ -3,15 +3,20 @@ import {buildPitchMaterial, describeTonality} from './scales';
 import {notePitches} from './notePitches';
 import {metricPosition} from './meterFeel';
 import {pipaChordFingering} from './pipaFingering';
+import {beatUnits,openingMeter} from '../audio/tempo';
+import {precedingPipaRollGroup, validPipaRollNote} from './pipaRollGroups';
 
 const consonant = (a: number, b: number) => [0,3,4,5,7,8,9].includes(Math.abs(a-b)%12);
 
 export function validPipaTechnique(note: GeneratedNote): boolean {
+  if (note.pipaRollGroup!==undefined && note.technique!=='pipa-roll') return false;
   if (note.technique === undefined) return true;
-  if (note.rest || note.tuplet || note.articulation || note.durationUnits < 2) return false;
+  if (note.rest || note.tuplet || note.articulation || note.durationUnits < (note.technique==='pipa-roll'?1:2)) return false;
   const pitches = notePitches(note);
   switch (note.technique) {
-    case 'pipa-roll': return pitches.length === 1 && pitches[0].midi >= 57 && note.durationUnits >= 4;
+    case 'pipa-roll': return validPipaRollNote(note);
+    // Read compatibility for saved scores. These two annotations are disabled
+    // in new generation, engraving and playback without rejecting old studies.
     case 'pipa-brush': return pitches.length >= 2 && !!pipaChordFingering(pitches);
     case 'pipa-arpeggio': return pitches.length >= 3 && note.durationUnits >= 4 && !!pipaChordFingering(pitches);
     case 'pipa-open-double': return pitches.length === 2 && !!pipaChordFingering(pitches)?.some(p => p.fret === 0);
@@ -30,9 +35,13 @@ export function addPipaTechniques(exercise: ExerciseData, range: PitchRange, ran
   const replacements = new Map<GeneratedNote, GeneratedNote>();
   const staffs = [exercise.measures, ...(exercise.lowerMeasures ? [exercise.lowerMeasures] : [])];
   const events = staffs.flatMap(staff => staff.flatMap((measure,bar) => measure.events.map(note => ({note,measure,bar}))));
-  const melodyEnd = events.filter(item => !item.note.rest).sort((a,b) => a.bar-b.bar || a.note.startUnits-b.note.startUnits).at(-1);
+  const melody = events.filter(item => !item.note.rest).sort((a,b) => a.bar-b.bar || a.note.startUnits-b.note.startUnits);
+  const limit = Math.max(1,Math.ceil(exercise.measures.length / (exercise.difficulty === 'beginner' ? 4 : 3)));
   const marked = new Set<number>();
   const used = new Set<GeneratedNote['technique']>();
+  const secondsPerUnit=60/exercise.tempo/beatUnits(openingMeter(exercise));
+  const canRoll=(note:GeneratedNote)=>!note.rest&&!note.chord&&!note.technique&&!note.tuplet&&note.midi!>=57&&
+    note.durationUnits>=4&&note.durationUnits*secondsPerUnit>=.35;
   const assign = (note: GeneratedNote, technique: GeneratedNote['technique'], chord?: NotePitch[]) => {
     const result = {...note,technique,...(chord ? {chord} : {})};
     delete result.articulation;
@@ -56,30 +65,48 @@ export function addPipaTechniques(exercise: ExerciseData, range: PitchRange, ran
     if (material.some(p => p.midi === anchor.midi)) visit([anchor],0);
     return result;
   };
-  // A quiet, rolled cadence only where three adjacent strings genuinely fit.
-  if (melodyEnd && melodyEnd.note.durationUnits >= 4 && random() < .5) {
-    const choices = voicings(melodyEnd.note,melodyEnd.bar,3);
-    if (choices.length && assign(melodyEnd.note,'pipa-arpeggio',choices[Math.floor(random()*choices.length)])) marked.add(Math.floor(melodyEnd.bar/2));
-  }
+  // Give an interior held melody note the first opportunity for a finger roll,
+  // before chord decorations consume the sparse technique budget. Every tier
+  // requires at least a written quarter note and enough actual sounding time.
+  // Neither the written pitches nor the rhythm are lengthened to create one.
+  const interior=melody.slice(1,-1).filter(({note})=>canRoll(note));
+  const middle=interior.filter(({bar})=>bar>0&&bar<exercise.measures.length-1);
+  const pool=middle.length?middle:interior;
+  const held=pool.filter(({note})=>note.durationUnits>=4);
+  const rolls=(held.length?held:pool).map(item=>({...item,priority:random()+
+    (metricPosition(item.measure,item.note.startUnits,exercise.timeSignature).onPulse?1:0)+
+    (exercise.rhythmLevel==='complex'&&precedingPipaRollGroup(item.measure,item.note,exercise.timeSignature)?1:0)})).sort((a,b)=>b.priority-a.priority);
+  if(rolls.length&&assign(rolls[0].note,'pipa-roll'))marked.add(Math.floor(rolls[0].bar/2));
   const eligible = events.filter(({note,measure}) => !note.rest && !note.tuplet && note.durationUnits >= 2 &&
     metricPosition(measure,note.startUnits,exercise.timeSignature).onPulse).map(item => ({...item,rank:random()})).sort((a,b) => a.rank-b.rank);
-  const limit = Math.max(1,Math.ceil(exercise.measures.length / (exercise.difficulty === 'beginner' ? 4 : 3)));
   for (const {note,bar} of eligible) {
     if (replacements.size >= limit) break;
     if (marked.has(Math.floor(bar/2)) || replacements.has(note)) continue;
     const available: Array<GeneratedNote['technique']> = [];
-    if (!note.chord && note.durationUnits >= 4 && note.midi! >= 57) available.push('pipa-roll');
+    if (canRoll(note)) available.push('pipa-roll');
     const doubles = voicings(note,bar,2);
     if (doubles.length) available.push('pipa-open-double');
-    if (note.chord && pipaChordFingering(note.chord)) available.push('pipa-brush');
-    else if (doubles.length && exercise.difficulty !== 'beginner') available.push('pipa-brush');
     const choices = available.filter(kind => !used.has(kind));
     const list = choices.length ? choices : available;
     if (!list.length) continue;
     const technique = list[Math.floor(random()*list.length)];
-    const chord = technique === 'pipa-open-double' || technique === 'pipa-brush' ?
-      technique === 'pipa-brush' && note.chord ? note.chord : doubles[Math.floor(random()*doubles.length)] : undefined;
+    const chord = technique === 'pipa-open-double' ? doubles[Math.floor(random()*doubles.length)] : undefined;
     if (assign(note,technique,chord)) marked.add(Math.floor(bar/2));
+  }
+  // One gesture may continue through the previous pulse, e.g. beat 3's
+  // sixteenth+dotted eighth into beat 4's quarter. This is one sparse gesture,
+  // not several independent sub-beat rolls. Other rhythm tiers stay unchanged.
+  if(exercise.rhythmLevel==='complex')for(const {note,measure} of melody){
+    if(replacements.get(note)?.technique!=='pipa-roll')continue;
+    const members=precedingPipaRollGroup(measure,note,exercise.timeSignature);
+    if(!members || members.slice(0,-1).some(n=>replacements.has(n)))continue;
+    const group={startUnits:members[0].startUnits,endUnits:note.startUnits+note.durationUnits};
+    for(const member of members){
+      const result={...member,technique:'pipa-roll' as const,pipaRollGroup:group};
+      delete result.articulation;
+      replacements.set(member,result);
+    }
+    break;
   }
   const decorate = (measures: ExerciseData['measures']) => measures.map(bar => ({...bar,events:bar.events.map(n => replacements.get(n) ?? n)}));
   return {...exercise,measures:decorate(exercise.measures),...(exercise.lowerMeasures ? {lowerMeasures:decorate(exercise.lowerMeasures)} : {})};

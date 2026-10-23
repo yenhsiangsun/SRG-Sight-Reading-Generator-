@@ -10,7 +10,7 @@ function session(seed=75001){
   return {render(){cursor=0;return api.useExercise();},memory};
 }
 
-test('six successive studies keep the same user challenge while varying complete form and rhythm',()=>{
+test('six successive studies retain the selected C arc and user challenge while varying whole-study rhythm',()=>{
   const s=session(),first=s.render();
   const settings={...first.settings,instrument:'Piano',clef:'grand',difficulty:'Intermediate',rhythmLevel:'Moderate',rangeMinMidi:48,rangeMaxMidi:84,allowedKeySignatures:['C'],compositionStyle:'legacy'};
   const studies=[];
@@ -25,7 +25,10 @@ test('six successive studies keep the same user challenge while varying complete
   const rhythms=studies.map(ex=>JSON.stringify(ex.measures.map(b=>b.events.map(n=>[n.startUnits,n.durationUnits,n.rest]))));
   assert.ok(new Set(rhythms).size>=4,'the output must vary across the whole study');
   for(let i=1;i<rhythms.length;i++)assert.notEqual(rhythms[i],rhythms[i-1],'no identical adjacent whole-study rhythm in this representative session');
-  assert.ok(new Set(studies.map(ex=>ex.musicalIntent.grammar)).size>=2,'the main pipeline must actually reach automatic grammar selection');
+  for(const ex of studies){
+    assert.deepEqual(JSON.parse(JSON.stringify(ex.musicalIntent.motif)),[0,1,3,5,3,1,0],'the main pipeline must use the human-selected C family');
+    assert.deepEqual(JSON.parse(JSON.stringify(ex.phrasePlan.map(p=>p.endBar-p.startBar+1))),[8]);
+  }
 });
 
 test('opening an existing score preserves its notes; only future new generation changes to automatic composition',()=>{

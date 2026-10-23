@@ -85,6 +85,8 @@ export interface NotePitch {
 
 export interface GeneratedNote {
   technique?: 'pipa-roll' | 'pipa-brush' | 'pipa-arpeggio' | 'pipa-open-double';
+  /** One continuous roll across adjacent notes in this bar; not separate short rolls. */
+  pipaRollGroup?: {startUnits: number; endUnits: number};
   /** Three written eighths occupy one quarter beat; actual units are 4/3 each. */
   tuplet?: 3;
   /** All simultaneous pitches, including the original melody/bass pitch. One rhythmic event. */

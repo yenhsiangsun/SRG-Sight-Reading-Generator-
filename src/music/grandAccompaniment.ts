@@ -4,6 +4,7 @@ import {melodicRandom} from './melodicContours';
 import {metricPosition} from './meterFeel';
 import {PITCH_DIFFICULTY} from './pitchDifficulty';
 import {planPhraseHarmony} from './phraseHarmony';
+import {coordinateGrandCounterpoint} from './grandCounterpoint';
 
 const mod=(n:number)=>(n%12+12)%12;
 const consonant=(interval:number)=>[0,3,4,5,7,8,9].includes(mod(interval));
@@ -41,6 +42,10 @@ function embellishment(slots:Slot[],index:number,voice:MeasureData[],fallback:Ex
  * rhythm and phrase arrivals replace the lower hand's independent melody.
  * Re-run after pitch refinements so held bass notes hear the final melody too. */
 export function coordinateGrandStaff(exercise:ExerciseData,range:PitchRange,_allowAccidentals=false,scalar=false):ExerciseData {
+  return coordinateGrandCounterpoint(exercise,range,scalar)??coordinateLegacyGrandStaff(exercise,range,scalar);
+}
+
+function coordinateLegacyGrandStaff(exercise:ExerciseData,range:PitchRange,scalar=false):ExerciseData {
   if(exercise.grandMode!=='two-hand'||!exercise.lowerMeasures)return exercise;
   const tonality=exercise.tonality??describeTonality(exercise.keySignature,'major');
   if(tonality.tonic===null||tonality.scaleId==='atonal'||

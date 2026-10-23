@@ -178,6 +178,11 @@ export function addInstrumentHarmony(exercise: ExerciseData, range: PitchRange, 
   const staffs = piano ? [exercise.lowerMeasures!] : [exercise.measures, ...(exercise.lowerMeasures ? [exercise.lowerMeasures] : [])];
   const notes = staffs.flatMap((staff, hand) => staff.flatMap((measure, bar) => measure.events.map((note, index) => ({note, hand, bar, index}))));
   const sounded = notes.filter(item => !item.note.rest);
+  // Leave one usable interior Pipa hold as a single melody note. Otherwise
+  // the chord decorator can consume the very gesture reserved for finger roll.
+  const pipaRollAnchor=instrument==='Pipa'&&exercise.rhythmLevel==='complex'?sounded.find(({note,bar})=>
+    bar>0&&bar<exercise.measures.length-1&&!note.chord&&!note.tuplet&&note.midi!>=57&&note.durationUnits>=4&&
+    note.durationUnits*60/exercise.tempo/beatUnits(openingMeter(exercise))>=.35)?.note:undefined;
   const rate = (piano ? {beginner:.22,intermediate:.28,advanced:.32} : {beginner:.10,intermediate:.16,advanced:.20})[exercise.difficulty];
   let target = sounded.length >= 4 ? Math.max(1, Math.floor(sounded.length*rate)) : 0;
   const selected = new Map<GeneratedNote, NotePitch[]>();
@@ -191,7 +196,7 @@ export function addInstrumentHarmony(exercise: ExerciseData, range: PitchRange, 
     addShengPassages(exercise,instrument!,material,staffs,lines,selected,perBar,limit,shengColorOffset,random);
     target=Math.min(limit,target+selected.size);
   }
-  const eligible = sounded.filter(({note}) => !note.chord && note.durationUnits >= 2 && note.startUnits % 2 === 0)
+  const eligible = sounded.filter(({note}) => note!==pipaRollAnchor&&!note.chord && note.durationUnits >= 2 && note.startUnits % 2 === 0)
     .filter(({note,hand,bar}) => !piano || metricPosition(staffs[hand][bar],note.startUnits,exercise.timeSignature).onPulse)
     .filter(({note,hand,bar}) => !sheng || (metricPosition(staffs[hand][bar],note.startUnits,exercise.timeSignature).onPulse &&
       note.durationUnits >= (instrument === 'Bass Sheng' ? 4 : 2)))
@@ -226,7 +231,7 @@ export function addInstrumentHarmony(exercise: ExerciseData, range: PitchRange, 
       if (sorted.some((pitch, i) => i > 0 && sorted[i-1].midi < 48 && pitch.midi-sorted[i-1].midi < 7)) return false;
       const span = sorted.at(-1)!.midi-sorted[0].midi;
       return span <= (exercise.difficulty === 'beginner' ? 7 : 12) &&
-        chord.every(pitch => melody.every(upper => pitch.midi < upper.midi && consonant(pitch.midi,upper.midi)));
+        chord.every(pitch => melody.every(upper => pitch.midi < upper.midi && [0,3,4,7,8,9].includes(Math.abs(pitch.midi-upper.midi)%12)));
     };
     const roll = random();
     const size = instrument === 'Pipa' || exercise.difficulty === 'beginner' ? 2 :
