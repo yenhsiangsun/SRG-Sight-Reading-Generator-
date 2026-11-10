@@ -1,19 +1,21 @@
 workflows:
-  iphone-duo-screenshots:
-    name: TONECRAFT 1.0 (14) - iPhone Duo screenshots only
+  iphone-ipad-review-screenshots:
+    name: TONECRAFT 1.0 (14) - iPhone 6.3 and iPad 13 review screenshots
     instance_type: mac_mini_m2
     max_build_duration: 35
     environment:
-      xcode: 27.1
+      xcode: 26.4
       node: 24
+      vars:
+        CAPTURE_DEVICES: review
     triggering:
       events:
         - push
       branch_patterns:
-        - pattern: codex/tonecraft-duo-capture
+        - pattern: codex/tonecraft-review-capture
           include: true
           source: true
-    scripts:
+    scripts: &capture_steps
       - name: Prepare the review source for an unsigned Simulator build
         script: |
           set -euo pipefail
@@ -22,11 +24,28 @@ workflows:
           npm run build
           npx cap sync ios
           sips --resampleHeightWidth 1024 1024 ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png
-      - name: Capture actual Traditional Chinese product screens on iPhone Duo
-        script: bash duo-capture/capture.sh
-    artifacts:
-      - build/duo/*.png
-      - build/duo/*.txt
-      - build/duo/*.log
-      - build/duo/*.json
-      - build/duo/attachments/*
+      - name: Capture actual Traditional Chinese product screens
+        script: bash duo-capture/capture.sh "$CAPTURE_DEVICES"
+    artifacts: &capture_artifacts
+      - build/capture/*/*.txt
+      - build/capture/*/*.log
+      - build/capture/*/*.json
+      - build/capture/*/attachments/*
+  iphone-duo-screenshots:
+    name: TONECRAFT 1.0 (14) - iPhone Duo screenshots only
+    instance_type: mac_mini_m2
+    max_build_duration: 35
+    environment:
+      xcode: 27.1
+      node: 24
+      vars:
+        CAPTURE_DEVICES: duo
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: codex/tonecraft-duo-capture
+          include: true
+          source: true
+    scripts: *capture_steps
+    artifacts: *capture_artifacts
