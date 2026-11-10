@@ -6,6 +6,13 @@ workflows:
     environment:
       xcode: 27.1
       node: 24
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: codex/tonecraft-duo-capture
+          include: true
+          source: true
     scripts:
       - name: Prepare the review source for an unsigned Simulator build
         script: |
