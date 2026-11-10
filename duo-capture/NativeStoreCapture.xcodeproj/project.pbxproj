@@ -1,0 +1,24 @@
+// !$*UTF8*$!
+{
+ archiveVersion = 1;
+ classes = {};
+ objectVersion = 56;
+ objects = {
+  A00000000000000000000001 = {isa = PBXBuildFile; fileRef = A00000000000000000000002; };
+  A00000000000000000000002 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureUITests.swift; sourceTree = "<group>"; };
+  A00000000000000000000003 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CaptureUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+  A00000000000000000000004 = {isa = PBXGroup; children = (A00000000000000000000005, A00000000000000000000006); sourceTree = "<group>"; };
+  A00000000000000000000005 = {isa = PBXGroup; children = (A00000000000000000000002); path = CaptureUITests; sourceTree = "<group>"; };
+  A00000000000000000000006 = {isa = PBXGroup; children = (A00000000000000000000003); name = Products; sourceTree = "<group>"; };
+  A00000000000000000000007 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A00000000000000000000001); runOnlyForDeploymentPostprocessing = 0; };
+  A00000000000000000000008 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+  A00000000000000000000009 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+  A00000000000000000000010 = {isa = PBXNativeTarget; buildConfigurationList = A00000000000000000000014; buildPhases = (A00000000000000000000007, A00000000000000000000008, A00000000000000000000009); buildRules = (); dependencies = (); name = CaptureUITests; productName = CaptureUITests; productReference = A00000000000000000000003; productType = "com.apple.product-type.bundle.ui-testing"; };
+  A00000000000000000000011 = {isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = YES; LastUpgradeCheck = 2600; TargetAttributes = {A00000000000000000000010 = {CreatedOnToolsVersion = 26.0; }; }; }; buildConfigurationList = A00000000000000000000013; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = (en, Base); mainGroup = A00000000000000000000004; productRefGroup = A00000000000000000000006; projectDirPath = ""; projectRoot = ""; targets = (A00000000000000000000010); };
+  A00000000000000000000012 = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; IPHONEOS_DEPLOYMENT_TARGET = 15.0; SDKROOT = iphoneos; SWIFT_VERSION = 5.0; }; name = Debug; };
+  A00000000000000000000015 = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES; CODE_SIGNING_ALLOWED = NO; ENABLE_TESTING_SEARCH_PATHS = YES; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 15.0; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"); PRODUCT_BUNDLE_IDENTIFIER = com.tonecraft.capture.uitests; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = iphonesimulator; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; }; name = Debug; };
+  A00000000000000000000013 = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000012); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug; };
+  A00000000000000000000014 = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000015); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug; };
+ };
+ rootObject = A00000000000000000000011;
+}
