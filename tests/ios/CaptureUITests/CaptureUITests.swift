@@ -16,11 +16,12 @@ final class CaptureUITests: XCTestCase {
         app.launchArguments = ["-AppleLanguages", "(zh-Hant-TW)", "-AppleLocale", "zh_TW"]
         app.launch()
 
-        let plus = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Plus")).firstMatch
-        XCTAssertTrue(plus.waitForExistence(timeout: 35))
+        let plus = app.descendants(matching: .any)
+            .matching(NSPredicate(format: "label == %@", "Plus ↗")).firstMatch
+        XCTAssertTrue(plus.waitForExistence(timeout: 35), app.debugDescription)
         plus.tap()
-        let monthly = app.buttons["訂閱月繳"]
-        let annual = app.buttons["訂閱年繳"]
+        let monthly = app.descendants(matching: .any)["訂閱月繳"].firstMatch
+        let annual = app.descendants(matching: .any)["訂閱年繳"].firstMatch
         XCTAssertTrue(monthly.waitForExistence(timeout: 35), app.debugDescription)
         XCTAssertTrue(annual.isEnabled)
 
