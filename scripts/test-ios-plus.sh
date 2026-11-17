@@ -21,10 +21,10 @@ fi
 
 xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release -sdk iphonesimulator \
   -destination 'generic/platform=iOS Simulator' -derivedDataPath "$output/app-derived" \
-  CODE_SIGNING_ALLOWED=NO build > "$output/app-build.log" 2>&1 || { tail -n 70 "$output/app-build.log"; exit 1; }
-xcrun simctl bootstatus "$udid" -b
-xcrun simctl install "$udid" "$output/app-derived/Build/Products/Release-iphonesimulator/App.app"
-xcrun simctl status_bar "$udid" override --time '9:41' --batteryState unplugged --batteryLevel 100
+  CODE_SIGNING_ALLOWED=NO build > "$output/app-build.log" 2>&1 || { tail -n 70 "$output/app-build.log"; exit 22; }
+xcrun simctl bootstatus "$udid" -b || exit 23
+xcrun simctl install "$udid" "$output/app-derived/Build/Products/Release-iphonesimulator/App.app" || exit 24
+xcrun simctl status_bar "$udid" override --time '9:41' --batteryState unplugged --batteryLevel 100 || true
 
 status=0
 xcodebuild test -project tests/ios/NativeStoreCapture.xcodeproj -scheme NativeStoreCapture \
@@ -34,6 +34,6 @@ xcodebuild test -project tests/ios/NativeStoreCapture.xcodeproj -scheme NativeSt
   CODE_SIGNING_ALLOWED=NO > "$output/storekit-test.log" 2>&1 || status=$?
 tail -n 85 "$output/storekit-test.log"
 if [[ -d "$output/Plus.xcresult" ]]; then
-  xcrun xcresulttool export attachments --path "$output/Plus.xcresult" --output-path "$output/attachments"
+  xcrun xcresulttool export attachments --path "$output/Plus.xcresult" --output-path "$output/attachments" || { if [[ "$status" = 0 ]]; then exit 25; fi; }
 fi
 exit "$status"

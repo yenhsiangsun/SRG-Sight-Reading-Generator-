@@ -4,6 +4,7 @@ import XCTest
 final class CaptureUITests: XCTestCase {
     @MainActor
     func testPlusPricingAndPurchase() throws {
+        continueAfterFailure = false
         let fixture = try XCTUnwrap(Bundle(for: Self.self).url(forResource: "Plus", withExtension: "storekit"))
         let session = try SKTestSession(contentsOf: fixture)
         session.resetToDefaultState()
