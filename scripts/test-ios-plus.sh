@@ -19,9 +19,11 @@ if [[ -z "$udid" ]]; then
   exit 1
 fi
 
+# Match the app icon normalization performed by the signed iOS workflow.
+sips --resampleHeightWidth 1024 1024 ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png
 xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release -sdk iphonesimulator \
   -destination 'generic/platform=iOS Simulator' -derivedDataPath "$output/app-derived" \
-  CODE_SIGNING_ALLOWED=NO build > "$output/app-build.log" 2>&1 || { tail -n 70 "$output/app-build.log"; exit 22; }
+  ARCHS="$(uname -m)" CURRENT_PROJECT_VERSION=15 CODE_SIGNING_ALLOWED=NO build > "$output/app-build.log" 2>&1 || { tail -n 70 "$output/app-build.log"; exit 22; }
 xcrun simctl bootstatus "$udid" -b || exit 23
 xcrun simctl install "$udid" "$output/app-derived/Build/Products/Release-iphonesimulator/App.app" || exit 24
 xcrun simctl status_bar "$udid" override --time '9:41' --batteryState unplugged --batteryLevel 100 || true
