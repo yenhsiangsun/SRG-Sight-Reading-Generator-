@@ -5,6 +5,22 @@
 	};
 	objectVersion = 60;
 	objects = {
+		A00000000000000000000016 = {isa = PBXFileReference; lastKnownFileType = text; path = Plus.storekit; sourceTree = "<group>"; };
+		A00000000000000000000017 = {isa = PBXBuildFile; fileRef = A00000000000000000000016; };
+		A00000000000000000000001 = {isa = PBXBuildFile; fileRef = A00000000000000000000002; };
+		A00000000000000000000002 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureUITests.swift; sourceTree = "<group>"; };
+		A00000000000000000000003 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CaptureUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A00000000000000000000005 = {isa = PBXGroup; children = (A00000000000000000000002, A00000000000000000000016); path = StoreKitEvidence; sourceTree = "<group>"; };
+		A00000000000000000000007 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A00000000000000000000001); runOnlyForDeploymentPostprocessing = 0; };
+		A00000000000000000000008 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		A00000000000000000000009 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (A00000000000000000000017); runOnlyForDeploymentPostprocessing = 0; };
+		A00000000000000000000010 = {isa = PBXNativeTarget; buildConfigurationList = A00000000000000000000014; buildPhases = (A00000000000000000000007, A00000000000000000000008, A00000000000000000000009); buildRules = (); dependencies = (A00000000000000000000019); name = CaptureUITests; productName = CaptureUITests; productReference = A00000000000000000000003; productType = "com.apple.product-type.bundle.ui-testing"; };
+		A00000000000000000000015 = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES; CODE_SIGNING_ALLOWED = NO; ENABLE_TESTING_SEARCH_PATHS = YES; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 15.0; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"); PRODUCT_BUNDLE_IDENTIFIER = com.tonecraft.capture.uitests; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = iphonesimulator; TEST_TARGET_NAME = App; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; }; name = Debug; };
+		A00000000000000000000014 = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000015, A00000000000000000000020); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug; };
+		A00000000000000000000020 = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES; CODE_SIGNING_ALLOWED = NO; ENABLE_TESTING_SEARCH_PATHS = YES; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 15.0; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@loader_path/Frameworks"); PRODUCT_BUNDLE_IDENTIFIER = com.tonecraft.capture.uitests; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = iphonesimulator; TEST_TARGET_NAME = App; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; }; name = Release; };
+		A00000000000000000000018 = {isa = PBXContainerItemProxy; containerPortal = 504EC2FC1FED79650016851F; proxyType = 1; remoteGlobalIDString = 504EC3031FED79650016851F; remoteInfo = App; };
+		A00000000000000000000019 = {isa = PBXTargetDependency; target = 504EC3031FED79650016851F; targetProxy = A00000000000000000000018; };
+
 
 /* Begin PBXBuildFile section */
 		DA9F92ED302EA84000261A11 /* TonecraftPlusPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9F92ED302EA84000261A10 /* TonecraftPlusPlugin.swift */; };
@@ -54,6 +70,7 @@
 				958DCC722DB07C7200EA8C5F /* debug.xcconfig */,
 				504EC3061FED79650016851F /* App */,
 				504EC3051FED79650016851F /* Products */,
+				A00000000000000000000005 /* StoreKitEvidence */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				504EC3041FED79650016851F /* App.app */,
+				A00000000000000000000003 /* CaptureUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,6 +133,7 @@
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
 				TargetAttributes = {
+					A00000000000000000000010 = {CreatedOnToolsVersion = 26.0; TestTargetID = 504EC3031FED79650016851F; };
 					504EC3031FED79650016851F = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1100;
@@ -138,6 +157,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				A00000000000000000000010 /* CaptureUITests */,
 				504EC3031FED79650016851F /* App */,
 			);
 		};

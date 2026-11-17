@@ -1,0 +1,28 @@
+{
+  "configurations": [
+    {
+      "id": "CA93920D-D395-4023-ADCC-91E448287C2B",
+      "name": "Taiwan",
+      "options": {}
+    }
+  ],
+  "defaultOptions": {
+    "storeKitConfiguration": "StoreKitEvidence/Plus.storekit",
+    "targetForVariableExpansion": {
+      "containerPath": "container:App.xcodeproj",
+      "identifier": "504EC3031FED79650016851F",
+      "name": "App"
+    }
+  },
+  "testTargets": [
+    {
+      "parallelizable": false,
+      "target": {
+        "containerPath": "container:App.xcodeproj",
+        "identifier": "A00000000000000000000010",
+        "name": "CaptureUITests"
+      }
+    }
+  ],
+  "version": 1
+}

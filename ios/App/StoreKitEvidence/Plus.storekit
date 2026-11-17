@@ -1,0 +1,74 @@
+{
+  "identifier": "5CC682D7",
+  "products": [],
+  "nonRenewingSubscriptions": [],
+  "settings": {
+    "_locale": "zh_TW",
+    "_storefront": "TWN",
+    "_failTransactionsEnabled": false,
+    "_storeKitErrors": []
+  },
+  "subscriptionGroups": [
+    {
+      "id": "22584777",
+      "name": "Tonecraft Plus",
+      "localizations": [],
+      "subscriptions": [
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "60",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "6835491440",
+          "introductoryOffer": null,
+          "localizations": [
+            {
+              "description": "不限生成新譜",
+              "displayName": "琢音 Plus 月繳",
+              "locale": "zh_TW"
+            }
+          ],
+          "productID": "com.yenhsiang.sightreadinggenerator.plus.monthly",
+          "recurringSubscriptionPeriod": "P1M",
+          "referenceName": "Tonecraft Plus Monthly",
+          "subscriptionGroupID": "22584777",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
+        },
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "690",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "6835491716",
+          "introductoryOffer": {
+            "internalID": "8AC93E11",
+            "numberOfPeriods": 1,
+            "paymentMode": "payUpFront",
+            "subscriptionPeriod": "P1Y",
+            "displayPrice": "390"
+          },
+          "localizations": [
+            {
+              "description": "不限生成新譜",
+              "displayName": "琢音 Plus 年繳",
+              "locale": "zh_TW"
+            }
+          ],
+          "productID": "com.yenhsiang.sightreadinggenerator.plus.annual",
+          "recurringSubscriptionPeriod": "P1Y",
+          "referenceName": "Tonecraft Plus Annual",
+          "subscriptionGroupID": "22584777",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
+        }
+      ]
+    }
+  ],
+  "version": {
+    "major": 3,
+    "minor": 0
+  }
+}
