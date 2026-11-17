@@ -56,9 +56,9 @@ export function useProgress(allowPreviewTools=false){
 /** Self-reported practice: count foreground time on a score, never time in another tab. */
 export function usePracticeClock(sessionId:string|null,enabled:boolean){
   const [display,setDisplay]=useState<{sessionId:string|null;seconds:number}>({sessionId:null,seconds:0});
-  const clock=useRef<{sessionId:string|null;elapsed:number}>({sessionId:null,elapsed:0});
+  const clocks=useRef(new Map<string,number>());
   useEffect(()=>{
-    if(clock.current.sessionId!==sessionId)clock.current={sessionId,elapsed:0};
+
     if(!enabled||!sessionId)return;
     let previous=performance.now(),visible=!document.hidden;
     const flush=(countForeground:boolean)=>{
@@ -68,8 +68,15 @@ export function usePracticeClock(sessionId:string|null,enabled:boolean){
       const elapsed=countForeground?Math.max(0,Math.min(1500,now-previous)):0;
       previous=now;
       if(elapsed>0){
-        clock.current.elapsed=Math.min(60000,clock.current.elapsed+elapsed);
-        const seconds=Math.floor(clock.current.elapsed/1000);
+        const clocksByStudy=clocks.current;
+        const total=Math.min(60000,(clocksByStudy.get(sessionId)??0)+elapsed);
+        clocksByStudy.delete(sessionId);
+        clocksByStudy.set(sessionId,total);
+        if(clocksByStudy.size>100){
+          const oldest=clocksByStudy.keys().next();
+          if(!oldest.done)clocksByStudy.delete(oldest.value);
+        }
+        const seconds=Math.floor(total/1000);
         setDisplay(value=>value.sessionId===sessionId&&value.seconds===seconds?value:{sessionId,seconds});
       }
     };
@@ -83,5 +90,5 @@ export function usePracticeClock(sessionId:string|null,enabled:boolean){
     };
   },[sessionId,enabled]);
   // A new score immediately displays zero, before its effect resets the clock.
-  return display.sessionId===sessionId?display.seconds:0;
+  return display.sessionId===sessionId?display.seconds:Math.floor((sessionId?clocks.current.get(sessionId)??0:0)/1000);
 }

@@ -141,6 +141,8 @@ export interface ExpressionSpan {
 }
 
 export interface ExerciseData {
+  /** Display provenance only; absent on older scores and unrelated composers. */
+  studyRecipe?: import('./music/automaticPlucked').PluckedRecipe;
   musicalIntent?: import('./music/musicalIntent').MusicalIntent;
   phrasePlan?: import('./music/phrasePlan').PhraseSpan[];
   expressionSpans?: ExpressionSpan[];

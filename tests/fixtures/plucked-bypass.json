@@ -1,0 +1,340 @@
+[
+  {
+    "id": "Piano",
+    "seed": 95011,
+    "grand": "two-hand",
+    "options": {
+      "compositionStyle": "auto",
+      "difficulty": "intermediate",
+      "keySignature": "C",
+      "tonic": "C",
+      "scaleId": "major",
+      "timeSignature": "4/4",
+      "rhythmLevel": "medium",
+      "measures": 8,
+      "tempo": 90,
+      "allowAccidentals": false,
+      "mixedMeters": false,
+      "meters": [
+        "4/4"
+      ],
+      "instrument": "Piano",
+      "instrumentProfile": "Piano",
+      "clef": "treble",
+      "range": {
+        "min": 21,
+        "max": 108
+      }
+    },
+    "hash": "5507f55aead5652fdff96e320dc62b5898103bb2a37df740224e0178fc0a52b2"
+  },
+  {
+    "id": "Piano",
+    "seed": 95029,
+    "grand": "two-hand",
+    "options": {
+      "compositionStyle": "auto",
+      "difficulty": "intermediate",
+      "keySignature": "C",
+      "tonic": "C",
+      "scaleId": "major",
+      "timeSignature": "4/4",
+      "rhythmLevel": "medium",
+      "measures": 8,
+      "tempo": 90,
+      "allowAccidentals": false,
+      "mixedMeters": false,
+      "meters": [
+        "4/4"
+      ],
+      "instrument": "Piano",
+      "instrumentProfile": "Piano",
+      "clef": "treble",
+      "range": {
+        "min": 21,
+        "max": 108
+      }
+    },
+    "hash": "dbb19ffad211cbc528325136d69673ee8c494d187db22a8615ffffc688db0d5a"
+  },
+  {
+    "id": "Sheng",
+    "seed": 95011,
+    "options": {
+      "compositionStyle": "auto",
+      "difficulty": "intermediate",
+      "keySignature": "C",
+      "tonic": "C",
+      "scaleId": "major",
+      "timeSignature": "4/4",
+      "rhythmLevel": "medium",
+      "measures": 8,
+      "tempo": 90,
+      "allowAccidentals": false,
+      "mixedMeters": false,
+      "meters": [
+        "4/4"
+      ],
+      "instrument": "Piano",
+      "instrumentProfile": "Sheng",
+      "clef": "treble",
+      "range": {
+        "min": 55,
+        "max": 90
+      }
+    },
+    "hash": "cdb0130f523183fe5bb70e3c866ba4351dc9f47ea3e30e14b5abbb0eba565d15"
+  },
+  {
+    "id": "Sheng",
+    "seed": 95029,
+    "options": {
+      "compositionStyle": "auto",
+      "difficulty": "intermediate",
+      "keySignature": "C",
+      "tonic": "C",
+      "scaleId": "major",
+      "timeSignature": "4/4",
+      "rhythmLevel": "medium",
+      "measures": 8,
+      "tempo": 90,
+      "allowAccidentals": false,
+      "mixedMeters": false,
+      "meters": [
+        "4/4"
+      ],
+      "instrument": "Piano",
+      "instrumentProfile": "Sheng",
+      "clef": "treble",
+      "range": {
+        "min": 55,
+        "max": 90
+      }
+    },
+    "hash": "334f7ec70fd7c669339b475b73f289b4e450793650fae93b6386e95a1adaf542"
+  },
+  {
+    "id": "Flute",
+    "seed": 95011,
+    "options": {
+      "compositionStyle": "auto",
+      "difficulty": "intermediate",
+      "keySignature": "C",
+      "tonic": "C",
+      "scaleId": "major",
+      "timeSignature": "4/4",
+      "rhythmLevel": "medium",
+      "measures": 8,
+      "tempo": 90,
+      "allowAccidentals": false,
+      "mixedMeters": false,
+      "meters": [
+        "4/4"
+      ],
+      "instrument": "Flute",
+      "instrumentProfile": "Flute",
+      "clef": "treble",
+      "range": {
+        "min": 59,
+        "max": 98
+      }
+    },
+    "hash": "051b4825a5f5aee3efb1b6e7756f945d0700bf7db2af404f13981f65cc0cc1b8"
+  },
+  {
+    "id": "Flute",
+    "seed": 95029,
+    "options": {
+      "compositionStyle": "auto",
+      "difficulty": "intermediate",
+      "keySignature": "C",
+      "tonic": "C",
+      "scaleId": "major",
+      "timeSignature": "4/4",
+      "rhythmLevel": "medium",
+      "measures": 8,
+      "tempo": 90,
+      "allowAccidentals": false,
+      "mixedMeters": false,
+      "meters": [
+        "4/4"
+      ],
+      "instrument": "Flute",
+      "instrumentProfile": "Flute",
+      "clef": "treble",
+      "range": {
+        "min": 59,
+        "max": 98
+      }
+    },
+    "hash": "cd4d245ccc3874b04bbf020ce62cd10a481aacb7f6a48e820c9cc8a31f3d08ec"
+  },
+  {
+    "id": "Erhu",
+    "seed": 95011,
+    "options": {
+      "compositionStyle": "auto",
+      "difficulty": "intermediate",
+      "keySignature": "C",
+      "tonic": "C",
+      "scaleId": "major",
+      "timeSignature": "4/4",
+      "rhythmLevel": "medium",
+      "measures": 8,
+      "tempo": 90,
+      "allowAccidentals": false,
+      "mixedMeters": false,
+      "meters": [
+        "4/4"
+      ],
+      "instrument": "Piano",
+      "instrumentProfile": "Erhu",
+      "clef": "treble",
+      "range": {
+        "min": 62,
+        "max": 86
+      }
+    },
+    "hash": "f1890d38a1ecd28b1757fbfeee88642affc2fe50fec3fb6b6e5d104bdf85084c"
+  },
+  {
+    "id": "Erhu",
+    "seed": 95029,
+    "options": {
+      "compositionStyle": "auto",
+      "difficulty": "intermediate",
+      "keySignature": "C",
+      "tonic": "C",
+      "scaleId": "major",
+      "timeSignature": "4/4",
+      "rhythmLevel": "medium",
+      "measures": 8,
+      "tempo": 90,
+      "allowAccidentals": false,
+      "mixedMeters": false,
+      "meters": [
+        "4/4"
+      ],
+      "instrument": "Piano",
+      "instrumentProfile": "Erhu",
+      "clef": "treble",
+      "range": {
+        "min": 62,
+        "max": 86
+      }
+    },
+    "hash": "9bdfa01029fd8c3e80f99833a7b0c1e3086262664d9740a79d1b7789e1ca5e59"
+  },
+  {
+    "id": "Cello",
+    "seed": 95011,
+    "options": {
+      "compositionStyle": "auto",
+      "difficulty": "intermediate",
+      "keySignature": "C",
+      "tonic": "C",
+      "scaleId": "major",
+      "timeSignature": "4/4",
+      "rhythmLevel": "medium",
+      "measures": 8,
+      "tempo": 90,
+      "allowAccidentals": false,
+      "mixedMeters": false,
+      "meters": [
+        "4/4"
+      ],
+      "instrument": "Cello",
+      "instrumentProfile": "Cello",
+      "clef": "bass",
+      "range": {
+        "min": 36,
+        "max": 81
+      }
+    },
+    "hash": "7f4570686ea94ef15a6ca3d964394ef9966131cdbdc60a129e2c805ab874f394"
+  },
+  {
+    "id": "Cello",
+    "seed": 95029,
+    "options": {
+      "compositionStyle": "auto",
+      "difficulty": "intermediate",
+      "keySignature": "C",
+      "tonic": "C",
+      "scaleId": "major",
+      "timeSignature": "4/4",
+      "rhythmLevel": "medium",
+      "measures": 8,
+      "tempo": 90,
+      "allowAccidentals": false,
+      "mixedMeters": false,
+      "meters": [
+        "4/4"
+      ],
+      "instrument": "Cello",
+      "instrumentProfile": "Cello",
+      "clef": "bass",
+      "range": {
+        "min": 36,
+        "max": 81
+      }
+    },
+    "hash": "7175d732ad9c38f1f63b2ae0828bb833d477718347245870b5c171c1979597bd"
+  },
+  {
+    "id": "Voice",
+    "seed": 95011,
+    "options": {
+      "compositionStyle": "auto",
+      "difficulty": "intermediate",
+      "keySignature": "C",
+      "tonic": "C",
+      "scaleId": "major",
+      "timeSignature": "4/4",
+      "rhythmLevel": "medium",
+      "measures": 8,
+      "tempo": 90,
+      "allowAccidentals": false,
+      "mixedMeters": false,
+      "meters": [
+        "4/4"
+      ],
+      "instrument": "Piano",
+      "instrumentProfile": "Voice",
+      "clef": "treble",
+      "range": {
+        "min": 60,
+        "max": 72
+      }
+    },
+    "hash": "d86972fd4a6f0a0cf45566a046c255b4388d9bb2deb881ad6e423f3c4e187f00"
+  },
+  {
+    "id": "Voice",
+    "seed": 95029,
+    "options": {
+      "compositionStyle": "auto",
+      "difficulty": "intermediate",
+      "keySignature": "C",
+      "tonic": "C",
+      "scaleId": "major",
+      "timeSignature": "4/4",
+      "rhythmLevel": "medium",
+      "measures": 8,
+      "tempo": 90,
+      "allowAccidentals": false,
+      "mixedMeters": false,
+      "meters": [
+        "4/4"
+      ],
+      "instrument": "Piano",
+      "instrumentProfile": "Voice",
+      "clef": "treble",
+      "range": {
+        "min": 60,
+        "max": 72
+      }
+    },
+    "hash": "94782558e30bd084e2cf4ff9eb286826500d326aa608635e2860d7e7b796b66c"
+  }
+]

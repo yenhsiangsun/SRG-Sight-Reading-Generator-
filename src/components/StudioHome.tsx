@@ -1,6 +1,5 @@
 import ResumePractice from './ResumePractice';
 import type {LastPractice} from '../practice/resume';
-import {MEMBERSHIP_ENABLED} from '../featureFlags';
 import {useI18n} from '../i18n/context';
 import {NoteCompanion} from './NoteCompanion';
 import {dayKey,type ProgressState,getLevel} from '../progress/progress';
@@ -14,7 +13,7 @@ import './HomeOpening.css';
 
 const withoutOpeningPunctuation=(text:string)=>text.replace(/[，。、,.]/gu,'');
 
-type HomeProps={progress:ProgressState;onStart:()=>void;onRewards:()=>void;onPlans:()=>void;lastPractice:LastPractice|null;onResume:()=>void};
+type HomeProps={progress:ProgressState;onStart:()=>void;onRewards:()=>void;onPlans?:()=>void;lastPractice:LastPractice|null;onResume:()=>void};
 export default function StudioHome({progress,onStart,onRewards,onPlans,lastPractice,onResume}:HomeProps){
   const {locale,t}=useI18n();const w=(zh:string,en:string,ja:string)=>words(locale,zh,en,ja);
   const level=getLevel(progress.xp);
@@ -41,6 +40,6 @@ export default function StudioHome({progress,onStart,onRewards,onPlans,lastPract
         <p className="manuscript-progress-copy">{w('今天完成','Today','今日')} <strong>{progress.today.count} / 3</strong><span>{w('每天前 3 次練習可獲得星點','Earn stars for your first 3 practices each day','毎日最初の3回でスターを獲得')}</span></p>
       </section>
     </div>
-    {MEMBERSHIP_ENABLED&&<section className="membership-teaser"><h2>{w('讓進步，有更多可能。','More room to grow.','もっと自由に、上達を。')}</h2><button className="studio-text-link" onClick={onPlans}>{w('探索會員方案','Explore membership','プランを見る')}</button></section>}
+    {onPlans&&<section className="membership-teaser"><h2>{w('讓進步，有更多可能。','More room to grow.','もっと自由に、上達を。')}</h2><button className="studio-text-link" onClick={onPlans}>{w('探索會員方案','Explore membership','プランを見る')}</button></section>}
   </main>;
 }

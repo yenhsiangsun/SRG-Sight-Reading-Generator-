@@ -12,6 +12,7 @@ import {addRareThirtySeconds} from './rareRhythm';
 import {addPipaRollRhythm} from './pipaRollRhythm';
 import {settleGrandPhraseRhythm} from './grandPhraseRelease';
 import type {MotivicTarget} from './motivicStudy';
+import {planLongLineDevelopment,longLineDevelopmentTargets} from './longLineDevelopment';
 
 const mod=(n:number)=>(n%12+12)%12;
 function interpolate(points:readonly number[][],time:number){
@@ -77,7 +78,15 @@ export function contrastPitchGuide(ex:ExerciseData,range:PitchRange,intent:Music
  * an explicit comparison candidate; specialist settings retain their own route. */
 export function composeContrastStudy(options:PracticeOptions,family:ContrastFamily,grandMode?:'mono'|'two-hand'):ExerciseData{
   if(!supportsMusicalIntent(options))throw Error('這個獨立候選目前供一般固定拍號練習比較。');
-  const intent=planContrastIntent(options,family);
+  return realizeContrast(options,family,planContrastIntent(options,family),grandMode);
+}
+
+export function composeLongLineExercise(options:PracticeOptions,grandMode?:'mono'|'two-hand'):ExerciseData{
+  return realizeContrast(options,'long-line',planLongLineDevelopment(options),grandMode);
+}
+
+export function realizeContrast(options:PracticeOptions,family:ContrastFamily,intent:MusicalIntent,grandMode?:'mono'|'two-hand',
+  candidateGuide?:(exercise:ExerciseData,range:PitchRange,intent:MusicalIntent)=>MotivicTarget[]):ExerciseData{
   const rhythm=addRareThirtySeconds(planBreathing(addPipaRollRhythm(intent.rhythm,options,intent.phrases),options.instrumentProfile,intent.phrases),options.rhythmLevel,options.rhythmFocus);
   intent.rhythm=rhythm;
   const lower=grandMode==='two-hand'?createGrandAccompanimentRhythmPlan(rhythm.map(b=>b.meter),options.rhythmLevel):undefined;
@@ -85,7 +94,7 @@ export function composeContrastStudy(options:PracticeOptions,family:ContrastFami
   for(let attempt=0;attempt<3;attempt++){
     const raw=grandMode?generateGrandExercise(options,grandMode,rhythm,lower):generatePracticeExercise(options,rhythm);
     raw.soundProfile=options.instrumentProfile;raw.musicalIntent=intent;raw.phrasePlan=intent.phrases.map(({startBar,endBar,role})=>({startBar,endBar,role}));
-    const guide=contrastPitchGuide(raw,options.range,intent,family);
+    const guide=candidateGuide?candidateGuide(raw,options.range,intent):intent.longLine?longLineDevelopmentTargets(raw,options.range,intent):contrastPitchGuide(raw,options.range,intent,family);
     const shaped=addModalPhrasing(raw,options.range,false,intent.harmony,true,options.instrumentProfile,false,undefined,guide);
     const candidate=coordinateGrandStaff(shaped,options.range,false,false);
     try{validateGeneratedExercise(candidate,options.range,false);}catch(error){lastError=error;continue;}

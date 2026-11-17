@@ -1,0 +1,63 @@
+.plus-plans {
+  display: grid;
+  gap: 16px;
+  padding-top: 16px;
+}
+
+.plus-plans p, .plus-plan h3 {
+  margin: 0;
+}
+
+.plus-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.plus-plan {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: clamp(10px, 3vw, 20px);
+  border: 1px solid var(--theme-line);
+}
+
+.plus-plan-price {
+  color: var(--theme-primary-ink);
+  font-size: 1.25em;
+  font-weight: 700;
+}
+
+.plus-plan .secondary-button {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 6px;
+  white-space: normal;
+}
+
+.plus-utility {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 16px;
+  align-items: center;
+}
+
+.plus-utility :is(a, button) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--theme-primary-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 360px) {
+  .plus-plan-grid {
+    grid-template-columns: 1fr;
+  }
+}

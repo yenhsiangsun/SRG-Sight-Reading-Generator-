@@ -9,17 +9,19 @@ test('staff positions round-trip natural pitches in every clef and octave displa
     assert.equal(rangeMidiAtY(y,150,clef,shift,21,108),midi);
   }
 });
-test('8va begins above the fourth upper ledger line, preserving its line and accidentals',()=>{
+test('range-picker treble A6 stays on the fifth upper space while other clefs retain their octave threshold',()=>{
   for(const clef of ['treble','bass','alto','tenor']) {
     for(const distance of [14,15,16,17,18]) {
       const position=rangeStaffBottom[clef]+distance;
       const midi=(Math.floor(position/7)+1)*12+[0,2,4,5,7,9,11][position%7];
-      assert.equal(rangeOctaveShift(midi,clef),distance>16?1:0,`${clef} at ${distance}`);
+      assert.equal(rangeOctaveShift(midi,clef),distance>(clef==='treble'?17:16)?1:0,`${clef} at ${distance}`);
     }
   }
   assert.equal(rangeOctaveShift(91,'treble'),0,'G6 sits on the fourth upper ledger line');
   assert.equal(rangeOctaveShift(92,'treble'),0,'G sharp 6 occupies that same line');
-  assert.equal(rangeOctaveShift(93,'treble'),1,'A6 is above the fourth upper ledger line');
+  assert.equal(rangeOctaveShift(93,'treble'),0,'A6 itself stays at its actual upper-space position');
+  assert.equal(rangeOctaveShift(94,'treble'),0,'A sharp6 occupies the same staff position');
+  assert.equal(rangeOctaveShift(95,'treble'),1,'B6 above that space starts8va');
   assert.equal(rangeOctaveShift(53,'treble'),0,'lower ledger threshold is unchanged');
   assert.equal(rangeOctaveShift(52,'treble'),-1);
 });

@@ -1,0 +1,519 @@
+{
+  "A": [
+    {
+      "id": "Daruan",
+      "seed": 96017,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Daruan",
+        "clef": "bass",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 38,
+          "max": 67
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "hash": "bdfb866c32b95d37db86b4e2f2f84fb59fa716478de897457fb3be947bf95f65"
+    },
+    {
+      "id": "Daruan",
+      "seed": 96043,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Daruan",
+        "clef": "bass",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 38,
+          "max": 67
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "hash": "ca1a6470e3fb7b0a1a7b332beed34d2676dfb88cf83fb38f04aaae9bf2d75135"
+    },
+    {
+      "id": "Daruan",
+      "seed": 96071,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Daruan",
+        "clef": "bass",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 38,
+          "max": 67
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "hash": "73040edb061ecdfd5fb8374677463c550cb7ec71929c22a504c57e91829126ab"
+    },
+    {
+      "id": "Pipa",
+      "seed": 96017,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Pipa",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 45,
+          "max": 88
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "hash": "81ba841b7ac722fba6fd3f424718604364ebf56e1ed423cd187e4d82a5a8139b"
+    },
+    {
+      "id": "Pipa",
+      "seed": 96043,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Pipa",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 45,
+          "max": 88
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "hash": "02771382b069a2f52d87d32a0f33a9984a0b91b8a1fcddff6b3b0d18a95497b7"
+    },
+    {
+      "id": "Pipa",
+      "seed": 96071,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Pipa",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 45,
+          "max": 88
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "hash": "884e7463fb5b77dc10a883be6ac1623f7cd648877de864b44a885bfcd86339c0"
+    },
+    {
+      "id": "Yangqin",
+      "seed": 96017,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Yangqin",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 43,
+          "max": 96
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "grand": "two-hand",
+      "hash": "4dbf2c15ace107794a425fac87865a2e99273b655bef1e214ef11879355303cd"
+    },
+    {
+      "id": "Yangqin",
+      "seed": 96043,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Yangqin",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 43,
+          "max": 96
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "grand": "two-hand",
+      "hash": "338bf491445383ca371da5da2a4f4326e6fa079ab08fee7dca19cc43ee1f17b4"
+    },
+    {
+      "id": "Yangqin",
+      "seed": 96071,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Yangqin",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 43,
+          "max": 96
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "grand": "two-hand",
+      "hash": "d71e9e8b2b87fce8cf09a38e03fb90210750ce7de11b56c728544e564eb5c767"
+    },
+    {
+      "id": "Guzheng",
+      "seed": 96017,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Guzheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "keySignature": "D",
+        "tonic": "D",
+        "scaleId": "major-pentatonic",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 38,
+          "max": 86
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "grand": "mono",
+      "hash": "bac0b75fca47dd7582a6570b80abe80640b7b977af062e0c44e36c5ce1351ef0"
+    },
+    {
+      "id": "Guzheng",
+      "seed": 96043,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Guzheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "keySignature": "D",
+        "tonic": "D",
+        "scaleId": "major-pentatonic",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 38,
+          "max": 86
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "grand": "mono",
+      "hash": "23d4d86690593e3207a110a0f725068c9202227212f095cec7d836b7340c2643"
+    },
+    {
+      "id": "Guzheng",
+      "seed": 96071,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Guzheng",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "keySignature": "D",
+        "tonic": "D",
+        "scaleId": "major-pentatonic",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 38,
+          "max": 86
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "grand": "mono",
+      "hash": "f4762157de7b62f275d47424d214c9ea2dae91d9d0cb55900bb85723d967ee5b"
+    },
+    {
+      "id": "Piano",
+      "seed": 96017,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Piano",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 21,
+          "max": 108
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "grand": "two-hand",
+      "hash": "443148c3a12b1d81019914d9325130c4fe33dfc857a3f57fcb9a6094abdaca32"
+    },
+    {
+      "id": "Piano",
+      "seed": 96043,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Piano",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 21,
+          "max": 108
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "grand": "two-hand",
+      "hash": "1191c7814f8a461044607ba3886559a974da188151e34b67f7586c4bc6b7f23f"
+    },
+    {
+      "id": "Piano",
+      "seed": 96071,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Piano",
+        "clef": "treble",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 21,
+          "max": 108
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "grand": "two-hand",
+      "hash": "f6a0193e8355683db265298e4c2a848a179004aede05c34530a32e63750a6376"
+    }
+  ],
+  "B": [
+    {
+      "seed": 96017,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Daruan",
+        "clef": "bass",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 38,
+          "max": 67
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "recipe": "B-melody",
+      "finalHash": "110893a32859b9a79881b1dff48fadd9f1ca4cc022120b817c085f987ccc33cf"
+    },
+    {
+      "seed": 96043,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Daruan",
+        "clef": "bass",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 38,
+          "max": 67
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "recipe": "B-rhythm",
+      "finalHash": "035370e251ed0733f1d52c67648825dde739e787566e82eaadeae4e89567ef03"
+    },
+    {
+      "seed": 96071,
+      "options": {
+        "compositionStyle": "auto",
+        "instrument": "Piano",
+        "instrumentProfile": "Daruan",
+        "clef": "bass",
+        "difficulty": "intermediate",
+        "keySignature": "C",
+        "tonic": "C",
+        "scaleId": "major",
+        "timeSignature": "4/4",
+        "rhythmLevel": "medium",
+        "measures": 8,
+        "tempo": 90,
+        "range": {
+          "min": 38,
+          "max": 67
+        },
+        "allowAccidentals": false,
+        "mixedMeters": false,
+        "meters": [
+          "4/4"
+        ]
+      },
+      "recipe": "B-combined",
+      "finalHash": "e7caa4c1ec4a830d5e443b900e62dd8f50642ae40e32395deeaac461cf12ee30"
+    }
+  ]
+}

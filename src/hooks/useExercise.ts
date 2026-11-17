@@ -1,4 +1,5 @@
 import {composeExercise} from '../music/composeExercise';
+import {composeAutomaticStudy,choosePluckedRecipe,rememberPluckedRecipe,scorePluckedStagnation,type PluckedRecipe,type PluckedRecipeBag} from '../music/automaticPlucked';
 import {addPerformanceMarks} from '../music/performanceMarks';
 import {refreshSlurPhrasing} from '../music/refreshSlurPhrasing';
 import {addInstrumentHarmony} from '../music/instrumentHarmony';
@@ -13,6 +14,7 @@ import type { RhythmFocusSelection, PitchFocus } from '../practice/focus';
 import {describeTonality, type Tonic} from '../music/scales';
 import { selectRandomTonality, type RandomTonality } from '../music/randomTonality';
 import {normalizeKeySignatureChoices, type KeySignatureChoice} from '../music/keySignatureChoices';
+import {readStudyRecipe} from '../practice/studyRecipe';
 import {loadPreferredInstrument, rememberInstrument} from '../practice/instrumentPreference';
 import { useState } from 'react';
 import {type ExerciseData, type Clef as StaffClef, type KeySignature, type TimeSignature } from '../music';
@@ -48,9 +50,18 @@ export const DEFAULT_SETTINGS: ExerciseSettings = {
   rangeMinMidi: INSTRUMENTS.Piano.min, rangeMaxMidi: INSTRUMENTS.Piano.max, allowAccidentals: false,
   mixedMeters: false, meters: ['3/4', '4/4', '6/8'],
 };
-interface CurrentExercise { exercise: ExerciseData; settings: ExerciseSettings; number: number; isPreview?: boolean }
+interface CurrentExercise { exercise: ExerciseData; settings: ExerciseSettings; number: number; isPreview?: boolean; recipe?:PluckedRecipe }
 
-export function useExercise(previewTonality?: RandomTonality) {
+export const DAILY_GENERATION_LIMIT = 3;
+const FREE_PREVIEW_KEY = 'tonecraft-free-preview-generation';
+export function readDailyQuota() {
+  const now = new Date();
+  const day = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-');
+  const [storedDay, count] = (localStorage.getItem(FREE_PREVIEW_KEY) ?? '').split(':');
+  return {day, used: storedDay === day ? Number(count) || 0 : 0};
+}
+
+export function useExercise(previewTonality?: RandomTonality, limitGeneration = false, onLimitReached?: () => void, onGenerated?: () => void) {
   const [savedSettings, setSettings] = useState<ExerciseSettings>(() => {
     const instrument = loadPreferredInstrument();
     const profile = INSTRUMENTS[instrument];
@@ -61,6 +72,7 @@ export function useExercise(previewTonality?: RandomTonality) {
   const [error, setError] = useState('');
   const [previewConsumed, setPreviewConsumed] = useState(false);
   const [recentExercises,setRecentExercises]=useState(()=>readRecentExercises());
+  const [recipeBag,setRecipeBag]=useState<PluckedRecipeBag|undefined>(undefined);
   const pendingPreview = previewConsumed ? undefined : previewTonality;
 
   function change<K extends keyof ExerciseSettings>(key: K, value: ExerciseSettings[K]) {
@@ -84,6 +96,11 @@ export function useExercise(previewTonality?: RandomTonality) {
 
   function generateFrom(settings: ExerciseSettings, bpm: number,tempoOverride?:number) {
     try {
+      const quota = limitGeneration ? readDailyQuota() : null;
+      if (quota && quota.used >= DAILY_GENERATION_LIMIT) {
+        onLimitReached?.();
+        throw new Error('今天已生成 3 份免費新譜，明天可以再生成。');
+      }
       if (!validMixedClefs(settings.mixedClefs)) throw new Error('混合譜表至少需要兩種不同的譜號。');
       // A newly generated study always chooses one coherent musical grammar.
       // Stored scores still restore exactly; their old internal style must not
@@ -108,8 +125,10 @@ export function useExercise(previewTonality?: RandomTonality) {
         allowAccidentals: pendingPreview ? false : settings.allowAccidentals, mixedMeters: settings.mixedMeters,
         meters: settings.meters, ...tonality,
       } satisfies Parameters<typeof composeExercise>[0];
+      const grand=settings.clef==='grand'?(twoHand?'two-hand':'mono'):undefined;
+      const recipe=choosePluckedRecipe(options,grand,recipeBag);
       const createStudy=()=>{
-        let candidate=composeExercise(options,settings.clef==='grand'?(twoHand?'two-hand':'mono'):undefined);
+        let candidate=recipe&&recipe!=='A'?composeAutomaticStudy(options,grand,recipe):composeExercise(options,grand);
         candidate.soundProfile=settings.instrument;
         candidate.staffMode=settings.clef==='mixedStaff'?'mixed':'fixed';
         candidate.transposition=INSTRUMENTS[settings.instrument].transpose;
@@ -129,23 +148,28 @@ export function useExercise(previewTonality?: RandomTonality) {
         return candidate;
       };
       let exercise=createStudy();
-      if(!pendingPreview) {
-        let similarity=scoreRecentSimilarity(exercise,recentExercises,settings);
-        // Keep the current composer and musical constraints. Only audition extra
-        // complete studies when the first is too close to recently accepted ones.
-        for(let retry=0;retry<2&&similarity>.68;retry++) {
-          try {
-            const candidate=createStudy(),score=scoreRecentSimilarity(candidate,recentExercises,settings);
-            if(score<similarity){exercise=candidate;similarity=score;}
-          }catch{/* A valid first candidate remains available if a retry cannot fit. */}
-        }
-        setRecentExercises(rememberRecentExercise(exercise,settings,recentExercises));
+      const scoreStudy=(candidate:ExerciseData)=>Math.max(pendingPreview?0:scoreRecentSimilarity(candidate,recentExercises,settings),scorePluckedStagnation(candidate,recipe));
+      let similarity=scoreStudy(exercise);
+      // Audition at most two more complete studies for recent sameness or an
+      // accidental B melody plateau. Never edit notes or relax selected grades.
+      for(let retry=0;retry<2&&similarity>.68;retry++) {
+        try {
+          const candidate=createStudy(),score=scoreStudy(candidate);
+          if(score<similarity){exercise=candidate;similarity=score;}
+        }catch{/* A valid first candidate remains available if a retry cannot fit. */}
       }
+      if (quota) localStorage.setItem(FREE_PREVIEW_KEY, `${quota.day}:${quota.used + 1}`);
+      if(!pendingPreview) {
+        setRecentExercises(rememberRecentExercise(exercise,settings,recentExercises));
+        if(recipe)setRecipeBag(rememberPluckedRecipe(options,grand,recipe,recipeBag));
+      }
+      if(recipe)exercise={...exercise,studyRecipe:recipe};
       setSettings(settings);
       rememberInstrument(settings.instrument);
-      setCurrent((previous) => ({ exercise, settings: { ...settings, ...(settings.mixedClefs?{mixedClefs:[...settings.mixedClefs]}:{}), ...tonality, keySignature:signature ?? 'C', allowAccidentals: pendingPreview ? false : settings.allowAccidentals, measureCount, meters: [...settings.meters] }, number: (previous?.number ?? 0) + 1, isPreview: !!pendingPreview }));
+      setCurrent((previous) => ({ exercise, settings: { ...settings, ...(settings.mixedClefs?{mixedClefs:[...settings.mixedClefs]}:{}), ...tonality, keySignature:signature ?? 'C', allowAccidentals: pendingPreview ? false : settings.allowAccidentals, measureCount, meters: [...settings.meters] }, number: (previous?.number ?? 0) + 1, isPreview: !!pendingPreview, ...(recipe?{recipe}:{}) }));
       setPreviewConsumed(true);
       setError('');
+      onGenerated?.();
       return exercise.tempo;
     } catch (error) {
       setError(error instanceof Error ? error.message : '無法產生題目，請調整設定後重試。');
@@ -157,7 +181,8 @@ export function useExercise(previewTonality?: RandomTonality) {
     setPreviewConsumed(true);
     setSettings(settings);
     rememberInstrument(settings.instrument);
-    setCurrent(previous => ({exercise, settings, number: (previous?.number ?? 0) + 1}));
+    const recipe=readStudyRecipe(exercise.studyRecipe);
+    setCurrent(previous => ({exercise, settings, number: (previous?.number ?? 0) + 1, ...(recipe?{recipe}:{})}));
     setError('');
     return exercise;
   }

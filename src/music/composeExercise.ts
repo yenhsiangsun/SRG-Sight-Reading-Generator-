@@ -15,14 +15,15 @@ import {supportsMotivicStudy,linkMotivicRhythm,phraseDirectedHarmony} from './mo
 import {planStudyStructure,shapeStrategyHarmony,type StudyStrategy} from './phraseStrategy';
 import {chooseMacroForm} from './phraseForm';
 import {supportsMusicalIntent} from './musicalIntent';
-import {composeContrastStudy} from './contrastStudy';
+import {composeLongLineExercise} from './contrastStudy';
 import {addPipaRollRhythm} from './pipaRollRhythm';
 
 /** Rhythm, rests, meter and the final landing are fixed before auditioning pitch
  * candidates. Three attempts maximum keeps generation bounded on phones/tablets. */
 export function composeExercise(options: PracticeOptions, grandMode?: 'mono'|'two-hand',strategy?:StudyStrategy): ExerciseData {
-  // Human-selected C: carry the longer melodic arc through ordinary studies.
-  if(strategy===undefined&&supportsMusicalIntent(options))return composeContrastStudy(options,'long-line',grandMode);
+  // Keep the selected continuous line, with varied complete entrances,
+  // development and register arcs rather than one fixed C study template.
+  if(strategy===undefined&&supportsMusicalIntent(options))return composeLongLineExercise(options,grandMode);
   const motivic=supportsMotivicStudy(options,grandMode);
   // Promote the listened version only in its approved major 4/4 context.
   // Unsupported options draw no new random values and retain the old path.

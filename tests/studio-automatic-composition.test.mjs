@@ -10,7 +10,7 @@ function session(seed=75001){
   return {render(){cursor=0;return api.useExercise();},memory};
 }
 
-test('six successive studies retain the selected C arc and user challenge while varying whole-study rhythm',()=>{
+test('six successive studies develop the selected C line and retain user challenge while varying whole-study rhythm',()=>{
   const s=session(),first=s.render();
   const settings={...first.settings,instrument:'Piano',clef:'grand',difficulty:'Intermediate',rhythmLevel:'Moderate',rangeMinMidi:48,rangeMaxMidi:84,allowedKeySignatures:['C'],compositionStyle:'legacy'};
   const studies=[];
@@ -26,9 +26,10 @@ test('six successive studies retain the selected C arc and user challenge while 
   assert.ok(new Set(rhythms).size>=4,'the output must vary across the whole study');
   for(let i=1;i<rhythms.length;i++)assert.notEqual(rhythms[i],rhythms[i-1],'no identical adjacent whole-study rhythm in this representative session');
   for(const ex of studies){
-    assert.deepEqual(JSON.parse(JSON.stringify(ex.musicalIntent.motif)),[0,1,3,5,3,1,0],'the main pipeline must use the human-selected C family');
+    assert.ok(ex.musicalIntent.longLine,'ordinary generation must use developed continuous lines');
     assert.deepEqual(JSON.parse(JSON.stringify(ex.phrasePlan.map(p=>p.endBar-p.startBar+1))),[8]);
   }
+  assert.ok(new Set(studies.map(ex=>ex.musicalIntent.motif.join(','))).size>=3,'one fixed motif must not define every new study');
 });
 
 test('opening an existing score preserves its notes; only future new generation changes to automatic composition',()=>{

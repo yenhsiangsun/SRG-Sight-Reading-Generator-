@@ -7,6 +7,7 @@ import {pulseGroups} from './meterFeel';
 import {intentRhythmCell} from './intentRhythmGrade';
 import {planIntentOpening,openingMotif,openingAnchor,validIntentOpening,type IntentOpening} from './intentOpening';
 import {addRhythmUnits} from './rhythmTiming';
+import {validLongLineDevelopment,type LongLineDevelopment} from './longLineDevelopment';
 
 export const COMPOSITION_STYLES=['auto','classical','lyrical','pentatonic','legacy'] as const;
 export type CompositionStyle=typeof COMPOSITION_STYLES[number];
@@ -26,6 +27,7 @@ export interface MusicalIntent {
   harmony:HarmonyBar[];
   rhythm:RhythmBarPlan[];
   opening?:IntentOpening;
+  longLine?:LongLineDevelopment;
 }
 const mod=(n:number,m=12)=>(n%m+m)%m;
 
@@ -308,6 +310,7 @@ export function validMusicalIntent(value:unknown,bars:number):value is MusicalIn
   if(value===undefined)return true;
   if(!value||typeof value!=='object'||Array.isArray(value))return false;
   const v=value as Record<string,unknown>;
+  if(!validLongLineDevelopment(v.longLine))return false;
   if(!validIntentOpening(v.opening))return false;
   if(v.version!==1||!['classical','lyrical','pentatonic'].includes(String(v.grammar))||
     !Number.isInteger(v.variant)||Number(v.variant)<0||Number(v.variant)>3||

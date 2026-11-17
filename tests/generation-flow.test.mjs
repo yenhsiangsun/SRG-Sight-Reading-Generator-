@@ -12,7 +12,7 @@ const study=tag=>({tag,instrument:'Flute',clef:'treble',difficulty:'intermediate
       duration:'q',dots:0,startUnits:i*4,durationUnits:4}))}))});
 
 function harness(queue) {
-  let states=[],cursor=0,generated=0;const remembered=[];
+  let states=[],cursor=0,generated=0;const remembered=[],quota=new Map();
   const react={useState(initial){const index=cursor++;if(!(index in states))states[index]=typeof initial==='function'?initial():initial;
     return [states[index],next=>{states[index]=typeof next==='function'?next(states[index]):next;}];}};
   const api=loadModule('src/hooks/useExercise.ts',331,undefined,{react,
@@ -27,8 +27,8 @@ function harness(queue) {
       scoreRecentSimilarity:(ex,history)=>history.some(previous=>previous.tag===ex.tag)?1:0,
       rememberRecentExercise(ex,_settings,history){remembered.push(ex.tag);return [{tag:ex.tag},...history].slice(0,5);},
     },
-  },{window:{matchMedia:()=>({matches:false})}});
-  return {render(preview){cursor=0;return api.useExercise(preview);},remembered,get generated(){return generated;}};
+  },{window:{matchMedia:()=>({matches:false})},localStorage:{getItem:key=>quota.get(key)??null,setItem:(key,value)=>quota.set(key,value)}});
+  return {render(...args){cursor=0;return api.useExercise(...args);},readDailyQuota:api.readDailyQuota,remembered,get generated(){return generated;}};
 }
 
 test('the generation hook auditions only close repeats, remembers only the accepted score and keeps resume neutral',()=>{
@@ -66,4 +66,21 @@ test('tonality previews do not enter recent history and explicit preset tempos r
   assert.equal(h.render(preview).generateFrom(settings,80,320),320);
   assert.deepEqual(h.remembered,['B']);
   assert.equal(h.render(preview).current.isPreview,false);
+});
+
+test('the free tier charges successful generation once per study, while Plus and reopening stay unlimited',()=>{
+  const h=harness(['error','A','B','C','D']);
+  let limitReached=0;
+  const free=()=>h.render(undefined,true,()=>{limitReached++;});
+  assert.equal(free().generateFrom(settings,80),false);
+  assert.equal(h.readDailyQuota().used,0);
+  for(let i=0;i<3;i++)assert.equal(free().generateFrom(settings,80),80);
+  const original=free().current.exercise;
+  free().restore(original,settings);
+  assert.equal(h.readDailyQuota().used,3);
+  assert.equal(free().generateFrom(settings,80),false);
+  assert.equal(limitReached,1);
+  assert.equal(h.generated,4);
+  assert.equal(h.render().generateFrom(settings,80),80);
+  assert.equal(h.readDailyQuota().used,3);
 });

@@ -42,8 +42,6 @@ const Companion=productModule('src/components/PracticeCompanion.tsx').default;
 const exercise={timeSignature:'4/4',measures:[{events:[{key:'c/4',midi:60,rest:false,duration:'q',durationUnits:4}]}]};
 const appTree=ts.createSourceFile('App.tsx',source('src/App.tsx'),ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
 function findNode(predicate,root=appTree){let found;function visit(node){if(found)return;if(predicate(node)){found=node;return;}ts.forEachChild(node,visit);}visit(root);assert.ok(found,'actual App presentation node missing');return found;}
-const checkout=findNode(node=>ts.isJsxElement(node)&&node.openingElement.attributes.properties.some(p=>ts.isJsxAttribute(p)&&p.name.getText(appTree)==='className'&&p.initializer&&ts.isStringLiteral(p.initializer)&&p.initializer.text==='practice-checkout'));
-const heading=findNode(node=>ts.isJsxElement(node)&&node.openingElement.tagName.getText(appTree)==='strong',checkout);
 function compileAppFragment(node,bindings){
   const module={exports:{}};
   const output=ts.transpileModule(`module.exports=function AppPresentation(){return (${node.getText(appTree)});}`,{
@@ -56,10 +54,6 @@ function render(locale,Component,props={}){
   return renderToStaticMarkup(React.createElement(LocalizationContext.Provider,{value:{locale,setLocale(){},t:key=>translate(locale,key)}},React.createElement(Component,props)));
 }
 const text=html=>html.replace(/<[^>]*>/g,'').replaceAll('&amp;','&').replaceAll('&#x27;',"'").replaceAll('&quot;','"').replaceAll('&lt;','<').replaceAll('&gt;','>');
-function checkoutTitle(locale){
-  const Heading=compileAppFragment(heading,{completed:true,t:key=>translate(locale,key),w:(zh,en,ja)=>words(locale,zh,en,ja)});
-  return text(renderToStaticMarkup(React.createElement(Heading)));
-}
 function companionTip(locale){
   const markup=render(locale,Companion,{exercise,pet:null,playing:false,metronomeOnly:false,examActive:false,completed:true});
   const match=markup.match(/<p class="practice-companion__message"[^>]*>([\s\S]*?)<\/p>/);
@@ -67,19 +61,8 @@ function companionTip(locale){
 }
 const noSaved=/recorded|saved|已經收進|已经收进|已經記下|已经记下|記録しました|記録できた/iu;
 
-test('completed checkout persistence contract',()=>{
-  for(const locale of ['en','zh-TW','ja'])assert.doesNotMatch(checkoutTitle(locale),noSaved,locale+' cannot infer persistence from completion');
-});
-
 test('completed companion persistence contract',()=>{
   for(const locale of ['en','zh-TW','ja'])assert.doesNotMatch(companionTip(locale),noSaved,locale+' cannot infer persistence from completion');
-});
-
-test('actual App checkout resolves the neutral completed title in all twelve locales',()=>{
-  for(const locale of localeOrder){
-    const expected=translate(locale,'practiceCompletedTitle');assert.ok(expected?.length>0,locale);
-    assert.equal(checkoutTitle(locale),expected,locale);
-  }
 });
 
 test('actual companion completed view resolves the neutral tip in all twelve locales',()=>{

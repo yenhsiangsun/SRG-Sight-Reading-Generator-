@@ -9,9 +9,9 @@ const hash=x=>createHash('sha256').update(JSON.stringify(x)).digest('hex');
 const plain=x=>JSON.parse(JSON.stringify(x));
 const finish=`export {refineFastPassages} from './tempoFlow';export {coordinateGrandStaff} from './grandAccompaniment';export {addInstrumentHarmony} from './instrumentHarmony';export {addPerformanceMarks} from './performanceMarks';export {validateGeneratedExercise} from './exerciseQuality';`;
 
-test('ordinary generation reproduces all four human-selected C core and completed audition samples exactly',()=>{
+test('selected C keeps all four core samples and all completed notes and slurs while hairpin phrasing can improve',()=>{
   for(const sample of fixtures.adopted){
-    let exercise=loadModule('src/music/composeExercise.ts',sample.seed).composeExercise(sample.options,'two-hand');
+    let exercise=loadModule('src/music/contrastStudy.ts',sample.seed).composeContrastStudy(sample.options,'long-line','two-hand');
     assert.equal(hash(exercise),sample.coreHash,sample.id+' selected C core');
     const api=loadModule('src/music/__longLineFinish.ts',sample.seed+50000,finish);
     exercise={...exercise,tempo:80,soundProfile:sample.instrument,staffMode:'fixed'};
@@ -20,7 +20,7 @@ test('ordinary generation reproduces all four human-selected C core and complete
     exercise=api.addInstrumentHarmony(exercise,sample.options.range);
     exercise=api.addPerformanceMarks(exercise);
     api.validateGeneratedExercise(exercise,sample.options.range,false);
-    assert.equal(hash(exercise),sample.finalHash,sample.id+' same complete C score as audition');
+    assert.equal(hash({...exercise,expressionSpans:exercise.expressionSpans.filter(s=>s.kind==='slur')}),sample.finalWithoutHairpinsHash,sample.id+' same completed notes, rhythm, articulation, dynamics and slurs');
   }
 });
 
@@ -33,7 +33,7 @@ test('specialist, legacy, short and explicit strategy routes retain their comple
   assert.equal(hash(loadModule('src/music/composeExercise.ts',sample.seed).composeExercise(sample.options,'two-hand',sample.strategy)),sample.hash);
 });
 
-test('the normal settings hook selects C without a new selector and preserves older saved exercises',()=>{
+test('normal settings develop the selected long line without a new selector and preserve older saved exercises',()=>{
   const values=[],memory=new Map();let cursor=0;
   const react={useState(initial){const i=cursor++;if(!(i in values))values[i]=typeof initial==='function'?initial():initial;return[values[i],next=>{values[i]=typeof next==='function'?next(values[i]):next;}];}};
   const localStorage={getItem:k=>memory.get(k)??null,setItem:(k,v)=>memory.set(k,String(v))};
@@ -43,10 +43,9 @@ test('the normal settings hook selects C without a new selector and preserves ol
   assert.equal(state.generateFrom(settings,80,80),80);
   const current=render().current;assert.ok(current);
   assert.equal(current.settings.compositionStyle,'auto');
-  assert.deepEqual(plain(current.exercise.musicalIntent.motif),[0,1,3,5,3,1,0]);
+  assert.ok(current.exercise.musicalIntent.longLine);
   assert.deepEqual(plain(current.exercise.phrasePlan.map(p=>p.endBar-p.startBar+1)),[8]);
-  assert.equal(current.exercise.measures[0].events[0].durationUnits,8);
-  assert.equal(current.exercise.measures[0].events[0].rest,false);
+  assert.ok(current.exercise.measures[0].events.some(n=>!n.rest));
   assert.ok(current.exercise.lowerMeasures.length===8);
   const saved=plain(current.exercise),before=JSON.stringify(saved);
   render().restore(saved,{...settings,compositionStyle:'classical'});

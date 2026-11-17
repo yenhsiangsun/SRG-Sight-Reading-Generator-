@@ -120,6 +120,18 @@ test('hairpin openings meet at the same score time across systems with different
   }
 });
 
+test('long saved hairpins keep a visible taper on every system without changing musical anchors',()=>{
+  const source=Array.from({length:8},()=>bar(['c/5','d/5','e/5','g/5','a/5','g/5','e/5','c/5']));
+  for(const kind of ['crescendo','diminuendo'])for(const perRow of [1,2]){
+    const exercise={timeSignature:'4/4',measures:source,expressionSpans:[{kind,staff:0,start:{bar:0,event:0},end:{bar:7,event:7}}]};
+    const before=JSON.stringify(exercise),paths=planExpressionDrawing(exercise,source.map((b,i)=>prepare(b,i,Math.floor(i/perRow))));
+    assert.equal(paths.length,8/perRow);
+    for(const path of paths){assert.ok(Math.abs(path.startOpening-path.endOpening)>=3-1e-8,'each segment remains a wedge at tablet scale');assert.ok(path.startOpening>=0&&path.endOpening>=0);}
+    assert.equal(paths[0].startOpening,kind==='crescendo'?0:7);assert.equal(paths.at(-1).endOpening,kind==='crescendo'?7:0);
+    assert.equal(JSON.stringify(exercise),before);
+  }
+});
+
 test('octave indications clear expression bounds without changing notes or written octave displacement',()=>{
   const source=bar(['c/6','d/6','e/6','f/6'],4),rendered=prepare(source,0,0),ctx=context();
   const before=rendered.notes.map(note=>note.getKeys());

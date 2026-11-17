@@ -154,7 +154,7 @@ test('transposing Chinese wind previews are not transposed again by either sampl
   }
 });
 
-test('membrane dizi use actual C-dizi recordings, Xindi retains flute substitution, and all preserve sounding ranges', async () => {
+test('all dizi use flute recordings and preserve their original sounding ranges', async () => {
   const f = fixture();
   assert.deepEqual(Object.keys(INSTRUMENTS).filter(name => /^(?:Bangdi|Qudi|Xindi) /.test(name)), diziRanges.map(([name]) => name));
   for (const [name, min, max, transpose] of diziRanges) {
@@ -163,7 +163,7 @@ test('membrane dizi use actual C-dizi recordings, Xindi retains flute substituti
     assert.equal(preview.soundProfile, name, `${name}: score still identifies the chosen dizi`);
     assert.equal(preview.transposition, transpose, name);
     assert.ok(preview.measures[0].events.every(note => note.midi >= min && note.midi <= max), `${name}: preview stays in written range`);
-    const sound = name.startsWith('Xindi ') ? 'Flute' : 'Qudi C';
+    const sound = 'Flute';
     const bank = manifest[sound];
     assert.equal(f.getPlaybackSoundProfile(name), sound, name);
     assert.equal(f.hasSamples(name), true, `${name}: UI and playback both report a recording`);

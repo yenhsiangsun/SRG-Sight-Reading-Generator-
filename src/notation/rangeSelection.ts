@@ -18,11 +18,12 @@ export function rangeNotePosition(midi:number) {
   const degree=naturals.findLastIndex(value=>value<=pc);
   return {degree,octave:Math.floor(midi/12)-1,sharp:pc!==naturals[degree]};
 }
-/** Top staff line is +8; upper ledger lines are +10, +12, +14, +16. */
+/** The range picker keeps treble A6 (the fifth upper space) on its actual
+ * ledger position; B6 and higher use8va. Other clefs keep their old threshold. */
 export function rangeOctaveShift(midi:number,clef:Clef): -1|0|1 {
   const note=rangeNotePosition(midi);
   const distance=note.octave*7+note.degree-rangeStaffBottom[clef];
-  return distance>16?1:distance< -6?-1:0;
+  return distance>(clef==='treble'?17:16)?1:distance< -6?-1:0;
 }
 export function rangeMidiAtY(y:number,bottomY:number,clef:Clef,octaveShift:number,min:number,max:number) {
   const position=rangeStaffBottom[clef]+Math.round((bottomY-y)/5)+octaveShift*7;

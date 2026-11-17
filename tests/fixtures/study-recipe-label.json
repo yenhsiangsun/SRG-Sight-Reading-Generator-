@@ -1,0 +1,43 @@
+{
+  "seed": 98819,
+  "settings": {
+    "performanceMarks": true,
+    "instrument": "Daruan",
+    "clef": "bass",
+    "difficulty": "Intermediate",
+    "keySignature": "C",
+    "tonic": "C",
+    "scaleId": "major",
+    "timeSignature": "4/4",
+    "rhythmLevel": "Complex",
+    "measureCount": 8,
+    "rangeMinMidi": 38,
+    "rangeMaxMidi": 67,
+    "allowAccidentals": false,
+    "mixedMeters": false,
+    "meters": [
+      "3/4",
+      "4/4",
+      "6/8"
+    ],
+    "compositionStyle": "auto"
+  },
+  "records": [
+    {
+      "recipe": "B-rhythm",
+      "hash": "42b5033a1849bebbb00ad68f3bb071c2afa78155ec8aa4a2321db62250a5f634"
+    },
+    {
+      "recipe": "B-combined",
+      "hash": "d6bcfda5d10c5bdea39ddf9effdc994b9ceb90fe56ef813e8735e4ebc9d47ed8"
+    },
+    {
+      "recipe": "B-melody",
+      "hash": "24aad5eeea6807e2ae9c3b06f298bc000d32160d1d5e76922e652c7c36dc875c"
+    },
+    {
+      "recipe": "A",
+      "hash": "d18c4f866b4b9577203455060e0855e99e50e2ccbe7537aeff05480277c49a3c"
+    }
+  ]
+}

@@ -206,10 +206,33 @@ export function planExpressionDrawing(exercise: ExerciseData, bars: readonly Exp
         previous.xStart<xEnd && previous.xEnd>xStart) y=Math.max(y,previous.bounds.yBottom+18);
       const startProgress=progress(startTime),endProgress=progress(endTime);
       const opening = (progress: number) => (span.kind==='crescendo'?progress:1-progress)*7;
-      const startOpening=opening(startProgress),endOpening=opening(endProgress);
+      let startOpening=opening(startProgress),endOpening=opening(endProgress);
+      // Aperture is an engraving convention, not the playback gain curve.
+      // Very long continuations need a readable taper on each system rather
+      // than dividing a seven-pixel opening into almost parallel fragments.
+      if(Math.abs(endOpening-startOpening)<3){
+        const gap=(span.kind==='crescendo'?continued:continues)?1.5:0;
+        const low=Math.max(gap,Math.min(4,Math.min(startOpening,endOpening)));
+        const high=Math.min(7,Math.max(low+3,Math.max(startOpening,endOpening)));
+        [startOpening,endOpening]=span.kind==='crescendo'?[low,high]:[high,low];
+      }
       segments.push({kind:span.kind,staff:span.staff,row,xStart,xEnd,startY:y,endY:y,controlLift:0,
         startOpening,endOpening,above:false,bars:touched,bounds:{xStart,xEnd,yTop:y-7,yBottom:y+7}});
     }
+  }
+  // Opposing wedges that share an attack need separate visible endpoints.
+  for (const left of segments) {
+    if (left.kind === 'slur') continue;
+    const right = segments.find(segment => segment.kind !== 'slur' &&
+      segment.kind !== left.kind && segment.row === left.row && segment.staff === left.staff &&
+      Math.abs(segment.xStart - left.xEnd) < 0.5);
+    if (!right) continue;
+    const leftInset = Math.min(6, (left.xEnd - left.xStart) / 4);
+    const rightInset = Math.min(6, (right.xEnd - right.xStart) / 4);
+    left.xEnd -= leftInset;
+    left.bounds.xEnd = left.xEnd;
+    right.xStart += rightInset;
+    right.bounds.xStart = right.xStart;
   }
   return segments;
 }

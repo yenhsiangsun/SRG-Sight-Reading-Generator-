@@ -18,6 +18,9 @@ workflows:
         - pattern: codex/ipad-app-development
           include: true
           source: true
+        - pattern: codex/tonecraft-plus-review
+          include: true
+          source: true
       cancel_previous_builds: true
     scripts:
       - name: Install dependencies
@@ -55,6 +58,11 @@ workflows:
             --expected-build "$BUILD_NUMBER" \
             --expected-version 1.0 \
             --output build/ios/release-inventory.json
+      - name: Exercise Plus purchase and capture its iOS review screenshot
+        script: |
+          if [ "$CM_BRANCH" = "codex/tonecraft-plus-review" ]; then
+            bash scripts/test-ios-plus.sh || echo "StoreKit Simulator evidence unavailable; inspect before submission"
+          fi
       - name: Capture native Simulator homepage previews (optional)
         script: |
           # Missing Simulator runtimes must not delay the signed IPA upload.
@@ -68,6 +76,8 @@ workflows:
       - build/ios/simulator-screenshots/*.png
       - build/ios/simulator-screenshots/*.json
       - build/ios/simulator-screenshots/*.log
+      - build/ios/plus-review/attachments/*
+      - build/ios/plus-review/*.log
       - /tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     publishing:

@@ -1,5 +1,6 @@
 import type {ExerciseData,ExpressionSpan,GeneratedNote,MeasureData} from '../music';
 import {planMusicalSlurs} from './slurPhrasing';
+import {planPhraseHairpins} from './hairpinPhrasing';
 
 /** A bar line alone is not a detached ending. Keep a short, single-note
  * pickup joined to its immediate stepwise arrival within the same phrase. */
@@ -33,10 +34,7 @@ export function addIntentExpression(exercise:ExerciseData):ExerciseData {
   const spans:ExpressionSpan[]=planMusicalSlurs(marked);
   if(intent.grammar==='lyrical'){
     const p=intent.phrases.at(-1)!;
-    const notes=marked.measures.flatMap((bar,b)=>b>=p.startBar&&b<=p.endBar?bar.events.flatMap((n,event)=>n.rest?[]:[{n,anchor:{bar:b,event}}]):[]);
-    const peak=notes.length?notes.reduce((best,n)=>n.n.midi!>best.n.midi!?n:best):undefined;
-    if(notes.length>4&&peak&&peak!==notes[0])spans.push({kind:'crescendo',staff:0,start:notes[0].anchor,end:peak.anchor});
-    if(notes.length>4&&peak&&peak!==notes.at(-1))spans.push({kind:'diminuendo',staff:0,start:peak.anchor,end:notes.at(-1)!.anchor});
+    spans.push(...planPhraseHairpins(marked,p));
   }
   return {...marked,expressionSpans:spans};
 }

@@ -68,3 +68,28 @@
 .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-practice-mode="practice"] #main .score-focus-symbol{width:16px;height:16px;flex:0 0 16px}
 .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-practice-mode="practice"] #main button.score-focus-button[aria-pressed="true"]{padding:11px 10px;border-color:var(--theme-primary);background:var(--theme-soft);font-size:14px;line-height:1.55;box-shadow:inset 0 0 0 1px var(--theme-primary)}
 .app.app.studio-app.forest-studio[data-design="atelier"][data-page="practice"][data-practice-mode="practice"] #main button.score-focus-button:focus-visible{outline:2px solid var(--theme-primary);outline-offset:2px}
+
+.daily-study-links{display:flex;flex-wrap:wrap;gap:0 12px}
+.daily-study-links button[aria-pressed="true"]{font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.forest-studio .studio-session-actions .direct-study-actions{position:static;display:flex;flex-wrap:wrap;min-width:0;padding:0;border:0;background:transparent;box-shadow:none}
+
+.next-study-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  width: min(100%, 340px);
+  margin-top: 20px;
+  margin-left: auto;
+}
+
+.next-study-actions > .secondary-button {
+  width: 100%;
+  min-height: 46px;
+  margin: 0;
+  padding: 8px 12px;
+  text-align: center;
+}
+
+.next-study-actions > .secondary-button:disabled {
+  opacity: .5;
+}

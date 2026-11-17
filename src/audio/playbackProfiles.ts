@@ -33,12 +33,13 @@ export const RECORDED_SUBSTITUTES: Readonly<Record<string, string>> = {
   Pipa: 'Guitar',
 };
 
+const isDizi = (instrument: string) => /^(?:Bangdi|Qudi|Xindi)(?: |$)/.test(instrument);
+
 export function getRecordedSoundProfile(instrument: string): string {
-  if (/^(?:Bangdi|Qudi) /.test(instrument)) return 'Qudi C';
-  if (/^Xindi /.test(instrument)) return 'Flute';
+  if (isDizi(instrument)) return 'Flute';
   return RECORDED_SUBSTITUTES[instrument] ?? instrument;
 }
 
 export function usesRecordedSubstitute(instrument: string): boolean {
-  return Object.hasOwn(RECORDED_SUBSTITUTES, instrument) || /^Xindi /.test(instrument);
+  return Object.hasOwn(RECORDED_SUBSTITUTES, instrument) || isDizi(instrument);
 }

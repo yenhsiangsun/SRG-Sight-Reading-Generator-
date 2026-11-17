@@ -35,7 +35,7 @@ test('substitute captions describe the actual recorded instrument in all twelve 
   assert.equal(audioSourceLabel('unknown recording', 'zh-TW'), 'unknown recording');
 });
 
-test('reed, bowed and plucked substitutes are explicit while dizi variants share a genuine dizi bank', () => {
+test('reed, bowed and plucked substitutes are explicit including flute audio for dizi variants', () => {
   for (const [name, source] of [
     ['Erhu','Violin'], ['Gaohu','Violin'], ['Zhonghu','Viola'],
     ['Sheng','Harmonica'], ['Alto Sheng','Harmonica'], ['Tenor Sheng','Harmonica'], ['Bass Sheng','Harmonica'],
@@ -45,8 +45,8 @@ test('reed, bowed and plucked substitutes are explicit while dizi variants share
     assert.equal(getRecordedSoundProfile(name), source, name);
     assert.equal(usesRecordedSubstitute(name), true, name);
   }
-  for (const name of ['Bangdi G','Qudi C','Qudi D']) {
-    assert.equal(getRecordedSoundProfile(name), 'Qudi C');
-    assert.equal(usesRecordedSubstitute(name), false);
+  for (const name of ['Bangdi G','Qudi C','Qudi D','Xindi G']) {
+    assert.equal(getRecordedSoundProfile(name), 'Flute');
+    assert.equal(usesRecordedSubstitute(name), true);
   }
 });

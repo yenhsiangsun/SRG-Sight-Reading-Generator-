@@ -29,7 +29,8 @@
         ]
       },
       "coreHash": "b1f7920f66e822c18b3102f3c97263e862148270ceada6f5a50676c8bd314082",
-      "finalHash": "591826b2dd9a2922fe679136b5620a3902f9921db424b98fb400954cf87b5a43"
+      "finalHash": "591826b2dd9a2922fe679136b5620a3902f9921db424b98fb400954cf87b5a43",
+      "finalWithoutHairpinsHash": "a33a6d09d0e025cf4e84c47b1247e17ace083318c3a38849d475d7e552a9b858"
     },
     {
       "id": "piano-two",
@@ -59,7 +60,8 @@
         ]
       },
       "coreHash": "74cd960acf6d95f9057440ce2d47148ab9ee614e2851bc1cdfcd16802a5de07f",
-      "finalHash": "b8398bedf404d4a34f7b0c5fbfacf16a92fd3b64d1846441922e03ca74830f59"
+      "finalHash": "b8398bedf404d4a34f7b0c5fbfacf16a92fd3b64d1846441922e03ca74830f59",
+      "finalWithoutHairpinsHash": "3693c73f0c0e9cf25a319cb7f6336000ab65a8bcad10143f7e90b831603aaa0f"
     },
     {
       "id": "yangqin",
@@ -89,7 +91,8 @@
         ]
       },
       "coreHash": "b72e5528dddb004f95141171388d88a97886b5a584065f1e7dbe262b1848b898",
-      "finalHash": "ac18f94cb711b23544f1f68f169f8f32cf8cab610148dc2bf2eed44a7f41f702"
+      "finalHash": "ac18f94cb711b23544f1f68f169f8f32cf8cab610148dc2bf2eed44a7f41f702",
+      "finalWithoutHairpinsHash": "22ff9864e34a54a332656a4994e326a778b0b10def68f1c76a8e962ba941f014"
     },
     {
       "id": "minor",
@@ -119,7 +122,8 @@
         ]
       },
       "coreHash": "87cabed371440b85bd630457e2f06bd85811d0513d56804a3e93ac87f53d06b9",
-      "finalHash": "102f14738d9169b49f5eef02d42cd9f95ee52274a328370c22762149b2d75413"
+      "finalHash": "102f14738d9169b49f5eef02d42cd9f95ee52274a328370c22762149b2d75413",
+      "finalWithoutHairpinsHash": "2f4ac121c21d0c285ae9c5c871b45b820c1a7c0e92c7c0f8f3546e52c2174a2a"
     }
   ],
   "bypass": [
