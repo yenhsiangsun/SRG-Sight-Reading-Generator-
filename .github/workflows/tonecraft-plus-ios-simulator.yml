@@ -1,0 +1,40 @@
+name: Tonecraft Plus iOS Simulator
+on:
+  push:
+    branches: [codex/tonecraft-plus-storekit-test]
+permissions:
+  contents: read
+
+jobs:
+  plus:
+    runs-on: macos-26
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Select Xcode 26.4 and inspect the Simulator
+        run: |
+          ls -d /Applications/Xcode*.app
+          if [[ -d /Applications/Xcode_26.4.app/Contents/Developer ]]; then
+            echo "DEVELOPER_DIR=/Applications/Xcode_26.4.app/Contents/Developer" >> "$GITHUB_ENV"
+          fi
+          xcrun simctl list runtimes available
+      - name: Build current release assets and sync iOS
+        run: |
+          npm ci
+          npm run build
+          npx cap sync ios
+      - name: Exercise the native StoreKit flow
+        run: bash scripts/test-ios-plus.sh
+      - name: Save Simulator evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Tonecraft-Plus-iOS-review
+          path: |
+            build/ios/plus-review/attachments/**
+            build/ios/plus-review/*.log
+            build/ios/plus-review/devices.json
+          retention-days: 3
