@@ -1,159 +1,30 @@
 workflows:
-  ipad-testflight:
-    name: iPhone and iPad TestFlight
+  plus-review-evidence:
+    name: Tonecraft Plus native review evidence
     instance_type: mac_mini_m2
-    max_build_duration: 60
+    max_build_duration: 30
     integrations:
       app_store_connect: sight-reading-generator
     environment:
       xcode: 26.4
       node: 24
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.yenhsiang.sightreadinggenerator
     triggering:
       events:
         - push
       branch_patterns:
-        - pattern: codex/ipad-app-development
+        - pattern: codex/tonecraft-plus-review-evidence
           include: true
           source: true
-        - pattern: codex/tonecraft-plus-review
-          include: true
-          source: true
-      cancel_previous_builds: true
     scripts:
-      - name: Install dependencies
-        script: npm ci
-      - name: Run regression tests
-        script: npm test
-      - name: Build web application
-        script: npm run build
-      - name: Sync web assets with iOS
-        script: npx cap sync ios
-      - name: Normalize App Store icon dimensions
-        script: sips --resampleHeightWidth 1024 1024 ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png
-      - name: Set build number
-        script: |
-          cd ios/App
-          agvtool new-version -all "$BUILD_NUMBER"
-      - name: Apply App Store signing profile
-        script: xcode-project use-profiles
-      - name: Build signed IPA
-        script: |
-          xcode-project build-ipa \
-            --project "ios/App/App.xcodeproj" \
-            --scheme "App"
-      - name: Inspect packaged app and privacy manifests
-        script: |
-          shopt -s nullglob
-          ipa_files=(build/ios/ipa/*.ipa)
-          if [ "${#ipa_files[@]}" -ne 1 ]; then
-            echo "Expected exactly one signed IPA for inspection"
-            exit 1
-          fi
-          python3 scripts/verify-ios-release.py \
-            --ipa "${ipa_files[0]}" \
-            --web-root dist \
-            --expected-build "$BUILD_NUMBER" \
-            --expected-version 1.0 \
-            --output build/ios/release-inventory.json
-      - name: Exercise Plus purchase and capture its iOS review screenshot
-        script: |
-          if [ "$CM_BRANCH" = "codex/tonecraft-plus-review" ]; then
-            bash scripts/test-ios-plus.sh || echo "StoreKit Simulator evidence unavailable; inspect before submission"
-          fi
-      - name: Capture native Simulator homepage previews (optional)
-        script: |
-          # Missing Simulator runtimes must not delay the signed IPA upload.
-          # PNGs still require visual review; they are not physical-device tests.
-          python3 scripts/capture-ios-simulator.py \
-            --output-dir build/ios/simulator-screenshots \
-            --timeout-seconds 900 || echo "Optional Simulator capture unavailable; continue TestFlight upload"
-    artifacts:
-      - build/ios/ipa/*.ipa
-      - build/ios/release-inventory.json
-      - build/ios/simulator-screenshots/*.png
-      - build/ios/simulator-screenshots/*.json
-      - build/ios/simulator-screenshots/*.log
-      - build/ios/plus-review/attachments/*
-      - build/ios/plus-review/*.log
-      - /tmp/xcodebuild_logs/*.log
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-    publishing:
-      app_store_connect:
-        auth: integration
-        # Internal testing receives uploads automatically; beta review is for external testers.
-        submit_to_testflight: false
-
-  android-preview:
-    name: Android installable preview
-    instance_type: mac_mini_m2
-    max_build_duration: 60
-    environment:
-      node: 24
-      java: 21
-    triggering:
-      events:
-        - push
-      branch_patterns:
-        - pattern: codex/ipad-app-development
-          include: true
-          source: true
-      cancel_previous_builds: true
-    scripts:
-      - name: Install dependencies
-        script: npm ci
-      - name: Run regression tests
-        script: npm test
-      - name: Build and sync Android assets
-        script: |
-          npm run build
-          npx cap sync android
-      - name: Build preview APK and validate release bundle
-        script: |
-          export ANDROID_VERSION_CODE="$BUILD_NUMBER"
-          cd android
-          chmod +x gradlew
-          ./gradlew assembleDebug bundleRelease lintRelease
-          # The preview APK is installable; this AAB has no upload key yet.
-          mv app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/sight-reading-UNSIGNED.aab
-    artifacts:
-      - android/app/build/outputs/apk/debug/*.apk
-      - android/app/build/outputs/bundle/release/*UNSIGNED.aab
-      - android/app/build/reports/lint-results-release.html
-
-  android-play-release:
-    name: Android signed Google Play bundle
-    instance_type: mac_mini_m2
-    max_build_duration: 60
-    # Manual only, after adding this upload key in Codemagic code signing.
-    environment:
-      node: 24
-      java: 21
-      android_signing:
-        - sight-reading-upload
-    scripts:
-      - name: Install dependencies and run tests
+      - name: Build the same iOS practice interface
         script: |
           npm ci
-          npm test
-      - name: Build and sync Android assets
-        script: |
           npm run build
-          npx cap sync android
-      - name: Build signed release bundle
-        script: |
-          : "${CM_KEYSTORE_PATH:?Add sight-reading-upload in Code signing identities}"
-          : "${CM_KEYSTORE_PASSWORD:?Missing signing password}"
-          : "${CM_KEY_ALIAS:?Missing signing alias}"
-          : "${CM_KEY_PASSWORD:?Missing signing key password}"
-          export ANDROID_VERSION_CODE="$BUILD_NUMBER"
-          cd android
-          chmod +x gradlew
-          ./gradlew bundleRelease lintRelease
-          jarsigner -verify app/build/outputs/bundle/release/app-release.aab
-          keytool -printcert -jarfile app/build/outputs/bundle/release/app-release.aab
+          npx cap sync ios
+      - name: Capture and exercise StoreKit plans on the native iPhone Simulator
+        script: bash scripts/test-ios-plus.sh
+      - name: Upload verified native review screenshot to both Tonecraft subscriptions
+        script: node scripts/upload-ios-plus-review.mjs build/ios/plus-review/attachments
     artifacts:
-      - android/app/build/outputs/bundle/release/*.aab
-      - android/app/build/reports/lint-results-release.html
+      - build/ios/plus-review/attachments/*
+      - build/ios/plus-review/*.log
